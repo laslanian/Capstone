@@ -24,7 +24,20 @@ namespace CapstoneProject.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                using(LogInService ls = new LogInService())
+                {
+                    User user = ls.Login(u.Username, u.Password);
+                    if (user != null)
+                    {
+                        Session["Id"] = user.UserId;
+                        Session["Username"] = user.Username;
+                        RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag["AuthError"] = "Incorrect username and Password";
+                    }
+                }
             }
             return View(u);
         }
@@ -105,23 +118,9 @@ namespace CapstoneProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Student s = new Student();
-                    using (ProgramManagerService pms = new ProgramManagerService())
-                    {
-                        s.Program = pms.GetProgram(student.ProgramId);
-                    }
                     using (UserAccountService uas = new UserAccountService())
                     {
-
-                        s.FirstName = student.FirstName;
-                        s.LastName = student.LastName;
-                        s.PhoneNumber = student.PhoneNumber;
-                        s.Email = student.Email;
-                        s.Username = student.Username;
-                        s.Password = student.Password;
-                        s.StudentNumber = Convert.ToInt32(student.StudentNumber);
-                        s.Title = "Student";
-                        uas.Register(s);
+                      //  uas.Register(student);
                     }
                     return View("~/View/Account/RegistrationSuccessful.cshtml");
                 }

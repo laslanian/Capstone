@@ -7,6 +7,7 @@ using CapstoneProject.Models.DA;
 using CapstoneProject.Models.Interfaces;
 namespace CapstoneProject.Models.Services
 {
+
     public class UserAccountService : IDisposable
     {
         IUserInterface _users;
@@ -113,11 +114,11 @@ namespace CapstoneProject.Models.Services
             else
             {
                 return 0;
-            }  
+            }
         }
         public User GetUser(int id)
         {
-            return _users.GetUserById(id) != null ?_users.GetUserById(id) : null;
+            return _users.GetUserById(id) != null ? _users.GetUserById(id) : null;
         }
         public void DeleteUser(int id)
         {
@@ -127,9 +128,9 @@ namespace CapstoneProject.Models.Services
             }
             else
             {
-             
+
             }
-            
+
         }
 
         public void Dispose()
