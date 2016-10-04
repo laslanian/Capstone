@@ -1,0 +1,58 @@
+﻿@model CapstoneProject.User
+
+@{
+    ViewBag.Title = "UserAccount";
+}
+
+<h2>User Account</h2>
+
+<div>
+    <h4>@Session["LoggedUsername"].ToString()</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName):
+        </dt>
+
+        <dd>
+            @Session["LoggedFirstName"].ToString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName):
+        </dt>
+
+        <dd>
+           @Session["LoggedLastName"].ToString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber):
+        </dt>
+
+        <dd>
+            @Session["LoggedNumber"].ToString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email):
+        </dt>
+
+        <dd>
+            @Session["LoggedEmail"].ToString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title):
+        </dt>
+
+        <dd>
+           @Session["LoggedTitle"].ToString()
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>
