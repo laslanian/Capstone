@@ -33,6 +33,14 @@ namespace CapstoneProject.Models.Services
             {
                 return "Coop";
             }
+            else if (u.GetType() == typeof(Management))
+            {
+                return "Management";
+            }
+            else if (u.GetType() == typeof(Admin))
+            {
+                return "Admin";
+            }
 
             return null;
         }

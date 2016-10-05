@@ -31,11 +31,12 @@ namespace CapstoneProject.Controllers
                     {
                         Session["Id"] = user.UserId;
                         Session["Username"] = user.Username;
+                        Session["UserType"] = ls.GetUserType(user.UserId);
                         RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ViewBag["AuthError"] = "Incorrect username and Password";
+                        ViewBag["AuthError"] = "Invalid username or password";
                     }
                 }
             }
@@ -44,7 +45,9 @@ namespace CapstoneProject.Controllers
 
         public ActionResult Logout()
         {
-            Session["User"] = null;
+            Session["Id"] = null;
+            Session["Username"] = null;
+            Session["UserType"] = null;
             return View("Index");
         }
 
