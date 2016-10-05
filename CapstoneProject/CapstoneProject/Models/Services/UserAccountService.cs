@@ -32,6 +32,7 @@ namespace CapstoneProject.Models.Services
 
             return null;
         }
+
         public int RegisterStudent(StudentUser stUser)
         {
             Student s = new Student();
@@ -52,17 +53,28 @@ namespace CapstoneProject.Models.Services
             s.Username = en.Encrypt(stUser.Username);
             s.Password = en.Encrypt(stUser.Password);
 
-            //1 - success
-            //0 - failure 
+            //1 - username already exist
+            //2 = studentnuber already exist
+            //99 - success
             if (!_users.isExistingUsername(s.Username))
             {
-                _users.InsertUser(s);
-                _users.Save();
-                return 1;
+                using(StudentRepository sr = new StudentRepository()) {
+                    if(!sr.isExistingStudentNumber(s.StudentNumber))
+                    {
+                        _users.InsertUser(s);
+                        _users.Save();
+                        return 99;
+
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+                }
             }
             else
             {
-                return 0;
+                return 1;
             }
         }
         public int RegisterClient(ClientUser client)
