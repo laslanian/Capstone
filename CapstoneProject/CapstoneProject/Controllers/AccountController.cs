@@ -120,18 +120,26 @@ namespace CapstoneProject.Controllers
                 {
                     using (UserAccountService uas = new UserAccountService())
                     {
-                      //  uas.Register(student);
+                        int code = uas.RegisterStudent(student);
+                        switch (code)
+                        {
+                            case 0:
+                                {
+                                    ViewBag["AuthError"] = "Username already exists";
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    return View("~/View/Account/RegistrationSuccessful.cshtml");
+                                }                      
+                        }
                     }
-                    return View("~/View/Account/RegistrationSuccessful.cshtml");
                 }
-                else
+                using(ProgramManagerService pms = new ProgramManagerService())
                 {
-                    using(ProgramManagerService pms = new ProgramManagerService())
-                    {
-                        student.ProgList = pms.GetPrograms();
-                    }
-                    return View(student);
+                    student.ProgList = pms.GetPrograms();
                 }
+                return View(student);
             }
         }
 
