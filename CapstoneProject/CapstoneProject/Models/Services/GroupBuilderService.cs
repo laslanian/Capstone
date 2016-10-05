@@ -14,11 +14,28 @@ namespace CapstoneProject.Models.Services
     {
         IGroupRepository _groups;
         IStudentRepository _students;
-        IProjectRepository _projects;
 
-        public Group AddGroup(Group g)
+        public GroupBuilderService()
         {
-            if (_groups.GetGroupyId(g.GroupId)==null)
+            this._groups = new GroupRepository();
+            this._students = new StudentRepository();
+        }
+
+        public bool isExistingGroupName(Group group)
+        {
+            List<Group> groups = _groups.GetGroups().ToList();
+            foreach (Group g in groups)
+            {
+                if (g.GroupName.Equals(group.GroupName))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public Group AddGroup(Group g, Student s)
+        {
+            if (!isExistingGroupName(g))
             {
                 try
                 {
