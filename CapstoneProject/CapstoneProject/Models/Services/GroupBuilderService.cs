@@ -15,8 +15,17 @@ namespace CapstoneProject.Models.Services
         IGroupRepository _groups;
         IStudentRepository _students;
         IProjectRepository _projects;
+        IUserInterface _users;
 
-        public Group AddGroup(Group g)
+        public GroupBuilderService()
+        {
+            this._groups = new GroupRepository();
+            this._students = new StudentRepository();
+            this._projects = new ProjectRepository();
+            this._users = new UserRepository();
+        }
+
+        public Group AddGroup(Group g, int studentNumber)
         {
             if (!_groups.isExistingGroup(g.GroupName))
             {
@@ -26,6 +35,11 @@ namespace CapstoneProject.Models.Services
                     g.Pin = ae.Encrypt(GeneratePin());
                     _groups.InsertGroup(g);
                     _groups.Save();
+                    //send email
+                    EmailService emailService = new EmailService();
+                    User user = _users.GetUserById(studentNumber);
+                    emailService.SendGroupPin(user.Email, g.Pin);
+
                     return g;
                 }
                 catch (Exception e)
