@@ -24,18 +24,19 @@ namespace CapstoneProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                using(LogInService ls = new LogInService())
+                using (LogInService ls = new LogInService())
                 {
                     User user = ls.Login(u.Username, u.Password);
                     if (user != null)
                     {
                         Session["Id"] = user.UserId;
                         Session["Username"] = user.Username;
+                        Session["UserType"] = ls.GetUserType(user.UserId);
                         RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ViewBag["AuthError"] = "Incorrect username and Password";
+                        ViewBag["AuthError"] = "Invalid username or password";
                     }
                 }
             }
@@ -44,7 +45,9 @@ namespace CapstoneProject.Controllers
 
         public ActionResult Logout()
         {
-            Session["User"] = null;
+            Session["Id"] = null;
+            Session["Username"] = null;
+            Session["UserType"] = null;
             return View("Index");
         }
 
@@ -98,12 +101,9 @@ namespace CapstoneProject.Controllers
         // GET: Students/Register
         public ActionResult RegisterStudent()
         {
-            using (ProgramManagerService pms = new ProgramManagerService())
-            {
-                StudentUser su = new StudentUser();
-                su.ProgList = pms.GetPrograms();
-                return View(su);
-            }
+            StudentUser su = new StudentUser();
+            su.ProgList = GetPrograms();
+            return View(su);
         }
 
         [HttpPost]
@@ -123,22 +123,24 @@ namespace CapstoneProject.Controllers
                         int code = uas.RegisterStudent(student);
                         switch (code)
                         {
-                            case 0:
-                                {
-                                    ViewBag["AuthError"] = "Username already exists";
-                                    break;
-                                }
                             case 1:
                                 {
+                                    ViewBag["AuthError"] = "Username already exists.";
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    ViewBag["AuthError"] = "Student number already in use.";
+                                    break;
+                                }
+                            case 99:
+                                {
                                     return View("~/View/Account/RegistrationSuccessful.cshtml");
-                                }                      
+                                }
                         }
                     }
                 }
-                using(ProgramManagerService pms = new ProgramManagerService())
-                {
-                    student.ProgList = pms.GetPrograms();
-                }
+                student.ProgList = GetPrograms();
                 return View(student);
             }
         }
@@ -180,6 +182,14 @@ namespace CapstoneProject.Controllers
         private String GetUserType()
         {
             return Session["UserType"].ToString();
+        }
+
+        public List<Program> GetPrograms()
+        {
+            using (ProgramManagerService pms = new ProgramManagerService())
+            {
+                return pms.GetPrograms();
+            }
         }
     }
 }
