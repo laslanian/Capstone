@@ -15,6 +15,6 @@ namespace CapstoneProject
     public partial class Admin : User
     {
         public int AdminId { get; set; }
-        public string ProgramId { get; set; }
+        public Nullable<int> ProgramId { get; set; }
     }
 }

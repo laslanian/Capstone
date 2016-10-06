@@ -121,7 +121,7 @@
       <PropertyRef Name="UserId" />
     </Key>
     <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProgramId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_Client">
@@ -154,7 +154,7 @@
     </Key>
     <Property Name="StudentNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
-    <Property Name="ProgramId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
@@ -365,7 +365,7 @@
         </EntityType>
         <EntityType Name="Admin" BaseType="CapstoneModel.User">
           <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProgramId" Type="String" Nullable="false" />
+          <Property Name="ProgramId" Type="Int32" />
         </EntityType>
         <EntityType Name="Client" BaseType="CapstoneModel.User">
           <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -385,7 +385,7 @@
           <Property Name="Interests" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Coops" Relationship="CapstoneModel.StudentCoop" FromRole="Student" ToRole="Coop" />
           <NavigationProperty Name="Group" Relationship="CapstoneModel.StudentGroup" FromRole="Student" ToRole="Group" />
-          <Property Name="ProgramId" Type="String" Nullable="false" />
+          <Property Name="ProgramId" Type="Int32" />
         </EntityType>
         <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Coops" EntityType="Self.Coop" />
