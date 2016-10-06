@@ -10,13 +10,28 @@ using System.Text;
 
 namespace CapstoneProject.Models.Services
 {
-    public class GroupBuilderService
+    public class GroupBuilderService :IDisposable
     {
         IGroupRepository _groups;
         IStudentRepository _students;
         IProjectRepository _projects;
+        IUserInterface _users;
 
-        public Group AddGroup(Group g)
+        public GroupBuilderService()
+        {
+            this._groups = new GroupRepository();
+            this._students = new StudentRepository();
+            this._projects = new ProjectRepository();
+            this._users = new UserRepository();
+        }
+
+        public List<Student> GetStudentsByGroupId(int id)
+        {
+            Group g = _groups.GetGroupyId(id);
+            return g.Students.ToList();
+        }
+        
+        public Group AddGroup(Group g, int studentNumber)
         {
             if (!_groups.isExistingGroup(g.GroupName))
             {
@@ -26,6 +41,11 @@ namespace CapstoneProject.Models.Services
                     g.Pin = ae.Encrypt(GeneratePin());
                     _groups.InsertGroup(g);
                     _groups.Save();
+                    //send email
+                    EmailService emailService = new EmailService();
+                    User user = _users.GetUserById(studentNumber);
+                    emailService.SendGroupPin(user.Email, g.Pin);
+
                     return g;
                 }
                 catch (Exception e)
@@ -36,9 +56,10 @@ namespace CapstoneProject.Models.Services
             }
             return null;
         }
-        public Group GetGroup(Group g)
+
+        public Group GetGroup(int id)
         {
-            return _groups.GetGroupyId(g.GroupId) != null ? _groups.GetGroupyId(g.GroupId) : null;
+            return _groups.GetGroupyId(id) != null ? _groups.GetGroupyId(id) : null;
         }
 
         public Group EditGroup(Group g)
@@ -50,6 +71,44 @@ namespace CapstoneProject.Models.Services
                 return g;
             }
             return null;
+        }
+        public GroupStudent GetGroupStudentVM(int id)
+        {
+            Group g = GetGroup(id);
+            GroupStudent gs = new GroupStudent();
+            List<Student> students = GetStudentsByGroupId(g.GroupId);
+            foreach (Student s in students)
+            {
+                Student st = new Student();
+                st.FirstName = s.FirstName;
+                st.LastName = s.LastName;
+                //st.Username = s.Username;
+                //st.PhoneNumber = s.PhoneNumber;
+                //st.Program = s.Program;
+                //st.StudentNumber = s.StudentNumber;
+                //st.Title = s.Title;
+                //st.Interests = s.Interests;
+                //st.Email = s.Email;
+                //st.Coops = s.Coops;
+
+                gs.Students.Add(s);
+            }
+            return gs;
+        }
+        public GroupStudent EditGroupStudentVM(GroupStudent gs)
+        {
+            Group group = GetGroup(gs.Group.GroupId);
+            group.Students.Clear();
+
+            foreach (Student s in gs.Students)
+            {
+                Student st = s; 
+                group.Students.Add(s);
+            }
+            _groups.UpdateGroup(group);
+            _groups.Save();
+
+            return gs;
         }
         public int AddStudent(Group g,Student s, int pin)
         {
@@ -72,6 +131,7 @@ namespace CapstoneProject.Models.Services
             }
             return 0;
         }
+
         public int RemoveStudent(Group g, Student s)
         {
             if (_groups.GetGroupyId(g.GroupId) != null)
@@ -93,9 +153,19 @@ namespace CapstoneProject.Models.Services
             }
             return 0;
         }
+
+
         public String GeneratePin()
         {
             return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+        }
+
+        public void Dispose()
+        {
+            _groups.Dispose();
+            _students.Dispose();
+            _projects.Dispose();
+            _users.Dispose();
         }
     }
 }
