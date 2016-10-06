@@ -24,17 +24,20 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Previous Capstones", "GetPastProjects", "Projects")</li>
-                    @if (Session["User"] == null)
+                    @if (Session["UserType"] == null)
                     {
                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Project Submissions", "Index", "Projects")</li>
-                        if (Session["userType"].ToString().Equals("Student"))
+                        if (Session["UserType"].ToString().Equals("Student"))
                         {
                             <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
+                        }
+                        else if (Session["UserType"].ToString().Equals("Client"))
+                        {
+                            <li>@Html.ActionLink("Project Submissions", "Index", "Projects")</li>
                         }
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }

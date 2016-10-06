@@ -65,9 +65,9 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Admin)">
         <MappingFragment StoreEntitySet="Users_Admin">
-          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Client)">
@@ -93,10 +93,10 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Student)">
         <MappingFragment StoreEntitySet="Users_Student">
-          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -117,12 +117,5 @@
       </EndProperty>
       <Condition ColumnName="Group_GroupId" IsNull="false" />
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CapstoneModel.Store.sp_alterdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CapstoneModel.Store.sp_creatediagram" />
-    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CapstoneModel.Store.sp_dropdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CapstoneModel.Store.sp_helpdiagramdefinition" />
-    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CapstoneModel.Store.sp_helpdiagrams" />
-    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CapstoneModel.Store.sp_renamediagram" />
-    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CapstoneModel.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping>

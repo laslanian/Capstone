@@ -9,6 +9,7 @@
     <div>
         <fieldset>
             <legend>Login</legend>
+            <h4><span style="color:red;"> @ViewBag.AuthError</span></h4>
             <h3> @ViewBag.AuthError</h3>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Username)
