@@ -31,13 +31,10 @@
                     }
                     else
                     {
-                        if (Session["UserType"].ToString().Equals("Student"))
+                        <li>@Html.ActionLink("Project Submissions", "Index", "Projects")</li>
+                        if (Session["userType"].ToString().Equals("Student"))
                         {
                             <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink("Project Submissions", "Index", "Projects")</li>
                         }
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
