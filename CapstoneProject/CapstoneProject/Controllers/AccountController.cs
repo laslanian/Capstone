@@ -38,7 +38,7 @@ namespace CapstoneProject.Controllers
                         {
                             case "Student":
                                 {
-                                    return RedirectToAction("Index", "Students", new { id = id });
+                                   return RedirectToAction("Index", "Students", new { id = id });
                                 }
                             case "Client":
                                 {
@@ -46,15 +46,13 @@ namespace CapstoneProject.Controllers
                                 }
                             default:
                                 {
-                                    RedirectToAction("Index", "Home", new { id = id });
-                                    break;
+                                    return RedirectToAction("Index", "Home", new { id = id });
                                 }
-
                         }
                     }
                 }
             }
-            ViewBag.AuthError = "Invalid username and password.";
+            ViewBag["AuthError"] = "Invalid username or password";
             return View(u);
         }
 

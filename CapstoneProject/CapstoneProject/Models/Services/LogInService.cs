@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using System.Web.Mvc;
 using CapstoneProject.Models.Interfaces;
 using CapstoneProject.Models.DA;
 using System.Data.Entity.Core.Objects;
@@ -22,7 +23,10 @@ namespace CapstoneProject.Models.Services
         public string GetUserType(int id)
         {
             User u = _users.GetUserById(id);
-            Type type = ObjectContext.GetObjectType(u.GetType());
+
+            Type type =ObjectContext.GetObjectType(u.GetType());
+            //String typeStudent = typeof(Student).ToString();
+
             if (type.Equals(typeof(Student)))
             {
                 return "Student";
@@ -43,6 +47,7 @@ namespace CapstoneProject.Models.Services
             {
                 return "Admin";
             }
+
             return null;
         }
         
@@ -59,9 +64,10 @@ namespace CapstoneProject.Models.Services
 
             if (u != null)
             {
-                u.Username = username;
+                u.Username = username;//en.Decrypt(u.Username);
                 return u;
             }
+
             return null;
         }
 

@@ -16,6 +16,7 @@ namespace CapstoneProject.Controllers
         // GET: Groups
         public ActionResult Index()
         {
+
             return View();
         }
         public ActionResult Details(int id)
