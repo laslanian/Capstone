@@ -4,330 +4,299 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CapstoneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Coops">
-          <Key>
-            <PropertyRef Name="CoopId" />
-          </Key>
-          <Property Name="CoopId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="JobTitle" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="255" />
-          <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
-          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
-          <Property Name="StudentUserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Groups">
-          <Key>
-            <PropertyRef Name="GroupId" />
-          </Key>
-          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="255" />
-          <Property Name="Status" Type="nvarchar" MaxLength="25" />
-          <Property Name="Pin" Type="nchar" MaxLength="5" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Programs">
-          <Key>
-            <PropertyRef Name="ProgramId" />
-          </Key>
-          <Property Name="ProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProgramName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Campus" Type="nvarchar" MaxLength="25" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProjectGroup">
-          <Key>
-            <PropertyRef Name="Projects_ProjectId" />
-            <PropertyRef Name="Groups_GroupId" />
-          </Key>
-          <Property Name="Projects_ProjectId" Type="int" Nullable="false" />
-          <Property Name="Groups_GroupId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Projects">
-          <Key>
-            <PropertyRef Name="ProjectId" />
-          </Key>
-          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="StartDate" Type="datetime" />
-          <Property Name="State" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Grade" Type="int" />
-          <Property Name="DateCompleted" Type="datetime" />
-          <Property Name="ClientUserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" />
-          <Property Name="Email" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="Users_Admin">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProgramId" Type="int" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users_Client">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="CompanyAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CompanyDescription" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users_Coop_Advisor">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="CoopAdvisorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users_Management">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="ManagementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users_Student">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="StudentNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Interests" Type="nvarchar" MaxLength="150" />
-          <Property Name="ProgramId" Type="int" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Group_GroupId" Type="int" />
-        </EntityType>
-        <Association Name="FK_Admin_inherits_User">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Users_Admin" Type="Self.Users_Admin" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Users_Admin">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Client_inherits_User">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Users_Client" Type="Self.Users_Client" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Users_Client">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientProject">
-          <End Role="Users_Client" Type="Self.Users_Client" Multiplicity="1" />
-          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users_Client">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Projects">
-              <PropertyRef Name="ClientUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Coop_Advisor_inherits_User">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Users_Coop_Advisor" Type="Self.Users_Coop_Advisor" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Users_Coop_Advisor">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Management_inherits_User">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Users_Management" Type="Self.Users_Management" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Users_Management">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectGroup_Group">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
-          <End Role="ProjectGroup" Type="Self.ProjectGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="GroupId" />
-            </Principal>
-            <Dependent Role="ProjectGroup">
-              <PropertyRef Name="Groups_GroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectGroup_Project">
-          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
-          <End Role="ProjectGroup" Type="Self.ProjectGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Projects">
-              <PropertyRef Name="ProjectId" />
-            </Principal>
-            <Dependent Role="ProjectGroup">
-              <PropertyRef Name="Projects_ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_inherits_User">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Users_Student" Type="Self.Users_Student" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Users_Student">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudentCoop">
-          <End Role="Users_Student" Type="Self.Users_Student" Multiplicity="1" />
-          <End Role="Coops" Type="Self.Coops" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users_Student">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Coops">
-              <PropertyRef Name="StudentUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudentGroup">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
-          <End Role="Users_Student" Type="Self.Users_Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="GroupId" />
-            </Principal>
-            <Dependent Role="Users_Student">
-              <PropertyRef Name="Group_GroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="CapstoneModelStoreContainer">
-          <EntitySet Name="Coops" EntityType="Self.Coops" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Programs" EntityType="Self.Programs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProjectGroup" EntityType="Self.ProjectGroup" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users_Admin" EntityType="Self.Users_Admin" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users_Client" EntityType="Self.Users_Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users_Coop_Advisor" EntityType="Self.Users_Coop_Advisor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users_Management" EntityType="Self.Users_Management" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users_Student" EntityType="Self.Users_Student" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Admin_inherits_User" Association="Self.FK_Admin_inherits_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users_Admin" EntitySet="Users_Admin" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Client_inherits_User" Association="Self.FK_Client_inherits_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users_Client" EntitySet="Users_Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClientProject" Association="Self.FK_ClientProject">
-            <End Role="Users_Client" EntitySet="Users_Client" />
-            <End Role="Projects" EntitySet="Projects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Coop_Advisor_inherits_User" Association="Self.FK_Coop_Advisor_inherits_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users_Coop_Advisor" EntitySet="Users_Coop_Advisor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Management_inherits_User" Association="Self.FK_Management_inherits_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users_Management" EntitySet="Users_Management" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectGroup_Group" Association="Self.FK_ProjectGroup_Group">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="ProjectGroup" EntitySet="ProjectGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectGroup_Project" Association="Self.FK_ProjectGroup_Project">
-            <End Role="Projects" EntitySet="Projects" />
-            <End Role="ProjectGroup" EntitySet="ProjectGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_inherits_User" Association="Self.FK_Student_inherits_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users_Student" EntitySet="Users_Student" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudentCoop" Association="Self.FK_StudentCoop">
-            <End Role="Users_Student" EntitySet="Users_Student" />
-            <End Role="Coops" EntitySet="Coops" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudentGroup" Association="Self.FK_StudentGroup">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="Users_Student" EntitySet="Users_Student" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="CapstoneModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CapstoneModelStoreContainer">
+    <EntitySet Name="Coops" EntityType="CapstoneModel.Store.Coops" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Groups" EntityType="CapstoneModel.Store.Groups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Programs" EntityType="CapstoneModel.Store.Programs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projects" EntityType="CapstoneModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="CapstoneModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Admin" EntityType="CapstoneModel.Store.Users_Admin" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Client" EntityType="CapstoneModel.Store.Users_Client" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Coop_Advisor" EntityType="CapstoneModel.Store.Users_Coop_Advisor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Management" EntityType="CapstoneModel.Store.Users_Management" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Student" EntityType="CapstoneModel.Store.Users_Student" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectGroup" EntityType="CapstoneModel.Store.ProjectGroup" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="StudentCoop" Association="CapstoneModel.Store.StudentCoop">
+      <End Role="Student" EntitySet="Users_Student" />
+      <End Role="Coop" EntitySet="Coops" />
+    </AssociationSet>
+    <AssociationSet Name="ClientProject" Association="CapstoneModel.Store.ClientProject">
+      <End Role="Client" EntitySet="Users_Client" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectGroup_Project" Association="CapstoneModel.Store.FK_ProjectGroup_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="ProjectGroup" EntitySet="ProjectGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectGroup_Group" Association="CapstoneModel.Store.FK_ProjectGroup_Group">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="ProjectGroup" EntitySet="ProjectGroup" />
+    </AssociationSet>
+    <AssociationSet Name="StudentGroup" Association="CapstoneModel.Store.StudentGroup">
+      <End Role="Student" EntitySet="Users_Student" />
+      <End Role="Group" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Admin_inherits_User" Association="CapstoneModel.Store.FK_Admin_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Admin" EntitySet="Users_Admin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_inherits_User" Association="CapstoneModel.Store.FK_Client_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Client" EntitySet="Users_Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Coop_Advisor_inherits_User" Association="CapstoneModel.Store.FK_Coop_Advisor_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Coop_Advisor" EntitySet="Users_Coop_Advisor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Management_inherits_User" Association="CapstoneModel.Store.FK_Management_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Management" EntitySet="Users_Management" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_inherits_User" Association="CapstoneModel.Store.FK_Student_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Student" EntitySet="Users_Student" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Coops">
+    <Key>
+      <PropertyRef Name="CoopId" />
+    </Key>
+    <Property Name="CoopId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="JobTitle" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="StudentUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="GroupId" />
+    </Key>
+    <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="25" />
+    <Property Name="Pin" Type="nchar" Nullable="false" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Programs">
+    <Key>
+      <PropertyRef Name="ProgramId" />
+    </Key>
+    <Property Name="ProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramName" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Campus" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="ProjectId" />
+    </Key>
+    <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="StartDate" Type="datetime" Nullable="true" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Grade" Type="int" Nullable="true" />
+    <Property Name="DateCompleted" Type="datetime" Nullable="true" />
+    <Property Name="ClientUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="PhoneNumber" Type="nvarchar" Nullable="true" MaxLength="10" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Title" Type="nvarchar" Nullable="true" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Users_Admin">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Client">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="CompanyAddress" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CompanyDescription" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Coop_Advisor">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="CoopAdvisorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Management">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ManagementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Student">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="StudentNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Group_GroupId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ProjectGroup">
+    <Key>
+      <PropertyRef Name="Projects_ProjectId" />
+      <PropertyRef Name="Groups_GroupId" />
+    </Key>
+    <Property Name="Projects_ProjectId" Type="int" Nullable="false" />
+    <Property Name="Groups_GroupId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="StudentCoop">
+    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="1" />
+    <End Role="Coop" Type="CapstoneModel.Store.Coops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Coop">
+        <PropertyRef Name="StudentUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientProject">
+    <End Role="Client" Type="CapstoneModel.Store.Users_Client" Multiplicity="1" />
+    <End Role="Project" Type="CapstoneModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="ClientUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentGroup">
+    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="*" />
+    <End Role="Group" Type="CapstoneModel.Store.Groups" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="Group_GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectGroup_Project">
+    <End Role="Project" Type="CapstoneModel.Store.Projects" Multiplicity="1" />
+    <End Role="ProjectGroup" Type="CapstoneModel.Store.ProjectGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectId" />
+      </Principal>
+      <Dependent Role="ProjectGroup">
+        <PropertyRef Name="Projects_ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectGroup_Group">
+    <End Role="ProjectGroup" Type="CapstoneModel.Store.ProjectGroup" Multiplicity="*" />
+    <End Role="Group" Type="CapstoneModel.Store.Groups" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="ProjectGroup">
+        <PropertyRef Name="Groups_GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Admin_inherits_User">
+    <End Role="User" Type="CapstoneModel.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Admin" Type="CapstoneModel.Store.Users_Admin" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_inherits_User">
+    <End Role="User" Type="CapstoneModel.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Client" Type="CapstoneModel.Store.Users_Client" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Coop_Advisor_inherits_User">
+    <End Role="User" Type="CapstoneModel.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Coop_Advisor" Type="CapstoneModel.Store.Users_Coop_Advisor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Coop_Advisor">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Management_inherits_User">
+    <End Role="User" Type="CapstoneModel.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Management" Type="CapstoneModel.Store.Users_Management" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Management">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_inherits_User">
+    <End Role="User" Type="CapstoneModel.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CapstoneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -353,7 +322,7 @@
           <Property Name="GroupName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Pin" Type="String" FixedLength="true" MaxLength="5" Nullable="false" Unicode="true" />
+          <Property Name="Pin" Type="String" FixedLength="true" MaxLength="5" Nullable="false" />
           <NavigationProperty Name="Projects" Relationship="CapstoneModel.ProjectGroup" FromRole="Group" ToRole="Project" />
           <NavigationProperty Name="Students" Relationship="CapstoneModel.StudentGroup" FromRole="Group" ToRole="Student" />
         </EntityType>
@@ -376,7 +345,7 @@
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Grade" Type="Int32" />
-          <Property Name="DateCompleted" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="DateCompleted" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Client" Relationship="CapstoneModel.ClientProject" FromRole="Project" ToRole="Client" />
           <Property Name="ClientUserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Groups" Relationship="CapstoneModel.ProjectGroup" FromRole="Project" ToRole="Group" />
@@ -440,36 +409,6 @@
             <End Role="Student" EntitySet="Users" />
             <End Role="Group" EntitySet="Groups" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <Association Name="StudentCoop">
           <End Type="CapstoneModel.Student" Role="Student" Multiplicity="1" />
@@ -573,9 +512,9 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Admin)">
         <MappingFragment StoreEntitySet="Users_Admin">
-          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Client)">
@@ -601,10 +540,10 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Student)">
         <MappingFragment StoreEntitySet="Users_Student">
-          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -625,13 +564,6 @@
       </EndProperty>
       <Condition ColumnName="Group_GroupId" IsNull="false" />
     </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CapstoneModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CapstoneModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CapstoneModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CapstoneModel.Store.sp_helpdiagramdefinition" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CapstoneModel.Store.sp_helpdiagrams" />
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CapstoneModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CapstoneModel.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

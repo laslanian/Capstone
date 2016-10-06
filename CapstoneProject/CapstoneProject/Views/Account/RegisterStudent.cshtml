@@ -27,8 +27,8 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Username)
                 @Html.ValidationMessageFor(model => model.Username)
-                @ViewBag.AuthError  <!-- not sure if this works-->
-            </div>
+                <span style="color:red"> @ViewBag.AuthError </span>
+        </div>
         </div>
 
         <div class="form-group">

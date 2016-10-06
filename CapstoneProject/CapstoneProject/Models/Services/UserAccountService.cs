@@ -36,10 +36,6 @@ namespace CapstoneProject.Models.Services
         public int RegisterStudent(StudentUser stUser)
         {
             Student s = new Student();
-            using (ProgramManagerService pms = new ProgramManagerService())
-            {
-                s.Program = pms.GetProgram(stUser.ProgramId);
-            }
             s.FirstName = stUser.FirstName;
             s.LastName = stUser.LastName;
             s.PhoneNumber = stUser.PhoneNumber;
@@ -47,6 +43,8 @@ namespace CapstoneProject.Models.Services
             s.Username = stUser.Username;
             s.Password = stUser.Password;
             s.StudentNumber = Convert.ToInt32(stUser.StudentNumber);
+           // s.ProgramId = stUser.ProgramId;
+            System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
             s.Title = "Student";
 
             AesEncrpyt en = new AesEncrpyt();

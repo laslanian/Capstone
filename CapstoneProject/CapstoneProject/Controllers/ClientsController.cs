@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using CapstoneProject;
 using CapstoneProject.Models;
 using CapstoneProject.Models.DA;
+using CapstoneProject.Models.Services;
 
 namespace CapstoneProject.Controllers
 {
@@ -16,10 +17,11 @@ namespace CapstoneProject.Controllers
     {
 
         // GET: Clients
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            //    return View(db.Users.ToList());
-            return null;
+            UserAccountService uas = new UserAccountService();
+            Client s = (Client) uas.GetUser(id);
+            return View(s);
         }
 
         // GET: Clients/Create
