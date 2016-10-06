@@ -67,6 +67,7 @@
         <MappingFragment StoreEntitySet="Users_Admin">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Client)">
@@ -95,6 +96,7 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -106,14 +108,6 @@
         <ScalarProperty Name="GroupId" ColumnName="Groups_GroupId" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="StudentProgram" TypeName="CapstoneModel.StudentProgram" StoreEntitySet="Users_Student">
-      <EndProperty Name="Program">
-        <ScalarProperty Name="ProgramId" ColumnName="Program_ProgramId" />
-      </EndProperty>
-      <EndProperty Name="Student">
-        <ScalarProperty Name="UserId" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="StudentGroup" TypeName="CapstoneModel.StudentGroup" StoreEntitySet="Users_Student">
       <EndProperty Name="Group">
         <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
@@ -122,15 +116,6 @@
         <ScalarProperty Name="UserId" ColumnName="UserId" />
       </EndProperty>
       <Condition ColumnName="Group_GroupId" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="AdminProgram" TypeName="CapstoneModel.AdminProgram" StoreEntitySet="Users_Admin">
-      <EndProperty Name="Program">
-        <ScalarProperty Name="ProgramId" ColumnName="Program_ProgramId" />
-      </EndProperty>
-      <EndProperty Name="Admin">
-        <ScalarProperty Name="UserId" ColumnName="UserId" />
-      </EndProperty>
-      <Condition ColumnName="Program_ProgramId" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

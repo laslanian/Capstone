@@ -28,17 +28,9 @@
       <End Role="Group" EntitySet="Groups" />
       <End Role="ProjectGroup" EntitySet="ProjectGroup" />
     </AssociationSet>
-    <AssociationSet Name="StudentProgram" Association="CapstoneModel.Store.StudentProgram">
-      <End Role="Student" EntitySet="Users_Student" />
-      <End Role="Program" EntitySet="Programs" />
-    </AssociationSet>
     <AssociationSet Name="StudentGroup" Association="CapstoneModel.Store.StudentGroup">
       <End Role="Student" EntitySet="Users_Student" />
       <End Role="Group" EntitySet="Groups" />
-    </AssociationSet>
-    <AssociationSet Name="AdminProgram" Association="CapstoneModel.Store.AdminProgram">
-      <End Role="Admin" EntitySet="Users_Admin" />
-      <End Role="Program" EntitySet="Programs" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="CapstoneModel.Store.FK_Admin_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -124,8 +116,8 @@
       <PropertyRef Name="UserId" />
     </Key>
     <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="Program_ProgramId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Users_Client">
     <Key>
@@ -157,8 +149,8 @@
     </Key>
     <Property Name="StudentNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="Program_ProgramId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="ProjectGroup">
@@ -193,18 +185,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="StudentProgram">
-    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="*" />
-    <End Role="Program" Type="CapstoneModel.Store.Programs" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Program">
-        <PropertyRef Name="ProgramId" />
-      </Principal>
-      <Dependent Role="Student">
-        <PropertyRef Name="Program_ProgramId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="StudentGroup">
     <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="*" />
     <End Role="Group" Type="CapstoneModel.Store.Groups" Multiplicity="0..1" />
@@ -214,18 +194,6 @@
       </Principal>
       <Dependent Role="Student">
         <PropertyRef Name="Group_GroupId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="AdminProgram">
-    <End Role="Admin" Type="CapstoneModel.Store.Users_Admin" Multiplicity="*" />
-    <End Role="Program" Type="CapstoneModel.Store.Programs" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Program">
-        <PropertyRef Name="ProgramId" />
-      </Principal>
-      <Dependent Role="Admin">
-        <PropertyRef Name="Program_ProgramId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

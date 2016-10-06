@@ -33,19 +33,16 @@ namespace CapstoneProject.Controllers
                         int id = user.UserId;
                         Session["Id"] = id;
                         Session["Username"] = user.Username;
-
-                        Session["UserType"] = userType; ;
+                        Session["UserType"] = userType;
                         switch(userType)
                         {
                             case "Student":
                                 {
-                                    RedirectToAction("Index", "Students", new { id = id });
-                                    break;
+                                    return RedirectToAction("Index", "Students", new { id = id });
                                 }
                             case "Client":
                                 {
-                                    RedirectToAction("Index", "Studentc", new { id = id });
-                                    break;
+                                    return RedirectToAction("Index", "Clients", new { id = id });
                                 }
                             default:
                                 {
@@ -55,12 +52,9 @@ namespace CapstoneProject.Controllers
 
                         }
                     }
-                    else
-                    {
-                        ViewBag["AuthError"] = "Invalid username or password";
-                    }
                 }
             }
+            ViewBag.AuthError = "Invalid username and password.";
             return View(u);
         }
 

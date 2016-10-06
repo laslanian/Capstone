@@ -33,8 +33,6 @@
     <Property Name="ProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProgramName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Campus" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Students" Relationship="CapstoneModel.StudentProgram" FromRole="Program" ToRole="Student" />
-    <NavigationProperty Name="Admins" Relationship="CapstoneModel.AdminProgram" FromRole="Program" ToRole="Admin" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
@@ -67,7 +65,7 @@
   </EntityType>
   <EntityType Name="Admin" BaseType="CapstoneModel.User">
     <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Program" Relationship="CapstoneModel.AdminProgram" FromRole="Admin" ToRole="Program" />
+    <Property Name="ProgramId" Type="Int32" />
   </EntityType>
   <EntityType Name="Client" BaseType="CapstoneModel.User">
     <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -86,8 +84,8 @@
     <Property Name="StudentNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Interests" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Coops" Relationship="CapstoneModel.StudentCoop" FromRole="Student" ToRole="Coop" />
-    <NavigationProperty Name="Program" Relationship="CapstoneModel.StudentProgram" FromRole="Student" ToRole="Program" />
     <NavigationProperty Name="Group" Relationship="CapstoneModel.StudentGroup" FromRole="Student" ToRole="Group" />
+    <Property Name="ProgramId" Type="Int32" />
   </EntityType>
   <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Coops" EntityType="Self.Coop" />
@@ -107,17 +105,9 @@
       <End Role="Project" EntitySet="Projects" />
       <End Role="Group" EntitySet="Groups" />
     </AssociationSet>
-    <AssociationSet Name="StudentProgram" Association="CapstoneModel.StudentProgram">
-      <End Role="Student" EntitySet="Users" />
-      <End Role="Program" EntitySet="Programs" />
-    </AssociationSet>
     <AssociationSet Name="StudentGroup" Association="CapstoneModel.StudentGroup">
       <End Role="Student" EntitySet="Users" />
       <End Role="Group" EntitySet="Groups" />
-    </AssociationSet>
-    <AssociationSet Name="AdminProgram" Association="CapstoneModel.AdminProgram">
-      <End Role="Admin" EntitySet="Users" />
-      <End Role="Program" EntitySet="Programs" />
     </AssociationSet>
   </EntityContainer>
   <Association Name="StudentCoop">
@@ -148,16 +138,8 @@
     <End Type="CapstoneModel.Project" Role="Project" Multiplicity="*" />
     <End Type="CapstoneModel.Group" Role="Group" Multiplicity="*" />
   </Association>
-  <Association Name="StudentProgram">
-    <End Type="CapstoneModel.Student" Role="Student" Multiplicity="*" />
-    <End Type="CapstoneModel.Program" Role="Program" Multiplicity="1" />
-  </Association>
   <Association Name="StudentGroup">
     <End Type="CapstoneModel.Student" Role="Student" Multiplicity="*" />
     <End Type="CapstoneModel.Group" Role="Group" Multiplicity="0..1" />
-  </Association>
-  <Association Name="AdminProgram">
-    <End Type="CapstoneModel.Admin" Role="Admin" Multiplicity="*" />
-    <End Type="CapstoneModel.Program" Role="Program" Multiplicity="0..1" />
   </Association>
 </Schema>
