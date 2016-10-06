@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b58f47c3f8f64edea902de32237b8103" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="b58f47c3f8f64edea902de32237b8103" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="CapstoneModel.Coop" Width="1.5" PointX="9.5" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneModel.Group" Width="1.5" PointX="7.5" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneModel.Program" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
@@ -23,9 +23,7 @@
         <AssociationConnector Association="CapstoneModel.StudentCoop" />
         <AssociationConnector Association="CapstoneModel.ClientProject" />
         <AssociationConnector Association="CapstoneModel.ProjectGroup" />
-        <AssociationConnector Association="CapstoneModel.StudentProgram" />
         <AssociationConnector Association="CapstoneModel.StudentGroup" />
-        <AssociationConnector Association="CapstoneModel.AdminProgram" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

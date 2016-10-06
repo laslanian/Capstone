@@ -29,10 +29,31 @@ namespace CapstoneProject.Controllers
                     User user = ls.Login(u.Username, u.Password);
                     if (user != null)
                     {
-                        Session["Id"] = user.UserId;
+                        String userType = ls.GetUserType(user.UserId);
+                        int id = user.UserId;
+                        Session["Id"] = id;
                         Session["Username"] = user.Username;
-                        Session["UserType"] = ls.GetUserType(user.UserId);
-                        RedirectToAction("Index", "Home");
+
+                        Session["UserType"] = userType; ;
+                        switch(userType)
+                        {
+                            case "Student":
+                                {
+                                    RedirectToAction("Index", "Students", new { id = id });
+                                    break;
+                                }
+                            case "Client":
+                                {
+                                    RedirectToAction("Index", "Studentc", new { id = id });
+                                    break;
+                                }
+                            default:
+                                {
+                                    RedirectToAction("Index", "Home", new { id = id });
+                                    break;
+                                }
+
+                        }
                     }
                     else
                     {
@@ -125,17 +146,17 @@ namespace CapstoneProject.Controllers
                         {
                             case 1:
                                 {
-                                    ViewBag["AuthError"] = "Username already exists.";
+                                    ViewBag.AuthError = "Username already exists.";
                                     break;
                                 }
                             case 2:
                                 {
-                                    ViewBag["AuthError"] = "Student number already in use.";
+                                    ViewBag.AuthError = "Student number already in use.";
                                     break;
                                 }
                             case 99:
                                 {
-                                    return View("~/View/Account/RegistrationSuccessful.cshtml");
+                                    return View("~/Views/Account/RegistrationSuccessful.cshtml");
                                 }
                         }
                     }

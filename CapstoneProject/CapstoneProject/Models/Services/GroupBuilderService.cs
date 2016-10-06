@@ -40,6 +40,7 @@ namespace CapstoneProject.Models.Services
         {
             return _groups.GetGroupyId(g.GroupId) != null ? _groups.GetGroupyId(g.GroupId) : null;
         }
+
         public Group EditGroup(Group g)
         {
             if (_groups.GetGroupyId(g.GroupId)!=null)
