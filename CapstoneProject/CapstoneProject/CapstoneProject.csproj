@@ -261,9 +261,6 @@
     <Compile Include="Models\ViewModels\LoginUser.cs" />
     <Compile Include="Models\ViewModels\StudentGroup.cs" />
     <Compile Include="Models\ViewModels\StudentUser.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Program.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
@@ -298,11 +295,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="obj\Debug\TempPE\CapstoneDBModel.cs.dll" />
-    <Content Include="obj\Debug\TempPE\CapstoneDBModel.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\CapstoneModel.Context.cs.dll" />
-    <Content Include="obj\Debug\TempPE\CapstoneModel.cs.dll" />
-    <Content Include="obj\Debug\TempPE\CapstoneModel.Designer.cs.dll" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -317,8 +309,6 @@
     <Content Include="CapstoneDBModel.edmx.diagram">
       <DependentUpon>CapstoneDBModel.edmx</DependentUpon>
     </Content>
-    <Content Include="obj\Debug\build.force" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
