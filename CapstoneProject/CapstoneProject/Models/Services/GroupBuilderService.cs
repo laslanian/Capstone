@@ -44,6 +44,7 @@ namespace CapstoneProject.Models.Services
                     //send email
                     EmailService emailService = new EmailService();
                     User user = _users.GetUserById(studentNumber);
+
                     emailService.SendGroupPin(user.Email, g.Pin);
 
                     return g;

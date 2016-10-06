@@ -10,9 +10,8 @@ namespace CapstoneProject.Models.Services
         private string member="capstone@gmail.com";
 
      
-        public int SendGroupPin( string to, string pin) 
+        public int SendGroupPin(string to, string pin) 
         {
-
             MailMessage mail = new MailMessage(member,to);
             SmtpClient client = new SmtpClient();
             client.Port = 25;

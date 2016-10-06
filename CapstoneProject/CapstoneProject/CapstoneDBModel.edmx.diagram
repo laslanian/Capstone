@@ -23,9 +23,7 @@
         <AssociationConnector Association="CapstoneModel.StudentCoop" />
         <AssociationConnector Association="CapstoneModel.ClientProject" />
         <AssociationConnector Association="CapstoneModel.ProjectGroup" />
-        <AssociationConnector Association="CapstoneModel.StudentProgram" />
         <AssociationConnector Association="CapstoneModel.StudentGroup" />
-        <AssociationConnector Association="CapstoneModel.AdminProgram" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
