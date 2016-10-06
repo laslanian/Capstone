@@ -1,0 +1,74 @@
+﻿@model CapstoneProject.Models.StudentGroup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pin)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => Model.StudentList)
+            </th>
+           
+            <th></th>
+        </tr>
+
+        @foreach (Student s in Model.StudentList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(fname => s.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(lname => s.LastName)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GroupId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

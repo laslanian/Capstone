@@ -15,5 +15,6 @@ namespace CapstoneProject.Models.Interfaces
         void UpdateGroup(Group g);
         void DeleteGroup(int id);
         void Save();
+        void Dispose();
     }
 }
