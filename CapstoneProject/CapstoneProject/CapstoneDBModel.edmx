@@ -152,10 +152,10 @@
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
+    <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StudentNumber" Type="int" Nullable="false" />
     <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
-    <Property Name="ProgramId" Type="int" Nullable="true" />
-    <Property Name="StudentId" Type="nvarchar(max)" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
@@ -382,12 +382,12 @@
           <Property Name="ManagementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Student" BaseType="CapstoneModel.User">
-          <Property Name="StudentNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Interests" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Coops" Relationship="CapstoneModel.StudentCoop" FromRole="Student" ToRole="Coop" />
           <NavigationProperty Name="Group" Relationship="CapstoneModel.StudentGroup" FromRole="Student" ToRole="Group" />
-          <Property Name="ProgramId" Type="Int32" />
-          <Property Name="StudentId" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentNumber" Type="Int32" Nullable="false" />
+          <Property Name="Interests" Type="String" Nullable="true" MaxLength="150" />
+          <Property Name="ProgramId" Type="String" Nullable="false" />
         </EntityType>
         <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Coops" EntityType="Self.Coop" />
@@ -543,10 +543,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Student)">
         <MappingFragment StoreEntitySet="Users_Student">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
           <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
-          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
