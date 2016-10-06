@@ -1,4 +1,4 @@
-﻿@model CapstoneProject.Models.StudentGroup
+﻿@model CapstoneProject.Models.GroupStudent
 
 @{
     ViewBag.Title = "Details";
@@ -11,35 +11,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.GroupName)
+            @Html.DisplayNameFor(model => model.Group.GroupName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.GroupName)
+            @Html.DisplayFor(model => model.Group.GroupName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Group.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Group.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.Group.Status)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
+            @Html.DisplayFor(model => model.Group.Status)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Pin)
+            @Html.DisplayNameFor(model => model.Group.Pin)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Pin)
+            @Html.DisplayFor(model => model.Group.Pin)
         </dd>
 
     </dl>
@@ -47,20 +47,20 @@
         <tr>
 
             <th>
-                @Html.DisplayNameFor(model => Model.StudentList)
+                @Html.DisplayNameFor(model => Model.Students)
             </th>
            
             <th></th>
         </tr>
 
-        @foreach (Student s in Model.StudentList)
+        @foreach (Student s in Model.Students)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(fname => s.FirstName)
+                    @Html.DisplayFor(model => s.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(lname => s.LastName)
+                    @Html.DisplayFor(model => s.LastName)
                 </td>
 
             </tr>
@@ -69,6 +69,6 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.GroupId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Group.GroupId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

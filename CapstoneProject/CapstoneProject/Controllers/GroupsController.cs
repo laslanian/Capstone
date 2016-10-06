@@ -20,9 +20,9 @@ namespace CapstoneProject.Controllers
         }
         public ActionResult Details(int id)
         {
-            StudentGroup sg = new StudentGroup();
-            sg.StudentList = GetStudents(id);
-            return View(sg);
+            GroupStudent gs = new GroupStudent();
+            gs.Students = GetStudents(id);
+            return View(gs);
         }
 
         public ActionResult Register()
