@@ -24,7 +24,10 @@ namespace CapstoneProject.Models.Services
             this._projects = new ProjectRepository();
             this._users = new UserRepository();
         }
-
+        public List<Group> GetGroups()
+        {
+            return _groups.GetGroups().ToList() ;
+        }
         public List<Student> GetStudentsByGroupId(int id)
         {
             Group g = _groups.GetGroupyId(id);

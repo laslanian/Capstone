@@ -16,8 +16,8 @@ namespace CapstoneProject.Controllers
         // GET: Groups
         public ActionResult Index()
         {
-
-            return View();
+            
+            return View(gbs.GetGroups());
         }
         public ActionResult Details(int id)
         {
