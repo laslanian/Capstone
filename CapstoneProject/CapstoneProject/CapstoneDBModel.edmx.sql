@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/06/2016 18:24:49
+-- Date Created: 10/06/2016 19:48:26
 -- Generated from EDMX file: C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 
@@ -182,9 +182,10 @@ GO
 
 -- Creating table 'Users_Student'
 CREATE TABLE [dbo].[Users_Student] (
-    [StudentNumber] int IDENTITY(1,1) NOT NULL,
+    [StudentNumber] int  NOT NULL,
     [Interests] nvarchar(150)  NULL,
     [ProgramId] int  NULL,
+    [StudentId] nvarchar(max)  NOT NULL,
     [UserId] int  NOT NULL,
     [Group_GroupId] int  NULL
 );

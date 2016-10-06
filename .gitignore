@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CapstoneProject/CapstoneProject/obj/Debug/CapstoneProject.csprojResolveAssemblyReference.cache
+/CapstoneProject/CapstoneProject.Tests/obj/Debug/build.force
