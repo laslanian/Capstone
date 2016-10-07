@@ -5,7 +5,7 @@
 }
 
 <h2>Profile Page</h2>
-  <h4>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.UserId }) </h4>
+<h4>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.UserId }) </h4>
 
 <div>
     <hr />
@@ -69,52 +69,64 @@
 
 </div>
 
-<div>
-    @{
-        var coopList = Model.Coops.ToList();
-    }
-    <hr />
-    <h4>Coop Information
+<>
+@{
+            var coopList = Model.Coops.ToList();
+}
+<hr />
+<h4>
+    Coop Information
     @{if (coopList.Count() < 3)
-        {
-            @Html.ActionLink("Add Coop", "AddCoop", "Students", new { @class = "btn btn-default" }) 
-        }
-    }</h4>
-    <hr />
-        @{ 
-            if(coopList.Count() == 0)
             {
-                <h4>You have no coop in your profile.</h4>
+            @Html.ActionLink("Add Coop", "AddCoop", "Students", new { @class = "btn btn-default" })
+        }
+    }
+</h4>
+<hr />
+@{
+    if (coopList.Count() == 0)
+    {
+        <h4>You have no coop in your profile.</h4>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => coopList[0].CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => coopList[0].JobTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => coopList[0].StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => coopList[0].EndDate)
+                </th>
+            </tr>
+            @for (int i = 0; i < coopList.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => coopList[i].CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => coopList[i].JobTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => coopList[i].StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => coopList[i].EndDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditCoop", new { id = coopList[i].CoopId }) |
+                        @Html.ActionLink("Details", "CoopDetails", new { id = coopList[i].CoopId }) |
+                        @Html.ActionLink("Delete", "DeleteCoop", new { id = coopList[i].CoopId })
+                    </td>
+                </tr>
             }
-        }
-    <dl class="dl-horizontal">
-        @for (int i = 0; i < coopList.Count(); i++)
-        {
-            <dt>
-                @Html.DisplayNameFor(cname => coopList[i].CompanyName);
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(cname => coopList[i].CompanyName);
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(cname => coopList[i].EndDate);
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(cname => coopList[i]);
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(cname => coopList[i].CompanyName);
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(cname => coopList[i].CompanyName);
-            </dd>
-
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id = coopList[i].CoopId }) |
-            </p>
-        }
-    </dl>
-</div>
+        </table>
+    }
+}

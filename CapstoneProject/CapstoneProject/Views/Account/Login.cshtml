@@ -11,13 +11,13 @@
     @Html.AntiForgeryToken()
     <div>
         <fieldset>
-            <h3> @ViewBag.LoginError</h3>
+            <h4><span style="color:red;"> @ViewBag.LoginError</span></h4>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Username)
             </div>
             <div class="editor-field">
                 @Html.TextBoxFor(u => u.Username)
-                @Html.ValidationMessageFor(u => u.Username) <h4><span style="color:red;"> @ViewBag.AuthError</span></h4>
+                @Html.ValidationMessageFor(u => u.Username) 
             </div>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Password)

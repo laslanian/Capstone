@@ -23,8 +23,10 @@ namespace CapstoneProject.Models.Services
         public void AddCoop(int id, Coop c) {
             Student s = (Student)_users.GetUserById(id);
             s.Coops.Add(c);
+            _users.UpdateUser(s);
             _users.Save();
         }
+
         public Coop GetCoop(int id) { return null; }
         public Coop EditCoop(Coop c) { return null; }
         public void DeleteCoop(int id) { }

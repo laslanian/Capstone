@@ -29,8 +29,8 @@ namespace CapstoneProject.Controllers
             using (StudentCoopService scs = new StudentCoopService())
             {
                 scs.AddCoop(Convert.ToInt32(Session["Id"]), c);
+                return RedirectToAction("Index", new { id = Convert.ToInt32(Session["Id"]) });
             }
-            return View(c);
         }
 
         public ActionResult Edit(int id)
@@ -45,6 +45,16 @@ namespace CapstoneProject.Controllers
         public ActionResult Edit(Student s)
         {
             return View(s);
+        }
+
+        public ActionResult CoopDetails(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteCoop()
+        {
+            return View();
         }
     }
 }
