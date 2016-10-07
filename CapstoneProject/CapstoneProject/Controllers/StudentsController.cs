@@ -16,5 +16,17 @@ namespace CapstoneProject.Controllers
             Student s = (Student) uas.GetUser(id);
             return View(s);
         }
+
+        public ActionResult AddCoop()
+        {
+            return View();
+        }
+
+        public ActionResult Edit(int id)
+        {
+            UserAccountService uas = new UserAccountService();
+            Student s = (Student) uas.GetUser(id);
+            return View(s);
+        }
     }
 }

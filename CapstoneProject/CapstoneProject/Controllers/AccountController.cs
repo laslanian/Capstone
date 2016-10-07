@@ -52,7 +52,7 @@ namespace CapstoneProject.Controllers
                     }
                 }
             }
-            ViewBag["AuthError"] = "Invalid username or password";
+            ViewBag.LoginError = "Invalid username or password";
             return View(u);
         }
 
