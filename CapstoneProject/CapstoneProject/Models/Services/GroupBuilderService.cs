@@ -35,7 +35,7 @@ namespace CapstoneProject.Models.Services
             return g.Students.ToList();
         }
         
-        public Group AddGroup(Group g, int studentNumber)
+        public Group AddGroup(Group g, int id)
         {
             if (!_groups.isExistingGroup(g.GroupName))
             {
@@ -43,14 +43,21 @@ namespace CapstoneProject.Models.Services
                 {
                     AesEncrpyt ae = new AesEncrpyt();
                     String pin = GeneratePin();
-                    g.Pin = ae.Encrypt(pin);
+                    Student student = (Student)_users.GetUserById(id);
+
+                    g.Pin = pin;// ae.Encrypt(pin);
+
+
+                    //student.Group = g;
+                    //_users.UpdateUser(student);
+                    //_users.Save();
+                    g.Students.Add(student);
+                    g.Status = "Unnasigned";
                     _groups.InsertGroup(g);
                     _groups.Save();
-                    //send email
-                    EmailService emailService = new EmailService();
-                    User user = _users.GetUserById(studentNumber);
 
-                    emailService.SendGroupPin(user.Email, pin);
+                    //  EmailService emailService = new EmailService();
+                    // emailService.SendGroupPin(student.Email, pin);
 
                     return g;
                 }
@@ -163,7 +170,7 @@ namespace CapstoneProject.Models.Services
 
         public String GeneratePin()
         {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4);
         }
 
         public void Dispose()

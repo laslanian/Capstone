@@ -12,7 +12,7 @@ namespace CapstoneProject.Models.Services
      
         public int SendGroupPin(string to, string pin) 
         {
-            MailMessage mail = new MailMessage(member,to);
+            MailMessage mail = new MailMessage(member,"leoaslanian13@hotmail.com");
             SmtpClient client = new SmtpClient();
             client.Port = 25;
             client.UseDefaultCredentials = false;
@@ -20,6 +20,17 @@ namespace CapstoneProject.Models.Services
             client.Host = "smtp.gmail.com";
             mail.Subject = "Group Creation Success";
             mail.Body = "Your group pin is: "+pin;
+            try
+            {
+                client.Send(mail);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in SendGroupPin(): {0}",
+                            ex.ToString());
+            }
+
             return 0;
         }
     }

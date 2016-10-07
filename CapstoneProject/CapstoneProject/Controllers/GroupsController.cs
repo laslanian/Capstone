@@ -11,12 +11,12 @@ namespace CapstoneProject.Controllers
 {
     public class GroupsController : Controller
     {
-        private GroupBuilderService gbs = new GroupBuilderService();
+       
         
         // GET: Groups
         public ActionResult Index()
         {
-            
+            GroupBuilderService gbs = new GroupBuilderService();
             return View(gbs.GetGroups());
         }
         public ActionResult Details(int id)
@@ -33,8 +33,10 @@ namespace CapstoneProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateGroup(Group g, string button)
+        public ActionResult CreateGroup(Group g)
         {
+            GroupBuilderService gbs = new GroupBuilderService();
+            gbs.AddGroup(g, Convert.ToInt32(Session["Id"]));
             return View(g);
         }
 
@@ -46,6 +48,7 @@ namespace CapstoneProject.Controllers
         
         public ActionResult Edit(int id)
         {
+            GroupBuilderService gbs = new GroupBuilderService();
             GroupStudent gs = gbs.GetGroupStudentVM(id);
 
             return View(gs);
@@ -54,6 +57,7 @@ namespace CapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, GroupStudent gs)
         {
+            GroupBuilderService gbs = new GroupBuilderService();
             if (ModelState.IsValid)
             {
                 gs = gbs.EditGroupStudentVM(gs);
