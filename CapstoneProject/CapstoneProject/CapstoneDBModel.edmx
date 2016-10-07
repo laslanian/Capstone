@@ -155,7 +155,7 @@
     <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StudentNumber" Type="int" Nullable="false" />
     <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
-    <Property Name="ProgramId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
@@ -387,7 +387,7 @@
           <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StudentNumber" Type="Int32" Nullable="false" />
           <Property Name="Interests" Type="String" Nullable="true" MaxLength="150" />
-          <Property Name="ProgramId" Type="String" Nullable="false" />
+          <Property Name="ProgramId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Coops" EntityType="Self.Coop" />
