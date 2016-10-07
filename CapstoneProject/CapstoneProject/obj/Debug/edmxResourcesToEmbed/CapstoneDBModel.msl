@@ -97,6 +97,7 @@
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
           <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
