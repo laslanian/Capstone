@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/06/2016 19:58:10
+-- Date Created: 10/06/2016 19:59:41
 -- Generated from EDMX file: C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 

@@ -20,10 +20,10 @@ namespace CapstoneProject
             this.Coops = new HashSet<Coop>();
         }
     
+        public int StudentId { get; set; }
         public int StudentNumber { get; set; }
         public string Interests { get; set; }
-        public Nullable<int> ProgramId { get; set; }
-        public string StudentId { get; set; }
+        public string ProgramId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Coop> Coops { get; set; }
