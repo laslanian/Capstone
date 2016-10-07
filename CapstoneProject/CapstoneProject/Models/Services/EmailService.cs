@@ -12,7 +12,7 @@ namespace CapstoneProject.Models.Services
      
         public int SendGroupPin(string to, string pin) 
         {
-            MailMessage mail = new MailMessage(member,to);
+            MailMessage mail = new MailMessage(member,"ghyne01@gmail.com");
             SmtpClient client = new SmtpClient();
             client.Port = 25;
             client.UseDefaultCredentials = false;

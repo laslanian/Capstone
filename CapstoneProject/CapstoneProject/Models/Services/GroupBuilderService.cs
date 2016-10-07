@@ -19,11 +19,11 @@ namespace CapstoneProject.Models.Services
 
         public GroupBuilderService()
         {
-            CapstoneDBModel db = new CapstoneDBModel();
-            this._groups = new GroupRepository(db);
-            this._students = new StudentRepository(db);
-            this._projects = new ProjectRepository(db);
-            this._users = new UserRepository(db);
+            CapstoneDBModel ctx = new CapstoneDBModel();
+            this._groups = new GroupRepository(ctx);
+            this._students = new StudentRepository(ctx);
+            this._projects = new ProjectRepository(ctx);
+            this._users = new UserRepository(ctx);
         }
         public List<Group> GetGroups()
         {
@@ -35,7 +35,7 @@ namespace CapstoneProject.Models.Services
             return g.Students.ToList();
         }
         
-        public Group AddGroup(Group g, int studentNumber)
+        public Group AddGroup(Group g, int id)
         {
             if (!_groups.isExistingGroup(g.GroupName))
             {
@@ -43,14 +43,16 @@ namespace CapstoneProject.Models.Services
                 {
                     AesEncrpyt ae = new AesEncrpyt();
                     String pin = GeneratePin();
-                    g.Pin = ae.Encrypt(pin);
+                    g.Pin = pin;
+                    g.Status = "Unassigned";
+                    Student s = (Student)_users.GetUserById(id);
+                     g.Students.Add(s);
                     _groups.InsertGroup(g);
                     _groups.Save();
                     //send email
-                    EmailService emailService = new EmailService();
-                    User user = _users.GetUserById(studentNumber);
+                    //EmailService emailService = new EmailService();
 
-                    emailService.SendGroupPin(user.Email, pin);
+                    //emailService.SendGroupPin(s.Email, pin);
 
                     return g;
                 }
@@ -163,7 +165,7 @@ namespace CapstoneProject.Models.Services
 
         public String GeneratePin()
         {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4);
         }
 
         public void Dispose()

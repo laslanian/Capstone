@@ -15,8 +15,7 @@ namespace CapstoneProject.Controllers
         
         // GET: Groups
         public ActionResult Index()
-        {
-            
+        {   
             return View(gbs.GetGroups());
         }
         public ActionResult Details(int id)
@@ -33,9 +32,16 @@ namespace CapstoneProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateGroup(Group g, string button)
+        public ActionResult CreateGroup(Group g)
         {
-            return View(g);
+            if (ModelState.IsValid)
+            {
+                gbs.AddGroup(g, Convert.ToInt32(Session["Id"]));
+                return RedirectToAction("Index");
+            }
+            else {
+                return View(g);
+            }
         }
 
         public ActionResult JoinGroup()
