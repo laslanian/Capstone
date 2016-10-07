@@ -81,12 +81,12 @@
     <Property Name="ManagementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="Student" BaseType="CapstoneModel.User">
-    <Property Name="StudentNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
-    <Property Name="Interests" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Coops" Relationship="CapstoneModel.StudentCoop" FromRole="Student" ToRole="Coop" />
     <NavigationProperty Name="Group" Relationship="CapstoneModel.StudentGroup" FromRole="Student" ToRole="Group" />
-    <Property Name="ProgramId" Type="Int32" />
-    <Property Name="StudentId" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentNumber" Type="Int32" Nullable="false" />
+    <Property Name="Interests" Type="String" Nullable="true" MaxLength="150" />
+    <Property Name="ProgramId" Type="String" Nullable="false" />
   </EntityType>
   <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Coops" EntityType="Self.Coop" />

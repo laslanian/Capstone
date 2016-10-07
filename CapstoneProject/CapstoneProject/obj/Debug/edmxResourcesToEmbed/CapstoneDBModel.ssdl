@@ -147,10 +147,10 @@
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
+    <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StudentNumber" Type="int" Nullable="false" />
     <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
-    <Property Name="ProgramId" Type="int" Nullable="true" />
-    <Property Name="StudentId" Type="nvarchar(max)" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>

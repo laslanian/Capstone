@@ -94,10 +94,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Student)">
         <MappingFragment StoreEntitySet="Users_Student">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
           <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
-          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
