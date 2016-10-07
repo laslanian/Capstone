@@ -22,10 +22,28 @@ namespace CapstoneProject.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCoop(Coop c)
+        {
+            using (StudentCoopService scs = new StudentCoopService())
+            {
+                scs.AddCoop(Convert.ToInt32(Session["Id"]), c);
+            }
+            return View(c);
+        }
+
         public ActionResult Edit(int id)
         {
             UserAccountService uas = new UserAccountService();
             Student s = (Student) uas.GetUser(id);
+            return View(s);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Student s)
+        {
             return View(s);
         }
     }

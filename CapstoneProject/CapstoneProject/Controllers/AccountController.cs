@@ -77,11 +77,11 @@ namespace CapstoneProject.Controllers
         {
             if (accounttype.Equals("Student"))
             {
-                Session["UserType"] = "Student";
+                Session["accountType"] = "Student";
             }
             else
             {
-                Session["UserType"] = "Client";
+                Session["accountType"] = "Client";
             }
             return RedirectToAction("TermsAndCondition");
         }
@@ -101,7 +101,7 @@ namespace CapstoneProject.Controllers
             }
             else
             {
-                if (Session["UserType"].Equals("Student"))
+                if (Session["accountType"].Equals("Student"))
                 {
                     return RedirectToAction("RegisterStudent");
                 }

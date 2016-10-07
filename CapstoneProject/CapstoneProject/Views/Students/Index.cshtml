@@ -70,12 +70,17 @@
 </div>
 
 <div>
+    @{
+        var coopList = Model.Coops.ToList();
+    }
     <hr />
-    <h4>Coop Information @Html.ActionLink("Add Coop", "AddCoop", "Students", new { @class = "btn btn-default" }) </h4>
-    <hr />
-         @{
-            var coopList = Model.Coops.ToList();
+    <h4>Coop Information
+    @{if (coopList.Count() < 3)
+        {
+            @Html.ActionLink("Add Coop", "AddCoop", "Students", new { @class = "btn btn-default" }) 
         }
+    }</h4>
+    <hr />
         @{ 
             if(coopList.Count() == 0)
             {
