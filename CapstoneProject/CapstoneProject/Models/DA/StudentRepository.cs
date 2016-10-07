@@ -28,7 +28,7 @@ namespace CapstoneProject.Models.DA
 
         public IEnumerable<Student> GetStudentsByProgram(int ProgramId)
         {
-            return ctx.Users.OfType<Student>().ToList().Where(student => student.Program.ProgramId == ProgramId);
+            return null; // ctx.Users.OfType<Student>().ToList().Where(student => student.ProgramId == ProgramId);
         }
 
         public bool isExistingStudentNumber(int number)

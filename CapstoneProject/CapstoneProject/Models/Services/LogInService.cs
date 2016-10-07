@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using System.Web.Mvc;
 using CapstoneProject.Models.Interfaces;
 using CapstoneProject.Models.DA;
+using System.Data.Entity.Core.Objects;
 
 namespace CapstoneProject.Models.Services
 {
@@ -21,22 +23,34 @@ namespace CapstoneProject.Models.Services
         public string GetUserType(int id)
         {
             User u = _users.GetUserById(id);
-            if (u.GetType() == typeof(Student))
+
+            Type type =ObjectContext.GetObjectType(u.GetType());
+            //String typeStudent = typeof(Student).ToString();
+
+            if (type.Equals(typeof(Student)))
             {
                 return "Student";
             }
-            else if (u.GetType() == typeof(Client))
+            else if (type.Equals(typeof(Client)))
             {
                 return "Client";
             }
-            else if (u.GetType() == typeof(Coop_Advisor))
+            else if (type.Equals(typeof(Coop_Advisor)))
             {
                 return "Coop";
+            }
+            else if (type.Equals(typeof(Management)))
+            {
+                return "Management";
+            }
+            else if (type.Equals(typeof(Admin)))
+            {
+                return "Admin";
             }
 
             return null;
         }
-
+        
         public void Dispose()
         {
             _users.Dispose();
@@ -50,7 +64,7 @@ namespace CapstoneProject.Models.Services
 
             if (u != null)
             {
-                u.Username = en.Decrypt(u.Username);
+                u.Username = username;//en.Decrypt(u.Username);
                 return u;
             }
 

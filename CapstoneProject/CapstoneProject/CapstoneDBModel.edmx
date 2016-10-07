@@ -33,17 +33,9 @@
       <End Role="Group" EntitySet="Groups" />
       <End Role="ProjectGroup" EntitySet="ProjectGroup" />
     </AssociationSet>
-    <AssociationSet Name="StudentProgram" Association="CapstoneModel.Store.StudentProgram">
-      <End Role="Student" EntitySet="Users_Student" />
-      <End Role="Program" EntitySet="Programs" />
-    </AssociationSet>
     <AssociationSet Name="StudentGroup" Association="CapstoneModel.Store.StudentGroup">
       <End Role="Student" EntitySet="Users_Student" />
       <End Role="Group" EntitySet="Groups" />
-    </AssociationSet>
-    <AssociationSet Name="AdminProgram" Association="CapstoneModel.Store.AdminProgram">
-      <End Role="Admin" EntitySet="Users_Admin" />
-      <End Role="Program" EntitySet="Programs" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="CapstoneModel.Store.FK_Admin_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -129,8 +121,8 @@
       <PropertyRef Name="UserId" />
     </Key>
     <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="Program_ProgramId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Users_Client">
     <Key>
@@ -160,10 +152,11 @@
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="StudentNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentNumber" Type="int" Nullable="false" />
     <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="Program_ProgramId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="ProjectGroup">
@@ -198,18 +191,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="StudentProgram">
-    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="*" />
-    <End Role="Program" Type="CapstoneModel.Store.Programs" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Program">
-        <PropertyRef Name="ProgramId" />
-      </Principal>
-      <Dependent Role="Student">
-        <PropertyRef Name="Program_ProgramId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="StudentGroup">
     <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="*" />
     <End Role="Group" Type="CapstoneModel.Store.Groups" Multiplicity="0..1" />
@@ -219,18 +200,6 @@
       </Principal>
       <Dependent Role="Student">
         <PropertyRef Name="Group_GroupId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="AdminProgram">
-    <End Role="Admin" Type="CapstoneModel.Store.Users_Admin" Multiplicity="*" />
-    <End Role="Program" Type="CapstoneModel.Store.Programs" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Program">
-        <PropertyRef Name="ProgramId" />
-      </Principal>
-      <Dependent Role="Admin">
-        <PropertyRef Name="Program_ProgramId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -365,8 +334,6 @@
           <Property Name="ProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProgramName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Campus" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Students" Relationship="CapstoneModel.StudentProgram" FromRole="Program" ToRole="Student" />
-          <NavigationProperty Name="Admins" Relationship="CapstoneModel.AdminProgram" FromRole="Program" ToRole="Admin" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -399,7 +366,7 @@
         </EntityType>
         <EntityType Name="Admin" BaseType="CapstoneModel.User">
           <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Program" Relationship="CapstoneModel.AdminProgram" FromRole="Admin" ToRole="Program" />
+          <Property Name="ProgramId" Type="Int32" />
         </EntityType>
         <EntityType Name="Client" BaseType="CapstoneModel.User">
           <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -415,11 +382,12 @@
           <Property Name="ManagementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Student" BaseType="CapstoneModel.User">
-          <Property Name="StudentNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Interests" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Coops" Relationship="CapstoneModel.StudentCoop" FromRole="Student" ToRole="Coop" />
-          <NavigationProperty Name="Program" Relationship="CapstoneModel.StudentProgram" FromRole="Student" ToRole="Program" />
           <NavigationProperty Name="Group" Relationship="CapstoneModel.StudentGroup" FromRole="Student" ToRole="Group" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentNumber" Type="Int32" Nullable="false" />
+          <Property Name="Interests" Type="String" Nullable="true" MaxLength="150" />
+          <Property Name="ProgramId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Coops" EntityType="Self.Coop" />
@@ -439,17 +407,9 @@
             <End Role="Project" EntitySet="Projects" />
             <End Role="Group" EntitySet="Groups" />
           </AssociationSet>
-          <AssociationSet Name="StudentProgram" Association="CapstoneModel.StudentProgram">
-            <End Role="Student" EntitySet="Users" />
-            <End Role="Program" EntitySet="Programs" />
-          </AssociationSet>
           <AssociationSet Name="StudentGroup" Association="CapstoneModel.StudentGroup">
             <End Role="Student" EntitySet="Users" />
             <End Role="Group" EntitySet="Groups" />
-          </AssociationSet>
-          <AssociationSet Name="AdminProgram" Association="CapstoneModel.AdminProgram">
-            <End Role="Admin" EntitySet="Users" />
-            <End Role="Program" EntitySet="Programs" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="StudentCoop">
@@ -480,17 +440,9 @@
           <End Type="CapstoneModel.Project" Role="Project" Multiplicity="*" />
           <End Type="CapstoneModel.Group" Role="Group" Multiplicity="*" />
         </Association>
-        <Association Name="StudentProgram">
-          <End Type="CapstoneModel.Student" Role="Student" Multiplicity="*" />
-          <End Type="CapstoneModel.Program" Role="Program" Multiplicity="1" />
-        </Association>
         <Association Name="StudentGroup">
           <End Type="CapstoneModel.Student" Role="Student" Multiplicity="*" />
           <End Type="CapstoneModel.Group" Role="Group" Multiplicity="0..1" />
-        </Association>
-        <Association Name="AdminProgram">
-          <End Type="CapstoneModel.Admin" Role="Admin" Multiplicity="*" />
-          <End Type="CapstoneModel.Program" Role="Program" Multiplicity="0..1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -564,6 +516,7 @@
         <MappingFragment StoreEntitySet="Users_Admin">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Client)">
@@ -590,8 +543,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Student)">
         <MappingFragment StoreEntitySet="Users_Student">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -603,14 +558,6 @@
         <ScalarProperty Name="GroupId" ColumnName="Groups_GroupId" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="StudentProgram" TypeName="CapstoneModel.StudentProgram" StoreEntitySet="Users_Student">
-      <EndProperty Name="Program">
-        <ScalarProperty Name="ProgramId" ColumnName="Program_ProgramId" />
-      </EndProperty>
-      <EndProperty Name="Student">
-        <ScalarProperty Name="UserId" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="StudentGroup" TypeName="CapstoneModel.StudentGroup" StoreEntitySet="Users_Student">
       <EndProperty Name="Group">
         <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
@@ -619,15 +566,6 @@
         <ScalarProperty Name="UserId" ColumnName="UserId" />
       </EndProperty>
       <Condition ColumnName="Group_GroupId" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="AdminProgram" TypeName="CapstoneModel.AdminProgram" StoreEntitySet="Users_Admin">
-      <EndProperty Name="Program">
-        <ScalarProperty Name="ProgramId" ColumnName="Program_ProgramId" />
-      </EndProperty>
-      <EndProperty Name="Admin">
-        <ScalarProperty Name="UserId" ColumnName="UserId" />
-      </EndProperty>
-      <Condition ColumnName="Program_ProgramId" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

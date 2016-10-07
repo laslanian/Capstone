@@ -28,6 +28,11 @@ namespace CapstoneProject.Models.DA
             return ctx.Groups.Find(id);
         }
 
+        public bool isExistingGroup(string group_name)
+        {
+            return ctx.Groups.Any(group => group.GroupName == group_name);
+        }
+
 
         public IEnumerable<Group> GetGroups()
         {

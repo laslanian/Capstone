@@ -10,9 +10,11 @@ namespace CapstoneProject.Models.Interfaces
     {
         IEnumerable<Group> GetGroups();
         Group GetGroupyId(int id);
+        bool isExistingGroup(string group_name);
         void InsertGroup(Group g);
         void UpdateGroup(Group g);
         void DeleteGroup(int id);
         void Save();
+        void Dispose();
     }
 }

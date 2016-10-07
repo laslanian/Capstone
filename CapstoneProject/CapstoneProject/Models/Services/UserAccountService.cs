@@ -32,13 +32,10 @@ namespace CapstoneProject.Models.Services
 
             return null;
         }
+
         public int RegisterStudent(StudentUser stUser)
         {
             Student s = new Student();
-            using (ProgramManagerService pms = new ProgramManagerService())
-            {
-                s.Program = pms.GetProgram(stUser.ProgramId);
-            }
             s.FirstName = stUser.FirstName;
             s.LastName = stUser.LastName;
             s.PhoneNumber = stUser.PhoneNumber;
@@ -46,23 +43,36 @@ namespace CapstoneProject.Models.Services
             s.Username = stUser.Username;
             s.Password = stUser.Password;
             s.StudentNumber = Convert.ToInt32(stUser.StudentNumber);
+            s.ProgramId = stUser.ProgramId;
+            System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
             s.Title = "Student";
 
             AesEncrpyt en = new AesEncrpyt();
             s.Username = en.Encrypt(stUser.Username);
             s.Password = en.Encrypt(stUser.Password);
 
-            //1 - success
-            //0 - failure 
+            //1 - username already exist
+            //2 = studentnuber already exist
+            //99 - success
             if (!_users.isExistingUsername(s.Username))
             {
-                _users.InsertUser(s);
-                _users.Save();
-                return 1;
+                using(StudentRepository sr = new StudentRepository()) {
+                    if(!sr.isExistingStudentNumber(s.StudentNumber))
+                    {
+                        _users.InsertUser(s);
+                        _users.Save();
+                        return 99;
+
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+                }
             }
             else
             {
-                return 0;
+                return 1;
             }
         }
         public int RegisterClient(ClientUser client)
@@ -124,7 +134,6 @@ namespace CapstoneProject.Models.Services
             {
 
             }
-
         }
 
         public void Dispose()

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/02/2016 19:17:34
--- Generated from EDMX file: C:\Users\karlo\Desktop\Semester 6\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
+-- Date Created: 10/06/2016 21:26:27
+-- Generated from EDMX file: C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -29,14 +29,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProjectGroup_Group]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProjectGroup] DROP CONSTRAINT [FK_ProjectGroup_Group];
 GO
-IF OBJECT_ID(N'[dbo].[FK_StudentProgram]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_Student] DROP CONSTRAINT [FK_StudentProgram];
-GO
 IF OBJECT_ID(N'[dbo].[FK_StudentGroup]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Student] DROP CONSTRAINT [FK_StudentGroup];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AdminProgram]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_Admin] DROP CONSTRAINT [FK_AdminProgram];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Admin] DROP CONSTRAINT [FK_Admin_inherits_User];
@@ -157,8 +151,8 @@ GO
 -- Creating table 'Users_Admin'
 CREATE TABLE [dbo].[Users_Admin] (
     [AdminId] int IDENTITY(1,1) NOT NULL,
-    [UserId] int  NOT NULL,
-    [Program_ProgramId] int  NULL
+    [ProgramId] int  NULL,
+    [UserId] int  NOT NULL
 );
 GO
 
@@ -188,10 +182,11 @@ GO
 
 -- Creating table 'Users_Student'
 CREATE TABLE [dbo].[Users_Student] (
-    [StudentNumber] int IDENTITY(1,1) NOT NULL,
+    [StudentId] int IDENTITY(1,1) NOT NULL,
+    [StudentNumber] int  NOT NULL,
     [Interests] nvarchar(150)  NULL,
+    [ProgramId] int  NULL,
     [UserId] int  NOT NULL,
-    [Program_ProgramId] int  NOT NULL,
     [Group_GroupId] int  NULL
 );
 GO
@@ -331,21 +326,6 @@ ON [dbo].[ProjectGroup]
     ([Groups_GroupId]);
 GO
 
--- Creating foreign key on [Program_ProgramId] in table 'Users_Student'
-ALTER TABLE [dbo].[Users_Student]
-ADD CONSTRAINT [FK_StudentProgram]
-    FOREIGN KEY ([Program_ProgramId])
-    REFERENCES [dbo].[Programs]
-        ([ProgramId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_StudentProgram'
-CREATE INDEX [IX_FK_StudentProgram]
-ON [dbo].[Users_Student]
-    ([Program_ProgramId]);
-GO
-
 -- Creating foreign key on [Group_GroupId] in table 'Users_Student'
 ALTER TABLE [dbo].[Users_Student]
 ADD CONSTRAINT [FK_StudentGroup]
@@ -359,21 +339,6 @@ GO
 CREATE INDEX [IX_FK_StudentGroup]
 ON [dbo].[Users_Student]
     ([Group_GroupId]);
-GO
-
--- Creating foreign key on [Program_ProgramId] in table 'Users_Admin'
-ALTER TABLE [dbo].[Users_Admin]
-ADD CONSTRAINT [FK_AdminProgram]
-    FOREIGN KEY ([Program_ProgramId])
-    REFERENCES [dbo].[Programs]
-        ([ProgramId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AdminProgram'
-CREATE INDEX [IX_FK_AdminProgram]
-ON [dbo].[Users_Admin]
-    ([Program_ProgramId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Admin'
