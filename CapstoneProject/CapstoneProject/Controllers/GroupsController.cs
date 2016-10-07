@@ -35,7 +35,7 @@ namespace CapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateGroup(Group g, string button)
         {
-
+            return View(g);
         }
 
         public ActionResult JoinGroup()

@@ -16,5 +16,45 @@ namespace CapstoneProject.Controllers
             Student s = (Student) uas.GetUser(id);
             return View(s);
         }
+
+        public ActionResult AddCoop()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCoop(Coop c)
+        {
+            using (StudentCoopService scs = new StudentCoopService())
+            {
+                scs.AddCoop(Convert.ToInt32(Session["Id"]), c);
+                return RedirectToAction("Index", new { id = Convert.ToInt32(Session["Id"]) });
+            }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            UserAccountService uas = new UserAccountService();
+            Student s = (Student) uas.GetUser(id);
+            return View(s);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Student s)
+        {
+            return View(s);
+        }
+
+        public ActionResult CoopDetails(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteCoop()
+        {
+            return View();
+        }
     }
 }

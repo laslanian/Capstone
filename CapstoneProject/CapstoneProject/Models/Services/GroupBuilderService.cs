@@ -42,14 +42,15 @@ namespace CapstoneProject.Models.Services
                 try
                 {
                     AesEncrpyt ae = new AesEncrpyt();
-                    g.Pin = ae.Encrypt(GeneratePin());
+                    String pin = GeneratePin();
+                    g.Pin = ae.Encrypt(pin);
                     _groups.InsertGroup(g);
                     _groups.Save();
                     //send email
                     EmailService emailService = new EmailService();
                     User user = _users.GetUserById(studentNumber);
 
-                    emailService.SendGroupPin(user.Email, g.Pin);
+                    emailService.SendGroupPin(user.Email, pin);
 
                     return g;
                 }

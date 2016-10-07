@@ -11,15 +11,26 @@ namespace CapstoneProject
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Coop
     {
         public int CoopId { get; set; }
+        [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
+        [Display(Name = "Job Title")]
         public string JobTitle { get; set; }
+        [Display(Name = "Job Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Start Date")]
         public System.DateTime StartDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "End Date")]
         public System.DateTime EndDate { get; set; }
+        [Display(Name = "Comments")]
         public string Comments { get; set; }
         public int StudentUserId { get; set; }
     

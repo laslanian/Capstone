@@ -23,6 +23,7 @@ namespace CapstoneProject
         public int StudentId { get; set; }
         [Display(Name = "Student Number")]
         public int StudentNumber { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Interests { get; set; }
         public Nullable<int> ProgramId { get; set; }
     
