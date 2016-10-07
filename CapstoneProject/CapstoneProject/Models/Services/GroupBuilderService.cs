@@ -49,7 +49,7 @@ namespace CapstoneProject.Models.Services
                      g.Students.Add(s);
                     _groups.InsertGroup(g);
                     _groups.Save();
-                    //send email
+                    // testing send email
                     //EmailService emailService = new EmailService();
 
                     //emailService.SendGroupPin(s.Email, pin);
