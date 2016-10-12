@@ -1,74 +1,80 @@
-﻿@model CapstoneProject.Models.GroupStudent
+﻿@model CapstoneProject.Group
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Group Details</h2><p>
+    @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId })
+</p>
 
 <div>
-    <h4>Group</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Group.GroupName)
+            @Html.DisplayNameFor(model => model.GroupName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Group.GroupName)
+            @Html.DisplayFor(model => model.GroupName)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.Group.Description)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Group.Description)
+            @Html.DisplayFor(model => model.Description)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.Group.Status)
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Group.Status)
+            @Html.DisplayFor(model => model.Status)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.Group.Pin)
+            @Html.DisplayNameFor(model => model.Pin)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Group.Pin)
+            @Html.DisplayFor(model => model.Pin)
         </dd>
-
     </dl>
+</div>
+<hr />
+<h3>Members</h3>
+@{
+    var studList = Model.Students.ToList();
     <table class="table">
         <tr>
-
             <th>
-                @Html.DisplayNameFor(model => Model.Students)
+                @Html.DisplayNameFor(model => studList[0].FirstName)
             </th>
-           
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => studList[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => studList[0].Email)
+            </th>
         </tr>
-
-        @foreach (Student s in Model.Students)
-        {
+        @for (int i = 0; i < studList.Count(); i++)
+            {
             <tr>
                 <td>
-                    @Html.DisplayFor(model => s.FirstName)
+                    @Html.DisplayFor(modelItem => studList[i].FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => s.LastName)
+                    @Html.DisplayFor(modelItem => studList[i].LastName)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => studList[i].Email)
+                </td>
             </tr>
         }
-
     </table>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Group.GroupId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+}
+
+
