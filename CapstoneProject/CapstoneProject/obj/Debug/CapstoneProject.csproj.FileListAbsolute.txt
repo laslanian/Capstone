@@ -241,6 +241,6 @@ C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\bin\Microso
 C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csprojResolveAssemblyReference.cache
 C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.dll
 C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.pdb
+C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csprojResolveAssemblyReference.cache

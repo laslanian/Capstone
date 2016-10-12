@@ -34,21 +34,22 @@ namespace CapstoneProject.Controllers
                         Session["Id"] = id;
                         Session["Username"] = user.Username;
                         Session["UserType"] = userType;
-                        switch(userType)
-                        {
-                            case "Student":
-                                {
-                                   return RedirectToAction("Index", "Students", new { id = id });
-                                }
-                            case "Client":
-                                {
-                                    return RedirectToAction("Index", "Clients", new { id = id });
-                                }
-                            default:
-                                {
-                                    return RedirectToAction("Index", "Home");
-                                }
-                        }
+                        return RedirectToAction("Index", "Home");
+                        //switch(userType)
+                        //{
+                        //    case "Student":
+                        //        {
+                        //           return RedirectToAction("Index", "Students", new { id = id });
+                        //        }
+                        //    case "Client":
+                        //        {
+                        //            return RedirectToAction("Index", "Clients", new { id = id });
+                        //        }
+                        //    default:
+                        //        {
+                        //            return RedirectToAction("Index", "Home");
+                        //        }
+                        //}
                     }
                 }
             }
