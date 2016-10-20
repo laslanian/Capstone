@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/06/2016 21:26:27
--- Generated from EDMX file: C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
+-- Date Created: 10/18/2016 17:45:19
+-- Generated from EDMX file: C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -31,6 +31,12 @@ IF OBJECT_ID(N'[dbo].[FK_ProjectGroup_Group]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_StudentGroup]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Student] DROP CONSTRAINT [FK_StudentGroup];
+GO
+IF OBJECT_ID(N'[dbo].[FK_StudentSkillset]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Skillsets] DROP CONSTRAINT [FK_StudentSkillset];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectCriteria]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Criteria] DROP CONSTRAINT [FK_ProjectCriteria];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Admin] DROP CONSTRAINT [FK_Admin_inherits_User];
@@ -82,6 +88,12 @@ GO
 IF OBJECT_ID(N'[dbo].[Users_Student]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_Student];
 GO
+IF OBJECT_ID(N'[dbo].[Criteria]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Criteria];
+GO
+IF OBJECT_ID(N'[dbo].[Skillsets]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Skillsets];
+GO
 IF OBJECT_ID(N'[dbo].[ProjectGroup]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProjectGroup];
 GO
@@ -109,7 +121,8 @@ CREATE TABLE [dbo].[Groups] (
     [GroupName] nvarchar(25)  NOT NULL,
     [Description] nvarchar(255)  NULL,
     [Status] nvarchar(25)  NULL,
-    [Pin] nchar(5)  NOT NULL
+    [Pin] nchar(5)  NOT NULL,
+    [Owner] int  NULL
 );
 GO
 
@@ -117,7 +130,7 @@ GO
 CREATE TABLE [dbo].[Programs] (
     [ProgramId] int IDENTITY(1,1) NOT NULL,
     [ProgramName] nvarchar(25)  NOT NULL,
-    [Campus] nvarchar(25)  NOT NULL
+    [Campus] nvarchar(25)  NULL
 );
 GO
 
@@ -191,6 +204,30 @@ CREATE TABLE [dbo].[Users_Student] (
 );
 GO
 
+-- Creating table 'Criteria'
+CREATE TABLE [dbo].[Criteria] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Goal] nvarchar(max)  NOT NULL,
+    [Storage] bit  NULL,
+    [Application] bit  NULL,
+    [Website] bit  NULL,
+    [Mobile] bit  NULL,
+    [ProjectProjectId] int  NOT NULL,
+    [Project_ProjectId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Skillsets'
+CREATE TABLE [dbo].[Skillsets] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Programming] int  NULL,
+    [WebDev] int  NULL,
+    [MobileDev] int  NULL,
+    [ApplDev] int  NULL,
+    [Student_UserId] int  NOT NULL
+);
+GO
+
 -- Creating table 'ProjectGroup'
 CREATE TABLE [dbo].[ProjectGroup] (
     [Projects_ProjectId] int  NOT NULL,
@@ -260,6 +297,18 @@ GO
 ALTER TABLE [dbo].[Users_Student]
 ADD CONSTRAINT [PK_Users_Student]
     PRIMARY KEY CLUSTERED ([UserId] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Criteria'
+ALTER TABLE [dbo].[Criteria]
+ADD CONSTRAINT [PK_Criteria]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Skillsets'
+ALTER TABLE [dbo].[Skillsets]
+ADD CONSTRAINT [PK_Skillsets]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- Creating primary key on [Projects_ProjectId], [Groups_GroupId] in table 'ProjectGroup'
@@ -339,6 +388,36 @@ GO
 CREATE INDEX [IX_FK_StudentGroup]
 ON [dbo].[Users_Student]
     ([Group_GroupId]);
+GO
+
+-- Creating foreign key on [Student_UserId] in table 'Skillsets'
+ALTER TABLE [dbo].[Skillsets]
+ADD CONSTRAINT [FK_StudentSkillset]
+    FOREIGN KEY ([Student_UserId])
+    REFERENCES [dbo].[Users_Student]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_StudentSkillset'
+CREATE INDEX [IX_FK_StudentSkillset]
+ON [dbo].[Skillsets]
+    ([Student_UserId]);
+GO
+
+-- Creating foreign key on [Project_ProjectId] in table 'Criteria'
+ALTER TABLE [dbo].[Criteria]
+ADD CONSTRAINT [FK_ProjectCriteria]
+    FOREIGN KEY ([Project_ProjectId])
+    REFERENCES [dbo].[Projects]
+        ([ProjectId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectCriteria'
+CREATE INDEX [IX_FK_ProjectCriteria]
+ON [dbo].[Criteria]
+    ([Project_ProjectId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Admin'

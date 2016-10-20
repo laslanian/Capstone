@@ -16,18 +16,19 @@ namespace CapstoneProject.Controllers
         
         // GET: Groups
         public ActionResult Index()
-        {   
-            return View(gbs.GetGroups());
+        {
+            StudentGroup sg = gbs.GetStudentGroup(Convert.ToInt32(Session["Id"]));
+            return View(sg);
         }
         public ActionResult Details(int id)
         {
             Student s = (Student) uas.GetUser(id);
-            Group g = gbs.GetGroupById(s.Group.GroupId);
-            if(g != null)
+            Group g = new Group();
+            if(s.Group != null)
             {
-                return View(g);
+                 g = gbs.GetGroupById(s.Group.GroupId);
             }
-            return View("Error");
+            return View(g);
         }
 
         public ActionResult CreateGroup()

@@ -8,38 +8,13 @@ namespace CapstoneProject.Models
 {
     public class StudentGroup
     {
+        public Student Student { get; set; }
+        public List<Group> Groups { get; set; } 
+        public bool isOwner { get; set; }
+
         public StudentGroup()
         {
-            StudentList = new List<Student>();
+            Groups = new List<Group>();
         }
-      
-        public string GroupId { get; set; }
-
-        [Required]
-        [Display(Name = "Group Name")]
-        [StringLength(25, MinimumLength = 2, ErrorMessage = "Group Name must be 2 to 25 characters")]
-        public string GroupName { get; set; }
-
-        [Required]
-        [Display(Name = "Group Description")]
-        public string Description { get; set; }
-
-        [Required]
-        [Display(Name = "Status")]
-        public string Status { get; set; }
-
-        [Required]
-        [StringLength(8, MinimumLength = 4, ErrorMessage = "Pin must be atleast 4 to 8 characters.")]
-        [Display(Name = "Pin")]
-        public string Pin { get; set; }
-
-        [Required]
-        [Display(Name = "Owner")]
-        public string Owner { get; set; }
-
-        [Display(Name = "Student List")]
-        public List<Student> StudentList { get; set; }
-
-     
     }
 }
