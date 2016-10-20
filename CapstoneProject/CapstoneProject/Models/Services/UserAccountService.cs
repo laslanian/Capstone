@@ -11,10 +11,13 @@ namespace CapstoneProject.Models.Services
     public class UserAccountService : IDisposable
     {
         IUserInterface _users;
+        IProgramRepository _programs;
 
         public UserAccountService()
         {
-            this._users = new UserRepository();
+            CapstoneDBModel ctx = new CapstoneDBModel();
+            this._users = new UserRepository(ctx);
+            this._programs = new ProgamRepository(ctx);
         }
 
         public User Register(User u)
@@ -134,6 +137,11 @@ namespace CapstoneProject.Models.Services
             {
 
             }
+        }
+
+        public Program GetProgramById(int id)
+        {
+            return _programs.GetProgram(id);
         }
 
         public void Dispose()

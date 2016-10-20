@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CapstoneProject.Models.Services;
+using CapstoneProject.Models.ViewModels;
 
 namespace CapstoneProject.Controllers
 {
@@ -12,8 +13,12 @@ namespace CapstoneProject.Controllers
         // GET: Students
         public ActionResult Index(int id)
         {
-            UserAccountService uas = new UserAccountService();
+            UserAccountService uas = new UserAccountService();          
+            //StudentProfile sp = new StudentProfile();
             Student s = (Student) uas.GetUser(id);
+            // Program p = (Program)uas.GetProgramById(Convert.ToInt32(s.ProgramId));
+            //  sp.student = s;
+            // sp.program = p;
             return View(s);
         }
 

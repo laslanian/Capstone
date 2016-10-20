@@ -19,23 +19,22 @@ namespace CapstoneProject.Models.Services
 
         public GroupBuilderService()
         {
-            CapstoneDBModel db = new CapstoneDBModel();
-            this._groups = new GroupRepository(db);
-            this._students = new StudentRepository(db);
-            this._projects = new ProjectRepository(db);
-            this._users = new UserRepository(db);
+            CapstoneDBModel ctx = new CapstoneDBModel();
+            this._groups = new GroupRepository(ctx);
+            this._students = new StudentRepository(ctx);
+            this._projects = new ProjectRepository(ctx);
+            this._users = new UserRepository(ctx);
         }
         public List<Group> GetGroups()
         {
             return _groups.GetGroups().ToList() ;
         }
-        public List<Student> GetStudentsByGroupId(int id)
+        public Group GetGroupById(int id)
         {
-            Group g = _groups.GetGroupyId(id);
-            return g.Students.ToList();
+            return _groups.GetGroupyId(id);
         }
         
-        public Group AddGroup(Group g, int studentNumber)
+        public Group AddGroup(Group g, int id)
         {
             if (!_groups.isExistingGroup(g.GroupName))
             {
@@ -43,14 +42,16 @@ namespace CapstoneProject.Models.Services
                 {
                     AesEncrpyt ae = new AesEncrpyt();
                     String pin = GeneratePin();
-                    g.Pin = ae.Encrypt(pin);
+                    g.Pin = pin;
+                    g.Status = "Unassigned";
+                    Student s = (Student)_users.GetUserById(id);
+                     g.Students.Add(s);
                     _groups.InsertGroup(g);
                     _groups.Save();
-                    //send email
-                    EmailService emailService = new EmailService();
-                    User user = _users.GetUserById(studentNumber);
+                    // testing send email
+                    //EmailService emailService = new EmailService();
 
-                    emailService.SendGroupPin(user.Email, pin);
+                    //emailService.SendGroupPin(s.Email, pin);
 
                     return g;
                 }
@@ -82,7 +83,7 @@ namespace CapstoneProject.Models.Services
         {
             Group g = GetGroup(id);
             GroupStudent gs = new GroupStudent();
-            List<Student> students = GetStudentsByGroupId(g.GroupId);
+            List<Student> students = g.Students.ToList();
             foreach (Student s in students)
             {
                 Student st = new Student();
@@ -116,26 +117,32 @@ namespace CapstoneProject.Models.Services
 
             return gs;
         }
-        public int AddStudent(Group g,Student s, int pin)
+        public int AddStudent(int GroupId, int StudentId, string pin)
         {
-            if (_groups.GetGroupyId(g.GroupId)!=null)
+            Group g = _groups.GetGroupyId(GroupId);
+            if (g != null)
             {
-                if (_students.isExistingStudentNumber(s.StudentNumber))
+                try
                 {
-                    try
+                    Student s = (Student)_users.GetUserById(StudentId);
+                    if (s.Group == null)
                     {
-                        g.Students.Add(s);
-                        _groups.UpdateGroup(g);
-                        _groups.Save();
-                        return 1;
+                            g.Students.Add(s);
+                            _groups.UpdateGroup(g);
+                            _groups.Save();
+                            return 99;
+                    }
+                    else
+                    {
+                        return 1; // user already have a group
+                    }
                     }
                     catch (Exception e)
-                    {
-                        return 0;
+                    {   
+                        return 0; // error occured
                     }                   
-                }
-            }
-            return 0;
+                }            
+                return 0;
         }
 
         public int RemoveStudent(Group g, Student s)
@@ -163,7 +170,7 @@ namespace CapstoneProject.Models.Services
 
         public String GeneratePin()
         {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4);
         }
 
         public void Dispose()

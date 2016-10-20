@@ -12,18 +12,22 @@ namespace CapstoneProject.Controllers
     public class GroupsController : Controller
     {
         private GroupBuilderService gbs = new GroupBuilderService();
+        private UserAccountService uas = new UserAccountService();
         
         // GET: Groups
         public ActionResult Index()
-        {
-            
+        {   
             return View(gbs.GetGroups());
         }
         public ActionResult Details(int id)
         {
-            GroupStudent gs = new GroupStudent();
-            gs.Students = GetStudents(id);
-            return View(gs);
+            Student s = (Student) uas.GetUser(id);
+            Group g = gbs.GetGroupById(s.Group.GroupId);
+            if(g != null)
+            {
+                return View(g);
+            }
+            return View("Error");
         }
 
         public ActionResult CreateGroup()
@@ -33,14 +37,43 @@ namespace CapstoneProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateGroup(Group g, string button)
+        public ActionResult CreateGroup(Group g)
         {
+            if (ModelState.IsValid)
+            {
+                gbs.AddGroup(g, Convert.ToInt32(Session["Id"]));
+                return RedirectToAction("Index");
+            }
+            else {
+                return View(g);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult JoinGroup(int id)
+        {
+            Group g = gbs.GetGroupById(id);
+            g.Pin = "";
             return View(g);
         }
 
-        public ActionResult JoinGroup()
+        [HttpPost]
+        public ActionResult JoinGroup(Group g)
         {
-            return RedirectToAction("Details");
+            int code = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
+            if(code == 99)
+            {
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            }
+            else if (code == 1)
+            {
+                ViewBag.JoinError = "Already have a group";
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         
@@ -65,7 +98,8 @@ namespace CapstoneProject.Controllers
         {
             using (GroupBuilderService gbs = new GroupBuilderService())
             {
-                return gbs.GetStudentsByGroupId(id);
+                Group g = gbs.GetGroupById(id);
+                return g.Students.ToList();
             }
         }
 
