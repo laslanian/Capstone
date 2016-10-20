@@ -11,6 +11,7 @@ namespace CapstoneProject.Models
         public Student Student { get; set; }
         public List<Group> Groups { get; set; } 
         public bool isOwner { get; set; }
+        public bool hasGroup { get; set; }
 
         public StudentGroup()
         {

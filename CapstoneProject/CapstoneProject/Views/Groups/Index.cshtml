@@ -6,7 +6,7 @@
 
 <h2>Groups</h2>
 
-@{ if (Model.isOwner)
+@{ if (Model.hasGroup)
     {
         <p>
             @Html.ActionLink("Create Group", "CreateGroup", null, new { @class = "btn btn-default", disabled = "disabled", @readonly = "readonly" })
@@ -14,7 +14,7 @@
     }
     else
     {
-        @Html.ActionLink("Create Group", "CreateGroup");
+        @Html.ActionLink("Create Group", "CreateGroup", new, new { @class = "btn btn-default" });
     }
 }
 <table class="table">
@@ -45,7 +45,7 @@
             <td>
                 @group.Students.Count() / 5
             </td>
-            @{if (group.Students.Count() < 5 && !Model.isOwner)
+            @{if (!Model.hasGroup || group.Students.Count() < 5)
                 {
                     <td>
                         @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-default" })

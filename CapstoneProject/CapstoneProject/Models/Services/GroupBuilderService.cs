@@ -122,10 +122,17 @@ namespace CapstoneProject.Models.Services
                     Student s = (Student)_users.GetUserById(StudentId);
                     if (s.Group == null)
                     {
+                        if (g.Pin == pin)
+                        {
                             g.Students.Add(s);
                             _groups.UpdateGroup(g);
                             _groups.Save();
                             return 99;
+                        }
+                        else
+                        {
+                            return 2; // wrong pin
+                        }
                     }
                     else
                     {
@@ -181,13 +188,19 @@ namespace CapstoneProject.Models.Services
             StudentGroup sg = new StudentGroup();
             Student s = (Student)_users.GetUserById(id);
             List<Group> groups = _groups.GetGroups().ToList();
-            if (s.Group == null || !groups.Contains(s.Group))
+            if (s.Group == null)
             {
-                sg.isOwner = false;
+                sg.hasGroup = false;
             }
             else
             {
-                sg.isOwner = true; 
+                foreach(Group g in groups)
+                {
+                    if(g.Owner == id {
+                        sg.isOwner = true;
+                    }
+                }
+                sg.hasGroup = true;
             }
             sg.Student = s;
             sg.Groups = groups;

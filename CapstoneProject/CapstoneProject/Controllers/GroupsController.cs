@@ -20,6 +20,7 @@ namespace CapstoneProject.Controllers
             StudentGroup sg = gbs.GetStudentGroup(Convert.ToInt32(Session["Id"]));
             return View(sg);
         }
+
         public ActionResult Details(int id)
         {
             Student s = (Student) uas.GetUser(id);
@@ -69,6 +70,11 @@ namespace CapstoneProject.Controllers
             else if (code == 1)
             {
                 ViewBag.JoinError = "Already have a group";
+                return View();
+            }
+            else if (code == 2)
+            {
+                ViewBag.JoinError = "Incorrect pin";
                 return View();
             }
             else
