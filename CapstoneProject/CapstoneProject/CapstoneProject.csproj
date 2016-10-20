@@ -381,6 +381,7 @@
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Groups\JoinGroup.cshtml" />
     <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Groups\CreateSkillset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

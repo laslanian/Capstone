@@ -78,6 +78,19 @@ namespace CapstoneProject.Models.Services
                 return 1;
             }
         }
+
+        public int AddStudentSkill(Skillset ss, int id)
+        {
+            if(ss != null)
+            {
+                Student s = (Student)_users.GetUserById(id);
+                s.Skillset = ss;
+                _users.UpdateUser(s);
+                _users.Save();
+                return 1;
+            }
+            return 0;
+        }
         public int RegisterClient(ClientUser client)
         {
             Client s = new Client();

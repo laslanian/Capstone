@@ -196,7 +196,7 @@ namespace CapstoneProject.Models.Services
             {
                 foreach(Group g in groups)
                 {
-                    if(g.Owner == id {
+                    if(g.Owner == id) {
                         sg.isOwner = true;
                     }
                 }

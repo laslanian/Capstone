@@ -17,6 +17,11 @@ namespace CapstoneProject.Controllers
         // GET: Groups
         public ActionResult Index()
         {
+            Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
+            if (s.Skillset == null)
+            {
+                RedirectToAction("CreateSkillset");
+            }
             StudentGroup sg = gbs.GetStudentGroup(Convert.ToInt32(Session["Id"]));
             return View(sg);
         }
@@ -49,6 +54,30 @@ namespace CapstoneProject.Controllers
             else {
                 return View(g);
             }
+        }
+
+        public ActionResult CreateSkillset() // BEFORE VIEWING GROUPS MAKE USER ENTER SKILLLSET
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateSkillset(Skillset s, string button)
+        {
+            if (ModelState.IsValid)
+            {
+                if (button == "Next")
+                {
+                    int code = uas.AddStudentSkill(s, Convert.ToInt32(Session["Id"]));
+                    if(code == 1) RedirectToAction("Index");
+                }
+                else
+                {
+                    RedirectToAction("Index", "Students");
+                }
+            }
+            ViewBag.SkillError = "An error has occured.";
+            return View();
         }
 
         [HttpGet]
