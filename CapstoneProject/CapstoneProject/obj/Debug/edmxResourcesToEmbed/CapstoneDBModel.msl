@@ -123,6 +123,7 @@
           <ScalarProperty Name="WebDev" ColumnName="WebDev" />
           <ScalarProperty Name="MobileDev" ColumnName="MobileDev" />
           <ScalarProperty Name="ApplDev" ColumnName="ApplDev" />
+          <ScalarProperty Name="UIDesign" ColumnName="UIDesign" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -150,6 +151,7 @@
       <EndProperty Name="Skillset">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="Student_UserId" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="ProjectCriteria" TypeName="CapstoneModel.ProjectCriteria" StoreEntitySet="Criteria">
       <EndProperty Name="Project">
@@ -158,6 +160,15 @@
       <EndProperty Name="Criteria">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupSkillset" TypeName="CapstoneModel.GroupSkillset" StoreEntitySet="Skillsets">
+      <EndProperty Name="Group">
+        <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
+      </EndProperty>
+      <EndProperty Name="Skillset">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Group_GroupId" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

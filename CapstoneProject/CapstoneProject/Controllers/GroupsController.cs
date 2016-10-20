@@ -20,10 +20,13 @@ namespace CapstoneProject.Controllers
             Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
             if (s.Skillset == null)
             {
-                RedirectToAction("CreateSkillset");
+                return RedirectToAction("CreateSkillset");
             }
-            StudentGroup sg = gbs.GetStudentGroup(Convert.ToInt32(Session["Id"]));
-            return View(sg);
+            else
+            {
+                StudentGroup sg = gbs.GetStudentGroup(Convert.ToInt32(Session["Id"]));
+                return View(sg);
+            }
         }
 
         public ActionResult Details(int id)
@@ -66,14 +69,14 @@ namespace CapstoneProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (button == "Next")
+                if (button == "Submit")
                 {
                     int code = uas.AddStudentSkill(s, Convert.ToInt32(Session["Id"]));
-                    if(code == 1) RedirectToAction("Index");
+                    if(code == 1) return RedirectToAction("Index");
                 }
                 else
                 {
-                    RedirectToAction("Index", "Students");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             ViewBag.SkillError = "An error has occured.";
