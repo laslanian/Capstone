@@ -228,6 +228,9 @@
     <Compile Include="Coop_Advisor.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Criteria.cs">
+      <DependentUpon>CapstoneDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -272,6 +275,9 @@
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skillset.cs">
+      <DependentUpon>CapstoneDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Student.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>

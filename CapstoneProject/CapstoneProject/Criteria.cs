@@ -12,15 +12,16 @@ namespace CapstoneProject
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Criteria
     {
-        public int UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Title { get; set; }
+        public int Id { get; set; }
+        public string Goal { get; set; }
+        public Nullable<bool> Storage { get; set; }
+        public Nullable<bool> Application { get; set; }
+        public Nullable<bool> Website { get; set; }
+        public Nullable<bool> Mobile { get; set; }
+        public int ProjectProjectId { get; set; }
+    
+        public virtual Project Project { get; set; }
     }
 }

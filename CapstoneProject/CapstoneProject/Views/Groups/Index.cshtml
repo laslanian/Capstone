@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CapstoneProject.Group>
+﻿@model CapstoneProject.Models.StudentGroup
 
 @{
     ViewBag.Title = "Index";
@@ -6,16 +6,24 @@
 
 <h2>Groups</h2>
 
-<p>
-    @Html.ActionLink("Create Group", "CreateGroup")
-</p>
+@{ if (Model.hasGroup)
+    {
+        <p>
+            @Html.ActionLink("Create Group", "CreateGroup", null, new { @class = "btn btn-default", disabled = "disabled", @readonly = "readonly" })
+        </p>
+    }
+    else
+    {
+        @Html.ActionLink("Create Group", "CreateGroup", new, new { @class = "btn btn-default" });
+    }
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.GroupName)
+            @Html.DisplayNameFor(model => model.Groups[0].GroupName);
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Groups[0].Description);
         </th>
         <th>
             Members
@@ -25,31 +33,32 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @item.Students.Count() / 5
-        </td>
-        @{if (item.Students.Count() < 5)
-            {
-                <td>
-                    @Html.ActionLink("Join", "JoinGroup", new { id = item.GroupId }, new { @class = "btn btn-default" })
-                </td>
+    @foreach (var group in Model.Groups)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => group.GroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.Description)
+            </td>
+            <td>
+                @group.Students.Count() / 5
+            </td>
+            @{if (!Model.hasGroup || group.Students.Count() < 5)
+                {
+                    <td>
+                        @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-default" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-default", disabled = "disabled", @readonly = "readonly" })
+                    </td>
+                }
             }
-            else
-            {
-                <td>
-                    @Html.ActionLink("Join", "JoinGroup", new { id = item.GroupId }, new { @class = "btn btn-default", disabled = "disabled", @readonly = "readonly" })
-                </td>
-            }
-        }
-    </tr>
-}
+        </tr>
+                }
 
 </table>

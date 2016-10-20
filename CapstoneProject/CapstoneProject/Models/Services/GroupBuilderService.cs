@@ -31,7 +31,7 @@ namespace CapstoneProject.Models.Services
         }
         public Group GetGroupById(int id)
         {
-            return _groups.GetGroupyId(id);
+            return _groups.GetGroupyId(id) != null ? _groups.GetGroupyId(id) : null;
         }
         
         public Group AddGroup(Group g, int id)
@@ -40,12 +40,12 @@ namespace CapstoneProject.Models.Services
             {
                 try
                 {
-                    AesEncrpyt ae = new AesEncrpyt();
                     String pin = GeneratePin();
                     g.Pin = pin;
                     g.Status = "Unassigned";
                     Student s = (Student)_users.GetUserById(id);
-                     g.Students.Add(s);
+                    g.Students.Add(s);
+                    g.Owner = id;
                     _groups.InsertGroup(g);
                     _groups.Save();
                     // testing send email
@@ -64,11 +64,6 @@ namespace CapstoneProject.Models.Services
             return null;
         }
 
-        public Group GetGroup(int id)
-        {
-            return _groups.GetGroupyId(id) != null ? _groups.GetGroupyId(id) : null;
-        }
-
         public Group EditGroup(Group g)
         {
             if (_groups.GetGroupyId(g.GroupId)!=null)
@@ -81,7 +76,7 @@ namespace CapstoneProject.Models.Services
         }
         public GroupStudent GetGroupStudentVM(int id)
         {
-            Group g = GetGroup(id);
+            Group g = GetGroupById(id);
             GroupStudent gs = new GroupStudent();
             List<Student> students = g.Students.ToList();
             foreach (Student s in students)
@@ -104,7 +99,7 @@ namespace CapstoneProject.Models.Services
         }
         public GroupStudent EditGroupStudentVM(GroupStudent gs)
         {
-            Group group = GetGroup(gs.Group.GroupId);
+            Group group = GetGroupById(gs.Group.GroupId);
             group.Students.Clear();
 
             foreach (Student s in gs.Students)
@@ -127,10 +122,17 @@ namespace CapstoneProject.Models.Services
                     Student s = (Student)_users.GetUserById(StudentId);
                     if (s.Group == null)
                     {
+                        if (g.Pin == pin)
+                        {
                             g.Students.Add(s);
                             _groups.UpdateGroup(g);
                             _groups.Save();
                             return 99;
+                        }
+                        else
+                        {
+                            return 2; // wrong pin
+                        }
                     }
                     else
                     {
@@ -179,6 +181,30 @@ namespace CapstoneProject.Models.Services
             _students.Dispose();
             _projects.Dispose();
             _users.Dispose();
+        }
+
+        public StudentGroup GetStudentGroup(int id)
+        {
+            StudentGroup sg = new StudentGroup();
+            Student s = (Student)_users.GetUserById(id);
+            List<Group> groups = _groups.GetGroups().ToList();
+            if (s.Group == null)
+            {
+                sg.hasGroup = false;
+            }
+            else
+            {
+                foreach(Group g in groups)
+                {
+                    if(g.Owner == id {
+                        sg.isOwner = true;
+                    }
+                }
+                sg.hasGroup = true;
+            }
+            sg.Student = s;
+            sg.Groups = groups;
+            return sg;
         }
     }
 }
