@@ -250,6 +250,8 @@
     <Compile Include="Models\Interfaces\IStudentRepository.cs" />
     <Compile Include="Models\Interfaces\IUserInterface.cs" />
     <Compile Include="Models\DA\ProgamRepository.cs" />
+    <Compile Include="Models\Metadata\Metadata.cs" />
+    <Compile Include="Models\Metadata\PartialClasses.cs" />
     <Compile Include="Models\Services\EmailService.cs" />
     <Compile Include="Models\Services\GroupApplicationService.cs" />
     <Compile Include="Models\Services\GroupBuilderService.cs" />
