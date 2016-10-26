@@ -115,9 +115,10 @@ namespace CapstoneProject.Models.Services
             {
                 Student s = (Student)_users.GetUserById(UserId);
                 if (g.Pin == pin)
-                {
-                    g.Students.Add(s);
+                {    
                     g = AddSkills(g, s.Skillset);
+                    g.Students.Add(s);
+                    g = GetAverageSkills(g);
                     _groups.UpdateGroup(g);
                     _groups.Save();
                     return 99;
@@ -140,6 +141,7 @@ namespace CapstoneProject.Models.Services
                 Student s = (Student)_users.GetUserById(UserId);
                 g = SubtractSkill(g, s.Skillset);
                 g.Students.Remove(s);
+                g = GetAverageSkills(g);
                 _groups.UpdateGroup(g);
                 _groups.Save();
                 return 99;
@@ -193,18 +195,25 @@ namespace CapstoneProject.Models.Services
 
         public Group AddSkills(Group g, Skillset s)
         {
+            int count = g.Students.Count;
+            g.Skillset.Programming *= count;
+            g.Skillset.WebDev *= count;
+            g.Skillset.MobileDev *= count;
+            g.Skillset.ApplDev *= count;
+            g.Skillset.UIDesign *= count;
+
             g.Skillset.Programming += s.Programming;
             g.Skillset.WebDev += s.WebDev;
             g.Skillset.MobileDev += s.MobileDev;
             g.Skillset.ApplDev += s.ApplDev;
             g.Skillset.UIDesign += s.UIDesign;
-            g = GetAverageSkills(g);
+
             return g;
         }
 
         public Group GetAverageSkills(Group g)
         {
-            int count = g.Students.Count;
+            int count = g.Students.Count ;
 
             g.Skillset.Programming = g.Skillset.Programming / count;
             g.Skillset.WebDev = g.Skillset.WebDev / count;
@@ -217,13 +226,20 @@ namespace CapstoneProject.Models.Services
 
         public Group SubtractSkill(Group g, Skillset s)
         {
+            int count = g.Students.Count;
+
+            g.Skillset.Programming *= count;
+            g.Skillset.WebDev *= count;
+            g.Skillset.MobileDev *= count;
+            g.Skillset.ApplDev *= count;
+            g.Skillset.UIDesign *= count;
+
             g.Skillset.Programming -= s.Programming;
             g.Skillset.WebDev -= s.WebDev;
             g.Skillset.MobileDev -= s.MobileDev;
             g.Skillset.ApplDev -= s.ApplDev;
             g.Skillset.UIDesign -= s.UIDesign;
 
-            g = GetAverageSkills(g);
             return g;
         }
     }
