@@ -15,8 +15,7 @@ namespace CapstoneProject.Controllers
 {
     public class ClientsController : Controller
     {
-
-        // GET: Clients
+        private ProjectManager pm = new ProjectManager();
         public ActionResult Index(int id)
         {
             UserAccountService uas = new UserAccountService();
@@ -24,28 +23,9 @@ namespace CapstoneProject.Controllers
             return View(s);
         }
 
-        // GET: Clients/Create
-        public ActionResult Register()
+        public ActionResult Projects()
         {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(CapstoneProject.Models.ClientUser client, string button)
-        {
-            if (button.Equals("Back"))
-            {
-                return RedirectToAction("TermsAndCondition", "Home");
-            }
-            else
-            {
-                if (ModelState.IsValid)
-                {
-                    // use useraccountservice here
-                }
-            }
-            return View(client);
+            return View(pm.GetProjectsByClient(Convert.ToInt32(Session["Id"])));
         }
     }
 }

@@ -56,41 +56,43 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Skillset.Programming)
+                    @Html.DisplayFor(model => model.Skillset.Programming)/10
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Skillset.WebDev)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Skillset.WebDev)
+                    @Html.DisplayFor(model => model.Skillset.WebDev)/10
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Skillset.MobileDev)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Skillset.MobileDev)
+                    @Html.DisplayFor(model => model.Skillset.MobileDev)/10
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Skillset.ApplDev)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Skillset.ApplDev)
+                    @Html.DisplayFor(model => model.Skillset.ApplDev)/10
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Skillset.UIDesign)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Skillset.UIDesign)
+                    @Html.DisplayFor(model => model.Skillset.UIDesign)/10
                 </dd>
 
             </dl>
         </div>
         <hr />
-        <h3>Members</h3>
+        <h3>Members 
+    @Html.ActionLink("Leave Group", "LeaveGroup", new { id = Model.GroupId }, new { @class = "btn btn-default" })
+</h3>
         var studList = Model.Students.ToList();
         <table class="table">
             <tr>
@@ -103,7 +105,6 @@
                 <th>
                     @Html.DisplayNameFor(model => studList[0].Email)
                 </th>
-                <th></th>
             </tr>
             @for (int i = 0; i < studList.Count(); i++)
                 {
@@ -116,9 +117,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => studList[i].Email)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Leave Group", "LeaveGroup", new { id = studList[i].UserId }, new { @class = "btn btn-default" })
                     </td>
                 </tr>
             }

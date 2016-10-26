@@ -20,8 +20,5 @@ namespace CapstoneProject
         public Nullable<bool> Application { get; set; }
         public Nullable<bool> Website { get; set; }
         public Nullable<bool> Mobile { get; set; }
-        public int ProjectProjectId { get; set; }
-    
-        public virtual Project Project { get; set; }
     }
 }

@@ -8,11 +8,23 @@ using CapstoneProject.Models.Interfaces;
 
 namespace CapstoneProject.Models.Services
 {
-    public class ProjectManajerService
+    public class ProjectManager
     {
         IProjectRepository _projects;
+        IUserInterface _users;
 
-        public List<Project> GetProjects() { return null; }
+        public ProjectManager()
+        {
+            CapstoneDBModel ctx = new CapstoneDBModel();
+            this._projects = new ProjectRepository(ctx);
+            this._users = new UserRepository(ctx);
+        }
+
+        public List<Project> GetProjectsByClient(int id)
+        {
+            Client c = (Client) _users.GetUserById(id);
+            return _projects.GetProjectByClient(c).ToList(); ;
+        }
         public List<Project> GetProjects(String state) { return null; }
         public List<Project> GetArchivedProjects(DateTime date) { return null; }
         public List<Project> GetTopProjects() { return null; }

@@ -28,6 +28,13 @@ namespace CapstoneProject.Models.DA
             return ctx.Groups.Find(id);
         }
 
+        public Skillset GetSkillByGroupId(int id)
+        {
+            var group = GetGroupyId(id);
+            var skill = ctx.Skillsets.Find(group.GroupId);
+            return skill;
+        }
+
         public bool isExistingGroup(string group_name)
         {
             return ctx.Groups.Any(group => group.GroupName == group_name);

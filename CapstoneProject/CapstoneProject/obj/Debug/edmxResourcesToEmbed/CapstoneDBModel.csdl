@@ -116,16 +116,16 @@
     </AssociationSet>
     <EntitySet Name="Criteria" EntityType="CapstoneModel.Criteria" />
     <EntitySet Name="Skillsets" EntityType="CapstoneModel.Skillset" />
-    <AssociationSet Name="StudentSkillset" Association="CapstoneModel.StudentSkillset">
-      <End Role="Student" EntitySet="Users" />
-      <End Role="Skillset" EntitySet="Skillsets" />
-    </AssociationSet>
     <AssociationSet Name="ProjectCriteria" Association="CapstoneModel.ProjectCriteria">
       <End Role="Project" EntitySet="Projects" />
       <End Role="Criteria" EntitySet="Criteria" />
     </AssociationSet>
     <AssociationSet Name="GroupSkillset" Association="CapstoneModel.GroupSkillset">
       <End Role="Group" EntitySet="Groups" />
+      <End Role="Skillset" EntitySet="Skillsets" />
+    </AssociationSet>
+    <AssociationSet Name="StudentSkillset" Association="CapstoneModel.StudentSkillset">
+      <End Role="Student" EntitySet="Users" />
       <End Role="Skillset" EntitySet="Skillsets" />
     </AssociationSet>
   </EntityContainer>
@@ -171,32 +171,30 @@
     <Property Name="Application" Type="Boolean" Nullable="true" />
     <Property Name="Website" Type="Boolean" Nullable="true" />
     <Property Name="Mobile" Type="Boolean" Nullable="true" />
-    <Property Name="ProjectProjectId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Project" Relationship="CapstoneModel.ProjectCriteria" FromRole="Criteria" ToRole="Project" />
   </EntityType>
   <EntityType Name="Skillset">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Programming" Type="Int32" Nullable="false" DefaultValue="0" />
-    <Property Name="WebDev" Type="Int32" Nullable="false" DefaultValue="0" />
-    <Property Name="MobileDev" Type="Int32" Nullable="false" DefaultValue="0" />
-    <Property Name="ApplDev" Type="Int32" Nullable="false" DefaultValue="0" />
-    <NavigationProperty Name="Student" Relationship="CapstoneModel.StudentSkillset" FromRole="Skillset" ToRole="Student" />
+    <Property Name="Programming" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="WebDev" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="MobileDev" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="ApplDev" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="UIDesign" Type="Double" Nullable="false" DefaultValue="0" />
     <NavigationProperty Name="Group" Relationship="CapstoneModel.GroupSkillset" FromRole="Skillset" ToRole="Group" />
-    <Property Name="UIDesign" Type="Int32" Nullable="false" DefaultValue="0" />
+    <NavigationProperty Name="Student" Relationship="CapstoneModel.StudentSkillset" FromRole="Skillset" ToRole="Student" />
   </EntityType>
-  <Association Name="StudentSkillset">
-    <End Type="CapstoneModel.Student" Role="Student" Multiplicity="0..1" />
-    <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
-  </Association>
   <Association Name="ProjectCriteria">
     <End Type="CapstoneModel.Project" Role="Project" Multiplicity="1" />
-    <End Type="CapstoneModel.Criteria" Role="Criteria" Multiplicity="0..1" />
+    <End Type="CapstoneModel.Criteria" Role="Criteria" Multiplicity="1" />
   </Association>
   <Association Name="GroupSkillset">
     <End Type="CapstoneModel.Group" Role="Group" Multiplicity="0..1" />
+    <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
+  </Association>
+  <Association Name="StudentSkillset">
+    <End Type="CapstoneModel.Student" Role="Student" Multiplicity="0..1" />
     <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
   </Association>
 </Schema>

@@ -19,7 +19,6 @@ namespace CapstoneProject
         {
             this.Projects = new HashSet<Project>();
             this.Students = new HashSet<Student>();
-            this.Skillset = new Skillset();
         }
 
         public int GroupId { get; set; }

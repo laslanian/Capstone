@@ -39,7 +39,7 @@
                         }
                         else if (Session["UserType"].ToString().Equals("Client"))
                         {
-                            <li>@Html.ActionLink("Project Submissions", "Index", "Projects")</li>
+                            <li>@Html.ActionLink("Project Submissions", "Projects", "Clients")</li>
                         }
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }

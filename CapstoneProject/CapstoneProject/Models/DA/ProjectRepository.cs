@@ -36,6 +36,11 @@ namespace CapstoneProject.Models.DA
             return ctx.Projects.ToList().Where(project => project.DateCompleted == year);
         }
 
+        public IEnumerable<Project> GetProjectByClient(Client c)
+        {
+            return ctx.Projects.ToList().Where(project => project.Client == c);
+        }
+
         public IEnumerable<Project> GetTopProjects()
         {
             return ctx.Projects.OrderBy(project => project.Grade).ToList().Take(5).ToList();
