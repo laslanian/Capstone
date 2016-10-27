@@ -31,5 +31,4 @@ namespace CapstoneProject
 
     [MetadataType(typeof(StudentMetadata))]
     public partial class Student : User  { }
-
 }

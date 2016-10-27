@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Capstone Portal</title>
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -41,7 +42,7 @@
                         else if (Session["UserType"].ToString().Equals("Client"))
                         {
                             <li>@Html.ActionLink("Profile", "Index", "Clients", new { id = Convert.ToInt32(Session["Id"]) }, null)</li>
-                            <li>@Html.ActionLink("My Projects", "Projects", "Clients")</li>
+                            <li>@Html.ActionLink("My Projects", "ProjectsByClient", "Projects")</li>
                         }
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }

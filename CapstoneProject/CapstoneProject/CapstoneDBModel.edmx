@@ -544,10 +544,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Goal" Type="String" Nullable="false" />
-          <Property Name="Storage" Type="Boolean" Nullable="true" />
-          <Property Name="Application" Type="Boolean" Nullable="true" />
-          <Property Name="Website" Type="Boolean" Nullable="true" />
-          <Property Name="Mobile" Type="Boolean" Nullable="true" />
+          <Property Name="Storage" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Application" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Website" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Mobile" Type="Boolean" Nullable="false" DefaultValue="False" />
         </EntityType>
         <EntityType Name="Skillset">
           <Key>

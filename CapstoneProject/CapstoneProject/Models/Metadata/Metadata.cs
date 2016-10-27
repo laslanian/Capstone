@@ -71,6 +71,7 @@ namespace CapstoneProject.Models.Metadata
     public class CriteriaMetadata
     {
         [Display(Name = "Goal")]
+        [DataType(DataType.MultilineText)]
         public string Goal { get; set; }
         [Display(Name = "Do you need to store infomration?")]
         public Nullable<bool> Storage { get; set; }
@@ -136,6 +137,7 @@ namespace CapstoneProject.Models.Metadata
 
         [Required]
         [Display(Name = "Project Title")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Title must be atleast 5 to 50 characters.")]
         public string Name { get; set; }
 
         [Required]
