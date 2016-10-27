@@ -36,9 +36,14 @@ namespace CapstoneProject.Controllers
                         Session["UserType"] = userType;
                         return RedirectToAction("Index", "Home");
                     }
+                    else
+                    {
+                        {
+                            ViewBag.LoginError = "Invalid username or password";
+                        }
+                    }
                 }
             }
-            ViewBag.LoginError = "Invalid username or password";
             return View(u);
         }
 

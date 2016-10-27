@@ -29,9 +29,9 @@ namespace CapstoneProject.Controllers
             }
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
-            Student s = (Student) uas.GetUser(id);
+            Student s = (Student) uas.GetUser(Convert.ToInt32(Session["Id"]));
             Group g = new Group();
             if(s.Group != null)
             {
@@ -116,7 +116,7 @@ namespace CapstoneProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, GroupStudent gs)
+        public ActionResult Edit(GroupStudent gs)
         {
             if (ModelState.IsValid)
             {

@@ -216,7 +216,9 @@
     <Compile Include="Client.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Content\ProjectTypes.Designer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -304,6 +306,9 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\sample1.png" />
+    <Content Include="Content\Images\sample2.png" />
+    <Content Include="Content\Images\sample3.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -329,6 +334,11 @@
     </Content>
     <Content Include="obj\Debug\build.force" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="Content\Images\1" />
+    <Content Include="Content\Images\3" />
+    <Content Include="Content\Images\4" />
+    <Content Include="Content\Images\5" />
+    <Content Include="Content\Images\Thumbs.db" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -386,8 +396,11 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\CreateSkillset.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
-    <Content Include="Views\Projects\ProjectsByClient.cshtml" />
+    <Content Include="Views\Admins\GetPendingProjects.cshtml" />
+    <Content Include="Views\Admins\Projects.cshtml" />
+    <Content Include="Views\Projects\_Projects.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
+    <Content Include="Views\Projects\ProjectsByClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -402,6 +415,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\ProjectStates.resx" />
+    <EmbeddedResource Include="Content\ProjectTypes.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CapstoneProject.Project>
+
+@{
+    ViewBag.Title = "Project List";
+}
+
+<h2>@ViewBag.Project 
+    @{ 
+        String type = ViewBag.Project;
+    }
+    @Html.DropDownList(
+    "Project State",
+    new SelectList(new[]
+    {
+        new SelectListItem { Text = "All", Value = Url.Action("Projects", "Admins", null) },
+        new SelectListItem { Text = "Pending", Value = Url.Action("Projects", "Admins", new { state = "Pending" }) },
+        new SelectListItem { Text = "Approved", Value =  Url.Action("Projects", "Admins", new { state = "Approved" })},
+    }, "Value", "Text"),
+    "--Project State--",
+    new { id = "projectstate" })
+</h2>
+
+@Html.Partial("~/Views/Projects/_Projects.cshtml", Model.ToList())
+
+<script type="text/javascript">
+    $('#projectstate').change(function () {
+        var url = $(this).val();
+        if (url != null && url != '') {
+            window.location.href = url;
+        }
+    })
+</script>

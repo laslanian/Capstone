@@ -16,10 +16,10 @@ namespace CapstoneProject.Controllers
     public class ClientsController : Controller
     {
         private ProjectManager pm = new ProjectManager();
-        public ActionResult Index(int id)
-        {
+        public ActionResult Index()       {
+
             UserAccountService uas = new UserAccountService();
-            Client s = (Client) uas.GetUser(id);
+            Client s = (Client) uas.GetUser(Convert.ToInt32(Session["Id"]));
             return View(s);
         }
 

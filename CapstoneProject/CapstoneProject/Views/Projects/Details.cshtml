@@ -5,7 +5,7 @@
 }
 
 <h2>Project Details</h2>
-@Html.ActionLink("Go Back", "ProjectsByClient", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Go Back", null, null, null, new { @class = "btn btn-default", href = Request.UrlReferrer })
 <div>
     <hr />
     <dl class="dl-horizontal">

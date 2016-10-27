@@ -95,15 +95,11 @@ namespace CapstoneProject.Models.Services
         }
         public GroupStudent EditGroupStudentVM(GroupStudent gs)
         {
-            Group group = GetGroupById(gs.Group.GroupId);
-            group.Students.Clear();
+            Group g = GetGroupById(gs.Group.GroupId);
+            g.GroupName = gs.Group.GroupName;
+            g.Description = gs.Group.Description;
 
-            foreach (Student s in gs.Students)
-            {
-                Student st = s;
-                group.Students.Add(s);
-            }
-            _groups.UpdateGroup(group);
+            _groups.UpdateGroup(GetGroupById(gs.Group.GroupId));
             _groups.Save();
 
             return gs;

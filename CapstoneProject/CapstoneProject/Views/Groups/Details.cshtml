@@ -10,15 +10,12 @@
     {
         <p>You don't have a group. </p>
         <p>Would you like to create or joine a group? </p>
-        <p> @Html.ActionLink("Create/Join Group", "CreateSkillset", null, new { @class = "btn btn-default" })</p>
+        <p> @Html.ActionLink("Create/Join Group", "Index", null, new { @class = "btn btn-default" })</p>
 
     }
     else
     {
-        <p>
-            @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId })
-        </p>
-
+     
         <div>
             <hr />
             <dl class="dl-horizontal">
@@ -99,6 +96,7 @@
  
 <h3>Members <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button></h3>
         var studList = Model.Students.ToList();
+
         <table class="table">
             <tr>
                 <th>
@@ -126,6 +124,51 @@
                 </tr>
             }
         </table>
+
+        <h3>Projects</h3>
+        var projList = Model.Projects.ToList();
+        if (projList.Count() == 0)
+        {
+            <p>You don't have any projects. </p>
+            <p>Would you like to apply for projects? </p>
+            <p> @Html.ActionLink("Apply for Projects", "Index", null, new { @class = "btn btn-default" })</p>
+        }
+        else
+        {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => projList[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => projList[0].Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => projList[0].Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => projList[0].State)
+                </th>
+            </tr>
+            @for (int i = 0, len = projList.Count(); i < len; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => projList[i].Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => projList[i].Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => projList[i].Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => projList[i].State)
+                    </td>
+                </tr>
+            }
+        </table>
+        }
 
         }
     }
