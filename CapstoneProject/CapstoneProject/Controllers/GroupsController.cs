@@ -116,7 +116,7 @@ namespace CapstoneProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, GroupStudent gs)
+        public ActionResult Edit(GroupStudent gs)
         {
             if (ModelState.IsValid)
             {
