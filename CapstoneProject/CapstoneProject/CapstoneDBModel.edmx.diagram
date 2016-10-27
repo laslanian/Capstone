@@ -24,6 +24,11 @@
         <AssociationConnector Association="CapstoneModel.ClientProject" />
         <AssociationConnector Association="CapstoneModel.ProjectGroup" />
         <AssociationConnector Association="CapstoneModel.StudentGroup" />
+        <EntityTypeShape EntityType="CapstoneModel.Criteria" Width="1.5" PointX="5.25" PointY="9.5" />
+        <EntityTypeShape EntityType="CapstoneModel.Skillset" Width="1.5" PointX="9.75" PointY="9.125" />
+        <AssociationConnector Association="CapstoneModel.ProjectCriteria" />
+        <AssociationConnector Association="CapstoneModel.GroupSkillset" />
+        <AssociationConnector Association="CapstoneModel.StudentSkillset" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

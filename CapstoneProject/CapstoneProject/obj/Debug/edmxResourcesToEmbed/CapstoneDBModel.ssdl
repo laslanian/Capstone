@@ -11,6 +11,8 @@
     <EntitySet Name="Users_Coop_Advisor" EntityType="CapstoneModel.Store.Users_Coop_Advisor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Management" EntityType="CapstoneModel.Store.Users_Management" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Student" EntityType="CapstoneModel.Store.Users_Student" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Criteria" EntityType="CapstoneModel.Store.Criteria" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Skillsets" EntityType="CapstoneModel.Store.Skillsets" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProjectGroup" EntityType="CapstoneModel.Store.ProjectGroup" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="StudentCoop" Association="CapstoneModel.Store.StudentCoop">
       <End Role="Student" EntitySet="Users_Student" />
@@ -31,6 +33,18 @@
     <AssociationSet Name="StudentGroup" Association="CapstoneModel.Store.StudentGroup">
       <End Role="Student" EntitySet="Users_Student" />
       <End Role="Group" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectCriteria" Association="CapstoneModel.Store.ProjectCriteria">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Criteria" EntitySet="Criteria" />
+    </AssociationSet>
+    <AssociationSet Name="GroupSkillset" Association="CapstoneModel.Store.GroupSkillset">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Skillset" EntitySet="Skillsets" />
+    </AssociationSet>
+    <AssociationSet Name="StudentSkillset" Association="CapstoneModel.Store.StudentSkillset">
+      <End Role="Student" EntitySet="Users_Student" />
+      <End Role="Skillset" EntitySet="Skillsets" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="CapstoneModel.Store.FK_Admin_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -75,6 +89,7 @@
     <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="255" />
     <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="25" />
     <Property Name="Pin" Type="nchar" Nullable="false" MaxLength="5" />
+    <Property Name="Owner" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Programs">
     <Key>
@@ -82,7 +97,7 @@
     </Key>
     <Property Name="ProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProgramName" Type="nvarchar" Nullable="false" MaxLength="25" />
-    <Property Name="Campus" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Campus" Type="nvarchar" Nullable="true" MaxLength="25" />
   </EntityType>
   <EntityType Name="Projects">
     <Key>
@@ -97,6 +112,7 @@
     <Property Name="Grade" Type="int" Nullable="true" />
     <Property Name="DateCompleted" Type="datetime" Nullable="true" />
     <Property Name="ClientUserId" Type="int" Nullable="false" />
+    <Property Name="Criteria_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -154,6 +170,30 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
+  <EntityType Name="Criteria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Goal" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Storage" Type="bit" Nullable="true" />
+    <Property Name="Application" Type="bit" Nullable="true" />
+    <Property Name="Website" Type="bit" Nullable="true" />
+    <Property Name="Mobile" Type="bit" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Skillsets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Programming" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="WebDev" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="MobileDev" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="ApplDev" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="UIDesign" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="Group_GroupId" Type="int" Nullable="true" />
+    <Property Name="Student_UserId" Type="int" Nullable="true" />
+  </EntityType>
   <EntityType Name="ProjectGroup">
     <Key>
       <PropertyRef Name="Projects_ProjectId" />
@@ -195,6 +235,42 @@
       </Principal>
       <Dependent Role="Student">
         <PropertyRef Name="Group_GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectCriteria">
+    <End Role="Project" Type="CapstoneModel.Store.Projects" Multiplicity="*" />
+    <End Role="Criteria" Type="CapstoneModel.Store.Criteria" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Criteria">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="Criteria_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupSkillset">
+    <End Role="Group" Type="CapstoneModel.Store.Groups" Multiplicity="0..1" />
+    <End Role="Skillset" Type="CapstoneModel.Store.Skillsets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="Skillset">
+        <PropertyRef Name="Group_GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentSkillset">
+    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="0..1" />
+    <End Role="Skillset" Type="CapstoneModel.Store.Skillsets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Skillset">
+        <PropertyRef Name="Student_UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

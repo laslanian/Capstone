@@ -16,18 +16,29 @@ namespace CapstoneProject.Controllers
         
         // GET: Groups
         public ActionResult Index()
-        {   
-            return View(gbs.GetGroups());
+        {
+            Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
+            if (s.Skillset == null)
+            {
+                return RedirectToAction("CreateSkillset");
+            }
+            else
+            {
+                StudentGroup sg = gbs.GetStudentGroup(Convert.ToInt32(Session["Id"]));
+                return View(sg);
+            }
         }
+
         public ActionResult Details(int id)
         {
             Student s = (Student) uas.GetUser(id);
-            Group g = gbs.GetGroupById(s.Group.GroupId);
-            if(g != null)
+            Group g = new Group();
+            if(s.Group != null)
             {
-                return View(g);
+                 g = gbs.GetGroupById(s.Group.GroupId);
+                 g.Skillset = gbs.GetSkillsetByGroupId(s.Group.GroupId);
             }
-            return View("Error");
+            return View(g);
         }
 
         public ActionResult CreateGroup()
@@ -42,11 +53,35 @@ namespace CapstoneProject.Controllers
             if (ModelState.IsValid)
             {
                 gbs.AddGroup(g, Convert.ToInt32(Session["Id"]));
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", g.GroupId);
             }
             else {
                 return View(g);
             }
+        }
+
+        public ActionResult CreateSkillset() // BEFORE VIEWING GROUPS MAKE USER ENTER SKILLLSET
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateSkillset(Skillset s, string button)
+        {
+            if (ModelState.IsValid)
+            {
+                if (button == "Submit")
+                {
+                    int code = uas.AddStudentSkill(s, Convert.ToInt32(Session["Id"]));
+                    if(code == 1) return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            ViewBag.SkillError = "An error has occured.";
+            return View();
         }
 
         [HttpGet]
@@ -65,14 +100,10 @@ namespace CapstoneProject.Controllers
             {
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
-            else if (code == 1)
-            {
-                ViewBag.JoinError = "Already have a group";
-                return View();
-            }
             else
             {
-                return View();
+                ViewBag.JoinError = "Incorrect pin";
+                return View(g);
             }
         }
 
@@ -92,6 +123,19 @@ namespace CapstoneProject.Controllers
                 gs = gbs.EditGroupStudentVM(gs);
             }
             return View(gs);
+        }
+
+        public ActionResult LeaveGroup(int id)
+        {
+            int code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
+            if (code == 99)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            }
         }
 
         public List<Student> GetStudents(int id)

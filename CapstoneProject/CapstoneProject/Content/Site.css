@@ -60,3 +60,7 @@ footer {
   text-align: center;
   bottom: 0;
 }
+
+.field-validation-error{
+    color: red;
+}

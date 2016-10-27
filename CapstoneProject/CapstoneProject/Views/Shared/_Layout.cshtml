@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Capstone Portal</title>
+    @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -21,7 +23,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Previous Capstones", "GetPastProjects", "Projects")</li>
+                    @*<li>@Html.ActionLink("Previous Capstones", "GetPastProjects", "Projects")</li>*@
                     @if (Session["UserType"] == null)
                     {
                         <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -39,9 +41,10 @@
                         }
                         else if (Session["UserType"].ToString().Equals("Client"))
                         {
-                            <li>@Html.ActionLink("Project Submissions", "Index", "Projects")</li>
+                            <li>@Html.ActionLink("Profile", "Index", "Clients", new { id = Convert.ToInt32(Session["Id"]) }, null)</li>
+                            <li>@Html.ActionLink("My Projects", "ProjectsByClient", "Projects")</li>
                         }
-                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>
             </div>
@@ -55,7 +58,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

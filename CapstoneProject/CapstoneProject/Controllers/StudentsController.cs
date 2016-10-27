@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using CapstoneProject.Models.Services;
 using CapstoneProject.Models.ViewModels;
+using System.Web.Helpers;
+using CapstoneProject.Models.DA;
 
 namespace CapstoneProject.Controllers
 {
@@ -13,9 +15,9 @@ namespace CapstoneProject.Controllers
         // GET: Students
         public ActionResult Index(int id)
         {
-            UserAccountService uas = new UserAccountService();          
+            UserAccountService uas = new UserAccountService();
             //StudentProfile sp = new StudentProfile();
-            Student s = (Student) uas.GetUser(id);
+            Student s = (Student)uas.GetUser(id);
             // Program p = (Program)uas.GetProgramById(Convert.ToInt32(s.ProgramId));
             //  sp.student = s;
             // sp.program = p;
@@ -41,7 +43,7 @@ namespace CapstoneProject.Controllers
         public ActionResult Edit(int id)
         {
             UserAccountService uas = new UserAccountService();
-            Student s = (Student) uas.GetUser(id);
+            Student s = (Student)uas.GetUser(id);
             return View(s);
         }
 
@@ -60,6 +62,27 @@ namespace CapstoneProject.Controllers
         public ActionResult DeleteCoop()
         {
             return View();
+        }
+
+        public ActionResult CreateChart(int id)
+        {
+            using (StudentRepository sr = new StudentRepository())
+            {
+                Skillset s = sr.GetSkillSetById(id);
+
+                var skillChart = new Chart(width: 500, height: 300)
+                    .SetYAxis(min: 0, max: 10)
+                    .AddSeries(chartType: "bar",
+                        xValue: new[] { "Programming", "Web Development", "Mobile Development", "Application Development", "UI Design" },
+                        yValues: new[] { s.Programming,
+                             s.WebDev,
+                             s.MobileDev,
+                             s.ApplDev,
+                             s.UIDesign }).Write();
+                skillChart.Save("~/Content/Images/" + id, "jpeg");
+
+                return base.File("~/Content/Images/" + id, "jpeg");
+            }
         }
     }
 }

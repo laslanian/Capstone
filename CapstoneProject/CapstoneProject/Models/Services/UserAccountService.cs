@@ -78,6 +78,19 @@ namespace CapstoneProject.Models.Services
                 return 1;
             }
         }
+
+        public int AddStudentSkill(Skillset ss, int id)
+        {
+            if(ss != null)
+            {
+                Student s = (Student)_users.GetUserById(id);
+                s.Skillset = ss;
+                _users.UpdateUser(s);
+                _users.Save();
+                return 1;
+            }
+            return 0;
+        }
         public int RegisterClient(ClientUser client)
         {
             Client s = new Client();
@@ -91,7 +104,6 @@ namespace CapstoneProject.Models.Services
             s.CompanyName = client.CompanyName;
             s.CompanyAddress = client.CompanyAddress;
             s.CompanyDescription = client.CompanyDesc;
-
             s.Title = "Client";
 
             AesEncrpyt en = new AesEncrpyt();
@@ -102,11 +114,11 @@ namespace CapstoneProject.Models.Services
             {
                 _users.InsertUser(s);
                 _users.Save();
-                return 1;
+                return 99;
             }
             else
             {
-                return 0;
+                return 1;
             }
         }
 

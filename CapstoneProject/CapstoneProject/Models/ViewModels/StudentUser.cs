@@ -60,7 +60,12 @@ namespace CapstoneProject.Models
         [StringLength(50, MinimumLength = 7, ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; }
 
-
+        [Required]
+        [Display(Name = "Confirm Email")]
+        [DataType(DataType.EmailAddress)]
+        [StringLength(50, MinimumLength = 7, ErrorMessage = "Please enter a valid email address.")]
+        [Compare("Email")]
+        public string ConfirmEmail { get; set; }
 
         [Required]
         [Display(Name = "Program")]

@@ -30,5 +30,7 @@ namespace CapstoneProject
         public virtual DbSet<Program> Programs { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Criteria> Criteria { get; set; }
+        public virtual DbSet<Skillset> Skillsets { get; set; }
     }
 }

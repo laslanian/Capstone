@@ -5,99 +5,112 @@
 }
 
 <h2>Student Registration</h2>
-
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    @Html.ValidationSummary(true)
     <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true)
+        <div class="row-fluid">
+            <div class="col-md-6">
+                <h4>Account Details</h4>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Username)
+                        @Html.ValidationMessageFor(model => model.Username)
+                        <span style="color:red"> @ViewBag.AuthError </span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentNumber, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StudentNumber, new { htmlAttributes = new { @type = "numbers" } })
-                @Html.ValidationMessageFor(model => model.StudentNumber)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Password)
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.ConfirmPassword)
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.FirstName)
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.LastName)
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.PhoneNumber)
+                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Email)
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmEmail, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.ConfirmEmail)
+                        @Html.ValidationMessageFor(model => model.ConfirmEmail)
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="col-md-6">
+                <h4>Student Details</h4>
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentNumber, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.StudentNumber, new { htmlAttributes = new { @type = "numbers" } })
+                        @Html.ValidationMessageFor(model => model.StudentNumber)
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Username)
-                @Html.ValidationMessageFor(model => model.Username)
-                <span style="color:red"> @ViewBag.AuthError </span>
-        </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProgramId, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.ProgramId, new SelectList(Model.ProgList, "ProgramId", "ProgramName"))
+                        @Html.ValidationMessageFor(model => model.ProgramId)
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Campus, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EnumDropDownListFor(model => model.Campus)
+                        @Html.ValidationMessageFor(model => model.Campus)
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConfirmPassword)
-                @Html.ValidationMessageFor(model => model.ConfirmPassword)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName)
-                @Html.ValidationMessageFor(model => model.FirstName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName)
-                @Html.ValidationMessageFor(model => model.LastName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PhoneNumber)
-                @Html.ValidationMessageFor(model => model.PhoneNumber)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProgramId, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ProgramId, new SelectList(Model.ProgList, "ProgramId", "ProgramName"))
-                @Html.ValidationMessageFor(model => model.ProgramId)
-            </div>
-        </div>
-
-        <div class="form-group">
-             @Html.LabelFor(model => model.Campus, new { @class = "control-label col-md-2" })
-             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Campus)
-                @Html.ValidationMessageFor(model => model.Campus)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.ActionLink("Previous", "TermsAndCondition", "Account", new { @class = "btn btn-default" })
-            <input type="submit" name="button" value="Register" class="btn btn-default" />
+                <div class="form-group">
+                    @Html.ActionLink("Previous", "TermsAndCondition", "Account", new { @class = "btn btn-default" })
+                    <input type="submit" name="button" value="Register" class="btn btn-default" />
+                </div>
         </div>
     </div>
 }
