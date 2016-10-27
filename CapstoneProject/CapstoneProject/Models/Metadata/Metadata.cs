@@ -98,36 +98,36 @@ namespace CapstoneProject.Models.Metadata
     {
         [Required]
         [Display(Name = "Username")]
-        [StringLength(15, MinimumLength = 7, ErrorMessage = "Username must be atleast 7 to 15 characters.")]
-        [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]
+      //  [StringLength(15, MinimumLength = 7, ErrorMessage = "Username must be atleast 7 to 15 characters.")]
+      //  [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]
         public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [StringLength(25, MinimumLength = 7, ErrorMessage = "Password must be atleast 7 to 25 characters.")]
-        [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]
+       // [StringLength(25, MinimumLength = 7, ErrorMessage = "Password must be atleast 7 to 25 characters.")]
+      //  [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Required]
         [Display(Name = "First Name")]
-        [StringLength(25, MinimumLength = 2, ErrorMessage = "First Name must be atleast 2 to 25 characters.")]
+       // [StringLength(25, MinimumLength = 2, ErrorMessage = "First Name must be atleast 2 to 25 characters.")]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
-        [StringLength(25, MinimumLength = 2, ErrorMessage = "Username must be atleast 7 to 25 characters.")]
+       // [StringLength(25, MinimumLength = 2, ErrorMessage = "Username must be atleast 7 to 25 characters.")]
         public string LastName { get; set; }
 
         [Required]
         [Display(Name = "Phone Number")]
-        [StringLength(12, MinimumLength = 10, ErrorMessage = "Please enter a valid phone number.")]
+       // [StringLength(12, MinimumLength = 10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
-        [StringLength(50, MinimumLength = 7, ErrorMessage = "Please enter a valid email address.")]
+      //  [StringLength(50, MinimumLength = 7, ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; }
 
     }
