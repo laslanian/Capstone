@@ -33,8 +33,8 @@ namespace CapstoneProject.Models.Services
             Project p = new Project();
             p.Name = pf.project.Name;
             p.Description = pf.project.Description;
-            p.Type = "Unknown";
-            p.State = "Pending Approval";
+            p.Type = Content.ProjectTypes.Unknown;
+            p.State = Content.ProjectStates.Pending;
             p.Client = client;
 
             Criteria crt = new Criteria();
