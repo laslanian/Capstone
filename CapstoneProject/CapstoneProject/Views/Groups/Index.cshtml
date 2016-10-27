@@ -14,16 +14,19 @@
     }
     else
     {
-        @Html.ActionLink("Create Group", "CreateGroup", new, new { @class = "btn btn-default" });
+        <p>
+            @Html.ActionLink("Create Group", "CreateGroup", null, new { @class = "btn btn-default" })
+        </p>
     }
 }
+<br />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Groups[0].GroupName);
+            @Html.DisplayNameFor(model => model.Groups[0].GroupName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Groups[0].Description);
+            @Html.DisplayNameFor(model => model.Groups[0].Description)
         </th>
         <th>
             Members
@@ -45,7 +48,7 @@
             <td>
                 @group.Students.Count() / 5
             </td>
-            @{if (!Model.hasGroup || group.Students.Count() < 5)
+            @{if (!Model.hasGroup && group.Students.Count() < 5)
                 {
                     <td>
                         @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-default" })

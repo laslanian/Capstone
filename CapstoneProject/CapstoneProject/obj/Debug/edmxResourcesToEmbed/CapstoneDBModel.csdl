@@ -26,6 +26,7 @@
     <NavigationProperty Name="Projects" Relationship="CapstoneModel.ProjectGroup" FromRole="Group" ToRole="Project" />
     <NavigationProperty Name="Students" Relationship="CapstoneModel.StudentGroup" FromRole="Group" ToRole="Student" />
     <Property Name="Owner" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Skillset" Relationship="CapstoneModel.GroupSkillset" FromRole="Group" ToRole="Skillset" />
   </EntityType>
   <EntityType Name="Program">
     <Key>
@@ -123,6 +124,10 @@
       <End Role="Project" EntitySet="Projects" />
       <End Role="Criteria" EntitySet="Criteria" />
     </AssociationSet>
+    <AssociationSet Name="GroupSkillset" Association="CapstoneModel.GroupSkillset">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Skillset" EntitySet="Skillsets" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="StudentCoop">
     <End Type="CapstoneModel.Student" Role="Student" Multiplicity="1" />
@@ -174,18 +179,24 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Programming" Type="Int32" Nullable="true" />
-    <Property Name="WebDev" Type="Int32" Nullable="true" />
-    <Property Name="MobileDev" Type="Int32" Nullable="true" />
-    <Property Name="ApplDev" Type="Int32" Nullable="true" />
+    <Property Name="Programming" Type="Int32" Nullable="false" DefaultValue="0" />
+    <Property Name="WebDev" Type="Int32" Nullable="false" DefaultValue="0" />
+    <Property Name="MobileDev" Type="Int32" Nullable="false" DefaultValue="0" />
+    <Property Name="ApplDev" Type="Int32" Nullable="false" DefaultValue="0" />
     <NavigationProperty Name="Student" Relationship="CapstoneModel.StudentSkillset" FromRole="Skillset" ToRole="Student" />
+    <NavigationProperty Name="Group" Relationship="CapstoneModel.GroupSkillset" FromRole="Skillset" ToRole="Group" />
+    <Property Name="UIDesign" Type="Int32" Nullable="false" DefaultValue="0" />
   </EntityType>
   <Association Name="StudentSkillset">
-    <End Type="CapstoneModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="CapstoneModel.Student" Role="Student" Multiplicity="0..1" />
     <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
   </Association>
   <Association Name="ProjectCriteria">
     <End Type="CapstoneModel.Project" Role="Project" Multiplicity="1" />
     <End Type="CapstoneModel.Criteria" Role="Criteria" Multiplicity="0..1" />
+  </Association>
+  <Association Name="GroupSkillset">
+    <End Type="CapstoneModel.Group" Role="Group" Multiplicity="0..1" />
+    <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
   </Association>
 </Schema>

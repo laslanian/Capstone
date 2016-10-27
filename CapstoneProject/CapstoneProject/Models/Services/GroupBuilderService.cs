@@ -38,27 +38,29 @@ namespace CapstoneProject.Models.Services
         {
             if (!_groups.isExistingGroup(g.GroupName))
             {
-                try
-                {
+                //try
+                //{
                     String pin = GeneratePin();
                     g.Pin = pin;
                     g.Status = "Unassigned";
                     Student s = (Student)_users.GetUserById(id);
                     g.Students.Add(s);
+                    g.Skillset.AddSkill(s.Skillset);
                     g.Owner = id;
                     _groups.InsertGroup(g);
                     _groups.Save();
+
                     // testing send email
                     //EmailService emailService = new EmailService();
 
                     //emailService.SendGroupPin(s.Email, pin);
 
                     return g;
-                }
-                catch (Exception e)
-                {
-                    return null;
-                }
+                //}
+                //catch (Exception e)
+                //{
+                //    //
+                //}
                 
             }
             return null;
@@ -125,6 +127,7 @@ namespace CapstoneProject.Models.Services
                         if (g.Pin == pin)
                         {
                             g.Students.Add(s);
+                            g.Skillset.AddSkill(s.Skillset);
                             _groups.UpdateGroup(g);
                             _groups.Save();
                             return 99;
@@ -196,7 +199,7 @@ namespace CapstoneProject.Models.Services
             {
                 foreach(Group g in groups)
                 {
-                    if(g.Owner == id {
+                    if(g.Owner == id) {
                         sg.isOwner = true;
                     }
                 }

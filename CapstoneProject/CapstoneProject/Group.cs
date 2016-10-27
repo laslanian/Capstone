@@ -11,7 +11,7 @@ namespace CapstoneProject
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Group
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,18 +19,25 @@ namespace CapstoneProject
         {
             this.Projects = new HashSet<Project>();
             this.Students = new HashSet<Student>();
+            this.Skillset = new Skillset();
         }
-    
+
         public int GroupId { get; set; }
+        [Required]
+        [Display(Name = "Group Name")]
         public string GroupName { get; set; }
+        [Required]
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string Status { get; set; }
         public string Pin { get; set; }
         public Nullable<int> Owner { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Projects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
+        public virtual Skillset Skillset { get; set; }
     }
 }

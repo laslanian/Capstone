@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/18/2016 17:45:19
--- Generated from EDMX file: C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
+-- Date Created: 10/19/2016 23:59:45
+-- Generated from EDMX file: C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -37,6 +37,9 @@ IF OBJECT_ID(N'[dbo].[FK_StudentSkillset]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProjectCriteria]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Criteria] DROP CONSTRAINT [FK_ProjectCriteria];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupSkillset]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Skillsets] DROP CONSTRAINT [FK_GroupSkillset];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Admin] DROP CONSTRAINT [FK_Admin_inherits_User];
@@ -220,11 +223,13 @@ GO
 -- Creating table 'Skillsets'
 CREATE TABLE [dbo].[Skillsets] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Programming] int  NULL,
-    [WebDev] int  NULL,
-    [MobileDev] int  NULL,
-    [ApplDev] int  NULL,
-    [Student_UserId] int  NOT NULL
+    [Programming] int  NOT NULL,
+    [WebDev] int  NOT NULL,
+    [MobileDev] int  NOT NULL,
+    [ApplDev] int  NOT NULL,
+    [UIDesign] int  NOT NULL,
+    [Student_UserId] int  NULL,
+    [Group_GroupId] int  NULL
 );
 GO
 
@@ -418,6 +423,21 @@ GO
 CREATE INDEX [IX_FK_ProjectCriteria]
 ON [dbo].[Criteria]
     ([Project_ProjectId]);
+GO
+
+-- Creating foreign key on [Group_GroupId] in table 'Skillsets'
+ALTER TABLE [dbo].[Skillsets]
+ADD CONSTRAINT [FK_GroupSkillset]
+    FOREIGN KEY ([Group_GroupId])
+    REFERENCES [dbo].[Groups]
+        ([GroupId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupSkillset'
+CREATE INDEX [IX_FK_GroupSkillset]
+ON [dbo].[Skillsets]
+    ([Group_GroupId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Admin'
