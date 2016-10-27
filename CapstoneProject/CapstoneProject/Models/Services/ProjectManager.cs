@@ -66,7 +66,10 @@ namespace CapstoneProject.Models.Services
                 return 0;
             }
         }
-        public List<Project> GetProjects(String state) { return null; }
+        public List<Project> GetProjectsByState(string state) {
+            return _projects.GetProjecsByState(state).ToList();
+        }
+
         public List<Project> GetArchivedProjects(DateTime date) { return null; }
         public List<Project> GetTopProjects() { return null; }
         public Project GetProjectDetails(int id) {

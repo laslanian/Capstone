@@ -4,6 +4,29 @@
     ViewBag.Title = "Project List";
 }
 
-<h2>All Projects @Html.ActionLink("Pending", "GetPendingProjects", null, new { @class = "btn btn-info" })</h2>
+<h2>@ViewBag.Project 
+    @{ 
+        String type = ViewBag.Project;
+    }
+    @Html.DropDownList(
+    "Project State",
+    new SelectList(new[]
+    {
+        new SelectListItem { Text = "All", Value = Url.Action("Projects", "Admins", null) },
+        new SelectListItem { Text = "Pending", Value = Url.Action("Projects", "Admins", new { type = "Pending" }) },
+        new SelectListItem { Text = "Approved", Value =  Url.Action("Projects", "Admins", new { type = "Approved" })},
+    }, "Value", "Text"),
+    "-- Get Project ---",
+    new { id = "projectstate" }
+)
 
-@Html.Partial("~/Views/Projects/_Projects.cshtml", Model.ToList());
+@Html.Partial("~/Views/Projects/_Projects.cshtml", Model.ToList())
+
+<script type="text/javascript">
+    $('#projectstate').change(function () {
+        var url = $(this).val();
+        if (url != null && url != '') {
+            window.location.href = url;
+        }
+    })
+</script>
