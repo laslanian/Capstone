@@ -1,0 +1,80 @@
+﻿@model CapstoneProject.Project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Project Details</h2>
+@Html.ActionLink("Go Back", "ProjectsByClient", null, new { @class = "btn btn-default" })
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criteria.Goal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criteria.Goal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Criteria</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Criteria.Storage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criteria.Storage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criteria.Application)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criteria.Application)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criteria.Website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criteria.Website)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criteria.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criteria.Mobile)
+        </dd>
+    </dl>
+
+</div>
