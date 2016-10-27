@@ -243,3 +243,4 @@ C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\bin\Microso
 C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.dll
 C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.pdb
+C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csprojResolveAssemblyReference.cache

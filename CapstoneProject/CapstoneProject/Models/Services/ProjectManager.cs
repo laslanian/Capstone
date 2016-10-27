@@ -21,6 +21,16 @@ namespace CapstoneProject.Models.Services
             this._users = new UserRepository(ctx);
         }
 
+        public List<Project> GetProjects()
+        {
+            return _projects.GetProjects().ToList();
+        }
+
+        public List<Project> GetPendingProjects()
+        {
+            return _projects.GetProjecsByState("Pending").ToList();
+        }
+
         public List<Project> GetProjectsByClient(int id)
         {
             Client c = (Client) _users.GetUserById(id);
@@ -34,7 +44,7 @@ namespace CapstoneProject.Models.Services
             p.Name = pf.project.Name;
             p.Description = pf.project.Description;
             p.Type = "Unknown";
-            p.State = "Pending Approval";
+            p.State = "Pending";
             p.Client = client;
 
             Criteria crt = new Criteria();

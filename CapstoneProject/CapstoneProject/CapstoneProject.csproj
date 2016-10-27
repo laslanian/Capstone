@@ -217,6 +217,7 @@
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -386,6 +387,9 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\CreateSkillset.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Admins\GetPendingProjects.cshtml" />
+    <Content Include="Views\Admins\Projects.cshtml" />
+    <Content Include="Views\Projects\_Projects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

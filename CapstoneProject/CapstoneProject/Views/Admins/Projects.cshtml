@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CapstoneProject.Project>
+
+@{
+    ViewBag.Title = "Project List";
+}
+
+<h2>All Projects @Html.ActionLink("Pending", "GetPendingProjects", null, new { @class = "btn btn-info" })</h2>
+
+@Html.Partial("~/Views/Projects/_Projects.cshtml", Model.ToList());
