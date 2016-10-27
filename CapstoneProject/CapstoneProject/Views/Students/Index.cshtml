@@ -59,49 +59,8 @@
 
 </div>
 <hr />
-<div>
-<h4>Skills</h4>
-<dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.Skillset.Programming)
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.Skillset.Programming)/10
-    </dd>
-    <br />
-    <dt>
-        @Html.DisplayNameFor(model => model.Skillset.WebDev)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Skillset.WebDev)/10
-    </dd>
-    <br />
-    <dt>
-        @Html.DisplayNameFor(model => model.Skillset.MobileDev)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Skillset.MobileDev)/10
-    </dd>
-    <br />
-    <dt>
-        @Html.DisplayNameFor(model => model.Skillset.ApplDev)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Skillset.ApplDev)/10
-    </dd>
-    <br />
-    <dt>
-        @Html.DisplayNameFor(model => model.Skillset.UIDesign)
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.Skillset.UIDesign)/10
-    </dd>
-    </dl>
-<hr/>
-    </div>
+<h4>Skillset</h4>
+<div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
 <div>
     @{
         var coopList = Model.Coops.ToList();

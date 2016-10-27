@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Previous Capstones", "GetPastProjects", "Projects")</li>
+                    @*<li>@Html.ActionLink("Previous Capstones", "GetPastProjects", "Projects")</li>*@
                     @if (Session["UserType"] == null)
                     {
                         <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -40,9 +40,10 @@
                         }
                         else if (Session["UserType"].ToString().Equals("Client"))
                         {
-                            <li>@Html.ActionLink("Project Submissions", "Projects", "Clients")</li>
+                            <li>@Html.ActionLink("Profile", "Index", "Clients", new { id = Convert.ToInt32(Session["Id"]) }, null)</li>
+                            <li>@Html.ActionLink("My Projects", "Projects", "Clients")</li>
                         }
-                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>
             </div>

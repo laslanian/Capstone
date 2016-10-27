@@ -9,13 +9,13 @@
 @{ if (Model.hasGroup)
     {
         <p>
-            @Html.ActionLink("Create Group", "CreateGroup", null, new { @class = "btn btn-default", disabled = "disabled", @readonly = "readonly" })
+            @Html.ActionLink("Create Group", "CreateGroup", null, new { @class = "btn btn-info", disabled = "disabled", @readonly = "readonly" })
         </p>
     }
     else
     {
         <p>
-            @Html.ActionLink("Create Group", "CreateGroup", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("Create Group", "CreateGroup", null, new { @class = "btn btn-info" })
         </p>
     }
 }
@@ -51,13 +51,13 @@
             @{if (!Model.hasGroup && group.Students.Count() < 5)
                 {
                     <td>
-                        @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-info" })
                     </td>
                 }
                 else
                 {
                     <td>
-                        @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-default", disabled = "disabled", @readonly = "readonly" })
+                        @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-info", disabled = "disabled", @readonly = "readonly" })
                     </td>
                 }
             }

@@ -66,6 +66,7 @@ namespace CapstoneProject.Models
 
         [Required]
         [Display(Name = "Company Description")]
+        [DataType(DataType.MultilineText)]
         public string CompanyDesc { get; set; }
 
     }

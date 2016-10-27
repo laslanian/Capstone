@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CapstoneProject.Models.Metadata;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CapstoneProject.Models.Metadata
+namespace CapstoneProject
 {
     [MetadataType(typeof(SkillsetMetadata))]
     public partial class Skillset { }
@@ -14,7 +15,7 @@ namespace CapstoneProject.Models.Metadata
 
 
     [MetadataType(typeof(ClientMetadata))]
-    public partial class Client { }
+    public partial class Client : User { }
 
 
     [MetadataType(typeof(CriteriaMetadata))]
@@ -29,6 +30,6 @@ namespace CapstoneProject.Models.Metadata
     public partial class Project { }
 
     [MetadataType(typeof(StudentMetadata))]
-    public partial class Student { }
+    public partial class Student : User  { }
 
 }

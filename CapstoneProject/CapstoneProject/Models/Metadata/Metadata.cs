@@ -58,6 +58,7 @@ namespace CapstoneProject.Models.Metadata
 
     public class ClientMetadata
     {
+
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
         [Display(Name = "Company Address")]

@@ -12,6 +12,7 @@ namespace CapstoneProject
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     public partial class Skillset
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,27 +25,11 @@ namespace CapstoneProject
             this.UIDesign = 0D;
         }
         public int Id { get; set; }
-        [Range(0, 10)]
-        [DisplayFormat(DataFormatString = "{0:n1}")]
-        [Display(Name = "Programming")]
         public double Programming { get; set; }
-        [Range(0, 10)]
-        [DisplayFormat(DataFormatString = "{0:n1}")]
-        [Display(Name = "Web Development")]
         public double WebDev { get; set; }
-        [Range(0, 10)]
-        [DisplayFormat(DataFormatString = "{0:n1}")]
-        [Display(Name = "Mobile Development")]
         public double MobileDev { get; set; }
-        [Range(0, 10)]
-        [DisplayFormat(DataFormatString = "{0:n1}")]
-        [Display(Name = "Application Development")]
         public double ApplDev { get; set; }
-        [Range(0, 10)]
-        [DisplayFormat(DataFormatString = "{0:n1}")]
-        [Display(Name = "UI Designing")]
         public double UIDesign { get; set; }
-
         public virtual Student Student { get; set; }
         public virtual Group Group { get; set; }
     }
