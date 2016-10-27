@@ -35,21 +35,6 @@ namespace CapstoneProject.Controllers
                         Session["Username"] = user.Username;
                         Session["UserType"] = userType;
                         return RedirectToAction("Index", "Home");
-                        //switch(userType)
-                        //{
-                        //    case "Student":
-                        //        {
-                        //           return RedirectToAction("Index", "Students", new { id = id });
-                        //        }
-                        //    case "Client":
-                        //        {
-                        //            return RedirectToAction("Index", "Clients", new { id = id });
-                        //        }
-                        //    default:
-                        //        {
-                        //            return RedirectToAction("Index", "Home");
-                        //        }
-                        //}
                     }
                 }
             }
@@ -177,7 +162,22 @@ namespace CapstoneProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    // use useraccountservice here
+                    using (UserAccountService uas = new UserAccountService())
+                    {
+                        int code = uas.RegisterClient(client);
+                        switch (code)
+                        {
+                            case 1:
+                                {
+                                    ViewBag.AuthError = "Username already exists.";
+                                    break;
+                                }
+                            case 99:
+                                {
+                                    return View("~/Views/Account/RegistrationSuccessful.cshtml");
+                                }
+                        }
+                    }
                 }
             }
             return View(client);

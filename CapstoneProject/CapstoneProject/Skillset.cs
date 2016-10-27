@@ -11,47 +11,27 @@ namespace CapstoneProject
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Skillset
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Skillset()
         {
-            this.Programming = 0;
-            this.WebDev = 0;
-            this.MobileDev = 0;
-            this.ApplDev = 0;
-            this.UIDesign = 0;
+            this.Programming = 0D;
+            this.WebDev = 0D;
+            this.MobileDev = 0D;
+            this.ApplDev = 0D;
+            this.UIDesign = 0D;
         }
-
+    
         public int Id { get; set; }
-        [Range(0, 10)]
-        [Display(Name = "Programming")]
-        public int Programming { get; set; }
-        [Range(0, 10)]
-        [Display(Name = "Web Development")]
-        public int WebDev { get; set; }
-        [Range(0, 10)]
-        [Display(Name = "Mobile Development")]
-        public int MobileDev { get; set; }
-        [Range(0, 10)]
-        [Display(Name = "Application Development")]
-        public int ApplDev { get; set; }
-        [Range(0, 10)]
-        [Display(Name = "UI Designing")]
-        public int UIDesign { get; set; }
-
-        public virtual Student Student { get; set; }
+        public double Programming { get; set; }
+        public double WebDev { get; set; }
+        public double MobileDev { get; set; }
+        public double ApplDev { get; set; }
+        public double UIDesign { get; set; }
+    
         public virtual Group Group { get; set; }
-
-        public void AddSkill(Skillset s)
-        {
-            this.Programming += s.Programming;
-            this.WebDev += s.WebDev;
-            this.MobileDev += s.MobileDev;
-            this.ApplDev += s.ApplDev;
-            this.UIDesign += s.UIDesign;
-        }
-
+        public virtual Student Student { get; set; }
     }
 }

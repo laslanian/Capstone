@@ -34,16 +34,16 @@
       <End Role="Student" EntitySet="Users_Student" />
       <End Role="Group" EntitySet="Groups" />
     </AssociationSet>
-    <AssociationSet Name="StudentSkillset" Association="CapstoneModel.Store.StudentSkillset">
-      <End Role="Student" EntitySet="Users_Student" />
-      <End Role="Skillset" EntitySet="Skillsets" />
-    </AssociationSet>
     <AssociationSet Name="ProjectCriteria" Association="CapstoneModel.Store.ProjectCriteria">
       <End Role="Project" EntitySet="Projects" />
       <End Role="Criteria" EntitySet="Criteria" />
     </AssociationSet>
     <AssociationSet Name="GroupSkillset" Association="CapstoneModel.Store.GroupSkillset">
       <End Role="Group" EntitySet="Groups" />
+      <End Role="Skillset" EntitySet="Skillsets" />
+    </AssociationSet>
+    <AssociationSet Name="StudentSkillset" Association="CapstoneModel.Store.StudentSkillset">
+      <End Role="Student" EntitySet="Users_Student" />
       <End Role="Skillset" EntitySet="Skillsets" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="CapstoneModel.Store.FK_Admin_inherits_User">
@@ -112,6 +112,7 @@
     <Property Name="Grade" Type="int" Nullable="true" />
     <Property Name="DateCompleted" Type="datetime" Nullable="true" />
     <Property Name="ClientUserId" Type="int" Nullable="false" />
+    <Property Name="Criteria_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -179,21 +180,19 @@
     <Property Name="Application" Type="bit" Nullable="true" />
     <Property Name="Website" Type="bit" Nullable="true" />
     <Property Name="Mobile" Type="bit" Nullable="true" />
-    <Property Name="ProjectProjectId" Type="int" Nullable="false" />
-    <Property Name="Project_ProjectId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Skillsets">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Programming" Type="int" Nullable="false" DefaultValue="0" />
-    <Property Name="WebDev" Type="int" Nullable="false" DefaultValue="0" />
-    <Property Name="MobileDev" Type="int" Nullable="false" DefaultValue="0" />
-    <Property Name="ApplDev" Type="int" Nullable="false" DefaultValue="0" />
-    <Property Name="UIDesign" Type="int" Nullable="false" DefaultValue="0" />
-    <Property Name="Student_UserId" Type="int" Nullable="true" />
+    <Property Name="Programming" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="WebDev" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="MobileDev" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="ApplDev" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="UIDesign" Type="float" Nullable="false" DefaultValue="0" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
+    <Property Name="Student_UserId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="ProjectGroup">
     <Key>
@@ -239,27 +238,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="StudentSkillset">
-    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="0..1" />
-    <End Role="Skillset" Type="CapstoneModel.Store.Skillsets" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Student">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="Skillset">
-        <PropertyRef Name="Student_UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="ProjectCriteria">
-    <End Role="Project" Type="CapstoneModel.Store.Projects" Multiplicity="1" />
-    <End Role="Criteria" Type="CapstoneModel.Store.Criteria" Multiplicity="*" />
+    <End Role="Project" Type="CapstoneModel.Store.Projects" Multiplicity="*" />
+    <End Role="Criteria" Type="CapstoneModel.Store.Criteria" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="Project">
-        <PropertyRef Name="ProjectId" />
+      <Principal Role="Criteria">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Criteria">
-        <PropertyRef Name="Project_ProjectId" />
+      <Dependent Role="Project">
+        <PropertyRef Name="Criteria_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -272,6 +259,18 @@
       </Principal>
       <Dependent Role="Skillset">
         <PropertyRef Name="Group_GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentSkillset">
+    <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="0..1" />
+    <End Role="Skillset" Type="CapstoneModel.Store.Skillsets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Skillset">
+        <PropertyRef Name="Student_UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

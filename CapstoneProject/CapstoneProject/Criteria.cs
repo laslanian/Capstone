@@ -14,14 +14,20 @@ namespace CapstoneProject
     
     public partial class Criteria
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Criteria()
+        {
+            this.Storage = false;
+            this.Application = false;
+            this.Website = false;
+            this.Mobile = false;
+        }
+    
         public int Id { get; set; }
         public string Goal { get; set; }
-        public Nullable<bool> Storage { get; set; }
-        public Nullable<bool> Application { get; set; }
-        public Nullable<bool> Website { get; set; }
-        public Nullable<bool> Mobile { get; set; }
-        public int ProjectProjectId { get; set; }
-    
-        public virtual Project Project { get; set; }
+        public bool Storage { get; set; }
+        public bool Application { get; set; }
+        public bool Website { get; set; }
+        public bool Mobile { get; set; }
     }
 }

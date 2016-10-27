@@ -111,7 +111,6 @@
           <ScalarProperty Name="Application" ColumnName="Application" />
           <ScalarProperty Name="Website" ColumnName="Website" />
           <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="ProjectProjectId" ColumnName="ProjectProjectId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -144,21 +143,12 @@
       </EndProperty>
       <Condition ColumnName="Group_GroupId" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="StudentSkillset" TypeName="CapstoneModel.StudentSkillset" StoreEntitySet="Skillsets">
-      <EndProperty Name="Student">
-        <ScalarProperty Name="UserId" ColumnName="Student_UserId" />
-      </EndProperty>
-      <EndProperty Name="Skillset">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="Student_UserId" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="ProjectCriteria" TypeName="CapstoneModel.ProjectCriteria" StoreEntitySet="Criteria">
-      <EndProperty Name="Project">
-        <ScalarProperty Name="ProjectId" ColumnName="Project_ProjectId" />
-      </EndProperty>
+    <AssociationSetMapping Name="ProjectCriteria" TypeName="CapstoneModel.ProjectCriteria" StoreEntitySet="Projects">
       <EndProperty Name="Criteria">
-        <ScalarProperty Name="Id" ColumnName="Id" />
+        <ScalarProperty Name="Id" ColumnName="Criteria_Id" />
+      </EndProperty>
+      <EndProperty Name="Project">
+        <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="GroupSkillset" TypeName="CapstoneModel.GroupSkillset" StoreEntitySet="Skillsets">
@@ -169,6 +159,15 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
       <Condition ColumnName="Group_GroupId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentSkillset" TypeName="CapstoneModel.StudentSkillset" StoreEntitySet="Skillsets">
+      <EndProperty Name="Student">
+        <ScalarProperty Name="UserId" ColumnName="Student_UserId" />
+      </EndProperty>
+      <EndProperty Name="Skillset">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Student_UserId" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

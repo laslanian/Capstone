@@ -250,18 +250,21 @@
     <Compile Include="Models\Interfaces\IStudentRepository.cs" />
     <Compile Include="Models\Interfaces\IUserInterface.cs" />
     <Compile Include="Models\DA\ProgamRepository.cs" />
+    <Compile Include="Models\Metadata\Metadata.cs" />
+    <Compile Include="Models\Metadata\PartialClasses.cs" />
     <Compile Include="Models\Services\EmailService.cs" />
     <Compile Include="Models\Services\GroupApplicationService.cs" />
     <Compile Include="Models\Services\GroupBuilderService.cs" />
     <Compile Include="Models\Services\LogInService.cs" />
     <Compile Include="Models\Services\ProgramManagerService.cs" />
-    <Compile Include="Models\Services\ProjectManajerService.cs" />
+    <Compile Include="Models\Services\ProjectManager.cs" />
     <Compile Include="Models\Services\ReportBuilderService.cs" />
     <Compile Include="Models\Services\StudentCoopService.cs" />
     <Compile Include="Models\Services\UserAccountService.cs" />
     <Compile Include="Models\ViewModels\ClientUser.cs" />
     <Compile Include="Models\ViewModels\GroupStudent.cs" />
     <Compile Include="Models\ViewModels\LoginUser.cs" />
+    <Compile Include="Models\ViewModels\ProjectForm.cs" />
     <Compile Include="Models\ViewModels\StudentGroup.cs" />
     <Compile Include="Models\ViewModels\StudentProfile.cs" />
     <Compile Include="Models\ViewModels\StudentUser.cs" />
@@ -338,7 +341,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -359,11 +364,9 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Clients\Create.cshtml" />
     <Content Include="Views\Clients\Delete.cshtml" />
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
-    <Content Include="Views\Clients\FailedRegister.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Account\RegisterClient.cshtml" />
     <Content Include="Views\Account\AfterLogin.cshtml" />
@@ -382,10 +385,12 @@
     <Content Include="Views\Groups\JoinGroup.cshtml" />
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\CreateSkillset.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Projects\ProjectsByClient.cshtml" />
+    <Content Include="Views\Projects\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Projects\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

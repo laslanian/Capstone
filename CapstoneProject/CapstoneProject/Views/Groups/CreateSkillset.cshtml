@@ -4,15 +4,18 @@
     ViewBag.Title = "CreateSkillset";
 }
 
-<h2>CreateSkillset</h2>
+<h2>Skills Form</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Skillset</h4>
         <hr />
+        <h4>
+            In order to create or join a group. <br />
+            You need to give us your skill ratings.
+        </h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Programming, htmlAttributes: new { @class = "control-label col-md-2" })

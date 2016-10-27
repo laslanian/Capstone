@@ -36,6 +36,7 @@ namespace CapstoneProject.Controllers
             if(s.Group != null)
             {
                  g = gbs.GetGroupById(s.Group.GroupId);
+                 g.Skillset = gbs.GetSkillsetByGroupId(s.Group.GroupId);
             }
             return View(g);
         }
@@ -52,7 +53,7 @@ namespace CapstoneProject.Controllers
             if (ModelState.IsValid)
             {
                 gbs.AddGroup(g, Convert.ToInt32(Session["Id"]));
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", g.GroupId);
             }
             else {
                 return View(g);
@@ -99,19 +100,10 @@ namespace CapstoneProject.Controllers
             {
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
-            else if (code == 1)
-            {
-                ViewBag.JoinError = "Already have a group";
-                return View();
-            }
-            else if (code == 2)
-            {
-                ViewBag.JoinError = "Incorrect pin";
-                return View();
-            }
             else
             {
-                return View();
+                ViewBag.JoinError = "Incorrect pin";
+                return View(g);
             }
         }
 
@@ -131,6 +123,19 @@ namespace CapstoneProject.Controllers
                 gs = gbs.EditGroupStudentVM(gs);
             }
             return View(gs);
+        }
+
+        public ActionResult LeaveGroup(int id)
+        {
+            int code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
+            if (code == 99)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            }
         }
 
         public List<Student> GetStudents(int id)
