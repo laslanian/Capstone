@@ -13,11 +13,11 @@ namespace CapstoneProject.Controllers
     public class StudentsController : Controller
     {
         // GET: Students
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
             UserAccountService uas = new UserAccountService();
-            //StudentProfile sp = new StudentProfile();
-            Student s = (Student)uas.GetUser(id);
+            //StudentProfile sp = new StudentProfile()
+            Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
             // Program p = (Program)uas.GetProgramById(Convert.ToInt32(s.ProgramId));
             //  sp.student = s;
             // sp.program = p;

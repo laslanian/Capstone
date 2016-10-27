@@ -50,9 +50,21 @@ namespace CapstoneProject.Models.Services
             System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
             s.Title = "Student";
 
+
             AesEncrpyt en = new AesEncrpyt();
             s.Username = en.Encrypt(stUser.Username);
             s.Password = en.Encrypt(stUser.Password);
+
+            //Admin admin = new Admin();
+            //admin.FirstName = "Super Admin";
+            //admin.LastName = "Super Admin";
+            //admin.PhoneNumber = "9991119999";
+            //admin.Email = "massivcapstone@outlook.com";
+            //admin.Username = "superadmin";
+            //admin.Username = en.Encrypt(admin.Username);
+            //admin.Password = "massivpassword2016";
+            //admin.Password = en.Encrypt(admin.Password);
+            //admin.Title = "Admin";
 
             //1 - username already exist
             //2 = studentnuber already exist
@@ -63,6 +75,7 @@ namespace CapstoneProject.Models.Services
                     if(!sr.isExistingStudentNumber(s.StudentNumber))
                     {
                         _users.InsertUser(s);
+                        //_users.InsertUser(admin);
                         _users.Save();
                         return 99;
 
@@ -159,6 +172,11 @@ namespace CapstoneProject.Models.Services
         public void Dispose()
         {
             _users.Dispose();
+        }
+
+        public void CreateAdmin()
+        {
+
         }
     }
 }
