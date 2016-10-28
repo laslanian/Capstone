@@ -98,7 +98,7 @@
         {
             <p>You don't have any projects. </p>
             <p>Would you like to apply for projects? </p>
-            <p> @Html.ActionLink("Apply for Projects", "Index", null, new { @class = "btn btn-default" })</p>
+            <p> @Html.ActionLink("Apply for Projects", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
         }
         else
         {
@@ -121,6 +121,7 @@
             {
                 <tr>
                     <td>
+                        @Html.HiddenFor(modelItem => projList[i].ProjectId)
                         @Html.DisplayFor(modelItem => projList[i].Name)
                     </td>
                     <td>
