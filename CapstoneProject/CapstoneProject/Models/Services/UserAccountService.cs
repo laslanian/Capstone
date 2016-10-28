@@ -49,7 +49,7 @@ namespace CapstoneProject.Models.Services
             s.Password = stUser.Password;
             s.StudentNumber = Convert.ToInt32(stUser.StudentNumber);
             s.ProgramId = stUser.ProgramId;
-            System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
+            //System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
             s.Type = "Student";
 
 

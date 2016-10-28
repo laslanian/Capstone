@@ -74,11 +74,7 @@ namespace CapstoneProject.Controllers
                 if (button == "Submit")
                 {
                     int code = uas.AddStudentSkill(s, Convert.ToInt32(Session["Id"]));
-                    if(code == 1) return RedirectToAction("Index");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
+                    if(code == 1) return RedirectToAction("Index", "Students");
                 }
             }
             ViewBag.SkillError = "An error has occured.";

@@ -4,12 +4,16 @@
     var skillChart = new Chart(width: 500, height: 300)
         .SetYAxis(min: 0, max: 10)
         .AddSeries(chartType: "bar",
-            xValue: new[] { "Programming", "Web Development", "Mobile Development", "Application Development", "UI Design" },
-            yValues: new[] { Model.Programming,
-                             Model.WebDev,
-                             Model.MobileDev,
+            xValue: new[] { "UI Design",
+                            "Application Developmen",
+                            "Mobile Development",
+                            "Web Developmen",
+                            "Programming" },
+            yValues: new[] { Model.UIDesign,
                              Model.ApplDev,
-                             Model.UIDesign }).Write();
+                             Model.MobileDev,
+                             Model.WebDev,
+                             Model.Programming }).Write();
 }
 
 

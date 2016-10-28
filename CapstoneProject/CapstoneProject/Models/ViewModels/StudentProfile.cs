@@ -7,7 +7,7 @@ namespace CapstoneProject.Models.ViewModels
 {
     public class StudentProfile
     {
-        public Student student { get; set; }
-        public Program program { get; set; }
+        public Student Student { get; set; }
+        public Program Program { get; set; }
     }
 }
