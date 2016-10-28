@@ -16,6 +16,5 @@ namespace CapstoneProject
     {
         public int ProgramId { get; set; }
         public string ProgramName { get; set; }
-        public string Campus { get; set; }
     }
 }

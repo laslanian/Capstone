@@ -41,6 +41,12 @@ namespace CapstoneProject.Models.DA
             return ctx.Skillsets.Find(id);
         }
 
+        public Skillset GetSkillByUserId(int id)
+        {
+            var skill = ctx.Skillsets.SingleOrDefault(s => s.Student.UserId == id);
+            return skill;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

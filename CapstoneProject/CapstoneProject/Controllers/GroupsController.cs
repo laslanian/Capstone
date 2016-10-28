@@ -38,7 +38,8 @@ namespace CapstoneProject.Controllers
             if(s.Group != null)
             {
                  g = gbs.GetGroupById(s.Group.GroupId);
-                 g.Skillset = gbs.GetSkillsetByGroupId(s.Group.GroupId);
+                 Skillset sk = gbs.GetSkillsetByGroupId(s.Group.GroupId);
+                if (sk != null) { g.Skillset = sk; }
             }
             return View(g);
         }

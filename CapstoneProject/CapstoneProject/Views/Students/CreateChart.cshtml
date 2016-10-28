@@ -1,0 +1,17 @@
+﻿@model CapstoneProject.Skillset
+
+@{
+    var skillChart = new Chart(width: 500, height: 300)
+        .SetYAxis(min: 0, max: 10)
+        .AddSeries(chartType: "bar",
+            xValue: new[] { "Programming", "Web Development", "Mobile Development", "Application Development", "UI Design" },
+            yValues: new[] { Model.Programming,
+                             Model.WebDev,
+                             Model.MobileDev,
+                             Model.ApplDev,
+                             Model.UIDesign }).Write();
+}
+
+
+
+

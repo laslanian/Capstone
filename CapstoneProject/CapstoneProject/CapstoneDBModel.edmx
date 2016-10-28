@@ -102,7 +102,6 @@
     </Key>
     <Property Name="ProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProgramName" Type="nvarchar" Nullable="false" MaxLength="25" />
-    <Property Name="Campus" Type="nvarchar" Nullable="true" MaxLength="25" />
   </EntityType>
   <EntityType Name="Projects">
     <Key>
@@ -127,10 +126,10 @@
     <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="25" />
     <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="25" />
     <Property Name="PhoneNumber" Type="nvarchar" Nullable="true" MaxLength="10" />
-    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Title" Type="nvarchar" Nullable="true" MaxLength="25" />
+    <Property Name="Type" Type="nvarchar" Nullable="true" MaxLength="25" />
   </EntityType>
   <EntityType Name="Users_Admin">
     <Key>
@@ -171,7 +170,7 @@
     <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StudentNumber" Type="int" Nullable="false" />
     <Property Name="Interests" Type="nvarchar" Nullable="true" MaxLength="150" />
-    <Property Name="ProgramId" Type="int" Nullable="true" />
+    <Property Name="ProgramId" Type="int" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
@@ -181,10 +180,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Goal" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Storage" Type="bit" Nullable="true" />
-    <Property Name="Application" Type="bit" Nullable="true" />
-    <Property Name="Website" Type="bit" Nullable="true" />
-    <Property Name="Mobile" Type="bit" Nullable="true" />
+    <Property Name="Storage" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Application" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Website" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Mobile" Type="bit" Nullable="false" DefaultValue="false" />
   </EntityType>
   <EntityType Name="Skillsets">
     <Key>
@@ -411,7 +410,6 @@
           </Key>
           <Property Name="ProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProgramName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Campus" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="true" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -441,7 +439,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Admin" BaseType="CapstoneModel.User">
           <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -466,7 +464,7 @@
           <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StudentNumber" Type="Int32" Nullable="false" />
           <Property Name="Interests" Type="String" Nullable="true" MaxLength="150" />
-          <Property Name="ProgramId" Type="Int32" Nullable="true" />
+          <Property Name="ProgramId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Skillset" Relationship="CapstoneModel.StudentSkillset" FromRole="Student" ToRole="Skillset" />
           </EntityType>
         <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
@@ -611,7 +609,6 @@
         <MappingFragment StoreEntitySet="Programs">
           <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
           <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
-          <ScalarProperty Name="Campus" ColumnName="Campus" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -640,7 +637,7 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Admin)">

@@ -72,9 +72,5 @@ namespace CapstoneProject.Models
         public int ProgramId { get; set; }
 
         public List<Program> ProgList { get; set; }
-
-        [Required]
-        [Display(Name = "Campus")]
-        public Utility.Campuses Campus { get; set; }
     }
 }

@@ -22,10 +22,5 @@ namespace CapstoneProject.Controllers
             Client s = (Client) uas.GetUser(Convert.ToInt32(Session["Id"]));
             return View(s);
         }
-
-        public ActionResult Projects()
-        {
-            return View(pm.GetProjectsByClient(Convert.ToInt32(Session["Id"])));
-        }
     }
 }
