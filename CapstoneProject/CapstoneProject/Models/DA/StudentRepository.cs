@@ -47,6 +47,12 @@ namespace CapstoneProject.Models.DA
             return skill;
         }
 
+        public Coop GetCoopById(int id)
+        {
+            var coop = ctx.Coops.SingleOrDefault(c => c.CoopId == id);
+            return coop;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

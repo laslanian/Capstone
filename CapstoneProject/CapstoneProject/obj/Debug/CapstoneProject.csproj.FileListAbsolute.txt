@@ -246,4 +246,3 @@ C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\C
 C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.Content.ProjectStates.resources
 C:\Users\karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csproj.GenerateResource.Cache
 C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.Content.ProjectTypes.resources
-C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csprojResolveAssemblyReference.cache

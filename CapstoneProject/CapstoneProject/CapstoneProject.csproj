@@ -220,6 +220,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\CoopsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -264,7 +265,6 @@
     <Compile Include="Models\Services\StudentCoopService.cs" />
     <Compile Include="Models\Services\UserAccountService.cs" />
     <Compile Include="Models\ViewModels\ClientUser.cs" />
-    <Compile Include="Models\ViewModels\GroupProject.cs" />
     <Compile Include="Models\ViewModels\GroupStudent.cs" />
     <Compile Include="Models\ViewModels\LoginUser.cs" />
     <Compile Include="Models\ViewModels\ProjectForm.cs" />
@@ -398,6 +398,8 @@
     <Content Include="Views\Projects\ProjectsByClient.cshtml" />
     <Content Include="Views\Projects\Projects.cshtml" />
     <Content Include="Views\Students\CreateChart.cshtml" />
+    <Content Include="Views\Coops\Details.cshtml" />
+    <Content Include="Views\Coops\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

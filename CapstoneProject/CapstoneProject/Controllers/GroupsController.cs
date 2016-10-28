@@ -149,28 +149,28 @@ namespace CapstoneProject.Controllers
                 return g.Students.ToList();
             }
         }
-        [HttpGet]
-        public ActionResult AssignProjects(int id)
-        {
-            GroupProject gp = new GroupProject();
-            gp.Group = gbs.GetGroupById(id);
-            gp.Projects = pm.GetProjects(); 
+        //[HttpGet]
+        //public ActionResult AssignProjects(int id)
+        //{
+        //    //GroupProject gp = new GroupProject();
+        //    //gp.Group = gbs.GetGroupById(id);
+        //    //gp.Projects = pm.GetProjects(); 
 
-            return View(gp);
-        }
-        [HttpPost]
-        public ActionResult AssignProjects(GroupProject gp)
-        {
-            int code=0; 
-            //if (code == 99)
-            //{
-            //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            //}
-            //else
-            //{
-                return View(gp);
-          //  }
+        //    return View(gp);
+        //}
+        //[HttpPost]
+        //public ActionResult AssignProjects(GroupProject gp)
+        //{
+        //    int code=0; 
+        //    //if (code == 99)
+        //    //{
+        //    //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+        //    //}
+        //    //else
+        //    //{
+        //        return View(gp);
+        //  //  }
            
-        }
+        //}
     }
 }

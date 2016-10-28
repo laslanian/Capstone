@@ -27,7 +27,10 @@ namespace CapstoneProject.Models.Services
             _users.Save();
         }
 
-        public Coop GetCoop(int id) { return null; }
+        public Coop GetCoopById(int id) {
+            Coop c = _students.GetCoopById(id);
+            return c;
+        }
         public Coop EditCoop(Coop c) { return null; }
         public void DeleteCoop(int id) { }
 

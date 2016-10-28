@@ -48,7 +48,7 @@ namespace CapstoneProject.Models.Metadata
         public System.DateTime StartDate { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "End Date")]
         public System.DateTime EndDate { get; set; }
         [Display(Name = "Comments")]
