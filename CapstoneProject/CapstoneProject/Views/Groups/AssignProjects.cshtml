@@ -49,7 +49,7 @@
                 else
                 {
                     <td>
-                        @Html.CheckBox(project.ProjectId.ToString(), @(Model.Group.Projects.Contains(project) ? "checked" : ""));
+                        @Html.CheckBox(project.ProjectId.ToString(), false);
                       
                     </td>
                 }

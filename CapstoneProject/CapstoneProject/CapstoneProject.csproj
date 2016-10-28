@@ -402,6 +402,7 @@
     <Content Include="Views\Projects\ProjectsByClient.cshtml" />
     <Content Include="Views\Projects\Projects.cshtml" />
     <Content Include="Views\Students\CreateChart.cshtml" />
+    <Content Include="Views\Groups\AssignProjects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

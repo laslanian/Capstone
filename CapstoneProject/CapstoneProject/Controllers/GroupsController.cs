@@ -150,7 +150,8 @@ namespace CapstoneProject.Controllers
         {
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
-            gp.Projects = pm.GetProjects(); 
+            gp.Projects = pm.GetProjects();
+            gp.hasAssignedProject = false;
 
             return View(gp);
         }
