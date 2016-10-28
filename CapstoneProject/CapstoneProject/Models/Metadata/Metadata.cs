@@ -58,6 +58,14 @@ namespace CapstoneProject.Models.Metadata
 
     public class ClientMetadata
     {
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
 
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
@@ -140,8 +148,23 @@ namespace CapstoneProject.Models.Metadata
 
     public class StudentMetadata
     {
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
         [Required]
         [Display(Name = "Student Number")]
         public int StudentNumber { get; set; }
+    }
+
+    public class ProgramMetadata
+    {
+        [Display(Name = "Program")]
+        public string ProgramName { get; set; }
     }
 }

@@ -1,62 +1,78 @@
-﻿@model CapstoneProject.Student
+﻿@model CapstoneProject.Models.ViewModels.StudentProfile
 
 @{
     ViewBag.Title = "Student Profile";
 }
 
 <h2>Profile Page</h2>
-<h4>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.UserId }) </h4>
+<h4>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" }) </h4>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Student.FirstName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Student.FirstName)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Student.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Student.LastName)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            @Html.DisplayNameFor(model => model.Student.PhoneNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
+            @Html.DisplayFor(model => model.Student.PhoneNumber)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Student.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.Student.Email)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.StudentNumber)
+            @Html.DisplayNameFor(model => model.Student.StudentNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StudentNumber)
+            @Html.DisplayFor(model => model.Student.StudentNumber)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Program.ProgramName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Program.ProgramName)
         </dd>
     </dl>
 
 </div>
 <hr />
+
 <h4>Skillset</h4>
-<div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
+@{ if (Model.Student.Skillset != null)
+    {
+<div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Student.Skillset.Id })" /></div>
+    }
+    else { <p> You currently don't have a registered skill set.
+               Create one? @Html.ActionLink("Click here", "Index", "Groups", null, new { @class = "btn btn-default" }) </p> }
+    }
+
 <div>
     @{
-        var coopList = Model.Coops.ToList();
+        var coopList = Model.Student.Coops.ToList();
     }
     <hr />
     <h4>

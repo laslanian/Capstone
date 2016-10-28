@@ -59,8 +59,8 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" name="button" value="Submit" class="btn btn-default" />
-            <input type="submit" name="button" value="Cancel" class="btn btn-default" />
+            @Html.ActionLink("Cancel", "Index", "Students", null, new { @class="btn btn-default", @href = Request.UrlReferrer })
+            <input type="submit" name="button" value="Submit" class="btn btn-info" />
         </div>
     </div>
 }

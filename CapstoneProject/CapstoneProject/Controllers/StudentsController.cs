@@ -17,10 +17,17 @@ namespace CapstoneProject.Controllers
         {
             UserAccountService uas = new UserAccountService();
 
-            Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
+            Student s = (Student) uas.GetUser(Convert.ToInt32(Session["Id"]));
             Skillset sk = uas.GetSkillsetByUserId(s.UserId);
             s.Skillset = sk;
-            return View(s);
+
+            Program p = uas.GetProgramById(s.ProgramId);
+            StudentProfile sp = new StudentProfile();
+
+            sp.Student = s;
+            sp.Program = p;
+
+            return View(sp);
         }
 
         public ActionResult AddCoop()

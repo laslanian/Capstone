@@ -7,6 +7,9 @@ using System.Web;
 
 namespace CapstoneProject
 {
+    [MetadataType(typeof(ProgramMetadata))]
+    public partial class Program { }
+
     [MetadataType(typeof(SkillsetMetadata))]
     public partial class Skillset { }
 
