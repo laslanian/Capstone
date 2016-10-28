@@ -154,23 +154,22 @@ namespace CapstoneProject.Controllers
         {
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
-            gp.Projects = pm.GetProjects("Approved"); 
+            gp.Projects = pm.GetProjects(); 
 
             return View(gp);
         }
         [HttpPost]
         public ActionResult AssignProjects(GroupProject gp)
         {
-            int code=0;// = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
-            if (code == 99)
-            {
-                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            }
-            else
-            {
-                //ViewBag.JoinError = "Incorrect pin";
+            int code=0; 
+            //if (code == 99)
+            //{
+            //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            //}
+            //else
+            //{
                 return View(gp);
-            }
+          //  }
            
         }
     }

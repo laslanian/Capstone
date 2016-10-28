@@ -49,15 +49,15 @@
                 else
                 {
                     <td>
-                        @Html.CheckBox(project.ProjectId.ToString(), false);
-                        @Html.ActionLink("Add", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info" })
+                        @Html.CheckBox(project.ProjectId.ToString(), @(Model.Group.Projects.Contains(project) ? "checked" : ""));
+                      
                     </td>
                 }
 
             </tr>
         }
     </table>
-
+  @Html.ActionLink("Save", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info" })
 
 }
 
