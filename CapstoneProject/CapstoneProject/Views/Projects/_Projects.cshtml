@@ -1,31 +1,32 @@
 ﻿@model IEnumerable<CapstoneProject.Project>
 
 @{
-    <table class="table">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            @{if (Session["UserType"].ToString().Equals("Admin"))
+                {
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.CompanyName)
+                    </th>
+                }
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th></th>
+        </tr>
+
         @{ if (Model.Count() > 0)
             {
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    @{if (Session["UserType"].ToString().Equals("Admin"))
-                        {
-
-                            <th>
-                                @Html.DisplayNameFor(model => model.Client.CompanyName)
-                            </th>
-                        }
-                    }
-                    <th>
-                        @Html.DisplayNameFor(model => model.State)
-                    </th>
-                    <th></th>
-                </tr>
-                        foreach (var item in Model)
-                        {
+                foreach (var item in Model)
+                {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Name)
@@ -50,10 +51,12 @@
                             </tr>
                                         }
                                     }
-                                    else
-                                    {
-                                        <tr><td>No projects to listed.</td></tr>
-                                    }
         }
     </table>
+                                    }
+
+                                    @{ if(Model.Count() < 1)
+    {
+        <p>There are no projects on this list.</p>
+    }
 }

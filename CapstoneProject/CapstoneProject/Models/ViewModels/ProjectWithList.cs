@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CapstoneProject.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,9 +13,10 @@ namespace CapstoneProject.Models.ViewModels
         {
             Projects = new List<Project>();
             States = new List<SelectListItem>();
-            States.Add(new SelectListItem { Text = "All", Value = "All" });
-            States.Add(new SelectListItem { Text = "Pending", Value = "Pending" });
-            States.Add(new SelectListItem { Text = "Approved", Value = "Approved" });
+            States.Add(new SelectListItem { Text = ProjectState.All, Value = ProjectState.All });
+            States.Add(new SelectListItem { Text = ProjectState.Pending, Value = ProjectState.Pending });
+            States.Add(new SelectListItem { Text = ProjectState.Approved, Value = ProjectState.Approved });
+            States.Add(new SelectListItem { Text = ProjectState.Rejected, Value = ProjectState.Rejected });
         }
         public string SelectedItem { get; set; }
         public List<Project> Projects { get; set; }

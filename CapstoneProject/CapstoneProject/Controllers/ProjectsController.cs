@@ -1,5 +1,6 @@
 ﻿using CapstoneProject.Models.Services;
 using CapstoneProject.Models.ViewModels;
+using CapstoneProject.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,18 +35,23 @@ namespace CapstoneProject.Controllers
             if (state == null)
             {
                ViewBag.Project = "All Projects";
-               pl.SelectedItem = "All";
+               pl.SelectedItem = ProjectState.All;
             }
             else 
             {
-                if (state.Equals("Pending"))
+                if (state.Equals(ProjectState.Pending))
                 {
-                    pl.SelectedItem = "Pending";
-                    ViewBag.Project = state + " Projects";
+                    pl.SelectedItem = ProjectState.Pending;
+                    ViewBag.Project = ProjectState.Pending + " Projects";
                 }
-                else if (state.Equals("Approved")) {
-                    pl.SelectedItem = "Approved";
-                    ViewBag.Project = state + " Projects";
+                else if (state.Equals(ProjectState.Approved)) {
+                    pl.SelectedItem = ProjectState.Approved;
+                    ViewBag.Project = ProjectState.Approved + " Projects";
+                }
+                else if (state.Equals(ProjectState.Rejected))
+                {
+                    pl.SelectedItem = ProjectState.Rejected;
+                    ViewBag.Project = ProjectState.Rejected + " Projects";
                 }
                 pl.Projects = pl.Projects.FindAll(s => s.State == state);
             }

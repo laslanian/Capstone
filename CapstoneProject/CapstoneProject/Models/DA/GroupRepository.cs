@@ -30,8 +30,7 @@ namespace CapstoneProject.Models.DA
 
         public Skillset GetSkillByGroupId(int id)
         {
-            var group = GetGroupyId(id);
-            var skill = ctx.Skillsets.Find(group.GroupId);
+            var skill = ctx.Skillsets.SingleOrDefault(s => s.Group.GroupId == id);
             return skill;
         }
 

@@ -12,12 +12,14 @@ namespace CapstoneProject.Models.Services
     {
         IUserInterface _users;
         IProgramRepository _programs;
+        IStudentRepository _students;
 
         public UserAccountService()
         {
             CapstoneDBModel ctx = new CapstoneDBModel();
             this._users = new UserRepository(ctx);
             this._programs = new ProgamRepository(ctx);
+            this._students = new StudentRepository(ctx);
         }
 
         public User Register(User u)
@@ -48,7 +50,7 @@ namespace CapstoneProject.Models.Services
             s.StudentNumber = Convert.ToInt32(stUser.StudentNumber);
             s.ProgramId = stUser.ProgramId;
             System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
-            s.Title = "Student";
+            s.Type = "Student";
 
 
             AesEncrpyt en = new AesEncrpyt();
@@ -62,9 +64,9 @@ namespace CapstoneProject.Models.Services
             //admin.Email = "massivcapstone@outlook.com";
             //admin.Username = "superadmin";
             //admin.Username = en.Encrypt(admin.Username);
-            //admin.Password = "massivpassword2016";
+            //admin.Password = "superadmin";
             //admin.Password = en.Encrypt(admin.Password);
-            //admin.Title = "Admin";
+            //admin.Type = "Admin";
 
             //1 - username already exist
             //2 = studentnuber already exist
@@ -117,7 +119,8 @@ namespace CapstoneProject.Models.Services
             s.CompanyName = client.CompanyName;
             s.CompanyAddress = client.CompanyAddress;
             s.CompanyDescription = client.CompanyDesc;
-            s.Title = "Client";
+            s.Type = "Client";
+
 
             AesEncrpyt en = new AesEncrpyt();
             s.Username = en.Encrypt(client.Username);
@@ -162,6 +165,11 @@ namespace CapstoneProject.Models.Services
             {
 
             }
+        }
+
+        public Skillset GetSkillsetByUserId(int id)
+        {
+            return _students.GetSkillByUserId(id);
         }
 
         public Program GetProgramById(int id)

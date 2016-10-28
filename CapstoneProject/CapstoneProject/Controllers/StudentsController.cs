@@ -16,11 +16,10 @@ namespace CapstoneProject.Controllers
         public ActionResult Index()
         {
             UserAccountService uas = new UserAccountService();
-            //StudentProfile sp = new StudentProfile()
+
             Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
-            // Program p = (Program)uas.GetProgramById(Convert.ToInt32(s.ProgramId));
-            //  sp.student = s;
-            // sp.program = p;
+            Skillset sk = uas.GetSkillsetByUserId(s.UserId);
+            s.Skillset = sk;
             return View(s);
         }
 
@@ -70,18 +69,7 @@ namespace CapstoneProject.Controllers
             {
                 Skillset s = sr.GetSkillSetById(id);
 
-                var skillChart = new Chart(width: 500, height: 300)
-                    .SetYAxis(min: 0, max: 10)
-                    .AddSeries(chartType: "bar",
-                        xValue: new[] { "Programming", "Web Development", "Mobile Development", "Application Development", "UI Design" },
-                        yValues: new[] { s.Programming,
-                             s.WebDev,
-                             s.MobileDev,
-                             s.ApplDev,
-                             s.UIDesign }).Write();
-                skillChart.Save("~/Content/Images/" + id, "jpeg");
-
-                return base.File("~/Content/Images/" + id, "jpeg");
+                return View(s);
             }
         }
     }

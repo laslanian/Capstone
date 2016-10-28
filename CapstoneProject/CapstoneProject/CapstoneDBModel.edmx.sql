@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/25/2016 23:02:32
+-- Date Created: 10/28/2016 01:15:40
 -- Generated from EDMX file: C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 
@@ -132,8 +132,7 @@ GO
 -- Creating table 'Programs'
 CREATE TABLE [dbo].[Programs] (
     [ProgramId] int IDENTITY(1,1) NOT NULL,
-    [ProgramName] nvarchar(25)  NOT NULL,
-    [Campus] nvarchar(25)  NULL
+    [ProgramName] nvarchar(25)  NOT NULL
 );
 GO
 
@@ -158,10 +157,10 @@ CREATE TABLE [dbo].[Users] (
     [FirstName] nvarchar(25)  NOT NULL,
     [LastName] nvarchar(25)  NOT NULL,
     [PhoneNumber] nvarchar(10)  NULL,
-    [Email] nvarchar(25)  NOT NULL,
+    [Email] nvarchar(50)  NOT NULL,
     [Username] nvarchar(50)  NOT NULL,
     [Password] nvarchar(50)  NOT NULL,
-    [Title] nvarchar(25)  NULL
+    [Type] nvarchar(25)  NULL
 );
 GO
 
@@ -202,7 +201,7 @@ CREATE TABLE [dbo].[Users_Student] (
     [StudentId] int IDENTITY(1,1) NOT NULL,
     [StudentNumber] int  NOT NULL,
     [Interests] nvarchar(150)  NULL,
-    [ProgramId] int  NULL,
+    [ProgramId] int  NOT NULL,
     [UserId] int  NOT NULL,
     [Group_GroupId] int  NULL
 );
@@ -212,10 +211,10 @@ GO
 CREATE TABLE [dbo].[Criteria] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Goal] nvarchar(max)  NOT NULL,
-    [Storage] bit  NULL,
-    [Application] bit  NULL,
-    [Website] bit  NULL,
-    [Mobile] bit  NULL
+    [Storage] bit  NOT NULL,
+    [Application] bit  NOT NULL,
+    [Website] bit  NOT NULL,
+    [Mobile] bit  NOT NULL
 );
 GO
 

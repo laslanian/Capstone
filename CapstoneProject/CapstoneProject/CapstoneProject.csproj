@@ -292,6 +292,7 @@
     </Compile>
     <Compile Include="Utility\AesEncrypt.cs" />
     <Compile Include="Utility\Campuses.cs" />
+    <Compile Include="Utility\ProjectState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CapstoneDBModel.Context.tt">
@@ -335,10 +336,6 @@
     </Content>
     <Content Include="obj\Debug\build.force" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="Content\Images\1" />
-    <Content Include="Content\Images\3" />
-    <Content Include="Content\Images\4" />
-    <Content Include="Content\Images\5" />
     <Content Include="Content\Images\Thumbs.db" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -403,6 +400,7 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\ProjectsByClient.cshtml" />
     <Content Include="Views\Projects\Projects.cshtml" />
+    <Content Include="Views\Students\CreateChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

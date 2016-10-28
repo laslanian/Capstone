@@ -13,5 +13,6 @@ namespace CapstoneProject.Models.Interfaces
         bool isExistingStudentNumber(int number);
 
         Skillset GetSkillSetById(int id);
+        Skillset GetSkillByUserId(int id);
     }
 }
