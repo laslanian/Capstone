@@ -1,0 +1,31 @@
+﻿@model CapstoneProject.Models.ViewModels.ProjectWithList
+
+@{
+    ViewBag.Title = "Project List";
+}
+
+<h3>
+    <span>@ViewBag.Project</span>
+    @Html.DropDownListFor(model => model.SelectedItem, Model.States as List<SelectListItem>, new { @style = "width: 100px", @class = "pull-right form-control", @Id = "projectstate" })
+</h3>
+<br />
+@Html.Partial("~/Views/Projects/_Projects.cshtml", Model.Projects)
+
+<script type="text/javascript">
+    $('#projectstate').change(function () {
+        var url = '';
+        var status = $(this).val();
+        if (status == "Approved") {
+            url = '@Url.Action("Projects", "Projects", new { state = "Approved" })'
+        }
+        else if (status == "Pending") {
+            url = '@Url.Action("Projects", "Projects", new { state = "Pending" })'
+        }
+        else {
+            url = '@Url.Action("Projects", "Projects", null)'
+        }
+        if (url != null && url != '') {
+            window.location.href = url;
+        }
+    })
+</script>

@@ -18,6 +18,40 @@ namespace CapstoneProject.Controllers
             return View(_pm.GetProjectsByClient(Convert.ToInt32(Session["Id"])));
         }
 
+        public ActionResult Projects(String state)
+        {
+            String UserType = Session["UserType"].ToString();
+            ProjectWithList pl = new ProjectWithList();
+            if (UserType.Equals("Client"))
+            {
+                pl.Projects = _pm.GetProjectsByClient(Convert.ToInt32(Session["Id"]));
+            }
+            else if (UserType.Equals("Admin"))
+            {
+                pl.Projects = _pm.GetProjects();
+            }
+
+            if (state == null)
+            {
+               ViewBag.Project = "All Projects";
+               pl.SelectedItem = "All";
+            }
+            else 
+            {
+                if (state.Equals("Pending"))
+                {
+                    pl.SelectedItem = "Pending";
+                    ViewBag.Project = state + " Projects";
+                }
+                else if (state.Equals("Approved")) {
+                    pl.SelectedItem = "Approved";
+                    ViewBag.Project = state + " Projects";
+                }
+                pl.Projects = pl.Projects.FindAll(s => s.State == state);
+            }
+            return View(pl);
+        }
+
         public ActionResult Create()
         {
             ProjectForm pf = new ProjectForm();

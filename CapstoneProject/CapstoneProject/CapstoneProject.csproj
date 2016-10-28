@@ -267,6 +267,7 @@
     <Compile Include="Models\ViewModels\GroupStudent.cs" />
     <Compile Include="Models\ViewModels\LoginUser.cs" />
     <Compile Include="Models\ViewModels\ProjectForm.cs" />
+    <Compile Include="Models\ViewModels\ProjectWithList.cs" />
     <Compile Include="Models\ViewModels\StudentGroup.cs" />
     <Compile Include="Models\ViewModels\StudentProfile.cs" />
     <Compile Include="Models\ViewModels\StudentUser.cs" />
@@ -401,6 +402,7 @@
     <Content Include="Views\Projects\_Projects.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\ProjectsByClient.cshtml" />
+    <Content Include="Views\Projects\Projects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

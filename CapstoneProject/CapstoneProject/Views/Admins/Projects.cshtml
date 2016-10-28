@@ -1,32 +1,31 @@
-﻿@model IEnumerable<CapstoneProject.Project>
+﻿@*@model CapstoneProject.Models.ViewModels.ProjectWithList
 
 @{
     ViewBag.Title = "Project List";
 }
 
-<h2>@ViewBag.Project 
-    @{ 
-        String type = ViewBag.Project;
-    }
-    @Html.DropDownList(
-    "Project State",
-    new SelectList(new[]
-    {
-        new SelectListItem { Text = "All", Value = Url.Action("Projects", "Admins", null) },
-        new SelectListItem { Text = "Pending", Value = Url.Action("Projects", "Admins", new { state = "Pending" }) },
-        new SelectListItem { Text = "Approved", Value =  Url.Action("Projects", "Admins", new { state = "Approved" })},
-    }, "Value", "Text"),
-    "--Project State--",
-    new { id = "projectstate" })
-</h2>
-
-@Html.Partial("~/Views/Projects/_Projects.cshtml", Model.ToList())
+<h3>
+<span>@ViewBag.Project</span>
+@Html.DropDownListFor(model => model.SelectedItem, Model.States as List<SelectListItem>, new { @style = "width: 100px",@class = "pull-right form-control", @Id = "projectstate" })
+</h3>
+<br />
+@Html.Partial("~/Views/Projects/_Projects.cshtml", Model.Projects)
 
 <script type="text/javascript">
     $('#projectstate').change(function () {
-        var url = $(this).val();
+        var url = '';
+        var status = $(this).val();
+        if (status == "Approved") {
+            url = '@Url.Action("Projects", "Admins", new { state = "Approved" })'          
+        }
+        else if (status == "Pending") {
+            url = '@Url.Action("Projects", "Admins", new { state = "Pending" })'
+        }
+        else {
+            url = '@Url.Action("Projects", "Admins", null)'
+        }
         if (url != null && url != '') {
             window.location.href = url;
         }
     })
-</script>
+</script>*@

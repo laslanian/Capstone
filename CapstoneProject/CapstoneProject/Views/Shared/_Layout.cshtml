@@ -42,13 +42,13 @@
                         else if (Session["UserType"].ToString().Equals("Client"))
                         {
                             <li>@Html.ActionLink("Profile", "Index", "Clients")</li>
-                            <li>@Html.ActionLink("My Projects", "ProjectsByClient", "Projects")</li>
+                            <li>@Html.ActionLink("My Projects", "Projects", "Projects")</li>
                         }
                         else if (Session["UserType"].ToString().Equals("Admin"))
                         {
                             <li>@Html.ActionLink("Users", "Users", "Admins")</li>
                             <li>@Html.ActionLink("Groups", "Groups", "Admins")</li>
-                            <li>@Html.ActionLink("Projects", "Projects", "Admins")</li>
+                            <li>@Html.ActionLink("Projects", "Projects", "Projects")</li>
                         }
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
