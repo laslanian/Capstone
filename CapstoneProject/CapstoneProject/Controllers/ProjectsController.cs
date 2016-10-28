@@ -67,7 +67,7 @@ namespace CapstoneProject.Controllers
                 int code = _pm.CreateProject(p, Convert.ToInt32(Session["Id"]));
                 if (code == 99)
                 {
-                    return RedirectToAction("ProjectsByClient");
+                    return RedirectToAction("Projects", "Projects", null);
                 }
                 else
                 {

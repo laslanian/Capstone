@@ -4,11 +4,24 @@
     ViewBag.Title = "Project List";
 }
 
-<h3>
+<h3>Project List</h3>
+
+@{ if (Session["UserType"].ToString().Equals("Client"))
+    {
+        <p>
+            @Html.ActionLink("Create Project", "Create", null, new { @class = "btn btn-info" })
+        </p>
+    }
+}
+
+<hr />
+
+<h4>
     <span>@ViewBag.Project</span>
     @Html.DropDownListFor(model => model.SelectedItem, Model.States as List<SelectListItem>, new { @style = "width: 100px", @class = "pull-right form-control", @Id = "projectstate" })
-</h3>
+</h4>
 <br />
+
 @Html.Partial("~/Views/Projects/_Projects.cshtml", Model.Projects)
 
 <script type="text/javascript">
