@@ -3,6 +3,7 @@ using CapstoneProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,6 +13,7 @@ namespace CapstoneProject.Controllers
     {
         private UserAccountService _uas = new UserAccountService();
         private ProjectManager _pm = new ProjectManager();
+      
         // GET: Projects
         public ActionResult ProjectsByClient()
         {
@@ -51,5 +53,6 @@ namespace CapstoneProject.Controllers
             Project p = _pm.GetProjectDetails(id);
             return View(p);
         }
+        
     }
 }

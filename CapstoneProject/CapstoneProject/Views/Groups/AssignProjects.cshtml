@@ -1,0 +1,63 @@
+﻿@model CapstoneProject.Models.ViewModels.GroupProject
+
+@{
+    ViewBag.Title = "AssignProjects";
+}
+
+<h2>Apply for Projects</h2>
+
+@{
+    var projList = Model.Projects.ToList();
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].State)
+            </th>
+        </tr>
+        @foreach (var project in projList)
+            {
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => project.ProjectId)
+                    @Html.DisplayFor(modelItem => project.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => project.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => project.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => project.State)
+                </td>
+
+                @if (Model.hasAssignedProject)
+                {
+                    <td>
+                        @Html.ActionLink("Add", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info", disabled = "disabled", @readonly = "readonly" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.CheckBox(project.ProjectId.ToString(), false);
+                        @Html.ActionLink("Add", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info" })
+                    </td>
+                }
+
+            </tr>
+        }
+    </table>
+
+
+}
+
