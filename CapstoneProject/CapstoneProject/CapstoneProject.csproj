@@ -377,8 +377,6 @@
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Account\RegisterClient.cshtml" />
-    <Content Include="Views\Account\AfterLogin.cshtml" />
-    <Content Include="Views\Account\FailedLogin.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\TermsAndCondition.cshtml" />
@@ -394,8 +392,6 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\CreateSkillset.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
-    <Content Include="Views\Admins\GetPendingProjects.cshtml" />
-    <Content Include="Views\Admins\Projects.cshtml" />
     <Content Include="Views\Projects\_Projects.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\ProjectsByClient.cshtml" />
@@ -404,6 +400,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

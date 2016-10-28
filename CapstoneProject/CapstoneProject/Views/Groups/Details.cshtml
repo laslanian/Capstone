@@ -10,12 +10,17 @@
     {
         <p>You don't have a group. </p>
         <p>Would you like to create or joine a group? </p>
-        <p> @Html.ActionLink("Create/Join Group", "Index", null, new { @class = "btn btn-default" })</p>
+        <p> @Html.ActionLink("Create/Join Group", "Index", null, new { @class = "btn btn-info" })</p>
 
     }
     else
     {
-     
+         var owner = ViewBag.Owner;
+         if(owner != null)
+         {
+            @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-info" })
+         }
+        
         <div>
             <hr />
             <dl class="dl-horizontal">
@@ -47,52 +52,14 @@
                 <dd>
                     @Html.DisplayFor(model => model.Pin)
                 </dd>
-
-                @*<dt>
-                    @Html.DisplayNameFor(model => model.Skillset.Programming)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Skillset.Programming)/10
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Skillset.WebDev)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Skillset.WebDev)/10
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Skillset.MobileDev)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Skillset.MobileDev)/10
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Skillset.ApplDev)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Skillset.ApplDev)/10
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Skillset.UIDesign)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Skillset.UIDesign)/10
-                </dd>*@
-
             </dl>
         </div>
+
         <hr />
-        <h4>Group Skillset</h4>
+
+        <h3>Group Skillset</h3>
         <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
         <hr />
-        @*<h3>Members 
-    @Html.ActionLink("Leave Group", "LeaveGroup", new { id = Model.GroupId }, new { @class = "btn btn-info" })
-</h3>*@
  
 <h3>Members <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button></h3>
         var studList = Model.Students.ToList();
