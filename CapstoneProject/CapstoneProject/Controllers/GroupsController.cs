@@ -37,7 +37,11 @@ namespace CapstoneProject.Controllers
             Group g = new Group();
             if(s.Group != null)
             {
-                 g = gbs.GetGroupById(s.Group.GroupId);
+                if (s.UserId == s.Group.Owner.Value)
+                {
+                    ViewBag.Owner = true;
+                }
+                g = gbs.GetGroupById(s.Group.GroupId);
                  Skillset sk = gbs.GetSkillsetByGroupId(s.Group.GroupId);
                 if (sk != null) { g.Skillset = sk; }
             }
