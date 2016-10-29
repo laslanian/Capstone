@@ -9,7 +9,7 @@ using CapstoneProject.Models.ViewModels;
 
 namespace CapstoneProject.Models.Services
 {
-    public class ProjectManager
+    public class ProjectManager : IDisposable
     {
         IProjectRepository _projects;
         IUserInterface _users;
@@ -79,5 +79,11 @@ namespace CapstoneProject.Models.Services
         public Project UpdateProject(Project p) { return null; }
         public void DeleteProject(int id) { }
         public void ArchiveProjects(List<Project> projects) { }
+
+        public void Dispose()
+        {
+            _projects.Dispose();
+            _users.Dispose();
+        }
     }
 }

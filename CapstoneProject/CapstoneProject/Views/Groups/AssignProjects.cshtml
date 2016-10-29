@@ -5,9 +5,12 @@
 }
 
 <h2>Apply for Projects</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-@{
     var projList = Model.Projects.ToList();
+    @Html.HiddenFor(model => model.Group.GroupId)
     <table class="table">
         <tr>
             <th>
@@ -22,42 +25,38 @@
             <th>
                 @Html.DisplayNameFor(model => model.Projects[0].State)
             </th>
+            <th>
+                @Html.DisplayName("Apply")
+            </th>
         </tr>
-        @foreach (var project in projList)
+        @for (int i=0;i<projList.Count();i++)
             {
             <tr>
                 <td>
-                    @Html.HiddenFor(modelItem => project.ProjectId)
-                    @Html.DisplayFor(modelItem => project.Name)
+                    @Html.HiddenFor(modelItem => projList[i].ProjectId)
+                    @Html.DisplayFor(modelItem => projList[i].Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => project.Description)
+                    @Html.DisplayFor(modelItem => projList[i].Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => project.Type)
+                    @Html.DisplayFor(modelItem => projList[i].Type)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => project.State)
+                    @Html.DisplayFor(modelItem => projList[i].State)
                 </td>
 
-                @if (Model.hasAssignedProject)
-                {
+          
                     <td>
-                        @Html.ActionLink("Add", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info", disabled = "disabled", @readonly = "readonly" })
+                        <input type="checkbox" class="chk-act" id="@projList[i].ProjectId" value="@projList[i].ProjectId" name="chkSelected"
+                               checked="@Model.Group.Projects.Contains(projList[i])" disabled="@projList[i].State.Equals("Pending")">
                     </td>
-                }
-                else
-                {
-                    <td>
-                        @Html.CheckBox(project.ProjectId.ToString(), false);
-                      
-                    </td>
-                }
+               
 
             </tr>
         }
     </table>
-  @Html.ActionLink("Save", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info" })
+    <input type="submit" name="button" value="Save" class="btn btn-default" />    <span style="color:red"> @ViewBag.CountError </span>
 
 }
 

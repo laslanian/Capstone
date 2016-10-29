@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
-        private ProjectManager pm = new ProjectManager();
+      //  private GroupApplicationService gas = new GroupApplicationService();
         
         // GET: Groups
         public ActionResult Index()
@@ -154,24 +154,42 @@ namespace CapstoneProject.Controllers
         {
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
-            gp.Projects = pm.GetProjects();
+            gp.Projects = gbs.GetProjects();
             gp.hasAssignedProject = false;
 
             return View(gp);
         }
         [HttpPost]
-        public ActionResult AssignProjects(GroupProject gp)
+        public ActionResult AssignProjects(GroupProject gp, FormCollection collection)
         {
-            int code=0; 
-            //if (code == 99)
-            //{
-            //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            //}
-            //else
-            //{
+            var selected = collection.GetValues("chkSelected");
+
+
+            Group g = gbs.GetGroupById(gp.Group.GroupId);
+            
+
+            for (int i = 0, len = selected.Length; i < len; i++)
+            {
+                g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
+            }
+            gp.Group = g;
+
+            int code=gbs.AddProjectPreference(g);
+
+            if (code==1)
+            {
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            }
+            else
+            {
+                ViewBag.CountError = "Too many selected projects";
                 return View(gp);
-          //  }
+            }
+            
+          
            
         }
     }
 }
+
+    
