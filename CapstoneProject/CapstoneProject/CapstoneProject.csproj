@@ -386,7 +386,7 @@
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Groups\CreateGroup.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
-    <Content Include="Views\Students\AddCoop.cshtml" />
+    <Content Include="Views\Coops\AddCoop.cshtml" />
     <Content Include="Views\Groups\Edit.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Groups\JoinGroup.cshtml" />
