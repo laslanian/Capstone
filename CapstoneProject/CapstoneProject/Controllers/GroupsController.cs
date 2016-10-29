@@ -166,25 +166,34 @@ namespace CapstoneProject.Controllers
 
 
             Group g = gbs.GetGroupById(gp.Group.GroupId);
-            
 
-            for (int i = 0, len = selected.Length; i < len; i++)
+            if (selected!=null)
             {
-                g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
-            }
-            gp.Group = g;
+                for (int i = 0, len = selected.Length; i < len; i++)
+                {
+                    g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
+                }
+                gp.Group = g;
 
-            int code=gbs.AddProjectPreference(g);
+                int code = gbs.AddProjectPreference(g);
 
-            if (code==1)
-            {
-                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+                if (code == 1)
+                {
+                    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+                }
+                else
+                {
+                    ViewBag.CountError = "Too many selected projects";
+                    return View(gp);
+                }
             }
             else
             {
-                ViewBag.CountError = "Too many selected projects";
-                return View(gp);
+                g.Projects.Clear();
+                gbs.EditGroup(g);
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
+            
             
           
            
