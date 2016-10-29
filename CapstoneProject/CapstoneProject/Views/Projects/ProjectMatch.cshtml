@@ -1,0 +1,45 @@
+﻿@model CapstoneProject.Models.ViewModels.ProjectMatchGroup
+@{
+    ViewBag.Title = "ProjectMatch";
+}
+
+<h2>ProjectMatch</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container full-screen">
+        <div class="row">
+            <div class="col-md-6" >
+                <div id="div_groups" style=" height:auto;">
+                    <ul style="list-style:none;">
+                        @{
+                            var groupList = Model.Groups.ToList();
+                            for (int i = 0, len = groupList.Count(); i < len; i++)
+                            {
+                                <li>@Html.Partial("_Groups", groupList[i])</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div id="div_projects" style="overflow-y: scroll; height:auto;">
+                    <ul style="list-style:none;">
+                        @{
+                            var projList = Model.Projects.ToList();
+                            for (int i = 0, len = projList.Count(); i < len; i++)
+                            {
+                                <li>@Html.Partial("_ProjectDetail", projList[i])</li>
+                            }
+                        }
+                    </ul>
+                  
+                </div>
+            </div>
+        </div>
+   </div>
+
+}

@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
-      //  private GroupApplicationService gas = new GroupApplicationService();
+     
         
         // GET: Groups
         public ActionResult Index()

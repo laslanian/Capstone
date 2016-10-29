@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
     {
         private UserAccountService _uas = new UserAccountService();
         private ProjectManager _pm = new ProjectManager();
-      
+        private GroupBuilderService _gbs = new GroupBuilderService();
         // GET: Projects
         public ActionResult ProjectsByClient()
         {
@@ -58,6 +58,16 @@ namespace CapstoneProject.Controllers
                 pl.Projects = pl.Projects.FindAll(s => s.State == state);
             }
             return View(pl);
+        }
+
+        public ActionResult ProjectMatch()
+        {
+            ProjectMatchGroup pmg = new ProjectMatchGroup();
+            pmg.Projects=_pm.GetProjects();
+            pmg.Groups = _gbs.GetGroups();
+            
+            
+            return View(pmg);
         }
 
         public ActionResult Create()

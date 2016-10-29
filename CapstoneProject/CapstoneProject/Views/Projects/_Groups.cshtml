@@ -1,0 +1,56 @@
+﻿@model CapstoneProject.Group
+@{
+    ViewBag.Title = "_GroupListItem";
+}
+<hr />
+<div class="container" style="border-right:dashed 2px black">
+
+    <div class="row">
+        <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h2>
+                    @Model.GroupName
+                    @Html.HiddenFor(model => model.GroupId)
+                </h2>
+            </div>
+        <div class="col-md-2"></div>
+        </div>
+    
+   
+    <div class="row">
+       
+        <div class="col-sm-4">
+            <p><b>Members</b></p>
+            <ul>
+                @{
+                    var studList = Model.Students.ToList();
+                    for (int i = 0, len = studList.Count(); i < len; i++)
+                    {
+                        <li>
+                            <p>@studList[i].FirstName &nbsp;@studList[i].LastName </p>
+                        </li>
+                    }
+                }
+            </ul>
+            <br />
+            <p><b>SelectedProjects</b></p>
+            <ul>
+                @{
+                    var projList = Model.Projects.ToList();
+                    for (int i = 0, len = projList.Count(); i < len; i++)
+                    {
+                        <li>
+                            @Html.HiddenFor(modelItem => projList[i].ProjectId)
+                            <p>@projList[i].Name</p>
+                        </li>
+                    }
+
+                }
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <div><img style="width:400px;height:auto;"src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
+        </div>
+   </div>
+ </div>
+<hr />
