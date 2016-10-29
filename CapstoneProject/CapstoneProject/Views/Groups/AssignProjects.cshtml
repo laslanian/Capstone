@@ -1,13 +1,16 @@
 ﻿@model CapstoneProject.Models.ViewModels.GroupProject
 
-@{
+@{ 
     ViewBag.Title = "AssignProjects";
 }
 
 <h2>Apply for Projects</h2>
 
-@{
-    var projList = Model.Projects.ToList();
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(modelItem =>modelItem.Group.GroupId)
+
     <table class="table">
         <tr>
             <th>
@@ -22,42 +25,51 @@
             <th>
                 @Html.DisplayNameFor(model => model.Projects[0].State)
             </th>
+            <th>
+                @Html.DisplayName("Apply")
+            </th>
         </tr>
-        @foreach (var project in projList)
+        @{
+            var projList = Model.Projects.ToList();
+            for (int i = 0; i < projList.Count(); i++)
             {
-            <tr>
-                <td>
-                    @Html.HiddenFor(modelItem => project.ProjectId)
-                    @Html.DisplayFor(modelItem => project.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => project.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => project.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => project.State)
-                </td>
-
-                @if (Model.hasAssignedProject)
-                {
+                <tr>
                     <td>
-                        @Html.ActionLink("Add", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info", disabled = "disabled", @readonly = "readonly" })
+                        @Html.HiddenFor(modelItem => projList[i].ProjectId)
+                        @Html.DisplayFor(modelItem => projList[i].Name)
                     </td>
-                }
-                else
-                {
                     <td>
-                        @Html.CheckBox(project.ProjectId.ToString(), false);
-                      
+                        @Html.DisplayFor(modelItem => projList[i].Description)
                     </td>
-                }
+                    <td>
+                        @Html.DisplayFor(modelItem => projList[i].Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => projList[i].State)
+                    </td>
 
-            </tr>
+                    @if (projList[i].State.Equals("Assigned"))
+                    {
+                    <td>
+                        @Html.CheckBox("chkAssignedProj", Model.Group.Projects.Contains(projList[i]), new { @disabled = "disabled", id = projList[i].ProjectId })
+                    </td>
+                    }
+                    else
+                    {
+                    <td>
+                        <input type="checkbox" class="chk-act" id="@projList[i].ProjectId " value="@projList[i].ProjectId " name="chkAssignedProj" checked="@Model.Group.Projects.Contains(projList[i])">
+                       
+                    </td>
+                    }
+                </tr>
+            }
+
+
+
         }
-    </table>
-  @Html.ActionLink("Save", "AddProject", new { id = project.ProjectId }, new { @class = "btn btn-info" })
 
-}
-
+     </table>
+    
+        <input type="submit" name="button" value="Save" /><span style="color:red"> @ViewBag.SubmitError </span>
+    
+        }

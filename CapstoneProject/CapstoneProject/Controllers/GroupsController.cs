@@ -14,8 +14,9 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
+        private GroupApplicationService gas = new GroupApplicationService();
         private ProjectManager pm = new ProjectManager();
-        
+
         // GET: Groups
         public ActionResult Index()
         {
@@ -33,12 +34,12 @@ namespace CapstoneProject.Controllers
 
         public ActionResult Details()
         {
-            Student s = (Student) uas.GetUser(Convert.ToInt32(Session["Id"]));
+            Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
             Group g = new Group();
-            if(s.Group != null)
+            if (s.Group != null)
             {
-                 g = gbs.GetGroupById(s.Group.GroupId);
-                 Skillset sk = gbs.GetSkillsetByGroupId(s.Group.GroupId);
+                g = gbs.GetGroupById(s.Group.GroupId);
+                Skillset sk = gbs.GetSkillsetByGroupId(s.Group.GroupId);
                 if (sk != null) { g.Skillset = sk; }
             }
             return View(g);
@@ -58,7 +59,8 @@ namespace CapstoneProject.Controllers
                 gbs.AddGroup(g, Convert.ToInt32(Session["Id"]));
                 return RedirectToAction("Details", g.GroupId);
             }
-            else {
+            else
+            {
                 return View(g);
             }
         }
@@ -76,7 +78,7 @@ namespace CapstoneProject.Controllers
                 if (button == "Submit")
                 {
                     int code = uas.AddStudentSkill(s, Convert.ToInt32(Session["Id"]));
-                    if(code == 1) return RedirectToAction("Index", "Students");
+                    if (code == 1) return RedirectToAction("Index", "Students");
                 }
             }
             ViewBag.SkillError = "An error has occured.";
@@ -95,7 +97,7 @@ namespace CapstoneProject.Controllers
         public ActionResult JoinGroup(Group g)
         {
             int code = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
-            if(code == 99)
+            if (code == 99)
             {
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
@@ -106,7 +108,7 @@ namespace CapstoneProject.Controllers
             }
         }
 
-        
+
         public ActionResult Edit(int id)
         {
             GroupStudent gs = gbs.GetGroupStudentVM(id);
@@ -150,24 +152,35 @@ namespace CapstoneProject.Controllers
         {
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
-            gp.Projects = pm.GetProjects();
+            gp.Projects = gas.GetProjects();
             gp.hasAssignedProject = false;
 
             return View(gp);
         }
         [HttpPost]
-        public ActionResult AssignProjects(GroupProject gp)
+        public ActionResult AssignProjects(GroupProject gp,FormCollection collection)
         {
-            int code=0; 
-            //if (code == 99)
-            //{
-            //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            //}
-            //else
-            //{
-                return View(gp);
-          //  }
-           
+            
+            var chkSelected = collection.GetValues("chkAssignedProj");
+            gp.Group = gbs.GetGroupById(gp.Group.GroupId);
+            for (int i = 0, len = chkSelected.Length; i < len; i++)
+            {
+                gp.Group.Projects.Add((Project)pm.GetProjectById(Convert.ToInt32(chkSelected[i])));
+
+            }
+            
+                int code = gas.AddProjectPreference(gp.Group);
+                if (code == 1)
+                {
+                    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+                }
+                else
+                {
+                    ViewBag.SubmitError = "Too many selected projects";
+                }
+            
+            return View(gp);
         }
-    }
+
+    }//
 }
