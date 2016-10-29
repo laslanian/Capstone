@@ -14,5 +14,11 @@ namespace CapstoneProject.Models.Interfaces
 
         Skillset GetSkillSetById(int id);
         Skillset GetSkillByUserId(int id);
+
+        Coop GetCoopById(int id);
+
+        int UpdateCoop(Coop c);
+
+        int DeleteCoop(int id);
     }
 }

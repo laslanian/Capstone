@@ -79,7 +79,7 @@
         Coop Information
         @{if (coopList.Count() < 2)
             {
-                @Html.ActionLink("Add Coop", "AddCoop", "Students", new { @class = "btn btn-default" })
+                @Html.ActionLink("Add Coop", "AddCoop", "Coops", null, new { @class = "btn btn-default" })
             }
         }
     </h4>
@@ -105,6 +105,7 @@
                     <th>
                         @Html.DisplayNameFor(model => coopList[0].EndDate)
                     </th>
+                    <th></th>
                 </tr>
                 @for (int i = 0; i < coopList.Count(); i++)
                 {
@@ -122,9 +123,8 @@
                             @Html.DisplayFor(modelItem => coopList[i].EndDate)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "EditCoop", new { id = coopList[i].CoopId }) |
-                            @Html.ActionLink("Details", "CoopDetails", new { id = coopList[i].CoopId }) |
-                            @Html.ActionLink("Delete", "DeleteCoop", new { id = coopList[i].CoopId })
+                            @Html.ActionLink("View Details", "Details", "Coops", new { id = coopList[i].CoopId }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Delete", "DeleteCoop", "Coops", new { id = coopList[i].CoopId }, new { onclick = "return confirm('Are you sure you want to delete this?');", @class = "btn btn-danger" })
                         </td>
                     </tr>
                 }
@@ -132,3 +132,4 @@
         }
     }
     </div>
+

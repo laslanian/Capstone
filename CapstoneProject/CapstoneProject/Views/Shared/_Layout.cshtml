@@ -23,7 +23,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @*<li>@Html.ActionLink("Previous Capstones", "GetPastProjects", "Projects")</li>*@
                     @if (Session["UserType"] == null)
                     {
                         <li>@Html.ActionLink("About", "About", "Home")</li>

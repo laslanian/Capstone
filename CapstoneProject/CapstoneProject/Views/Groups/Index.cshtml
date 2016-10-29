@@ -46,9 +46,9 @@
                 @Html.DisplayFor(modelItem => group.Description)
             </td>
             <td>
-                @group.Students.Count() / 5
+                @group.Students.Count() / 4
             </td>
-            @{if (!Model.hasGroup && group.Students.Count() < 5)
+            @{if (!Model.hasGroup && group.Students.Count() < 4)
                 {
                     <td>
                         @Html.ActionLink("Join", "JoinGroup", new { id = group.GroupId }, new { @class = "btn btn-info" })
