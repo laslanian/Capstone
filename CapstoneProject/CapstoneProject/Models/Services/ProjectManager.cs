@@ -20,10 +20,6 @@ namespace CapstoneProject.Models.Services
             this._projects = new ProjectRepository(ctx);
             this._users = new UserRepository(ctx);
         }
-        public Project GetProjectById(int id)
-        {
-            return _projects.GetProjectById(id);
-        }
 
         public List<Project> GetProjects()
         {

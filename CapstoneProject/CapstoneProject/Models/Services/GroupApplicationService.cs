@@ -36,17 +36,27 @@ namespace CapstoneProject.Models.Services
             }
             return 0;
         }
-        public int AddProjectPreference(Group g)
+        public int AddProjectPreference(Group g, List<Project> projects)
         {
-            int count = g.Projects.Count();
-            if (count <= 5)
+            int addedProjects = 0;
+
+            if (_groups.GetGroupyId(g.GroupId) != null)
             {
-                _groups.UpdateGroup(g);
-                _groups.Save();
-                return 1;
+                if (projects != null && projects.Count <= 5)
+                {
+                    foreach (Project p in projects)
+                    {
+                        if (!g.Projects.Contains(p))
+                        {
+                            g.Projects.Add(p);
+                            addedProjects++;
+                        }
+                    }
+                    _groups.UpdateGroup(g);
+                    _groups.Save();
+                }
             }
-            return 0; 
-             
+            return addedProjects;
         }
         
     }
