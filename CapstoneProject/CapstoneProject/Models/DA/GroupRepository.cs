@@ -28,6 +28,12 @@ namespace CapstoneProject.Models.DA
             return ctx.Groups.Find(id);
         }
 
+        public Skillset GetSkillByGroupId(int id)
+        {
+            var skill = ctx.Skillsets.SingleOrDefault(s => s.Group.GroupId == id);
+            return skill;
+        }
+
         public bool isExistingGroup(string group_name)
         {
             return ctx.Groups.Any(group => group.GroupName == group_name);
@@ -57,7 +63,27 @@ namespace CapstoneProject.Models.DA
 
         public void Save()
         {
-            ctx.SaveChanges();
+            try
+            {
+                ctx.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
         }
 
         protected virtual void Dispose(bool disposing)

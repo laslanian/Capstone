@@ -49,7 +49,7 @@ top: 0px;
 .form-horizontal {
 	margin: 0 auto;
 	width: 100%;
-	text-align: center;
+    text-align: center;
 }
 
 table {
@@ -58,4 +58,9 @@ table {
 
 footer {
   text-align: center;
+  bottom: 0;
+}
+
+.field-validation-error{
+    color: red;
 }

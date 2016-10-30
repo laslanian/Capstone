@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Capstone Portal</title>
+    @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -21,22 +23,33 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Previous Capstones", "GetPastProjects", "Projects")</li>
-                    @if (Session["User"] == null)
+                    @if (Session["UserType"] == null)
                     {
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Project Submissions", "Index", "Projects")</li>
-                        if (Session["userType"].ToString().Equals("Student"))
+                        if (Session["UserType"].ToString().Equals("Student"))
                         {
+                            <li>@Html.ActionLink("Profile", "Index", "Students")</li>
+                            <li>@Html.ActionLink("My Group", "Details", "Groups")</li>
                             <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
                         }
-                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        else if (Session["UserType"].ToString().Equals("Client"))
+                        {
+                            <li>@Html.ActionLink("Profile", "Index", "Clients")</li>
+                            <li>@Html.ActionLink("My Projects", "Projects", "Projects")</li>
+                        }
+                        else if (Session["UserType"].ToString().Equals("Admin"))
+                        {
+                            <li>@Html.ActionLink("Users", "Users", "Admins")</li>
+                            <li>@Html.ActionLink("Groups", "Groups", "Admins")</li>
+                            <li>@Html.ActionLink("Projects", "Projects", "Projects")</li>
+                        }
+                        <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>
             </div>
@@ -50,7 +63,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

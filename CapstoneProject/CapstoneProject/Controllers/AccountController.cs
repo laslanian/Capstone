@@ -29,14 +29,18 @@ namespace CapstoneProject.Controllers
                     User user = ls.Login(u.Username, u.Password);
                     if (user != null)
                     {
-                        Session["Id"] = user.UserId;
+                        String userType = ls.GetUserType(user.UserId);
+                        int id = user.UserId;
+                        Session["Id"] = id;
                         Session["Username"] = user.Username;
-                        Session["UserType"] = ls.GetUserType(user.UserId);
-                        RedirectToAction("Index", "Home");
+                        Session["UserType"] = userType;
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ViewBag["AuthError"] = "Invalid username or password";
+                        {
+                            ViewBag.LoginError = "Invalid username or password";
+                        }
                     }
                 }
             }
@@ -48,7 +52,7 @@ namespace CapstoneProject.Controllers
             Session["Id"] = null;
             Session["Username"] = null;
             Session["UserType"] = null;
-            return View("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -64,11 +68,11 @@ namespace CapstoneProject.Controllers
         {
             if (accounttype.Equals("Student"))
             {
-                Session["UserType"] = "Student";
+                Session["accountType"] = "Student";
             }
             else
             {
-                Session["UserType"] = "Client";
+                Session["accountType"] = "Client";
             }
             return RedirectToAction("TermsAndCondition");
         }
@@ -88,7 +92,7 @@ namespace CapstoneProject.Controllers
             }
             else
             {
-                if (Session["UserType"].Equals("Student"))
+                if (Session["accountType"].Equals("Student"))
                 {
                     return RedirectToAction("RegisterStudent");
                 }
@@ -125,17 +129,17 @@ namespace CapstoneProject.Controllers
                         {
                             case 1:
                                 {
-                                    ViewBag["AuthError"] = "Username already exists.";
+                                    ViewBag.AuthError = "Username already exists.";
                                     break;
                                 }
                             case 2:
                                 {
-                                    ViewBag["AuthError"] = "Student number already in use.";
+                                    ViewBag.AuthError = "Student number already in use.";
                                     break;
                                 }
                             case 99:
                                 {
-                                    return View("~/View/Account/RegistrationSuccessful.cshtml");
+                                    return View("~/Views/Account/RegistrationSuccessful.cshtml");
                                 }
                         }
                     }
@@ -163,7 +167,22 @@ namespace CapstoneProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    // use useraccountservice here
+                    using (UserAccountService uas = new UserAccountService())
+                    {
+                        int code = uas.RegisterClient(client);
+                        switch (code)
+                        {
+                            case 1:
+                                {
+                                    ViewBag.AuthError = "Username already exists.";
+                                    break;
+                                }
+                            case 99:
+                                {
+                                    return View("~/Views/Account/RegistrationSuccessful.cshtml");
+                                }
+                        }
+                    }
                 }
             }
             return View(client);

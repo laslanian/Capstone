@@ -11,10 +11,15 @@ namespace CapstoneProject.Models.Services
     public class UserAccountService : IDisposable
     {
         IUserInterface _users;
+        IProgramRepository _programs;
+        IStudentRepository _students;
 
         public UserAccountService()
         {
-            this._users = new UserRepository();
+            CapstoneDBModel ctx = new CapstoneDBModel();
+            this._users = new UserRepository(ctx);
+            this._programs = new ProgamRepository(ctx);
+            this._students = new StudentRepository(ctx);
         }
 
         public User Register(User u)
@@ -36,10 +41,6 @@ namespace CapstoneProject.Models.Services
         public int RegisterStudent(StudentUser stUser)
         {
             Student s = new Student();
-            using (ProgramManagerService pms = new ProgramManagerService())
-            {
-                s.Program = pms.GetProgram(stUser.ProgramId);
-            }
             s.FirstName = stUser.FirstName;
             s.LastName = stUser.LastName;
             s.PhoneNumber = stUser.PhoneNumber;
@@ -47,11 +48,25 @@ namespace CapstoneProject.Models.Services
             s.Username = stUser.Username;
             s.Password = stUser.Password;
             s.StudentNumber = Convert.ToInt32(stUser.StudentNumber);
-            s.Title = "Student";
+            s.ProgramId = stUser.ProgramId;
+            //System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
+            s.Type = "Student";
+
 
             AesEncrpyt en = new AesEncrpyt();
             s.Username = en.Encrypt(stUser.Username);
             s.Password = en.Encrypt(stUser.Password);
+
+            //Admin admin = new Admin();
+            //admin.FirstName = "Super Admin";
+            //admin.LastName = "Super Admin";
+            //admin.PhoneNumber = "9991119999";
+            //admin.Email = "massivcapstone@outlook.com";
+            //admin.Username = "superadmin";
+            //admin.Username = en.Encrypt(admin.Username);
+            //admin.Password = "superadmin";
+            //admin.Password = en.Encrypt(admin.Password);
+            //admin.Type = "Admin";
 
             //1 - username already exist
             //2 = studentnuber already exist
@@ -62,6 +77,7 @@ namespace CapstoneProject.Models.Services
                     if(!sr.isExistingStudentNumber(s.StudentNumber))
                     {
                         _users.InsertUser(s);
+                        //_users.InsertUser(admin);
                         _users.Save();
                         return 99;
 
@@ -77,6 +93,19 @@ namespace CapstoneProject.Models.Services
                 return 1;
             }
         }
+
+        public int AddStudentSkill(Skillset ss, int id)
+        {
+            if(ss != null)
+            {
+                Student s = (Student)_users.GetUserById(id);
+                s.Skillset = ss;
+                _users.UpdateUser(s);
+                _users.Save();
+                return 1;
+            }
+            return 0;
+        }
         public int RegisterClient(ClientUser client)
         {
             Client s = new Client();
@@ -90,8 +119,8 @@ namespace CapstoneProject.Models.Services
             s.CompanyName = client.CompanyName;
             s.CompanyAddress = client.CompanyAddress;
             s.CompanyDescription = client.CompanyDesc;
+            s.Type = "Client";
 
-            s.Title = "Client";
 
             AesEncrpyt en = new AesEncrpyt();
             s.Username = en.Encrypt(client.Username);
@@ -101,11 +130,11 @@ namespace CapstoneProject.Models.Services
             {
                 _users.InsertUser(s);
                 _users.Save();
-                return 1;
+                return 99;
             }
             else
             {
-                return 0;
+                return 1;
             }
         }
 
@@ -138,9 +167,24 @@ namespace CapstoneProject.Models.Services
             }
         }
 
+        public Skillset GetSkillsetByUserId(int id)
+        {
+            return _students.GetSkillByUserId(id);
+        }
+
+        public Program GetProgramById(int id)
+        {
+            return _programs.GetProgram(id);
+        }
+
         public void Dispose()
         {
             _users.Dispose();
+        }
+
+        public void CreateAdmin()
+        {
+
         }
     }
 }

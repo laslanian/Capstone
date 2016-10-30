@@ -10,7 +10,7 @@ using System.Text;
 
 namespace CapstoneProject.Models.Services
 {
-    public class GroupBuilderService :IDisposable
+    public class GroupBuilderService : IDisposable
     {
         IGroupRepository _groups;
         IStudentRepository _students;
@@ -19,52 +19,50 @@ namespace CapstoneProject.Models.Services
 
         public GroupBuilderService()
         {
-            this._groups = new GroupRepository();
-            this._students = new StudentRepository();
-            this._projects = new ProjectRepository();
-            this._users = new UserRepository();
+            CapstoneDBModel ctx = new CapstoneDBModel();
+            this._groups = new GroupRepository(ctx);
+            this._students = new StudentRepository(ctx);
+            this._projects = new ProjectRepository(ctx);
+            this._users = new UserRepository(ctx);
         }
-
-        public List<Student> GetStudentsByGroupId(int id)
+        public List<Group> GetGroups()
         {
-            Group g = _groups.GetGroupyId(id);
-            return g.Students.ToList();
+            return _groups.GetGroups().ToList();
         }
-        
-        public Group AddGroup(Group g, int studentNumber)
-        {
-            if (!_groups.isExistingGroup(g.GroupName))
-            {
-                try
-                {
-                    AesEncrpyt ae = new AesEncrpyt();
-                    g.Pin = ae.Encrypt(GeneratePin());
-                    _groups.InsertGroup(g);
-                    _groups.Save();
-                    //send email
-                    EmailService emailService = new EmailService();
-                    User user = _users.GetUserById(studentNumber);
-                    emailService.SendGroupPin(user.Email, g.Pin);
-
-                    return g;
-                }
-                catch (Exception e)
-                {
-                    return null;
-                }
-                
-            }
-            return null;
-        }
-
-        public Group GetGroup(int id)
+        public Group GetGroupById(int id)
         {
             return _groups.GetGroupyId(id) != null ? _groups.GetGroupyId(id) : null;
         }
 
+        public Group AddGroup(Group g, int id)
+        {
+            if (!_groups.isExistingGroup(g.GroupName))
+            {
+                String pin = GeneratePin();
+                g.Pin = pin;
+                g.Status = "Unassigned";
+                Student s = (Student)_users.GetUserById(id);
+                g.Students.Add(s);
+                g.Skillset = new Skillset();
+                g.Owner = id;
+                g = AddSkills(g, s.Skillset);
+                _groups.InsertGroup(g);
+                _groups.Save();
+
+
+                // testing send email
+                EmailService emailService = new EmailService();
+
+                emailService.SendGroupPin(s.Email, pin);
+
+                return g;
+            }
+            return null;
+        }
+
         public Group EditGroup(Group g)
         {
-            if (_groups.GetGroupyId(g.GroupId)!=null)
+            if (_groups.GetGroupyId(g.GroupId) != null)
             {
                 _groups.UpdateGroup(g);
                 _groups.Save();
@@ -74,9 +72,9 @@ namespace CapstoneProject.Models.Services
         }
         public GroupStudent GetGroupStudentVM(int id)
         {
-            Group g = GetGroup(id);
+            Group g = GetGroupById(id);
             GroupStudent gs = new GroupStudent();
-            List<Student> students = GetStudentsByGroupId(g.GroupId);
+            List<Student> students = g.Students.ToList();
             foreach (Student s in students)
             {
                 Student st = new Student();
@@ -97,59 +95,52 @@ namespace CapstoneProject.Models.Services
         }
         public GroupStudent EditGroupStudentVM(GroupStudent gs)
         {
-            Group group = GetGroup(gs.Group.GroupId);
-            group.Students.Clear();
+            Group g = GetGroupById(gs.Group.GroupId);
+            g.GroupName = gs.Group.GroupName;
+            g.Description = gs.Group.Description;
 
-            foreach (Student s in gs.Students)
-            {
-                Student st = s; 
-                group.Students.Add(s);
-            }
-            _groups.UpdateGroup(group);
+            _groups.UpdateGroup(GetGroupById(gs.Group.GroupId));
             _groups.Save();
 
             return gs;
         }
-        public int AddStudent(Group g,Student s, int pin)
+        public int AddStudent(int GroupId, int UserId, string pin)
         {
-            if (_groups.GetGroupyId(g.GroupId)!=null)
+            Group g = _groups.GetGroupyId(GroupId);
+            if (g != null)
             {
-                if (_students.isExistingStudentNumber(s.StudentNumber))
-                {
-                    try
-                    {
-                        g.Students.Add(s);
-                        _groups.UpdateGroup(g);
-                        _groups.Save();
-                        return 1;
-                    }
-                    catch (Exception e)
-                    {
-                        return 0;
-                    }                   
+                Student s = (Student)_users.GetUserById(UserId);
+                if (g.Pin == pin)
+                {    
+                    g = AddSkills(g, s.Skillset);
+                    g.Students.Add(s);
+                    g = GetAverageSkills(g);
+                    _groups.UpdateGroup(g);
+                    _groups.Save();
+                    return 99;
                 }
+                else
+                {
+                    return 1; // wrong pin
+                }
+
+
             }
             return 0;
         }
 
-        public int RemoveStudent(Group g, Student s)
+        public int RemoveStudent(int GroupId, int UserId)
         {
-            if (_groups.GetGroupyId(g.GroupId) != null)
+            Group g = _groups.GetGroupyId(GroupId);
+            if (g != null)
             {
-                if (_students.isExistingStudentNumber(s.StudentNumber))
-                {
-                    try
-                    {
-                        g.Students.Remove(s);
-                        _groups.UpdateGroup(g);
-                        _groups.Save();
-                        return 1;
-                    }
-                    catch (Exception e)
-                    {
-                        return 0;
-                    }
-                }
+                Student s = (Student)_users.GetUserById(UserId);
+                g = SubtractSkill(g, s.Skillset);
+                g.Students.Remove(s);
+                g = GetAverageSkills(g);
+                _groups.UpdateGroup(g);
+                _groups.Save();
+                return 99;
             }
             return 0;
         }
@@ -157,7 +148,7 @@ namespace CapstoneProject.Models.Services
 
         public String GeneratePin()
         {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 5).Trim();
         }
 
         public void Dispose()
@@ -167,5 +158,105 @@ namespace CapstoneProject.Models.Services
             _projects.Dispose();
             _users.Dispose();
         }
+
+        public StudentGroup GetStudentGroup(int id)
+        {
+            StudentGroup sg = new StudentGroup();
+            Student s = (Student)_users.GetUserById(id);
+            List<Group> groups = _groups.GetGroups().ToList();
+            if (s.Group == null)
+            {
+                sg.hasGroup = false;
+            }
+            else
+            {
+                foreach (Group g in groups)
+                {
+                    if (g.Owner == id)
+                    {
+                        sg.isOwner = true;
+                    }
+                }
+                sg.hasGroup = true;
+            }
+            sg.Student = s;
+            sg.Groups = groups;
+            return sg;
+        }
+
+        public Skillset GetSkillsetByGroupId(int id)
+        {
+            return _groups.GetSkillByGroupId(id);
+        }
+
+        public Group AddSkills(Group g, Skillset s)
+        {
+            int count = g.Students.Count;
+            g.Skillset.Programming *= count;
+            g.Skillset.WebDev *= count;
+            g.Skillset.MobileDev *= count;
+            g.Skillset.ApplDev *= count;
+            g.Skillset.UIDesign *= count;
+
+            g.Skillset.Programming += s.Programming;
+            g.Skillset.WebDev += s.WebDev;
+            g.Skillset.MobileDev += s.MobileDev;
+            g.Skillset.ApplDev += s.ApplDev;
+            g.Skillset.UIDesign += s.UIDesign;
+
+            return g;
+        }
+
+        public Group GetAverageSkills(Group g)
+        {
+            int count = g.Students.Count ;
+
+            g.Skillset.Programming = g.Skillset.Programming / count;
+            g.Skillset.WebDev = g.Skillset.WebDev / count;
+            g.Skillset.MobileDev = g.Skillset.MobileDev / count;
+            g.Skillset.ApplDev = g.Skillset.ApplDev / count;
+            g.Skillset.UIDesign = g.Skillset.UIDesign / count;
+
+            return g;
+        }
+
+        public Group SubtractSkill(Group g, Skillset s)
+        {
+            int count = g.Students.Count;
+
+            g.Skillset.Programming *= count;
+            g.Skillset.WebDev *= count;
+            g.Skillset.MobileDev *= count;
+            g.Skillset.ApplDev *= count;
+            g.Skillset.UIDesign *= count;
+
+            g.Skillset.Programming -= s.Programming;
+            g.Skillset.WebDev -= s.WebDev;
+            g.Skillset.MobileDev -= s.MobileDev;
+            g.Skillset.ApplDev -= s.ApplDev;
+            g.Skillset.UIDesign -= s.UIDesign;
+
+            return g;
+        }
+        public int AddProjectPreference(Group g)
+        {
+            if (g.Projects.Count() <= 5)
+            {
+                _groups.UpdateGroup(g);
+                _groups.Save();
+                return 1;
+            }
+            return 0;
+
+        }
+        public List<Project> GetProjects()
+        {
+            return _projects.GetProjects().ToList();
+        }
+        public Project GetProjectById(int id)
+        {
+            return _projects.GetProjectById(id);
+        }
+
     }
 }

@@ -20,12 +20,14 @@ namespace CapstoneProject
             this.Coops = new HashSet<Coop>();
         }
     
+        public int StudentId { get; set; }
         public int StudentNumber { get; set; }
         public string Interests { get; set; }
+        public int ProgramId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Coop> Coops { get; set; }
-        public virtual Program Program { get; set; }
         public virtual Group Group { get; set; }
+        public virtual Skillset Skillset { get; set; }
     }
 }

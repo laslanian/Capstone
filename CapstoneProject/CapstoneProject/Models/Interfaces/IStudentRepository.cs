@@ -11,5 +11,14 @@ namespace CapstoneProject.Models.Interfaces
         IEnumerable<Student> GetStudents(); //List of students
         IEnumerable<Student> GetStudentsByProgram(int ProgramId); //Get Students by Program
         bool isExistingStudentNumber(int number);
+
+        Skillset GetSkillSetById(int id);
+        Skillset GetSkillByUserId(int id);
+
+        Coop GetCoopById(int id);
+
+        int UpdateCoop(Coop c);
+
+        int DeleteCoop(int id);
     }
 }

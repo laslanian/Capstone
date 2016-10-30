@@ -46,9 +46,6 @@ namespace CapstoneProject.Models.DA
 
         public void InsertUser(User u)
         {
-            AesEncrpyt en = new AesEncrpyt();
-            u.Username = en.Encrypt(u.Username);
-            u.Password = en.Encrypt(u.Password);
             ctx.Users.Add(u);
         }
 

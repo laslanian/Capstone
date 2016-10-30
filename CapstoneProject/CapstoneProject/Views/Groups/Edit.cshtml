@@ -1,9 +1,10 @@
 ﻿@model CapstoneProject.Models.GroupStudent
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Group";
 }
 
-<h2>Edit</h2>
+<h2>Edit Group Information</h2>
+
  @using (Html.BeginForm())
  {
     @Html.AntiForgeryToken()
@@ -11,7 +12,7 @@
     <div class="form-horizontal">
         <h4>@Html.DisplayFor(model => model.Group.GroupName)</h4>
         <hr />
-        
+        @Html.HiddenFor(model=> model.Group.GroupId)
         <div class="form-group">
             @Html.LabelFor(model => model.Group.GroupName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

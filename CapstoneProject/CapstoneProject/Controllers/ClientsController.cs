@@ -9,41 +9,18 @@ using System.Web.Mvc;
 using CapstoneProject;
 using CapstoneProject.Models;
 using CapstoneProject.Models.DA;
+using CapstoneProject.Models.Services;
 
 namespace CapstoneProject.Controllers
 {
     public class ClientsController : Controller
     {
+        private ProjectManager pm = new ProjectManager();
+        public ActionResult Index()       {
 
-        // GET: Clients
-        public ActionResult Index()
-        {
-            //    return View(db.Users.ToList());
-            return null;
-        }
-
-        // GET: Clients/Create
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(CapstoneProject.Models.ClientUser client, string button)
-        {
-            if (button.Equals("Back"))
-            {
-                return RedirectToAction("TermsAndCondition", "Home");
-            }
-            else
-            {
-                if (ModelState.IsValid)
-                {
-                    // use useraccountservice here
-                }
-            }
-            return View(client);
+            UserAccountService uas = new UserAccountService();
+            Client s = (Client) uas.GetUser(Convert.ToInt32(Session["Id"]));
+            return View(s);
         }
     }
 }

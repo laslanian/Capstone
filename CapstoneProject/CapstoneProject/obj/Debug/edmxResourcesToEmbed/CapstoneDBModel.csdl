@@ -25,6 +25,8 @@
     <Property Name="Pin" Type="String" FixedLength="true" MaxLength="5" Nullable="false" />
     <NavigationProperty Name="Projects" Relationship="CapstoneModel.ProjectGroup" FromRole="Group" ToRole="Project" />
     <NavigationProperty Name="Students" Relationship="CapstoneModel.StudentGroup" FromRole="Group" ToRole="Student" />
+    <Property Name="Owner" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Skillset" Relationship="CapstoneModel.GroupSkillset" FromRole="Group" ToRole="Skillset" />
   </EntityType>
   <EntityType Name="Program">
     <Key>
@@ -32,9 +34,6 @@
     </Key>
     <Property Name="ProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProgramName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Campus" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Students" Relationship="CapstoneModel.StudentProgram" FromRole="Program" ToRole="Student" />
-    <NavigationProperty Name="Admins" Relationship="CapstoneModel.AdminProgram" FromRole="Program" ToRole="Admin" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
@@ -51,6 +50,7 @@
     <NavigationProperty Name="Client" Relationship="CapstoneModel.ClientProject" FromRole="Project" ToRole="Client" />
     <Property Name="ClientUserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Groups" Relationship="CapstoneModel.ProjectGroup" FromRole="Project" ToRole="Group" />
+    <NavigationProperty Name="Criteria" Relationship="CapstoneModel.ProjectCriteria" FromRole="Project" ToRole="Criteria" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -60,14 +60,14 @@
     <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Admin" BaseType="CapstoneModel.User">
     <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Program" Relationship="CapstoneModel.AdminProgram" FromRole="Admin" ToRole="Program" />
+    <Property Name="ProgramId" Type="Int32" />
   </EntityType>
   <EntityType Name="Client" BaseType="CapstoneModel.User">
     <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -83,11 +83,13 @@
     <Property Name="ManagementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="Student" BaseType="CapstoneModel.User">
-    <Property Name="StudentNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Interests" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Coops" Relationship="CapstoneModel.StudentCoop" FromRole="Student" ToRole="Coop" />
-    <NavigationProperty Name="Program" Relationship="CapstoneModel.StudentProgram" FromRole="Student" ToRole="Program" />
     <NavigationProperty Name="Group" Relationship="CapstoneModel.StudentGroup" FromRole="Student" ToRole="Group" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentNumber" Type="Int32" Nullable="false" />
+    <Property Name="Interests" Type="String" Nullable="true" MaxLength="150" />
+    <Property Name="ProgramId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Skillset" Relationship="CapstoneModel.StudentSkillset" FromRole="Student" ToRole="Skillset" />
   </EntityType>
   <EntityContainer Name="CapstoneDBModel" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Coops" EntityType="Self.Coop" />
@@ -107,17 +109,23 @@
       <End Role="Project" EntitySet="Projects" />
       <End Role="Group" EntitySet="Groups" />
     </AssociationSet>
-    <AssociationSet Name="StudentProgram" Association="CapstoneModel.StudentProgram">
-      <End Role="Student" EntitySet="Users" />
-      <End Role="Program" EntitySet="Programs" />
-    </AssociationSet>
     <AssociationSet Name="StudentGroup" Association="CapstoneModel.StudentGroup">
       <End Role="Student" EntitySet="Users" />
       <End Role="Group" EntitySet="Groups" />
     </AssociationSet>
-    <AssociationSet Name="AdminProgram" Association="CapstoneModel.AdminProgram">
-      <End Role="Admin" EntitySet="Users" />
-      <End Role="Program" EntitySet="Programs" />
+    <EntitySet Name="Criteria" EntityType="CapstoneModel.Criteria" />
+    <EntitySet Name="Skillsets" EntityType="CapstoneModel.Skillset" />
+    <AssociationSet Name="ProjectCriteria" Association="CapstoneModel.ProjectCriteria">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Criteria" EntitySet="Criteria" />
+    </AssociationSet>
+    <AssociationSet Name="GroupSkillset" Association="CapstoneModel.GroupSkillset">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Skillset" EntitySet="Skillsets" />
+    </AssociationSet>
+    <AssociationSet Name="StudentSkillset" Association="CapstoneModel.StudentSkillset">
+      <End Role="Student" EntitySet="Users" />
+      <End Role="Skillset" EntitySet="Skillsets" />
     </AssociationSet>
   </EntityContainer>
   <Association Name="StudentCoop">
@@ -148,16 +156,44 @@
     <End Type="CapstoneModel.Project" Role="Project" Multiplicity="*" />
     <End Type="CapstoneModel.Group" Role="Group" Multiplicity="*" />
   </Association>
-  <Association Name="StudentProgram">
-    <End Type="CapstoneModel.Student" Role="Student" Multiplicity="*" />
-    <End Type="CapstoneModel.Program" Role="Program" Multiplicity="1" />
-  </Association>
   <Association Name="StudentGroup">
     <End Type="CapstoneModel.Student" Role="Student" Multiplicity="*" />
     <End Type="CapstoneModel.Group" Role="Group" Multiplicity="0..1" />
   </Association>
-  <Association Name="AdminProgram">
-    <End Type="CapstoneModel.Admin" Role="Admin" Multiplicity="*" />
-    <End Type="CapstoneModel.Program" Role="Program" Multiplicity="0..1" />
+  <EntityType Name="Criteria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Goal" Type="String" Nullable="false" />
+    <Property Name="Storage" Type="Boolean" Nullable="false" DefaultValue="False" />
+    <Property Name="Application" Type="Boolean" Nullable="false" DefaultValue="False" />
+    <Property Name="Website" Type="Boolean" Nullable="false" DefaultValue="False" />
+    <Property Name="Mobile" Type="Boolean" Nullable="false" DefaultValue="False" />
+  </EntityType>
+  <EntityType Name="Skillset">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Programming" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="WebDev" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="MobileDev" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="ApplDev" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="UIDesign" Type="Double" Nullable="false" DefaultValue="0" />
+    <NavigationProperty Name="Group" Relationship="CapstoneModel.GroupSkillset" FromRole="Skillset" ToRole="Group" />
+    <NavigationProperty Name="Student" Relationship="CapstoneModel.StudentSkillset" FromRole="Skillset" ToRole="Student" />
+  </EntityType>
+  <Association Name="ProjectCriteria">
+    <End Type="CapstoneModel.Project" Role="Project" Multiplicity="1" />
+    <End Type="CapstoneModel.Criteria" Role="Criteria" Multiplicity="1" />
+  </Association>
+  <Association Name="GroupSkillset">
+    <End Type="CapstoneModel.Group" Role="Group" Multiplicity="0..1" />
+    <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
+  </Association>
+  <Association Name="StudentSkillset">
+    <End Type="CapstoneModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
   </Association>
 </Schema>

@@ -23,6 +23,7 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Pin" ColumnName="Pin" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -31,7 +32,6 @@
         <MappingFragment StoreEntitySet="Programs">
           <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
           <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
-          <ScalarProperty Name="Campus" ColumnName="Campus" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -60,13 +60,14 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Admin)">
         <MappingFragment StoreEntitySet="Users_Admin">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Client)">
@@ -93,8 +94,34 @@
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Student)">
         <MappingFragment StoreEntitySet="Users_Student">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Interests" ColumnName="Interests" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Criteria">
+      <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Criteria)">
+        <MappingFragment StoreEntitySet="Criteria">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Goal" ColumnName="Goal" />
+          <ScalarProperty Name="Storage" ColumnName="Storage" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skillsets">
+      <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Skillset)">
+        <MappingFragment StoreEntitySet="Skillsets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Programming" ColumnName="Programming" />
+          <ScalarProperty Name="WebDev" ColumnName="WebDev" />
+          <ScalarProperty Name="MobileDev" ColumnName="MobileDev" />
+          <ScalarProperty Name="ApplDev" ColumnName="ApplDev" />
+          <ScalarProperty Name="UIDesign" ColumnName="UIDesign" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -106,14 +133,6 @@
         <ScalarProperty Name="GroupId" ColumnName="Groups_GroupId" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="StudentProgram" TypeName="CapstoneModel.StudentProgram" StoreEntitySet="Users_Student">
-      <EndProperty Name="Program">
-        <ScalarProperty Name="ProgramId" ColumnName="Program_ProgramId" />
-      </EndProperty>
-      <EndProperty Name="Student">
-        <ScalarProperty Name="UserId" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="StudentGroup" TypeName="CapstoneModel.StudentGroup" StoreEntitySet="Users_Student">
       <EndProperty Name="Group">
         <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
@@ -123,14 +142,31 @@
       </EndProperty>
       <Condition ColumnName="Group_GroupId" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="AdminProgram" TypeName="CapstoneModel.AdminProgram" StoreEntitySet="Users_Admin">
-      <EndProperty Name="Program">
-        <ScalarProperty Name="ProgramId" ColumnName="Program_ProgramId" />
+    <AssociationSetMapping Name="ProjectCriteria" TypeName="CapstoneModel.ProjectCriteria" StoreEntitySet="Projects">
+      <EndProperty Name="Criteria">
+        <ScalarProperty Name="Id" ColumnName="Criteria_Id" />
       </EndProperty>
-      <EndProperty Name="Admin">
-        <ScalarProperty Name="UserId" ColumnName="UserId" />
+      <EndProperty Name="Project">
+        <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
       </EndProperty>
-      <Condition ColumnName="Program_ProgramId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupSkillset" TypeName="CapstoneModel.GroupSkillset" StoreEntitySet="Skillsets">
+      <EndProperty Name="Group">
+        <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
+      </EndProperty>
+      <EndProperty Name="Skillset">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Group_GroupId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentSkillset" TypeName="CapstoneModel.StudentSkillset" StoreEntitySet="Skillsets">
+      <EndProperty Name="Student">
+        <ScalarProperty Name="UserId" ColumnName="Student_UserId" />
+      </EndProperty>
+      <EndProperty Name="Skillset">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Student_UserId" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

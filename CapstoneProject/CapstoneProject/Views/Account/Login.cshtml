@@ -3,19 +3,21 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>Login</h2>
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div>
         <fieldset>
-            <legend>Login</legend>
-            <h3> @ViewBag.AuthError</h3>
+            <h4><span style="color:red;"> @ViewBag.LoginError</span></h4>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Username)
             </div>
             <div class="editor-field">
                 @Html.TextBoxFor(u => u.Username)
-                @Html.ValidationMessageFor(u => u.Username)
+                @Html.ValidationMessageFor(u => u.Username) 
             </div>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Password)
@@ -24,7 +26,7 @@
                 @Html.PasswordFor(u => u.Password)
                 @Html.ValidationMessageFor(u => u.Password)
             </div>
-            <p>@Html.ValidationSummary()</p>
+            <br />
             <p>
                 <input type="submit" value="Log In" />
             </p>

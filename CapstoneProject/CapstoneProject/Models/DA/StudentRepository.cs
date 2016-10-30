@@ -28,12 +28,42 @@ namespace CapstoneProject.Models.DA
 
         public IEnumerable<Student> GetStudentsByProgram(int ProgramId)
         {
-            return ctx.Users.OfType<Student>().ToList().Where(student => student.Program.ProgramId == ProgramId);
+            return null; // ctx.Users.OfType<Student>().ToList().Where(student => student.ProgramId == ProgramId);
         }
 
         public bool isExistingStudentNumber(int number)
         {
             return ctx.Users.OfType<Student>().Any(student => student.StudentNumber == number);
+        }
+
+        public Skillset GetSkillSetById(int id)
+        {
+            return ctx.Skillsets.Find(id);
+        }
+
+        public Skillset GetSkillByUserId(int id)
+        {
+            var skill = ctx.Skillsets.SingleOrDefault(s => s.Student.UserId == id);
+            return skill;
+        }
+
+        public Coop GetCoopById(int id)
+        {
+            var coop = ctx.Coops.SingleOrDefault(c => c.CoopId == id);
+            return coop;
+        }
+
+        public int UpdateCoop(Coop c)
+        {
+            ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
+            return ctx.SaveChanges();
+        }
+
+        public int DeleteCoop(int id)
+        {
+            var coop = ctx.Coops.SingleOrDefault(c => c.CoopId == id);
+            ctx.Coops.Remove(coop);
+            return ctx.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)

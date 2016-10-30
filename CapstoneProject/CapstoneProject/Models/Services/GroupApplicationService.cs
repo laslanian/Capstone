@@ -8,19 +8,24 @@ using CapstoneProject.Models.Interfaces;
 
 namespace CapstoneProject.Models.Services
 {
-    public class GroupApplicationService
+    public class GroupApplicationService : IDisposable
     {
         IGroupRepository _groups;
         IProjectRepository _projects;
 
         public GroupApplicationService()
         {
-            this._groups = new GroupRepository();
-            this._projects = new ProjectRepository();
+            CapstoneDBModel ctx = new CapstoneDBModel();
+            this._groups = new GroupRepository(ctx);
+            this._projects = new ProjectRepository(ctx);
         }
         public List<Project> GetProjects()
         {
             return _projects.GetProjects().ToList();
+        }
+        public Project GetProjectById(int id)
+        {
+            return _projects.GetProjectById(id);
         }
         public int AssignProject(Group g, Project p)
         {
@@ -36,28 +41,22 @@ namespace CapstoneProject.Models.Services
             }
             return 0;
         }
-        public int AddProjectPreference(Group g, List<Project> projects)
+        public int AddProjectPreference(Group g)
         {
-            int addedProjects = 0;
-
-            if (_groups.GetGroupyId(g.GroupId) != null)
+            if (g.Projects.Count() <= 5)
             {
-                if (projects != null && projects.Count <= 5)
-                {
-                    foreach (Project p in projects)
-                    {
-                        if (!g.Projects.Contains(p))
-                        {
-                            g.Projects.Add(p);
-                            addedProjects++;
-                        }
-                    }
-                    _groups.UpdateGroup(g);
-                    _groups.Save();
-                }
+                _groups.UpdateGroup(g);
+                _groups.Save();
+                return 1;
             }
-            return addedProjects;
+            return 0;          
+            
         }
-        
+
+        public void Dispose()
+        {
+            _groups.Dispose();
+            _projects.Dispose();
+        }
     }
 }
