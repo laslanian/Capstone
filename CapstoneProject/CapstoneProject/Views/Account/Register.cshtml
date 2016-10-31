@@ -9,7 +9,7 @@
 
     <div class="form-horizontal">
         <h2>Choose an account type:</h2>
-        <hr />
+        <hr class="colorgraph">
         <table>
             <tr><td><p></p></td></tr>
             <tr>
@@ -21,8 +21,10 @@
             </tr>
             <tr><td><p></p></td></tr>
             <tr><td><p></p></td></tr>
-            <tr>
-                <td>@Html.ActionLink("Cancel", "Index", "Home", null, new { @class= "btn btn-danger" })</td>
+            <tr><td></td>
+                <td>
+                <hr class="colorgraph">
+                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-danger" })</td>
             </tr>
         </table>
     </div>
