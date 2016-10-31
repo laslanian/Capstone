@@ -1,0 +1,160 @@
+﻿@model CapstoneProject.Models.ViewModels.ProjectForm
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Project Form</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.project.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.project.Name)
+                @Html.ValidationMessageFor(model => model.project.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.project.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.project.Description)
+                @Html.ValidationMessageFor(model => model.project.Description)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.criteria.Goal, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.criteria.Goal)
+                @Html.ValidationMessageFor(model => model.criteria.Goal)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.criteria.Storage, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    @{ if (Model.criteria.Storage)
+                        {
+
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Storage, true) Yes
+                            </label>
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Storage, false) No
+                            </label>
+                        }
+                        else {
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Storage, true) Yes
+                            </label>
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Storage, false) No
+                            </label>
+                        }
+                    }
+                </div>
+                @Html.ValidationMessageFor(model => model.criteria.Storage)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.criteria.Application, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    @{ if (Model.criteria.Application)
+                        {
+
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Application, true) Yes
+                            </label>
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Application, false) No
+                            </label>
+                        }
+                        else {
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Application, true) Yes
+                            </label>
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Application, false) No
+                            </label>
+                        }
+                    }
+                </div>
+                @Html.ValidationMessageFor(model => model.criteria.Application)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.criteria.Website, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    @{ if (Model.criteria.Website)
+                        {
+
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Website, true) Yes
+                            </label>
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Website, false) No
+                            </label>
+                        }
+                        else {
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Website, true) Yes
+                            </label>
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Website, false) No
+                            </label>
+                        }
+                    }
+                </div>
+                @Html.ValidationMessageFor(model => model.criteria.Website)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.criteria.Mobile, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    @{ if (Model.criteria.Mobile)
+                        {
+
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Mobile, true) Yes
+                            </label>
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Mobile, false) No
+                            </label>
+                        }
+                        else {
+                            <label class="btn btn-primary">
+                                @Html.RadioButtonFor(model => model.criteria.Mobile, true) Yes
+                            </label>
+                            <label class="btn btn-primary active">
+                                @Html.RadioButtonFor(model => model.criteria.Mobile, false) No
+                            </label>
+                        }
+                    }
+                </div>
+                @Html.ValidationMessageFor(model => model.criteria.Mobile)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.ActionLink("Cancel", "ProjectsByClient", "Projects", new { @class = "btn btn-default" })
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+                        }

@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Account Type";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">.
+        <h2>Choose an account type:</h2>
+        <hr class="colorgraph">
+        <table>
+            <tr><td><p></p></td></tr>
+            <tr>
+                <td><input class="btn btn-primary" type="submit" name="accounttype" value="Student" /></td>
+            </tr>
+            <tr><td><p></p></td></tr>
+            <tr>
+                <td><input class="btn btn-primary" type="submit" name="accounttype" value="Client" /></td>
+            </tr>
+            <tr><td><p></p></td></tr>
+            <tr><td><p></p></td></tr>
+            <tr>
+                <td>
+                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-danger" })</td>
+            </tr>
+        </table>
+    </div>
+}
+
