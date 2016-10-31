@@ -46,7 +46,8 @@ namespace CapstoneProject.Controllers
                     pl.SelectedItem = ProjectState.Pending;
                     ViewBag.Project = ProjectState.Pending + " Projects";
                 }
-                else if (state.Equals(ProjectState.Approved)) {
+                else if (state.Equals(ProjectState.Approved))
+                {
                     pl.SelectedItem = ProjectState.Approved;
                     ViewBag.Project = ProjectState.Approved + " Projects";
                 }
@@ -54,6 +55,11 @@ namespace CapstoneProject.Controllers
                 {
                     pl.SelectedItem = ProjectState.Rejected;
                     ViewBag.Project = ProjectState.Rejected + " Projects";
+                }
+                else
+                {
+                    pl.SelectedItem = ProjectState.Assigned;
+                    ViewBag.Project = ProjectState.Assigned + " Projects";
                 }
                 pl.Projects = pl.Projects.FindAll(s => s.State == state);
             }
@@ -69,13 +75,13 @@ namespace CapstoneProject.Controllers
             return View(pmg);
         }
         [HttpPost]
-        public ActionResult ProjectMatch(int groupId, int projectId, ProjectMatchGroup pmg)
+        public ActionResult ProjectMatch(string groupId, string projectId)
         {
-            
-            if (groupId != 0 && projectId != 0)
+            int gId = Convert.ToInt32(groupId), pId =Convert.ToInt32(projectId);
+            if (gId != 0 && pId != 0)
             {
-                Group g = _gbs.GetGroupById(groupId);
-                Project p = _gbs.GetProjectById(projectId);
+                Group g = _gbs.GetGroupById(gId);
+                Project p = _gbs.GetProjectById(pId);
                 p.State = ProjectState.Assigned;
                 g.Status = GroupState.Assigned;
                 g.Projects.Clear();
@@ -87,6 +93,7 @@ namespace CapstoneProject.Controllers
             {
                 ViewBag.SubmitError = "Group and Project must be selected.";
             }
+            ProjectMatchGroup pmg = new ProjectMatchGroup();
             pmg.Groups = _gbs.GetGroups();
             pmg.Projects = _gbs.GetProjects();
             return View(pmg);

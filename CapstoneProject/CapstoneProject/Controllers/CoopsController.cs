@@ -52,12 +52,15 @@ namespace CapstoneProject.Controllers
             return View(c);
         }
 
-        public ActionResult DeleteCoop(int id)
+        public ActionResult DeleteCoop(string id)
         {
-            int code = scs.DeleteCoop(id);
-            if(code > 0)
+            if (id!=null && id!=String.Empty)
             {
-                return RedirectToAction("Index", "Students");
+                int code = scs.DeleteCoop(Convert.ToInt32(id));
+                if (code > 0)
+                {
+                    return RedirectToAction("Index", "Students");
+                }
             }
             return View();
         }

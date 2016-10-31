@@ -7,7 +7,7 @@
 
 <hr />
 
-       <div class="panel panel-primary">
+<div class="panel panel-primary">
     <div class="panel-heading">
         <div class="container">
             <div class="row">
@@ -30,7 +30,7 @@
                 <li><p><b>Description:&nbsp;</b>@Model.Description </p></li>
                 <li><p><b>Client:&nbsp;</b>@Model.Client.CompanyName </p></li>
                 <li><p><b>Type:&nbsp;</b>@Model.Type </p></li>
-                <li><p><b>Criteria:&nbsp;</b>@Model.Criteria </p></li>
+                <li><p><b>State:&nbsp;</b>@Model.State </p></li>
             </ul>
             @Html.HiddenFor(model => model.ProjectId)
             @Html.ActionLink("View Details", "Details", "Projects", new { id = Model.ProjectId }, new { @class = "btn btn-info" })
@@ -39,4 +39,4 @@
     </div>
 
 </div>
-    }
+}
