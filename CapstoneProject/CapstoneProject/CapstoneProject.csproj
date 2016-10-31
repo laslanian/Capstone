@@ -242,7 +242,6 @@
     <Compile Include="Management.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CapstoneProjectContext.cs" />
     <Compile Include="Models\DA\GroupRepository.cs" />
     <Compile Include="Models\DA\ProjectRepository.cs" />
     <Compile Include="Models\DA\StudentRepository.cs" />

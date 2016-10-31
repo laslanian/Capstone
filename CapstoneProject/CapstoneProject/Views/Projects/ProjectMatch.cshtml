@@ -11,10 +11,10 @@
 
     <div class="container ">
             <div class="row">
-                <div class="col-md-6" height:auto;">
+                <div class="col-md-10" height:auto;">
                     <h2>Project Match</h2>
                 </div>
-                <div class="col-md-6" height:auto;">
+                <div class="col-md-2" height:auto;">
                     <input style="margin-top:15px;" type="submit" name="button" value="Save" class="btn btn-default" />    <span style="color:red"> @ViewBag.SubmitError </span>
                 </div>
             </div>
@@ -53,25 +53,6 @@
         </div>
   
 }
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".div_projects").accordion({
-            header: "> div > h3",
-            collapsible: true,
-            active: false,
-            autoHeight: true,
-            autoActivate: true
-        });
-        $(".div_groups").accordion({
-            header: "> div > h3",
-            collapsible: true,
-            active: false,
-            autoHeight: true,
-            autoActivate: true
-        });
-     
-    });
-</script>
 
 
 
