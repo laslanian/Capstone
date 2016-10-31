@@ -11,7 +11,7 @@
 
 <div class="container">
             <div class="row">
-                <div class="col-md-10" height:auto;">
+                <div class="col-md-6" height:auto;">
                     <h2>Project Match</h2>
                 </div>
                 <div class="col-md-2" style="height:auto;">
@@ -29,7 +29,7 @@
                             int countGroup = 0;
                             for (int i = 0, len = groupList.Count(); i < len; i++)
                             {
-                                if (!groupList[i].Status.Equals("Assigned"))
+                                if (groupList[i].Projects.Count() != 1)
                                 {
                                     @Html.Partial("_Groups", groupList[i])
                                     countGroup++;

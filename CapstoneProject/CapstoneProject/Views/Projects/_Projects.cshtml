@@ -27,35 +27,35 @@
             {
                 foreach (var item in Model)
                 {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                @{if (Session["UserType"].ToString().Equals("Admin"))
-                                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        @{if (Session["UserType"].ToString().Equals("Admin"))
+                            {
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Client.CompanyName)
-                                        </td>
-                                    }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Client.CompanyName)
+                                </td>
+                            }
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.State)
+                        </td>
+                        <td>
+                            @Html.ActionLink("View Details", "Details", "Projects", new { id = item.ProjectId }, new { @class = "btn btn-info" })
+                        </td>
+                    </tr>
                                 }
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.State)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("View Details", "Details", "Projects", new { id = item.ProjectId }, new { @class = "btn btn-info" })
-                                </td>
-                            </tr>
-                                        }
-                                    }
+                            }
         }
     </table>
-                                    }
+}
 
-                                    @{ if(Model.Count() < 1)
+@{ if (Model.Count() < 1)
     {
         <p>There are no projects on this list.</p>
     }

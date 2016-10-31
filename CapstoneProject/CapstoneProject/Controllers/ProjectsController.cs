@@ -34,35 +34,16 @@ namespace CapstoneProject.Controllers
                 pl.Projects = _pm.GetProjects();
             }
 
-            if (state == null)
+            if (state == null || state.Equals(ProjectState.All))
             {
-               ViewBag.Project = "All Projects";
-               pl.SelectedItem = ProjectState.All;
+                state = ProjectState.All;
             }
-            else 
+            else
             {
-                if (state.Equals(ProjectState.Pending))
-                {
-                    pl.SelectedItem = ProjectState.Pending;
-                    ViewBag.Project = ProjectState.Pending + " Projects";
-                }
-                else if (state.Equals(ProjectState.Approved))
-                {
-                    pl.SelectedItem = ProjectState.Approved;
-                    ViewBag.Project = ProjectState.Approved + " Projects";
-                }
-                else if (state.Equals(ProjectState.Rejected))
-                {
-                    pl.SelectedItem = ProjectState.Rejected;
-                    ViewBag.Project = ProjectState.Rejected + " Projects";
-                }
-                else
-                {
-                    pl.SelectedItem = ProjectState.Assigned;
-                    ViewBag.Project = ProjectState.Assigned + " Projects";
-                }
                 pl.Projects = pl.Projects.FindAll(s => s.State == state);
             }
+            pl.SelectedItem = state;
+            ViewBag.Project = state + " Projects";
             return View(pl);
         }
         [HttpGet]

@@ -196,7 +196,7 @@ namespace CapstoneProject.Controllers
             {
                 g.Projects.Clear();
                 gbs.EditGroup(g);
-                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"])});
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
             
             
