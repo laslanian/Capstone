@@ -63,8 +63,7 @@ namespace CapstoneProject.Controllers
             {
                 Group g = _gbs.GetGroupById(groupId);
                 Project p = _gbs.GetProjectById(projectId);
-                p.State = ProjectState.Assigned;
-                g.Status = GroupState.Assigned;
+                p.State = "Assigned";
                 g.Projects.Clear();
                 g.Projects.Add(p);
 

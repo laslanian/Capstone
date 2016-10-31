@@ -59,15 +59,4 @@
     <input type="submit" name="button" value="Save" class="btn btn-default" />    <span style="color:red"> @ViewBag.CountError </span>
 
 }
-<script type="text/javascript">
-    $(document).ready(function () {
-        var limit = 5;
-        $("input[type=checkbox][name=chkSelected]").click(function () {
-
-            var bol = $("input[type=checkbox][name=chkSelected]:checked").length >= limit;
-            $("input[type=checkbox][name=chkSelected]").not(":checked").attr("disabled", bol);
-
-        });
-    });
-</script>
 

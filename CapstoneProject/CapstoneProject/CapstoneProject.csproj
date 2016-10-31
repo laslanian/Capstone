@@ -646,20 +646,17 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\CreateSkillset.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Admins\GetPendingProjects.cshtml" />
+    <Content Include="Views\Admins\Projects.cshtml" />
     <Content Include="Views\Projects\_Projects.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
+    <Content Include="Views\Projects\ProjectsByClient.cshtml" />
     <Content Include="Views\Projects\Projects.cshtml" />
     <Content Include="Views\Students\CreateChart.cshtml" />
     <Content Include="Views\Groups\AssignProjects.cshtml" />
     <Content Include="Views\Projects\ProjectMatch.cshtml" />
     <Content Include="Views\Projects\_Groups.cshtml" />
     <Content Include="Views\Projects\_ProjectDetail.cshtml" />
-    <Content Include="Views\Coops\AddCoop.cshtml" />
-    <Content Include="Views\Coops\Details.cshtml" />
-    <Content Include="Views\Coops\Edit.cshtml" />
-    <Content Include="Views\Admins\CreateUser.cshtml" />
-    <Content Include="Views\Admins\Users.cshtml" />
-    <Content Include="Views\Admins\_Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
