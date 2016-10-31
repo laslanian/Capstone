@@ -25,12 +25,9 @@
                             var groupList = Model.Groups.ToList();
                             for (int i = 0, len = groupList.Count(); i < len; i++)
                             {
-                                if (groupList[i].Projects.Count() != 1)
+                                if (!groupList[i].Status.Equals("Assigned"))
                                 {
-                                    if (groupList[i].Projects.ToList()[0].State != "Assigned")
-                                    {
-                                        @Html.Partial("_Groups", groupList[i])
-                                    }
+                                    @Html.Partial("_Groups", groupList[i])
 
                                 }
                             }

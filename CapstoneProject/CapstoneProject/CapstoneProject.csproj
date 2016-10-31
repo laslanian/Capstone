@@ -242,6 +242,7 @@
     <Compile Include="Management.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CapstoneProjectContext.cs" />
     <Compile Include="Models\DA\GroupRepository.cs" />
     <Compile Include="Models\DA\ProjectRepository.cs" />
     <Compile Include="Models\DA\StudentRepository.cs" />
@@ -294,6 +295,7 @@
     </Compile>
     <Compile Include="Utility\AesEncrypt.cs" />
     <Compile Include="Utility\Campuses.cs" />
+    <Compile Include="Utility\GroupState.cs" />
     <Compile Include="Utility\ProjectState.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -641,8 +643,6 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\CreateSkillset.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
-    <Content Include="Views\Admins\GetPendingProjects.cshtml" />
-    <Content Include="Views\Admins\Projects.cshtml" />
     <Content Include="Views\Projects\_Projects.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\ProjectsByClient.cshtml" />
@@ -652,6 +652,9 @@
     <Content Include="Views\Projects\ProjectMatch.cshtml" />
     <Content Include="Views\Projects\_Groups.cshtml" />
     <Content Include="Views\Projects\_ProjectDetail.cshtml" />
+    <Content Include="Views\Coops\AddCoop.cshtml" />
+    <Content Include="Views\Coops\Details.cshtml" />
+    <Content Include="Views\Coops\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
