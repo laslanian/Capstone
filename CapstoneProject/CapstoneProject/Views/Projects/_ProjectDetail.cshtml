@@ -2,28 +2,41 @@
 @{
     ViewBag.Title = "_ProjectDetail";
 }
+@{
+    string panelId = "project" + Model.ProjectId;
 
-<input id="@Model.Name" type="button" value="@Model.Name" style="font-size:14px; font-family:Verdana,sans-serif;" />
-<br />    
-<div id="@Model.ProjectId">
-    <h2>
-       
-        @Html.HiddenFor(model => model.ProjectId)
-    </h2>
-    <ul style="list-style:none;">
-        <li><p><b>Description:&nbsp;</b>@Model.Description </p></li>
-        <li><p><b>Client:&nbsp;</b>@Model.Client.CompanyName </p></li>
-        <li><p><b>Type:&nbsp;</b>@Model.Type </p></li>
-        <li><p><b>Criteria:&nbsp;</b>@Model.Criteria </p></li>
-    </ul>
-</div>	
-       
-@Html.ActionLink("View Details", "Details", "Projects", new { id = Model.ProjectId }, new { @class = "btn btn-info" })
+<hr />
 
-<script type="text/javascript">
-     $(document).ready(function () {
-         $("#"+@Model.Name).click(function () {
-             $("#"+@Model.ProjectId).slideToggle("slow");
-         });
-     });
-</script>
+       <div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#@panelId">
+                            @Model.Name
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-sm-4">
+                    @Html.Label("Select Project") &nbsp; @Html.RadioButton("ProjectId", Model.ProjectId)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="@panelId" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul style="list-style:none;">
+                <li><p><b>Description:&nbsp;</b>@Model.Description </p></li>
+                <li><p><b>Client:&nbsp;</b>@Model.Client.CompanyName </p></li>
+                <li><p><b>Type:&nbsp;</b>@Model.Type </p></li>
+                <li><p><b>Criteria:&nbsp;</b>@Model.Criteria </p></li>
+            </ul>
+            @Html.HiddenFor(model => model.ProjectId)
+            @Html.ActionLink("View Details", "Details", "Projects", new { id = Model.ProjectId }, new { @class = "btn btn-info" })
+          
+        </div> 
+    </div>
+
+</div>
+    }

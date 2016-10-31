@@ -59,14 +59,35 @@ namespace CapstoneProject.Controllers
             }
             return View(pl);
         }
-
+        [HttpGet]
         public ActionResult ProjectMatch()
         {
             ProjectMatchGroup pmg = new ProjectMatchGroup();
             pmg.Projects=_pm.GetProjects();
             pmg.Groups = _gbs.GetGroups();
             
+            return View(pmg);
+        }
+        [HttpPost]
+        public ActionResult ProjectMatch(int groupId, int projectId, ProjectMatchGroup pmg)
+        {
             
+            if (groupId != 0 && projectId != 0)
+            {
+                Group g = _gbs.GetGroupById(groupId);
+                Project p = _gbs.GetProjectById(projectId);
+                p.State = "Assigned";
+                g.Projects.Clear();
+                g.Projects.Add(p);
+
+                _gbs.EditGroup(g);
+            }
+            else
+            {
+                ViewBag.SubmitError = "Group and Project must be selected.";
+            }
+            pmg.Groups = _gbs.GetGroups();
+            pmg.Projects = _gbs.GetProjects();
             return View(pmg);
         }
 

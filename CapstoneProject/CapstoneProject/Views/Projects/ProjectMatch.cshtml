@@ -3,43 +3,78 @@
     ViewBag.Title = "ProjectMatch";
 }
 
-<h2>ProjectMatch</h2>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="container full-screen">
-        <div class="row">
-            <div class="col-md-6" >
-                <div id="div_groups" style=" height:auto;">
-                    <ul style="list-style:none;">
+    <div class="container ">
+            <div class="row">
+                <div class="col-md-6" height:auto;">
+                    <h2>Project Match</h2>
+                </div>
+                <div class="col-md-6" height:auto;">
+                    <input style="margin-top:15px;" type="submit" name="button" value="Save" class="btn btn-default" />    <span style="color:red"> @ViewBag.SubmitError </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" height:auto;">
+                    <div class="panel-group" id="accordion">
                         @{
                             var groupList = Model.Groups.ToList();
                             for (int i = 0, len = groupList.Count(); i < len; i++)
                             {
-                                <li>@Html.Partial("_Groups", groupList[i])</li>
+                                if (groupList[i].Projects.Count() != 1)
+                                {
+                                    if (groupList[i].Projects.ToList()[0].State != "Assigned")
+                                    {
+                                        @Html.Partial("_Groups", groupList[i])
+                                    }
+
+                                }
                             }
                         }
-                    </ul>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="col-md-6">
-                <div id="div_projects" style="overflow-y: scroll; height:auto;">
-                    <ul style="list-style:none;">
+
+                <div class="col-md-6" height:auto;">
+                    <div class="panel-group" id="accordion">
                         @{
                             var projList = Model.Projects.ToList();
                             for (int i = 0, len = projList.Count(); i < len; i++)
                             {
-                                <li>@Html.Partial("_ProjectDetail", projList[i])</li>
+                                if (!projList[i].State.Equals("Assigned"))
+                                {
+                                    @Html.Partial("_ProjectDetail", projList[i])
+                                }
                             }
                         }
-                    </ul>
-                  
+                    </div>
                 </div>
             </div>
         </div>
-   </div>
-
+  
 }
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".div_projects").accordion({
+            header: "> div > h3",
+            collapsible: true,
+            active: false,
+            autoHeight: true,
+            autoActivate: true
+        });
+        $(".div_groups").accordion({
+            header: "> div > h3",
+            collapsible: true,
+            active: false,
+            autoHeight: true,
+            autoActivate: true
+        });
+     
+    });
+</script>
+
+
+
