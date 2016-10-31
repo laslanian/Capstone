@@ -1,0 +1,172 @@
+﻿@model IEnumerable<CapstoneProject.Admin>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<ul class="tab">
+    <li><a href="javascript:void(0)" class="tablinks" onclick="fetchTab(event, 'Users')">Users</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="fetchTab(event, 'Groups')">Groups</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="fetchTab(event, 'Projects')">Projects</a></li>
+</ul>
+
+<div id="Users" class="tabcontent">
+    <h3>Users</h3>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+</div>
+
+<div id="Groups" class="tabcontent">
+    <h3>PLACEHOLDER</h3>
+</div>
+
+<div id="Projects" class="tabcontent">
+    <h3>PLACEHOLDER</h3>
+</div>
+<!--
+<h2>Index</h2>
+
+<p>
+    @@Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @@Html.DisplayNameFor(model => model.ProgramId)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @@Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@@foreach (var item in Model) {
+    <tr>
+        <td>
+            @@Html.DisplayFor(modelItem => item.ProgramId)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @@Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @@Html.ActionLink("Edit", "Edit", new { id=item.AdminId }) |
+            @@Html.ActionLink("Details", "Details", new { id=item.AdminId }) |
+            @@Html.ActionLink("Delete", "Delete", new { id=item.AdminId })
+        </td>
+    </tr>
+}
+
+</table>
+    -->
+
+<style>
+    /* Style the list */
+    ul.tab {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Float the list items side by side */
+        ul.tab li {
+            float: left;
+        }
+
+            /* Style the links inside the list items */
+            ul.tab li a {
+                display: inline-block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of links on hover */
+                ul.tab li a:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                ul.tab li a:focus, .active {
+                    background-color: #ccc;
+                }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+
+<script>
+    function fetchTab(evt, tabName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
