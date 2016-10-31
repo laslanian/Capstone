@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
-      //  private GroupApplicationService gas = new GroupApplicationService();
+     
         
         // GET: Groups
         public ActionResult Index()
@@ -181,9 +181,14 @@ namespace CapstoneProject.Controllers
                 {
                     return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
                 }
+                else if (code == 99) 
+                {
+                    ViewBag.CountError = "Select a maximum of 5 projects";
+                    return View(gp);
+                }
                 else
                 {
-                    ViewBag.CountError = "Too many selected projects";
+                    ViewBag.CountError = "Select at least 3 projects";
                     return View(gp);
                 }
             }

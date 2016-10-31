@@ -1,0 +1,76 @@
+﻿@model CapstoneProject.Group
+@{
+    ViewBag.Title = "_GroupListItem";
+}
+<hr />
+@{
+    string panelId = "group_"+Model.GroupId;
+ 
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#@panelId">
+                            @Model.GroupName
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-sm-4">
+                    @Html.Label("Select Group") &nbsp; @Html.RadioButton("GroupId", Model.GroupId)
+                </div>
+            </div>
+        </div>
+        </div>
+            <div id="@panelId" class="panel-collapse collapse">
+
+                <div class="panel-body">
+                    @Html.HiddenFor(model => model.GroupId)
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p><b>Members</b></p>
+                                <ul>
+                                    @{
+                                        var studList = Model.Students.ToList();
+                                        for (int i = 0, len = studList.Count(); i < len; i++)
+                                        {
+                                            <li>
+                                                <p>@studList[i].FirstName &nbsp;@studList[i].LastName </p>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><b>Selected Projects</b></p>
+                                <ul>
+                                    @{
+                                        var projList = Model.Projects.ToList();
+                                        for (int i = 0, len = projList.Count(); i < len; i++)
+                                        {
+                                            <li>
+                                                @Html.HiddenFor(modelItem => projList[i].ProjectId)
+                                                <p>@projList[i].Name</p>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <p>
+                            <b>@Html.DisplayNameFor(model => model.Skillset)</b>
+                            <div style="margin-bottom:10px;" class="col-sm-6">
+                                <div>
+                                    <img style="width:350px;height:auto;" src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" />
+                                </div>
+                            </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        }

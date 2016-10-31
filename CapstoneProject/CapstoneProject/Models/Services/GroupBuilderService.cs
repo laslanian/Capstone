@@ -240,13 +240,22 @@ namespace CapstoneProject.Models.Services
         }
         public int AddProjectPreference(Group g)
         {
-            if (g.Projects.Count() <= 5)
+            int count = g.Projects.Count();
+            if (count > 5)
+            {
+                return 99;
+            }
+            else if (count < 3)
+            {
+                return 88;
+            }
+            else
             {
                 _groups.UpdateGroup(g);
                 _groups.Save();
                 return 1;
             }
-            return 0;
+         
 
         }
         public List<Project> GetProjects()
