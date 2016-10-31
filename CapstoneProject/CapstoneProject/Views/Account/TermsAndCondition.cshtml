@@ -7,19 +7,23 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h2 id="center-item">Terms And Condition</h2>
-        <hr />
-
-        <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in justo orci. Maecenas non orci urna. Donec vitae bibendum ante. Sed non magna at massa congue ultrices.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in justo orci. Maecenas non orci urna. Donec vitae bibendum ante. Sed non magna at massa congue ultrices
-            Integer elementum tincidunt nulla, in scelerisque mi placerat in. Aliquam sagittis gravida eros, ac pellentesque lacus hendrerit sed. Pellentesque quis lectus nec sem venenatis fringilla suscipit in enim. Duis eget varius arcu. Nulla et faucibus enim. Aliquam sed tempus justo. Donec accumsan sed metus in tristique. Nulla tellus libero, ornare quis efficitur et, molestie vitae dolor.
-            Donec efficitur leo in eros molestie suscipit. Sed ullamcorper congue porta. Donec eu lobortis massa, non sagittis mi. Suspendisse non nunc sed justo condimentum volutpat eget a ipsum. In hac habitasse platea dictumst. Etiam eu sollicitudin tellus, ultrices bibendum turpis. Suspendisse gravida id tortor vel ornare. Cras quis felis gravida, vehicula lorem a, facilisis felis. Pellentesque dolor lectus, sodales a commodo eu, fermentum consequat mauris. Ut non gravida ex, sed convallis mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam molestie odio at velit maximus, a suscipit diam pulvinar. Aenean a sem sit amet ligula dapibus viverra id vitae est. Vestibulum sed justo porta, convallis nisi ac, faucibus nulla.
+            <h2 id="center-item">Terms And Condition</h2>
+        <div class="toc">
+            <hr class="colorgraph">
+            <div>
+                <p>
+                    <b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b> Donec in justo orci. Maecenas non orci urna. Donec vitae bibendum ante. Sed non magna at massa congue ultrices. <br />
+                </p>
+                <p>
+                    <b>Integer elementum tincidunt nulla, in scelerisque mi placerat in. </b>Aliquam sagittis gravida eros, ac pellentesque lacus hendrerit sed. Pellentesque quis lectus nec sem venenatis fringilla suscipit in enim. Duis eget varius arcu. Nulla et faucibus enim. Aliquam sed tempus justo. Donec accumsan sed metus in tristique. Nulla tellus libero, ornare quis efficitur et, molestie vitae dolor.
+                </p>
+                <b>Donec efficitur leo in eros molestie suscipit.</b> Sed ullamcorper congue porta. Donec eu lobortis massa, non sagittis mi. Suspendisse non nunc sed justo condimentum volutpat eget a ipsum. In hac habitasse platea dictumst. Etiam eu sollicitudin tellus, ultrices bibendum turpis. Suspendisse gravida id tortor vel ornare. Cras quis felis gravida, vehicula lorem a, facilisis felis. Pellentesque dolor lectus, sodales a commodo eu, fermentum consequat mauris. Ut non gravida ex, sed convallis mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam molestie odio at velit maximus, a suscipit diam pulvinar. Aenean a sem sit amet ligula dapibus viverra id vitae est. Vestibulum sed justo porta, convallis nisi ac, faucibus nulla.
+            </div>
+            <hr class="colorgraph">
         </div>
-        <p></p><p></p>
         <div id="center-item" class="form-group">
-            <input type="submit" name="button" value="I agree" class="btn btn-info" />
-            <input type="submit" name="button" value="No" class="btn btn-default" />
+            <input type="submit" name="button" value="Yes, I agree" class="btn btn-info" />
+            <input type="submit" name="button" value="No, I disagree" class="btn btn-default" />
         </div>
     </div>
 }

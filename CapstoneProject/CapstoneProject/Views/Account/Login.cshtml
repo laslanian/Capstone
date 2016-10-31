@@ -3,33 +3,46 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Login</h2>
-<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div>
-        <fieldset>
-            <h4><span style="color:red;"> @ViewBag.LoginError</span></h4>
-            <div class="editor-label">
-                @Html.LabelFor(u => u.Username)
+    <div class="container">
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form role="form">
+                    <fieldset>
+                        <h2>Please Sign In</h2>
+                        <hr class="colorgraph">
+                        <h4><span style="color:red;"> @ViewBag.LoginError</span></h4>
+                        <div class="editor-label">
+                            @Html.LabelFor(u => u.Username)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(u => u.Username)
+                            @Html.ValidationMessageFor(u => u.Username)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(u => u.Password)
+                        </div>
+                        <div class="editor-field">
+                            @Html.PasswordFor(u => u.Password)
+                            @Html.ValidationMessageFor(u => u.Password)
+                        </div>
+                        <br />
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <p >
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Log In" />
+                                </p>                            
+                            </div>
+                            @*<div class="col-xs-6 col-sm-6 col-md-6">
+                                <a href="" class="btn btn-lg btn-primary btn-block">Register</a>
+                            </div>*@
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.Username)
-                @Html.ValidationMessageFor(u => u.Username) 
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(u => u.Password)
-            </div>
-            <div class="editor-field">
-                @Html.PasswordFor(u => u.Password)
-                @Html.ValidationMessageFor(u => u.Password)
-            </div>
-            <br />
-            <p>
-                <input type="submit" value="Log In" />
-            </p>
-        </fieldset>
+        </div>
     </div>
 }
