@@ -25,7 +25,7 @@ namespace CapstoneProject.Models.DA
 
         public IEnumerable<User> GetUsers()
         {
-            return ctx.Users.ToList();
+            return ctx.Users.OrderBy(u => u.Type).ToList();
         }
 
         public User GetUserById(int id)
