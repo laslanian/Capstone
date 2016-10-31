@@ -218,6 +218,7 @@
     </Compile>
     <Compile Include="Content\ProjectTypes.Designer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\CoopsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
@@ -242,7 +243,6 @@
     <Compile Include="Management.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CapstoneProjectContext.cs" />
     <Compile Include="Models\DA\GroupRepository.cs" />
     <Compile Include="Models\DA\ProjectRepository.cs" />
     <Compile Include="Models\DA\StudentRepository.cs" />
@@ -658,6 +658,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
