@@ -657,6 +657,12 @@
     <Content Include="Views\Projects\ProjectMatch.cshtml" />
     <Content Include="Views\Projects\_Groups.cshtml" />
     <Content Include="Views\Projects\_ProjectDetail.cshtml" />
+    <Content Include="Views\Admins\_Users.cshtml" />
+    <Content Include="Views\Admins\CreateUser.cshtml" />
+    <Content Include="Views\Admins\Users.cshtml" />
+    <Content Include="Views\Coops\AddCoop.cshtml" />
+    <Content Include="Views\Coops\Details.cshtml" />
+    <Content Include="Views\Coops\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
