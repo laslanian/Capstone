@@ -629,8 +629,6 @@
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Account\RegisterClient.cshtml" />
-    <Content Include="Views\Account\AfterLogin.cshtml" />
-    <Content Include="Views\Account\FailedLogin.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\TermsAndCondition.cshtml" />
