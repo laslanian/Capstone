@@ -661,6 +661,7 @@
     <Content Include="Views\Coops\AddCoop.cshtml" />
     <Content Include="Views\Coops\Details.cshtml" />
     <Content Include="Views\Coops\Edit.cshtml" />
+    <Content Include="Views\Clients\Feedback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
