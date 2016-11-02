@@ -23,7 +23,8 @@
                 @Html.ActionLink("Capstone Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <span class="pull-right">                
+                    <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (Session["UserType"] == null)
                     {
@@ -31,6 +32,7 @@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        
                     }
                     else
                     {
@@ -55,18 +57,22 @@
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>
+                    </span>
             </div>
         </div>
     </div>
     <div class="container body-content">
+
         @RenderBody()
-        <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - MassIV Capstone Portal</p>
-        </footer>
+            <hr class="colorgraph">
+            @*&copy; @DateTime.Now.Year - MassIV Capstone Portal*@         
+            <img style="width:100%" src="/Content/Images/sheridanlogo.jpg" />
+</footer>
     </div>
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+
 </html>

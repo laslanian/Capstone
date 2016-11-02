@@ -1,0 +1,225 @@
+﻿@model CapstoneProject.Models.ViewModels.StudentProfile
+
+@{
+    ViewBag.Title = "Student Profile";
+}
+
+<div class="container">
+    <h2>Profile Page</h2>
+    <div class="row">
+        @*<div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+            <A href="edit.html">Edit Profile</A>
+            <A href="edit.html">Logout</A>
+            <br>
+            <p class="text-info">May 05,2014,03:00 pm </p>
+        </div>*@
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.DisplayFor(model => model.Student.FirstName) @Html.DisplayFor(model => model.Student.LastName)</h3>
+                </div>
+                <div class="panel-body">
+                       @* <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>*@
+                    <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://auto.е-импорт.рф/images1/man-unknown-4.jpg" class="img-circle img-responsive"> </div>
+                        <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                          <dl>
+                            <dt>DEPARTMENT:</dt>
+                            <dd>Administrator</dd>
+                            <dt>HIRE DATE</dt>
+                            <dd>11/12/2013</dd>
+                            <dt>DATE OF BIRTH</dt>
+                               <dd>11/12/2013</dd>
+                            <dt>GENDER</dt>
+                            <dd>Male</dd>
+                          </dl>
+                        </div>-->
+                        <div class="col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">                     
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>@Html.DisplayFor(model => model.Student.Email)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Student Number:</td>
+                                        <td>@Html.DisplayFor(model => model.Student.StudentNumber)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Program</td>
+                                        <td>@Html.DisplayFor(model => model.Program.ProgramName)</td>
+                                    </tr>
+
+                                    <tr>
+                                    @*<tr>
+                                        <td>Gender</td>
+                                        <td>Female</td>
+                                    </tr>*@
+                                    <tr>
+                                        <td >Phone Number</td>
+                                        <td style="text-align:left;">@Html.DisplayFor(model => model.Student.PhoneNumber)</td>
+                                    </tr>
+                                    @*<tr>
+                                        <td>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })</td>
+                                        <td style="text-align:right;"><a href="~/Account/Logout" class="btn btn-warning">Logout</a></td>
+                                    </tr>*@  
+                            </table>                            
+                        </div>
+              
+                </div>
+                <div class="panel-footer">
+                    @*<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>*@
+                   @* <span class="pull-right">*@
+                        @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })
+                        @*<a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>*@
+                        <a href="~/Account/Logout" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                   @* </span>*@
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<ul class="tab">
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Skillset')">Skillset</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Coop')">Coop</a></li>
+</ul>
+
+<div id="Skillset" class="tabcontent">
+    <h4>Skillset</h4>
+    @{ if (Model.Student.Skillset != null)
+        {
+            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Student.Skillset.Id })" /></div>
+        }
+        else
+        { <p>
+        You currently don't have a registered skill set.
+        Create one? @Html.ActionLink("Click here", "Index", "Groups", null, new { @class = "btn btn-default" })
+    </p> }
+    }
+</div>
+
+<div id="Coop" class="tabcontent">
+    @{
+        var coopList = Model.Student.Coops.ToList();
+    }
+    <hr />
+    <h4>
+        Information
+        @{if (coopList.Count() < 2)
+            {
+                @Html.ActionLink("Add Coop", "AddCoop", "Coops", null, new { @class = "btn btn-default" })
+            }
+        }
+    </h4>
+    <hr />
+    @{
+        if (coopList.Count() == 0)
+        {
+            <h4>You have no coop in your profile.</h4>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].JobTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].EndDate)
+                    </th>
+                    <th></th>
+                </tr>
+                @for (int i = 0; i < coopList.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].JobTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].EndDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("View Details", "Details", "Coops", new { id = coopList[i].CoopId }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Delete", "DeleteCoop", "Coops", new { id = coopList[i].CoopId }, new { onclick = "return confirm('Are you sure you want to delete this?');", @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+</div>
+
+<style>
+     /* Style the list */
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #ddd;}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {background-color: #ccc;}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+<script>
+    function openCity(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+

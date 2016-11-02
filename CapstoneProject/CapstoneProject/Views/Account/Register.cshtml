@@ -7,9 +7,9 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h2>Choose an account type:</h2>
-        <hr />
+    <div class="form-horizontal">.
+        <h2>Choose an Account Type:</h2>
+        <hr class="colorgraph">
         <table>
             <tr><td><p></p></td></tr>
             <tr>
@@ -22,7 +22,8 @@
             <tr><td><p></p></td></tr>
             <tr><td><p></p></td></tr>
             <tr>
-                <td>@Html.ActionLink("Cancel", "Index", "Home", null, new { @class= "btn btn-danger" })</td>
+                <td>
+                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-danger" })</td>
             </tr>
         </table>
     </div>

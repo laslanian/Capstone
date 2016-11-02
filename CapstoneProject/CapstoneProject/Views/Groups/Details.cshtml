@@ -9,7 +9,7 @@
     if (Model.GroupName.IsEmpty())
     {
         <p>You don't have a group. </p>
-        <p>Would you like to create or joine a group? </p>
+        <p>Would you like to create or join a group? </p>
         <p> @Html.ActionLink("Create/Join Group", "Index", null, new { @class = "btn btn-info" })</p>
 
     }
@@ -56,133 +56,201 @@
         </div>
 
         <hr />
-
-        <h3>Group Skillset</h3>
-        <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
-        <hr />
- 
-<h3>Members <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button></h3>
+        <ul class="tab">
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Skillset')">Skillset</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Members')">Members</a></li>
+        </ul>
+        <div id="Skillset" class="tabcontent">
+            <h3>Group Skillset</h3>
+            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
+        </div>
         var studList = Model.Students.ToList();
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => studList[0].FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => studList[0].LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => studList[0].Email)
-                </th>
-            </tr>
-            @for (int i = 0; i < studList.Count(); i++)
-            {
+        <div id="Members" class="tabcontent">
+            <h3>Members <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button></h3>
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => studList[i].FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => studList[i].LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => studList[i].Email)
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => studList[0].FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => studList[0].LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => studList[0].Email)
+                    </th>
                 </tr>
-            }
-        </table>
-
-        <h3>Projects</h3>
-        var projList = Model.Projects.ToList();
-        bool hasAssignedProject=false;
-        if (projList.Count() == 0)
-        {
+                @for (int i = 0; i < studList.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => studList[i].FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => studList[i].LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => studList[i].Email)
+                        </td>
+                    </tr>
+                }
+            </table>
+            </div>
+            <h3>Projects</h3>
+            var projList = Model.Projects.ToList();
+            bool hasAssignedProject=false;
+            if (projList.Count() == 0)
+            {
             <p>You don't have any projects. </p>
             <p>Would you like to apply for projects? </p>
             <p> @Html.ActionLink("Apply for Projects", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
-        }
-        else
-        {
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => projList[0].Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => projList[0].Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => projList[0].Type)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => projList[0].State)
-                </th>
-            </tr>
-            @for (int i = 0, len = projList.Count(); i < len; i++)
-            {
-                hasAssignedProject = projList[i].State.Equals("Assigned");
-                <tr>
-                    <td>
-                        @Html.HiddenFor(modelItem => projList[i].ProjectId)
-                        @Html.DisplayFor(modelItem => projList[i].Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => projList[i].Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => projList[i].Type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => projList[i].State)
-                    </td>
-                </tr>
             }
-        </table>
+            else
+            {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => projList[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => projList[0].Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => projList[0].Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => projList[0].State)
+                    </th>
+                </tr>
+                @for (int i = 0, len = projList.Count(); i < len; i++)
+                {
+                    hasAssignedProject = projList[i].State.Equals("Assigned");
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(modelItem => projList[i].ProjectId)
+                            @Html.DisplayFor(modelItem => projList[i].Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => projList[i].Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => projList[i].Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => projList[i].State)
+                        </td>
+                    </tr>
+                }
+            </table>
             if (!hasAssignedProject && owner != null)
             {
-                <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
+            <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
             }
-        }
+            }
 
-    }
-}
+            }
+            }
 
-<!-- Modal -->
-<div id="leaveModal" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog">
+            <!-- Modal -->
+            <div id="leaveModal" class="modal fade" role="dialog" tabindex="-1">
+                <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Leave Group?</h4>
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Leave Group?</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to leave?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="leaveGroup" class="btn btn-primary">Leave</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to leave?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button"  id="leaveGroup" class="btn btn-primary">Leave</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#leaveGroup').on('click', function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'GET',
-                url: "/Groups/LeaveGroup/" + @Model.GroupId,
-                data: { },
-                success: function() {
-                    window.location.href = "/Groups/Index"
-                },
-                error: function(e) {
-                    alert(e.responseText);
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#leaveGroup').on('click', function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            type: 'GET',
+                            url: "/Groups/LeaveGroup/" + @Model.GroupId,
+                            data: { },
+                            success: function() {
+                                window.location.href = "/Groups/Index"
+                            },
+                            error: function(e) {
+                                alert(e.responseText);
+                            }
+                        })
+                    })
+                });
+                function openCity(evt, cityName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks;
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the link that opened the tab
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
                 }
-            })
-        })
-    });
-</script>
+            </script>
+            <style>
+                /* Style the list */
+                ul.tab {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    border: 1px solid #ccc;
+                    background-color: #f1f1f1;
+                }
+
+                    /* Float the list items side by side */
+                    ul.tab li {
+                        float: left;
+                    }
+
+                        /* Style the links inside the list items */
+                        ul.tab li a {
+                            display: inline-block;
+                            color: black;
+                            text-align: center;
+                            padding: 14px 16px;
+                            text-decoration: none;
+                            transition: 0.3s;
+                            font-size: 17px;
+                        }
+
+                            /* Change background color of links on hover */
+                            ul.tab li a:hover {
+                                background-color: #ddd;
+                            }
+
+                            /* Create an active/current tablink class */
+                            ul.tab li a:focus, .active {
+                                background-color: #ccc;
+                            }
+
+                /* Style the tab content */
+                .tabcontent {
+                    display: none;
+                    padding: 6px 12px;
+                    border: 1px solid #ccc;
+                    border-top: none;
+                }
+            </style>
