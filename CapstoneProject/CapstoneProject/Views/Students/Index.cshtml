@@ -165,7 +165,7 @@
         $('#deleteCoop').on('click', function (e) {
             var cId = $("#hdnSelectedCoop").val();
             $.ajax({
-                url: '/Coops/DeleteCoop',
+                url: '/Admins/DeleteGroup',
                 type: 'POST',
                 dataType: 'text',
                 data: {

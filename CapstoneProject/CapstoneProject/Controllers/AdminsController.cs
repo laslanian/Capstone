@@ -12,6 +12,7 @@ namespace CapstoneProject.Controllers
     public class AdminsController : Controller
     {
         UserAccountService _uas = new UserAccountService();
+        GroupBuilderService _gbs = new GroupBuilderService();
 
         public ActionResult Users(String type)
         {
@@ -49,6 +50,24 @@ namespace CapstoneProject.Controllers
         }
 
         public ActionResult Delete(int id)
+        {
+            return View();
+        }
+        
+        public ActionResult Groups()
+        {
+            return View(_gbs.GetGroups());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryTokenAttribute]
+        public ActionResult UnassignProjGroup()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryTokenAttribute]
+        public ActionResult DeleteGroup(int id)
         {
             return View();
         }
