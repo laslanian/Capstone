@@ -264,6 +264,7 @@
     <Compile Include="Models\Services\StudentCoopService.cs" />
     <Compile Include="Models\Services\UserAccountService.cs" />
     <Compile Include="Models\ViewModels\ClientUser.cs" />
+    <Compile Include="Models\ViewModels\CreateAccount.cs" />
     <Compile Include="Models\ViewModels\GroupProject.cs" />
     <Compile Include="Models\ViewModels\GroupStudent.cs" />
     <Compile Include="Models\ViewModels\LoginUser.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Models\ViewModels\StudentGroup.cs" />
     <Compile Include="Models\ViewModels\StudentProfile.cs" />
     <Compile Include="Models\ViewModels\StudentUser.cs" />
+    <Compile Include="Models\ViewModels\UserList.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -292,6 +294,7 @@
     <Compile Include="User.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utility\AccountType.cs" />
     <Compile Include="Utility\AesEncrypt.cs" />
     <Compile Include="Utility\Campuses.cs" />
     <Compile Include="Utility\GroupState.cs" />
@@ -653,10 +656,16 @@
     <Content Include="Views\Coops\AddCoop.cshtml" />
     <Content Include="Views\Coops\Details.cshtml" />
     <Content Include="Views\Coops\Edit.cshtml" />
+    <Content Include="Views\Clients\Feedback.cshtml" />
+    <Content Include="Views\Admins\CreateUser.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Groups.cshtml" />
+    <Content Include="Views\Admins\Users.cshtml" />
+    <Content Include="Views\Admins\_Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

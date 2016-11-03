@@ -44,7 +44,7 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-info" })
                         @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { onclick = "return confirm('Are you sure you want to delete this account?');", @class = "btn btn-danger" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { onclick = "return confirm('Are you sure you want to delete this account?');", @class = "btn btn-danger", @disabled = "disabled" })
                     </td>
                 </tr>
             }
