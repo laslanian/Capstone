@@ -8,6 +8,6 @@ namespace CapstoneProject.Utility
     public class GroupState
     {
         public static string Assigned { get { return "Assigned"; } }
-        public static string Waiting { get { return "Waiting"; } }
+        public static string Unassigned { get { return "Unassigned"; } }
     }
 }

@@ -5,7 +5,15 @@
 }
 
 <h2>Project Details</h2>
-@Html.ActionLink("Edit Project", "Edit", new { id = Model.ProjectId }, new { @class = "btn btn-default" })
+@{
+    if (Session["UserType"].ToString().Equals("Admin"))
+    {
+        if (Model.State.Equals("Pending"))
+        {
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#stateModal">Approve / Reject</button>
+        }
+    }
+}
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -91,3 +99,49 @@
     </dl>
 
 </div>
+<!-- Modal -->
+<div id="stateModal" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Approve or Reject Project?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Would you like to approve or reject this project?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="@Model.ProjectId" value="Approved" class="btn btn-success btnChangeState">Approve</button>
+                <button type="button" id="@Model.ProjectId" value="Rejected"class="btn btn-danger btnChangeState">Reject</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function changeProjectState(pId, pState)
+        {
+            $.ajax({
+                url: '/Projects/ChangeState',
+                type: 'POST',
+                dataType: 'text',
+                data: {
+                    id: pId,
+                    state: pState
+                },
+                success: function (data) {
+                    window.location.href = "/Projects/Projects";
+                }
+            });
+        }
+
+         $('.btnChangeState').on('click', function (e) {
+             changeProjectState($(this).attr("id"), $(this).val());
+        });
+            
+    });
+</script>

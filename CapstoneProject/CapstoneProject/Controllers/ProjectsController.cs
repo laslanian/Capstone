@@ -25,11 +25,11 @@ namespace CapstoneProject.Controllers
         {
             String UserType = Session["UserType"].ToString();
             ProjectWithList pl = new ProjectWithList();
-            if (UserType.Equals("Client"))
+            if (UserType.Equals(AccountType.Client))
             {
                 pl.Projects = _pm.GetProjectsByClient(Convert.ToInt32(Session["Id"]));
             }
-            else if (UserType.Equals("Admin"))
+            else if (UserType.Equals(AccountType.Admin))
             {
                 pl.Projects = _pm.GetProjects();
             }
@@ -56,6 +56,40 @@ namespace CapstoneProject.Controllers
             return View(pmg);
         }
         [HttpPost]
+        public ActionResult ChangeState(int id, string state)
+        {
+            Project p = _pm.GetProjectDetails(id);
+
+            p.State=state;
+            int code = _pm.UpdateProject(p);
+            if (code == 1)
+            {
+                return RedirectToAction("Projects");
+            }
+            else
+            {
+                return View(p);
+            }
+            
+
+        }
+        [HttpPost]
+        public ActionResult UnassignProject(int projId,int groupId)
+        {
+            Project p = _gbs.GetProjectById(projId);
+            Group g = _gbs.GetGroupById(groupId);
+
+            g.Status=GroupState.Unassigned;
+            g.Projects.Remove(p);
+            p.State=ProjectState.Approved;
+
+            _gbs.EditGroup(g);
+            _pm.UpdateProject(p);
+
+            return RedirectToAction("Groups","Admins");
+           // return View();
+        }
+        [HttpPost]
         public ActionResult ProjectMatch(int groupId, int projectId, ProjectMatchGroup pmg)
         {
             
@@ -63,7 +97,8 @@ namespace CapstoneProject.Controllers
             {
                 Group g = _gbs.GetGroupById(groupId);
                 Project p = _gbs.GetProjectById(projectId);
-                p.State = "Assigned";
+                p.State = ProjectState.Assinged;
+                g.Status = GroupState.Assigned;
                 g.Projects.Clear();
                 g.Projects.Add(p);
 

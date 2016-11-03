@@ -515,6 +515,7 @@
     <Content Include="Content\Images\icons-svg\user-white.svg" />
     <Content Include="Content\Images\icons-svg\video-black.svg" />
     <Content Include="Content\Images\icons-svg\video-white.svg" />
+    <Content Include="Content\Images\man-unknown-4.png" />
     <Content Include="Content\Images\sample1.png" />
     <Content Include="Content\Images\sample2.png" />
     <Content Include="Content\Images\sample3.png" />
@@ -585,6 +586,9 @@
     <Content Include="obj\Debug\build.force" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="Content\Images\Thumbs.db" />
+    <Content Include="Content\Images\3" />
+    <Content Include="Content\Images\5" />
+    <Content Include="Content\Images\6" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -661,6 +665,9 @@
     <Content Include="Views\Admins\Users.cshtml" />
     <Content Include="Views\Admins\_Users.cshtml" />
     <Content Include="Views\Clients\Feedback.cshtml" />
+    <Content Include="Views\Projects\_ProjectCriteria.cshtml" />
+    <Content Include="Views\Admins\GroupDetail.cshtml" />
+    <Content Include="Views\Admins\_Group.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,44 +11,51 @@
 
     <div class="container ">
             <div class="row">
-                <div class="col-md-6" height:auto;">
-                    <h2>Project Match</h2>
+                <div class="col-md-10" height:auto;">
+                    <h2>Project Matching</h2>
                 </div>
-                <div class="col-md-6" height:auto;">
+                <div class="col-md-2" height:auto;">
                     <input style="margin-top:15px;" type="submit" name="button" value="Save" class="btn btn-default" />    <span style="color:red"> @ViewBag.SubmitError </span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6" height:auto;">
+                    <h3>Groups</h3>
                     <div class="panel-group" id="accordion">
                         @{
-                            var groupList = Model.Groups.ToList();
-                            for (int i = 0, len = groupList.Count(); i < len; i++)
+                            var groupList = Model.Groups.Where(model=> !model.Status.Equals("Assigned")).ToList();
+                            if (groupList.Count() >= 1)
                             {
-                                if (groupList[i].Projects.Count() != 1)
+                                for (int i = 0, len = groupList.Count(); i < len; i++)
                                 {
-                                    if (groupList[i].Projects.ToList()[0].State != "Assigned")
-                                    {
-                                        @Html.Partial("_Groups", groupList[i])
-                                    }
-
+                                    @Html.Partial("_Groups", groupList[i])   
                                 }
+                            }
+                            else
+                            {
+                                <span style="color:red"> No available groups. </span>
                             }
                         }
                     </div>
                 </div>
 
                 <div class="col-md-6" height:auto;">
+                    <h3>Projects</h3>
                     <div class="panel-group" id="accordion">
                         @{
-                            var projList = Model.Projects.ToList();
-                            for (int i = 0, len = projList.Count(); i < len; i++)
+                            var projList = Model.Projects.Where(model => !model.State.Equals("Assigned")).ToList();
+                            if (projList.Count() >= 1)
                             {
-                                if (!projList[i].State.Equals("Assigned"))
+                                for (int i = 0, len = projList.Count(); i < len; i++)
                                 {
                                     @Html.Partial("_ProjectDetail", projList[i])
                                 }
                             }
+                            else
+                            {
+                                <span style="color:red"> No available projects. </span>
+                            }
+
                         }
                     </div>
                 </div>

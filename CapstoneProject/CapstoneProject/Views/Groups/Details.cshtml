@@ -57,8 +57,8 @@
 
         <hr />
         <ul class="tab">
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Skillset')">Skillset</a></li>
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Members')">Members</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')">Skillset</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Members')">Members</a></li>
         </ul>
         <div id="Skillset" class="tabcontent">
             <h3>Group Skillset</h3>
@@ -188,7 +188,7 @@
                         })
                     })
                 });
-                function openCity(evt, cityName) {
+                function openTab(evt, tabName) {
                     // Declare all variables
                     var i, tabcontent, tablinks;
 
@@ -205,7 +205,7 @@
                     }
 
                     // Show the current tab, and add an "active" class to the link that opened the tab
-                    document.getElementById(cityName).style.display = "block";
+                    document.getElementById(tabName).style.display = "block";
                     evt.currentTarget.className += " active";
                 }
             </script>

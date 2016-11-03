@@ -140,7 +140,7 @@ namespace CapstoneProject.Controllers
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
         }
-
+       
         public List<Student> GetStudents(int id)
         {
             using (GroupBuilderService gbs = new GroupBuilderService())

@@ -1,0 +1,18 @@
+﻿@model CapstoneProject.Project
+@{
+    ViewBag.Title = "_ProjectCriteria";
+}
+@{
+   <ul>
+      <li>@Html.DisplayNameFor(model=>model.Criteria.Goal) &nbsp; @Html.DisplayFor(model => model.Criteria.Goal)</li> 
+
+      @if (Model.Criteria.Application){
+          <li>@Html.DisplayNameFor(model => model.Criteria.Application) &nbsp; @Html.DisplayFor(model => model.Criteria.Application)</li> }
+       @if (Model.Criteria.Mobile){
+       <li>@Html.DisplayNameFor(model => model.Criteria.Mobile) &nbsp; @Html.DisplayFor(model => model.Criteria.Mobile)</li> }
+       @if (Model.Criteria.Website) {
+       <li>@Html.DisplayNameFor(model => model.Criteria.Website) &nbsp; @Html.DisplayFor(model => model.Criteria.Website)</li> }
+       @if (Model.Criteria.Storage){
+       <li>@Html.DisplayNameFor(model => model.Criteria.Storage) &nbsp; @Html.DisplayFor(model => model.Criteria.Storage)</li> }
+   </ul> 
+}
