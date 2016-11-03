@@ -30,7 +30,6 @@ namespace CapstoneProject.Controllers
             return View(ul);
         }
 
-        // GET: Admins
         public ActionResult CreateUser()
         {
             CreateAccount ca = new CreateAccount();
@@ -43,9 +42,64 @@ namespace CapstoneProject.Controllers
         {
             if(ModelState.IsValid)
             {
-                return RedirectToAction("CreateUser");
+                int code = _uas.CreateUser(ca);
+                if(code == 1)
+                {
+                    ViewBag.CreateUser = "Successfully Added Coop Account.";
+                }
+                else if(code == 2)
+                {
+                    ViewBag.CreateUser = "Successfully Added Coop Account.";
+                }
+                else if(code == 3)
+                {
+                    ViewBag.CreateUser = "Successfully Added Coop Account.";
+                }
+                else
+                {
+                    ViewBag.CreateUser = "An Error has occured.";
+                    return View(ca);
+                }
+                return RedirectToAction("Users");
             }
             return View(ca);
+        }
+
+        public ActionResult Details(int id)
+        {
+            User u = _uas.GetUser(id);
+            AesEncrpyt de = new AesEncrpyt();
+            u.Username = de.Decrypt(u.Username);
+            u.Password = de.Decrypt(u.Password);
+            return View(u);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            User u = _uas.GetUser(id);
+            AesEncrpyt de = new AesEncrpyt();
+            u.Username = de.Decrypt(u.Username);
+            u.Password = de.Decrypt(u.Password);
+            return View(u);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(User u)
+        {
+            if(ModelState.IsValid)
+            {
+                int code =_uas.EditUser(u);
+                if(code > 0)
+                {
+                    return RedirectToAction("Details", u.UserId);
+                }
+                else
+                {
+                    return View(u);
+                }
+            }
+            return View(u);
         }
 
         public ActionResult Delete(int id)

@@ -13,7 +13,9 @@ namespace CapstoneProject.Models.Interfaces
         bool isExistingUsername(string username);
         User GetUserById(int id);
         void InsertUser(User u);
-        void UpdateUser(User u);
+        int UpdateUser(User u);
+        int UpdateStudent(Student s);
+        int UpdateClient(Client c);
         void DeleteUser(int id);
         void Save();
     }

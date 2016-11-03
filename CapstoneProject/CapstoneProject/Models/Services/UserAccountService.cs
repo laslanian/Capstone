@@ -6,6 +6,7 @@ using System.Web;
 using CapstoneProject.Models.DA;
 using CapstoneProject.Models.Interfaces;
 using CapstoneProject.Utility;
+using CapstoneProject.Models.ViewModels;
 
 namespace CapstoneProject.Models.Services
 {
@@ -137,15 +138,41 @@ namespace CapstoneProject.Models.Services
         {
             if (_users.GetUserById(u.UserId) != null)
             {
-                _users.UpdateUser(u);
-                _users.Save();
-                return 1;
+                AesEncrpyt en = new AesEncrpyt();
+                u.Username = en.Encrypt(u.Username);
+                u.Password = en.Encrypt(u.Password);
+                return _users.UpdateUser(u);
             }
             else
             {
                 return 0;
             }
         }
+
+        public int UpdateStudent(Student s)
+        {
+            if (_users.GetUserById(s.UserId) != null)
+            {
+                return _users.UpdateStudent(s);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int UpdateClient(Client c)
+        {
+            if (_users.GetUserById(c.UserId) != null)
+            {
+                return _users.UpdateClient(c);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public User GetUser(int id)
         {
             return _users.GetUserById(id) != null ? _users.GetUserById(id) : null;
@@ -172,14 +199,64 @@ namespace CapstoneProject.Models.Services
             return _programs.GetProgram(id);
         }
 
+
+        public int CreateUser(CreateAccount ac)
+        {
+
+            AesEncrpyt en = new AesEncrpyt();
+            ac.Username = en.Encrypt(ac.Username);
+            ac.Password = en.Encrypt(ac.Password);
+
+            if (ac.SelectedAccount.Equals(AccountType.Coop_Advisor))
+            {
+                Coop_Advisor ca = new Coop_Advisor();
+                ca.FirstName = ac.FirstName;
+                ca.LastName = ac.LastName;
+                ca.Username = ac.Username;
+                ca.Password = ac.Password;
+                ca.PhoneNumber = ac.PhoneNumber;
+                ca.Email = ac.Email;
+                ca.Type = AccountType.Coop_Advisor;
+                _users.InsertUser(ca);
+                _users.Save();
+                return 1;
+              
+            }
+            else if(ac.SelectedAccount.Equals(AccountType.Management))
+            {
+                Management ma = new Management();
+                ma.FirstName = ac.FirstName;
+                ma.LastName = ac.LastName;
+                ma.Username = ac.Username;
+                ma.Password = ac.Password;
+                ma.PhoneNumber = ac.PhoneNumber;
+                ma.Email = ac.Email;
+                ma.Type = AccountType.Management;
+                _users.InsertUser(ma);
+                _users.Save();
+                return 2;
+            }
+            else if(ac.SelectedAccount.Equals(AccountType.Admin)) { 
+                Admin ad = new Admin();
+                ad.FirstName = ac.FirstName;
+                ad.LastName = ac.LastName;
+                ad.Username = ac.Username;
+                ad.Password = ac.Password;
+                ad.PhoneNumber = ac.PhoneNumber;
+                ad.Email = ac.Email;
+                ad.Type = AccountType.Admin;
+                _users.InsertUser(ad);
+                _users.Save();
+                return 3;
+            }
+            else {
+                return 0;
+            }
+        }
+
         public void Dispose()
         {
             _users.Dispose();
-        }
-
-        public void CreateAdmin()
-        {
-
         }
     }
 }

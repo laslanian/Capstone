@@ -57,7 +57,7 @@
 
         <hr />
         <ul class="tab">
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Skillset')">Skillset</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Skillset')" id="skills">Skillset</a></li>
             <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Members')">Members</a></li>
         </ul>
         <div id="Skillset" class="tabcontent">
@@ -67,7 +67,7 @@
         var studList = Model.Students.ToList();
         <div id="Members" class="tabcontent">
             <h3>Members <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button></h3>
-            <table class="table">
+            <table class="table table-striped">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => studList[0].FirstName)
@@ -106,7 +106,7 @@
             }
             else
             {
-            <table class="table">
+            <table class="table table-striped">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => projList[0].Name)
@@ -188,6 +188,9 @@
                         })
                     })
                 });
+
+                document.getElementById("skills").click();
+
                 function openCity(evt, cityName) {
                     // Declare all variables
                     var i, tabcontent, tablinks;

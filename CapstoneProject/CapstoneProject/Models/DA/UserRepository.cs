@@ -49,10 +49,43 @@ namespace CapstoneProject.Models.DA
             ctx.Users.Add(u);
         }
 
-        public void UpdateUser(User u)
+        public int UpdateUser(User u)
         {
-            ctx.Entry(u).State = System.Data.Entity.EntityState.Modified;
+            var user = ctx.Users.SingleOrDefault(us => us.UserId == u.UserId);
+            user.FirstName = u.FirstName;
+            user.LastName = u.LastName;
+            user.Password = u.PhoneNumber;
+            user.Email = u.Email;
+            user.Username = u.Username;
+            user.Password = u.Password;
+            user.Type = u.Type;
+            return ctx.SaveChanges();
         }
+
+        public int UpdateStudent(Student s)
+        {
+            var student = ctx.Users.OfType<Student>().SingleOrDefault(u => u.UserId == s.UserId);
+            student.FirstName = s.FirstName;
+            student.LastName = s.LastName;
+            student.PhoneNumber = s.PhoneNumber;
+            student.Email = s.Email;
+            student.StudentNumber = s.StudentNumber;
+            return ctx.SaveChanges();
+        }
+
+        public int UpdateClient(Client  c)
+        {
+            var client= ctx.Users.OfType<Client>().SingleOrDefault(u => u.UserId == c.UserId);
+            client.FirstName = c.FirstName;
+            client.LastName = c.LastName;
+            client.PhoneNumber = c.PhoneNumber;
+            client.Email = c.Email;
+            client.CompanyName = c.CompanyName;
+            client.CompanyDescription = c.CompanyDescription;
+            client.CompanyAddress = c.CompanyAddress;
+            return ctx.SaveChanges();
+        }
+
 
         public void DeleteUser(int id)
         {

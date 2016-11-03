@@ -41,6 +41,12 @@ namespace CapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Student s)
         {
+            UserAccountService uas = new UserAccountService();
+            int code = uas.UpdateStudent(s);
+            if(code > 0)
+            {
+                return RedirectToAction("Index");
+            }
             return View(s);
         }
 

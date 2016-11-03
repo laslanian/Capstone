@@ -52,6 +52,14 @@
                             <li>@Html.ActionLink("Projects", "Projects", "Projects")</li>
                             <li>@Html.ActionLink("Project Matching", "ProjectMatch", "Projects")</li>
                         }
+                        else if(Session["UserType"].ToString().Equals("Coop"))
+                        {
+                            <li>@Html.ActionLink("Students", "Students", "Coop")</li>
+                        }
+                        else if (Session["UserType"].ToString().Equals("Management"))
+                        {
+
+                        }
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>
