@@ -668,6 +668,8 @@
     <Content Include="Views\Projects\_ProjectCriteria.cshtml" />
     <Content Include="Views\Admins\GroupDetail.cshtml" />
     <Content Include="Views\Admins\_Group.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
