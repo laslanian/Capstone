@@ -5,8 +5,8 @@
 }
 
 <h2>Coop Details</h2>
-@*@Html.ActionLink("Go Back", "Index", "Students", null, new { @class = "btn btn-default" })*@
-@Html.ActionLink("Edit Coop", "Edit", new { id = Model.CoopId}, new { @class = "btn btn-info"})
+@Html.ActionLink("Go Back", "Index", "Students", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Edit Coop", "Edit", new { id = Model.CoopId }, new { @class = "btn btn-info" })
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -55,7 +55,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Comments)
+            @if (Model.Comments.IsEmpty())
+            {
+                <p>No comment has been added.</p>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.Comments)
+            }
+            
         </dd>
     </dl>
 </div>

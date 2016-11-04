@@ -13,13 +13,16 @@
         </p>
     }
 }
-
 <hr />
+<table style="width: 100%">
+    <tr>
+        <td>
+            <div style="width: 50%; float: left; text-align: left;"><h4>@ViewBag.Project</h4></div>
+            <div style="width: 50%; float: left; text-align: right;"><h4 style="display: inline-block">Status:</h4> @Html.DropDownListFor(model => model.SelectedItem, Model.States as List<SelectListItem>, new { @style = "width: 110px", @class = "pull-right form-control", @Id = "projectstate" })</div>
+        </td>
+    </tr>
+</table>
 
-<h4>
-    <span>@ViewBag.Project</span>
-    @Html.DropDownListFor(model => model.SelectedItem, Model.States as List<SelectListItem>, new { @style = "width: 110px", @class = "pull-right form-control", @Id = "projectstate" })
-</h4>
 <br />
 
 @Html.Partial("~/Views/Projects/_Projects.cshtml", Model.Projects)

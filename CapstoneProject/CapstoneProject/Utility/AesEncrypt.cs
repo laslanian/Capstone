@@ -31,7 +31,7 @@ class AesEncrpyt
 
     public string Decrypt(string encrypted)
     {
-        byte[] encbytes = ASCIIEncoding.ASCII.GetBytes(encrypted);
+        byte[] encbytes = Convert.FromBase64String(encrypted);
         AesCryptoServiceProvider encdec = new AesCryptoServiceProvider();
         encdec.BlockSize = 128;
         encdec.KeySize = 256;
@@ -40,7 +40,7 @@ class AesEncrpyt
         encdec.Padding = PaddingMode.PKCS7;
         encdec.Mode = CipherMode.CBC;
 
-        ICryptoTransform icrypt = encdec.CreateEncryptor(encdec.Key, encdec.IV);
+        ICryptoTransform icrypt = encdec.CreateDecryptor(encdec.Key, encdec.IV);
 
         byte[] decrypted = icrypt.TransformFinalBlock(encbytes, 0, encbytes.Length);
         icrypt.Dispose();

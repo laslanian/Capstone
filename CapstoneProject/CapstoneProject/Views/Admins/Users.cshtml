@@ -7,13 +7,19 @@
 <h2>User List</h2>
 
 <p>
-    @Html.ActionLink("Create Account", "CreateUser", null, new { @class="btn btn-info"})
+    @Html.ActionLink("Create Account", "CreateUser", null, new { @class="btn btn-info"}) <span style="flood-color: green">@ViewBag.CreateUser</span>
 </p>
 
-<h4>
-    <span>@ViewBag.Type</span>
-    @Html.DropDownListFor(model => model.SelectedType, Model.UserTypes as List<SelectListItem>, new { @style = "width: 110px", @class = "pull-right form-control", @Id = "usertype" })
-</h4>
+<hr />
+<table style="width: 100%">
+    <tr>
+        <td>
+            <div style="width: 50%; float: left; text-align: left;"><h4>@ViewBag.Type</h4></div>
+            <div style="width: 50%; float: left; text-align: right;"><h4 style="display: inline-block">Type:</h4> @Html.DropDownListFor(model => model.SelectedType, Model.UserTypes as List<SelectListItem>, new { @style = "width: 110px", @class = "pull-right form-control", @Id = "usertype" })</div>
+        </td>
+    </tr>
+</table>
+
 <br />
 
 @Html.Partial("~/Views/Admins/_Users.cshtml", Model.Users)

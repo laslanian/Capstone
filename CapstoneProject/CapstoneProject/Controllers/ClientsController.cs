@@ -15,12 +15,31 @@ namespace CapstoneProject.Controllers
 {
     public class ClientsController : Controller
     {
-        private ProjectManager pm = new ProjectManager();
         public ActionResult Index()       {
 
             UserAccountService uas = new UserAccountService();
             Client s = (Client) uas.GetUser(Convert.ToInt32(Session["Id"]));
             return View(s);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            UserAccountService uas = new UserAccountService();
+            Client c = (Client) uas.GetUser(id);
+            return View(c);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Client c)
+        {
+            UserAccountService uas = new UserAccountService();
+            int code = uas.UpdateClient(c);
+            if (code > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(c);
         }
     }
 }
