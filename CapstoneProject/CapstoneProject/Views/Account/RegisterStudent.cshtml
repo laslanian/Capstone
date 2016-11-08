@@ -55,13 +55,13 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control input-lg", placeholder = "Password" })
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control input-lg", placeholder = "Password" })
                                 @Html.ValidationMessageFor(model => model.Password)
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control input-lg", placeholder = "Confirm Password" })
+                                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control input-lg", placeholder = "Confirm Password" })
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword)
                             </div>
                         </div>
