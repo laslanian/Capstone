@@ -5,6 +5,7 @@
 }
 
 <h2>Project Details</h2>
+
 @{
     if (Session["UserType"].ToString().Equals("Admin"))
     {
@@ -12,6 +13,10 @@
         {
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#stateModal">Approve / Reject</button>
         }
+    }
+    else
+    {
+        @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-info" })
     }
 }
 <div>
@@ -63,42 +68,42 @@
 
     </dl>
     <hr />
-    <h4>Criteria</h4>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Criteria.Storage)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Criteria.Storage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Criteria.Application)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Criteria.Application)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Criteria.Website)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Criteria.Website)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Criteria.Mobile)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Criteria.Mobile)
-        </dd>
-    </dl>
-
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>
+                    <h4>Criteria</h4>
+                </td>
+                <td></td>
+                <td><h4>Additional Information</h4></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Storage)</td>
+                <td class="col-md-2">@(Model.Criteria.Storage ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.StorageComment)</td>
+            </tr>
+            <tr>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Application)</td>
+                <td class="col-md-2">@(Model.Criteria.Application ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.ApplicationComment)</td>
+            </tr>
+            <tr>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Website)</td>
+                <td class="col-md-2">@(Model.Criteria.Website ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.WebsiteComment)</td>
+            </tr>
+            <tr>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Mobile)</td>
+                <td class="col-md-2">@(Model.Criteria.Mobile ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.MobileComment)</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
 <!-- Modal -->
 <div id="stateModal" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog">

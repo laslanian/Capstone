@@ -50,9 +50,13 @@ namespace CapstoneProject.Models.Services
             Criteria crt = new Criteria();
             crt.Goal = pf.criteria.Goal;
             crt.Storage = pf.criteria.Storage;
+            crt.StorageComment = pf.criteria.StorageComment;
             crt.Application = pf.criteria.Application;
+            crt.ApplicationComment = pf.criteria.ApplicationComment;
             crt.Website = pf.criteria.Website;
+            crt.WebsiteComment = pf.criteria.WebsiteComment;
             crt.Mobile = pf.criteria.Mobile;
+            crt.MobileComment = pf.criteria.MobileComment;
 
             p.Criteria = crt;
             try

@@ -94,11 +94,11 @@ namespace CapstoneProject.Models.Metadata
         public string Goal { get; set; }
         [Display(Name = "Does the application stores information")]
         public Nullable<bool> Storage { get; set; }
-        [Display(Name = "Is it an desktop application?")]
+        [Display(Name = "Is the application for desktop?")]
         public Nullable<bool> Application { get; set; }
-        [Display(Name = "Is it a website?")]
+        [Display(Name = "Will the project be a website?")]
         public Nullable<bool> Website { get; set; }
-        [Display(Name = "Is it a mobile application?")]
+        [Display(Name = "Will it be a mobile application?")]
         public Nullable<bool> Mobile { get; set; }
     }
 
