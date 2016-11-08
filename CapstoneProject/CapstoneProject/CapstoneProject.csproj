@@ -315,7 +315,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Content\Images\capstonelogo.png" />
     <Content Include="Content\Images\custom-img\client.png" />
+    <Content Include="Content\Images\custom-img\client_female.png" />
+    <Content Include="Content\Images\custom-img\client_male.png" />
     <Content Include="Content\Images\custom-img\student.png" />
     <Content Include="Content\Images\icons-png\action-black.png" />
     <Content Include="Content\Images\icons-png\action-white.png" />
@@ -521,6 +524,7 @@
     <Content Include="Content\Images\sample1.png" />
     <Content Include="Content\Images\sample2.png" />
     <Content Include="Content\Images\sample3.png" />
+    <Content Include="Content\Images\sheridanlogo.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -672,6 +676,7 @@
     <Content Include="Views\Admins\_Group.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Home\Feedback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -28,5 +28,12 @@ namespace CapstoneProject.Controllers
 
             return View();
         }
+
+        public ActionResult Feedback()
+        {
+            ViewBag.Message = "Client Feedback.";
+
+            return View();
+        }
     }
 }
