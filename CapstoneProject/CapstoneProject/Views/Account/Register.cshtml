@@ -13,13 +13,18 @@
         <table style="width:100%;">            
             <tr>
                 <td>
-                    <img src="~/Content/Images/icons-png/"
+                    <img style="width:80%; height:80%;" src="~/Content/Images/custom-img/student.png"/> <br />
                     <input class="btn btn-primary" type="submit" name="accounttype" value="Student" />
                 </td>
-
-                <td><input class="btn btn-primary" type="submit" name="accounttype" value="Client" /></td>
-
-                <td> @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-danger" })</td>
+                <td></td>
+                <td>
+                    <img style="width:80%; height:80%;" src="~/Content/Images/custom-img/client.png" /><br />
+                    <input class="btn btn-primary" type="submit" name="accounttype" value="Client" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td> @Html.ActionLink("Go Back", "Index", "Home", null, new { @class = "btn btn-danger" })</td>
             </tr>
         </table>
     </div>
