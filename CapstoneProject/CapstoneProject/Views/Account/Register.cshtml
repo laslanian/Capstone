@@ -8,22 +8,18 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">.
-        <h2>Choose an Account Type:</h2>
+        <h2>What type of account would you like to register as?</h2>
         <hr class="colorgraph">
-        <table>
-            <tr><td><p></p></td></tr>
-            <tr>
-                <td><input class="btn btn-primary" type="submit" name="accounttype" value="Student" /></td>
-            </tr>
-            <tr><td><p></p></td></tr>
-            <tr>
-                <td><input class="btn btn-primary" type="submit" name="accounttype" value="Client" /></td>
-            </tr>
-            <tr><td><p></p></td></tr>
-            <tr><td><p></p></td></tr>
+        <table style="width:100%;">            
             <tr>
                 <td>
-                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-danger" })</td>
+                    <img src="~/Content/Images/icons-png/"
+                    <input class="btn btn-primary" type="submit" name="accounttype" value="Student" />
+                </td>
+
+                <td><input class="btn btn-primary" type="submit" name="accounttype" value="Client" /></td>
+
+                <td> @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-danger" })</td>
             </tr>
         </table>
     </div>
