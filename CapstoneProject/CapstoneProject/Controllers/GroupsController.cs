@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
-     
+        
         
         // GET: Groups
         public ActionResult Index()
@@ -130,7 +130,27 @@ namespace CapstoneProject.Controllers
 
         public ActionResult LeaveGroup(int id)
         {
-            int code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
+            Group g = gbs.GetGroupById(id);
+            
+            int code = 0;
+            
+            if (g.Owner.Equals(uas.GetUser(Convert.ToInt32(Session["Id"])).UserId))
+            {
+                if (g.Students.Count < 2)
+                {
+                   code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
+                }
+                else
+                {
+                    code = 0;
+                }
+            }
+            else
+            {
+                code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
+            }
+
+            
             if (code == 99)
             {
                 return RedirectToAction("Index");

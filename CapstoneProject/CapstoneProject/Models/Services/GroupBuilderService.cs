@@ -31,7 +31,7 @@ namespace CapstoneProject.Models.Services
         }
         public Group GetGroupById(int id)
         {
-            return _groups.GetGroupyId(id) != null ? _groups.GetGroupyId(id) : null;
+            return _groups.GetGroupById(id) != null ? _groups.GetGroupById(id) : null;
         }
 
         public Group AddGroup(Group g, int id)
@@ -62,7 +62,7 @@ namespace CapstoneProject.Models.Services
 
         public Group EditGroup(Group g)
         {
-            if (_groups.GetGroupyId(g.GroupId) != null)
+            if (_groups.GetGroupById(g.GroupId) != null)
             {
                 _groups.UpdateGroup(g);
                 _groups.Save();
@@ -106,7 +106,7 @@ namespace CapstoneProject.Models.Services
         }
         public int AddStudent(int GroupId, int UserId, string pin)
         {
-            Group g = _groups.GetGroupyId(GroupId);
+            Group g = _groups.GetGroupById(GroupId);
             if (g != null)
             {
                 Student s = (Student)_users.GetUserById(UserId);
@@ -131,14 +131,23 @@ namespace CapstoneProject.Models.Services
 
         public int RemoveStudent(int GroupId, int UserId)
         {
-            Group g = _groups.GetGroupyId(GroupId);
+            Group g = _groups.GetGroupById(GroupId);
+
             if (g != null)
             {
                 Student s = (Student)_users.GetUserById(UserId);
                 g = SubtractSkill(g, s.Skillset);
                 g.Students.Remove(s);
                 g = GetAverageSkills(g);
-                _groups.UpdateGroup(g);
+
+                if (g.Students.Count == 0)
+                {
+                    _groups.DeleteGroup(g.GroupId);
+                }
+                else
+                {
+                    _groups.UpdateGroup(g);
+                }
                 _groups.Save();
                 return 99;
             }
