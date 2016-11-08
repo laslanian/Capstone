@@ -57,7 +57,7 @@
 
         <hr />
         <ul class="tab">
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')">Skillset</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')" id="skills">Skillset</a></li>
             <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Members')">Members</a></li>
         </ul>
         <div id="Skillset" class="tabcontent">
@@ -172,6 +172,7 @@
             </div>
 
             <script type="text/javascript">
+                document.getElementById("skills").click();
                 $(document).ready(function() {
                     $('#leaveGroup').on('click', function (e) {
                         e.preventDefault();
