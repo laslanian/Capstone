@@ -5,8 +5,20 @@
 }
 
 <h2>Coop Details</h2>
-@Html.ActionLink("Go Back", "Index", "Students", null, new { @class = "btn btn-default" })
-@Html.ActionLink("Edit Coop", "Edit", new { id = Model.CoopId }, new { @class = "btn btn-info" })
+<table style="width: 100%">
+    <tr style="text-align: left;">
+        @{ if (Session["UserType"].ToString().Equals("Coop"))
+            {
+                <td>@Html.ActionLink("Go Back", "Students", "Coops", null, new { @class = "btn btn-default" })
+                @Html.ActionLink("Add Comment", "AddComment", "Coops", new { id = Model.CoopId }, new { @class = "btn btn-info" })</td>
+            }
+            else {
+                <td>@Html.ActionLink("Go Back", "Index", "Students", null, new { @class = "btn btn-default" })
+                @Html.ActionLink("Edit Coop", "Edit", new { id = Model.CoopId }, new { @class = "btn btn-info" })</td>
+            }
+        }
+    </tr>
+</table>
 <div>
     <hr />
     <dl class="dl-horizontal">

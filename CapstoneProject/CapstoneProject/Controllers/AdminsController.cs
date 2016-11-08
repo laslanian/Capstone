@@ -105,8 +105,10 @@ namespace CapstoneProject.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            _uas.DeleteUser(id);
+            return RedirectToAction("Users");
         }
+
         public ActionResult Groups()
         {
             return View(_gbs.GetGroups());

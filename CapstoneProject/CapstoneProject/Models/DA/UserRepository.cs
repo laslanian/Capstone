@@ -89,8 +89,9 @@ namespace CapstoneProject.Models.DA
 
         public void DeleteUser(int id)
         {
-            User u = ctx.Users.Find(id);
-            ctx.Users.Remove(u);
+            var user = ctx.Users.SingleOrDefault(u => u.UserId == id);
+            user.Lock = true;
+            ctx.SaveChanges();
         }
 
         public void Save()
