@@ -49,8 +49,8 @@ namespace CapstoneProject.Models.Metadata
         [Required]
         [Display(Name = "Position")]
         public string JobTitle { get; set; }
-        [Required]
         [Display(Name = "Job Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Required]
         [DataType(DataType.Date)]

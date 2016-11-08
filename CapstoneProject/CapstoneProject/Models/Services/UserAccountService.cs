@@ -27,7 +27,7 @@ namespace CapstoneProject.Models.Services
 
         public List<User> GetUsers()
         {
-            return _users.GetUsers().ToList();
+            return _users.GetUsers().OrderBy(u => u.LastName).Where(u => u.Lock == false).ToList();
         }
 
         public User Register(User u)
@@ -192,6 +192,7 @@ namespace CapstoneProject.Models.Services
         {
             return _users.GetUserById(id) != null ? _users.GetUserById(id) : null;
         }
+
         public void DeleteUser(int id)
         {
             if (_users.GetUserById(id) != null)

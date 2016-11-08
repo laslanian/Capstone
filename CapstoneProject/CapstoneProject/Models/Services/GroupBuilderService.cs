@@ -201,6 +201,7 @@ namespace CapstoneProject.Models.Services
         public Group AddSkills(Group g, Skillset s)
         {
             int count = g.Students.Count;
+
             g.Skillset.CSharp *= count;
             g.Skillset.Java *= count;
             g.Skillset.Database *= count;
