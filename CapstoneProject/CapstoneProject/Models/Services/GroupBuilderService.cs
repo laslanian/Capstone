@@ -201,13 +201,17 @@ namespace CapstoneProject.Models.Services
         public Group AddSkills(Group g, Skillset s)
         {
             int count = g.Students.Count;
-            g.Skillset.Programming *= count;
+            g.Skillset.CSharp *= count;
+            g.Skillset.Java *= count;
+            g.Skillset.Database *= count;
             g.Skillset.WebDev *= count;
             g.Skillset.MobileDev *= count;
             g.Skillset.ApplDev *= count;
             g.Skillset.UIDesign *= count;
 
-            g.Skillset.Programming += s.Programming;
+            g.Skillset.CSharp += s.CSharp;
+            g.Skillset.Java += s.Java;
+            g.Skillset.Database += s.Database;
             g.Skillset.WebDev += s.WebDev;
             g.Skillset.MobileDev += s.MobileDev;
             g.Skillset.ApplDev += s.ApplDev;
@@ -220,7 +224,9 @@ namespace CapstoneProject.Models.Services
         {
             int count = g.Students.Count ;
 
-            g.Skillset.Programming = g.Skillset.Programming / count;
+            g.Skillset.CSharp = g.Skillset.CSharp / count;
+            g.Skillset.Java = g.Skillset.Java / count;
+            g.Skillset.Database = g.Skillset.Database / count;
             g.Skillset.WebDev = g.Skillset.WebDev / count;
             g.Skillset.MobileDev = g.Skillset.MobileDev / count;
             g.Skillset.ApplDev = g.Skillset.ApplDev / count;
@@ -233,13 +239,17 @@ namespace CapstoneProject.Models.Services
         {
             int count = g.Students.Count;
 
-            g.Skillset.Programming *= count;
+            g.Skillset.CSharp *= count;
+            g.Skillset.Java *= count;
+            g.Skillset.Database *= count;
             g.Skillset.WebDev *= count;
             g.Skillset.MobileDev *= count;
             g.Skillset.ApplDev *= count;
             g.Skillset.UIDesign *= count;
 
-            g.Skillset.Programming -= s.Programming;
+            g.Skillset.CSharp -= s.CSharp;
+            g.Skillset.Java -= s.Java;
+            g.Skillset.Database -= s.Database;
             g.Skillset.WebDev -= s.WebDev;
             g.Skillset.MobileDev -= s.MobileDev;
             g.Skillset.ApplDev -= s.ApplDev;

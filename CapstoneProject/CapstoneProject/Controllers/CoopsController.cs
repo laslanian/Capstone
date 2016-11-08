@@ -11,6 +11,11 @@ namespace CapstoneProject.Controllers
     {
         private StudentCoopService scs = new StudentCoopService();
         // GET: Coops
+        public ActionResult StudentList()
+        {
+            return View(scs.GetStudents());
+        }
+
         public ActionResult Details(int id)
         {
             Coop c = scs.GetCoopById(id);

@@ -57,13 +57,26 @@ namespace CapstoneProject.Models.Services
             s.Password = stUser.Password;
             s.StudentNumber = Convert.ToInt32(stUser.StudentNumber);
             s.ProgramId = stUser.ProgramId;
-            //System.Diagnostics.Debug.WriteLine("Student Numer: " + s.StudentNumber + " - - - - - - - -- - ");
             s.Type = AccountType.Student;
+            s.Lock = false;
 
 
             AesEncrpyt en = new AesEncrpyt();
             s.Username = en.Encrypt(stUser.Username);
             s.Password = en.Encrypt(stUser.Password);
+
+            //Admin u = new Admin();
+            //u.FirstName = "Super";
+            //u.LastName = "Admin";
+            //u.PhoneNumber = "9998887777";
+            //u.Email = "massivcapstone@outlook.com";
+            //u.Username = "superadmin";
+            //u.Password = "superadmin";
+            //u.Username = en.Encrypt(u.Username);
+            //u.Password = en.Encrypt(u.Password);
+            //u.Type = AccountType.Admin;
+            //u.Lock = false;
+            
 
             //1 - username already exist
             //2 = studentnuber already exist
@@ -74,6 +87,7 @@ namespace CapstoneProject.Models.Services
                     if(!sr.isExistingStudentNumber(s.StudentNumber))
                     {
                         _users.InsertUser(s);
+                        //_users.InsertUser(u);
                         _users.Save();
                         return 99;
 
@@ -104,27 +118,28 @@ namespace CapstoneProject.Models.Services
         }
         public int RegisterClient(ClientUser client)
         {
-            Client s = new Client();
+            Client c = new Client();
 
-            s.FirstName = client.FirstName;
-            s.LastName = client.LastName;
-            s.PhoneNumber = client.PhoneNumber;
-            s.Email = client.Email;
-            s.Username = client.Username;
-            s.Password = client.Password;
-            s.CompanyName = client.CompanyName;
-            s.CompanyAddress = client.CompanyAddress;
-            s.CompanyDescription = client.CompanyDesc;
-            s.Type = AccountType.Client;
+            c.FirstName = client.FirstName;
+            c.LastName = client.LastName;
+            c.PhoneNumber = client.PhoneNumber;
+            c.Email = client.Email;
+            c.Username = client.Username;
+            c.Password = client.Password;
+            c.CompanyName = client.CompanyName;
+            c.CompanyAddress = client.CompanyAddress;
+            c.CompanyDescription = client.CompanyDesc;
+            c.Type = AccountType.Client;
+
 
 
             AesEncrpyt en = new AesEncrpyt();
-            s.Username = en.Encrypt(client.Username);
-            s.Password = en.Encrypt(client.Password);
+            c.Username = en.Encrypt(client.Username);
+            c.Password = en.Encrypt(client.Password);
 
-            if (!_users.isExistingUsername(s.Username))
+            if (!_users.isExistingUsername(c.Username))
             {
-                _users.InsertUser(s);
+                _users.InsertUser(c);
                 _users.Save();
                 return 99;
             }
@@ -217,6 +232,7 @@ namespace CapstoneProject.Models.Services
                 ca.PhoneNumber = ac.PhoneNumber;
                 ca.Email = ac.Email;
                 ca.Type = AccountType.Coop_Advisor;
+                ca.Lock = false;
                 _users.InsertUser(ca);
                 _users.Save();
                 return 1;
@@ -232,6 +248,7 @@ namespace CapstoneProject.Models.Services
                 ma.PhoneNumber = ac.PhoneNumber;
                 ma.Email = ac.Email;
                 ma.Type = AccountType.Management;
+                ma.Lock = false;
                 _users.InsertUser(ma);
                 _users.Save();
                 return 2;
@@ -245,6 +262,7 @@ namespace CapstoneProject.Models.Services
                 ad.PhoneNumber = ac.PhoneNumber;
                 ad.Email = ac.Email;
                 ad.Type = AccountType.Admin;
+                ad.Lock = false;
                 _users.InsertUser(ad);
                 _users.Save();
                 return 3;

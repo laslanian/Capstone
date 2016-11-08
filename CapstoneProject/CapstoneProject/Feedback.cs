@@ -15,28 +15,29 @@ namespace CapstoneProject
 using System;
     using System.Collections.Generic;
     
-public partial class Coop
+public partial class Feedback
 {
 
-    public int CoopId { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public Feedback()
+    {
 
-    public string CompanyName { get; set; }
+        this.Rating = 0D;
 
-    public string JobTitle { get; set; }
-
-    public string Description { get; set; }
-
-    public System.DateTime StartDate { get; set; }
-
-    public System.DateTime EndDate { get; set; }
-
-    public string Comments { get; set; }
-
-    public int StudentUserId { get; set; }
+    }
 
 
+    public int Id { get; set; }
 
-    public virtual Student Student { get; set; }
+    public string Comment { get; set; }
+
+    public double Rating { get; set; }
+
+    public int ClientUserId { get; set; }
+
+
+
+    public virtual Client Client { get; set; }
 
 }
 

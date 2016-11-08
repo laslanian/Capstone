@@ -20,6 +20,11 @@ namespace CapstoneProject.Models.Services
             _students = new StudentRepository(ctx);
         }
 
+        public List<Student> GetStudents()
+        {
+            return _students.GetStudents().OrderBy(s => s.LastName).ToList();
+        }
+
         public void AddCoop(int id, Coop c) {
             Student s = (Student)_users.GetUserById(id);
             s.Coops.Add(c);
