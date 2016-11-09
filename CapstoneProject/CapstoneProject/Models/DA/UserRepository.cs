@@ -42,6 +42,11 @@ namespace CapstoneProject.Models.DA
             var user = (from u in ctx.Users where u.Username == uname select u).FirstOrDefault();
             return user;
         }
+        public User GetUserByEmail(string email)
+        {
+            var user = (from u in ctx.Users where u.Email == email select u).FirstOrDefault();
+            return user;
+        }
         public User GetUserByUNPW(string username, string password)
         {
             var user = (from u in ctx.Users where u.Username == username && u.Password == password select u).FirstOrDefault();

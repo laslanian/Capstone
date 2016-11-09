@@ -247,6 +247,10 @@ namespace CapstoneProject.Models.Services
         {
             return _users.GetUserByUname(uname);
         }
+        public User GetUserByEmail(string email)
+        {
+            return _users.GetUserByEmail(email);
+        }
         public User GetUserByUnPW(string uname, string pw)
         {
             return _users.GetUserByUNPW(uname,pw);
