@@ -22,6 +22,12 @@ namespace CapstoneProject.Controllers
             return View(s);
         }
 
+        public ActionResult Feedbacks()
+        {
+            UserAccountService uas = new UserAccountService();
+            return View(uas.GetFeedbacks());
+        }
+
         public ActionResult Edit(int id)
         {
             UserAccountService uas = new UserAccountService();
@@ -40,6 +46,25 @@ namespace CapstoneProject.Controllers
                 return RedirectToAction("Index");
             }
             return View(c);
+        }
+
+        [HttpGet]
+        public ActionResult SubmitFeedback()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult SubmitFeedback(Feedback f)
+        {
+            if (ModelState.IsValid)
+            {             
+                UserAccountService uas = new UserAccountService();
+                uas.SubmitFeedback(Convert.ToInt32(Session["Id"]), f);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(f);
         }
     }
 }

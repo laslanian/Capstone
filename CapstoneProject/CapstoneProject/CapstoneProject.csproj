@@ -330,6 +330,8 @@
     <Content Include="Content\Images\custom-img\client_female.png" />
     <Content Include="Content\Images\custom-img\client_male.png" />
     <Content Include="Content\Images\custom-img\student.png" />
+    <Content Include="Content\Images\EmptyStar.png" />
+    <Content Include="Content\Images\FilledStar.png" />
     <Content Include="Content\Images\icons-png\action-black.png" />
     <Content Include="Content\Images\icons-png\action-white.png" />
     <Content Include="Content\Images\icons-png\alert-black.png" />
@@ -695,6 +697,8 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Projects\EditProject.cshtml" />
+    <Content Include="Views\Clients\SubmitFeedback.cshtml" />
+    <Content Include="Views\Clients\Feedbacks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

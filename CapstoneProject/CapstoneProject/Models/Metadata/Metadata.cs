@@ -189,8 +189,11 @@ namespace CapstoneProject.Models.Metadata
 
     public class FeedbackMetadata
     {
+        [Required]
         [Display(Name = "Feedback")]
+        [DataType(DataType.MultilineText)]
         public string Comment { get; set; }
+
         [Range(0, 5)]
         [DisplayFormat(DataFormatString = "{0:n1}")]
         [Display(Name = "Rating")]

@@ -28,6 +28,11 @@ namespace CapstoneProject.Models.DA
             return ctx.Users.OrderBy(u => u.Type).ToList();
         }
 
+        public IEnumerable<Feedback> GetFeedbacks()
+        {
+            return ctx.Feedbacks.ToList();
+        }
+
         public User GetUserById(int id)
         {
             return ctx.Users.Find(id);

@@ -328,6 +328,20 @@ namespace CapstoneProject.Models.Services
             }
         }
 
+        public void SubmitFeedback(int id, Feedback f)
+        {
+            Client c = (Client)_users.GetUserById(id);
+            c.Feedbacks.Add(f);
+            _users.UpdateUser(c);
+            _users.Save();
+        }
+
+        public List<Feedback> GetFeedbacks()
+        {
+            return _users.GetFeedbacks().ToList();
+        }
+    
+
         public void Dispose()
         {
             _users.Dispose();
