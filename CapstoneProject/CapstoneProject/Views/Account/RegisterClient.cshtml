@@ -68,12 +68,13 @@
                             <div class="form-group">
                                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-lg", placeholder = "Email" })
                                 @Html.ValidationMessageFor(model => model.Email)
+                                <span style="color:red"> @ViewBag.EmailError </span>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "form-control input-lg", placeholder = "Confirm Email" })
-                            @Html.ValidationMessageFor(model => model.ConfirmEmail)
+                               @Html.ValidationMessageFor(model => model.ConfirmEmail)                              
                             </div>
                         </div>
                     </div>

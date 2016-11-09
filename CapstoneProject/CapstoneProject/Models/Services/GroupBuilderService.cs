@@ -31,7 +31,7 @@ namespace CapstoneProject.Models.Services
         }
         public Group GetGroupById(int id)
         {
-            return _groups.GetGroupyId(id) != null ? _groups.GetGroupyId(id) : null;
+            return _groups.GetGroupById(id) != null ? _groups.GetGroupById(id) : null;
         }
 
         public Group AddGroup(Group g, int id)
@@ -53,7 +53,7 @@ namespace CapstoneProject.Models.Services
                 // testing send email
                 EmailService emailService = new EmailService();
 
-                emailService.SendGroupPin(s.Email, pin);
+                emailService.SendGroupPin(s.Email, g);
 
                 return g;
             }
@@ -62,7 +62,7 @@ namespace CapstoneProject.Models.Services
 
         public Group EditGroup(Group g)
         {
-            if (_groups.GetGroupyId(g.GroupId) != null)
+            if (_groups.GetGroupById(g.GroupId) != null)
             {
                 _groups.UpdateGroup(g);
                 _groups.Save();
@@ -106,7 +106,7 @@ namespace CapstoneProject.Models.Services
         }
         public int AddStudent(int GroupId, int UserId, string pin)
         {
-            Group g = _groups.GetGroupyId(GroupId);
+            Group g = _groups.GetGroupById(GroupId);
             if (g != null)
             {
                 Student s = (Student)_users.GetUserById(UserId);
@@ -131,20 +131,41 @@ namespace CapstoneProject.Models.Services
 
         public int RemoveStudent(int GroupId, int UserId)
         {
-            Group g = _groups.GetGroupyId(GroupId);
+            Group g = _groups.GetGroupById(GroupId);
+
             if (g != null)
             {
                 Student s = (Student)_users.GetUserById(UserId);
                 g = SubtractSkill(g, s.Skillset);
                 g.Students.Remove(s);
-                g = GetAverageSkills(g);
-                _groups.UpdateGroup(g);
+                if (g.Students.Count == 0)
+                {
+                    g = clearSkillset(g);
+                    g.Owner = null;
+                    g.Projects = null;
+                    _groups.DeleteGroup(g.GroupId);
+                }
+                else
+                {
+                    g = GetAverageSkills(g);
+                    _groups.UpdateGroup(g);
+                }
                 _groups.Save();
                 return 99;
             }
             return 0;
         }
-
+        public Group clearSkillset(Group g)
+        {
+            g.Skillset.CSharp = 0;
+            g.Skillset.Java = 0;
+            g.Skillset.Database = 0;
+            g.Skillset.WebDev = 0;
+            g.Skillset.MobileDev = 0;
+            g.Skillset.ApplDev = 0;
+            g.Skillset.UIDesign = 0;
+            return g;
+        }
 
         public String GeneratePin()
         {
@@ -192,13 +213,17 @@ namespace CapstoneProject.Models.Services
         public Group AddSkills(Group g, Skillset s)
         {
             int count = g.Students.Count;
-            g.Skillset.Programming *= count;
+           g.Skillset.CSharp *= count;
+            g.Skillset.Java *= count;
+            g.Skillset.Database *= count;
             g.Skillset.WebDev *= count;
             g.Skillset.MobileDev *= count;
             g.Skillset.ApplDev *= count;
-            g.Skillset.UIDesign *= count;
+            g.Skillset.UIDesign *= count; 
 
-            g.Skillset.Programming += s.Programming;
+            g.Skillset.CSharp += s.CSharp;
+            g.Skillset.Java += s.Java;
+            g.Skillset.Database += s.Database;
             g.Skillset.WebDev += s.WebDev;
             g.Skillset.MobileDev += s.MobileDev;
             g.Skillset.ApplDev += s.ApplDev;
@@ -211,7 +236,9 @@ namespace CapstoneProject.Models.Services
         {
             int count = g.Students.Count ;
 
-            g.Skillset.Programming = g.Skillset.Programming / count;
+            g.Skillset.CSharp = g.Skillset.CSharp / count;
+            g.Skillset.Java = g.Skillset.Java / count;
+            g.Skillset.Database = g.Skillset.Database / count;
             g.Skillset.WebDev = g.Skillset.WebDev / count;
             g.Skillset.MobileDev = g.Skillset.MobileDev / count;
             g.Skillset.ApplDev = g.Skillset.ApplDev / count;
@@ -224,13 +251,17 @@ namespace CapstoneProject.Models.Services
         {
             int count = g.Students.Count;
 
-            g.Skillset.Programming *= count;
+            g.Skillset.CSharp *= count;
+            g.Skillset.Java *= count;
+            g.Skillset.Database *= count;
             g.Skillset.WebDev *= count;
             g.Skillset.MobileDev *= count;
             g.Skillset.ApplDev *= count;
             g.Skillset.UIDesign *= count;
 
-            g.Skillset.Programming -= s.Programming;
+            g.Skillset.CSharp -= s.CSharp;
+            g.Skillset.Java -= s.Java;
+            g.Skillset.Database -= s.Database;
             g.Skillset.WebDev -= s.WebDev;
             g.Skillset.MobileDev -= s.MobileDev;
             g.Skillset.ApplDev -= s.ApplDev;

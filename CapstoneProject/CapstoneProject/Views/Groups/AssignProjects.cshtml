@@ -51,12 +51,11 @@
                         <input type="checkbox" class="chk-act" id="@projList[i].ProjectId" value="@projList[i].ProjectId" name="chkSelected"
                                checked="@Model.Group.Projects.Contains(projList[i])" disabled="@projList[i].State.Equals("Pending")">
                     </td>
-               
-
             </tr>
         }
     </table>
-    <input type="submit" name="button" value="Save" class="btn btn-default" />    <span style="color:red"> @ViewBag.CountError </span>
-
+    <input type="submit" name="button" value="Save" class="btn btn-success" />   
+    @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
+    <span style="color:red"> @ViewBag.CountError </span>
 }
 

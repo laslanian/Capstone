@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/28/2016 01:15:40
+-- Date Created: 11/08/2016 13:27:35
 -- Generated from EDMX file: C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 
@@ -40,6 +40,9 @@ IF OBJECT_ID(N'[dbo].[FK_GroupSkillset]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_StudentSkillset]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Skillsets] DROP CONSTRAINT [FK_StudentSkillset];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ClientFeedback]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Feedbacks] DROP CONSTRAINT [FK_ClientFeedback];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Admin] DROP CONSTRAINT [FK_Admin_inherits_User];
@@ -96,6 +99,9 @@ IF OBJECT_ID(N'[dbo].[Criteria]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Skillsets]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Skillsets];
+GO
+IF OBJECT_ID(N'[dbo].[Feedbacks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Feedbacks];
 GO
 IF OBJECT_ID(N'[dbo].[ProjectGroup]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProjectGroup];
@@ -160,7 +166,8 @@ CREATE TABLE [dbo].[Users] (
     [Email] nvarchar(50)  NOT NULL,
     [Username] nvarchar(50)  NOT NULL,
     [Password] nvarchar(50)  NOT NULL,
-    [Type] nvarchar(25)  NULL
+    [Type] nvarchar(25)  NULL,
+    [Lock] bit  NOT NULL
 );
 GO
 
@@ -214,20 +221,35 @@ CREATE TABLE [dbo].[Criteria] (
     [Storage] bit  NOT NULL,
     [Application] bit  NOT NULL,
     [Website] bit  NOT NULL,
-    [Mobile] bit  NOT NULL
+    [Mobile] bit  NOT NULL,
+    [StorageComment] nvarchar(max)  NULL,
+    [ApplicationComment] nvarchar(max)  NULL,
+    [WebsiteComment] nvarchar(max)  NULL,
+    [MobileComment] nvarchar(max)  NULL
 );
 GO
 
 -- Creating table 'Skillsets'
 CREATE TABLE [dbo].[Skillsets] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Programming] float  NOT NULL,
+    [CSharp] float  NOT NULL,
+    [Java] float  NOT NULL,
+    [Database] float  NOT NULL,
     [WebDev] float  NOT NULL,
     [MobileDev] float  NOT NULL,
     [ApplDev] float  NOT NULL,
     [UIDesign] float  NOT NULL,
     [Group_GroupId] int  NULL,
     [Student_UserId] int  NULL
+);
+GO
+
+-- Creating table 'Feedbacks'
+CREATE TABLE [dbo].[Feedbacks] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Comment] nvarchar(max)  NOT NULL,
+    [Rating] float  NOT NULL,
+    [ClientUserId] int  NOT NULL
 );
 GO
 
@@ -311,6 +333,12 @@ GO
 -- Creating primary key on [Id] in table 'Skillsets'
 ALTER TABLE [dbo].[Skillsets]
 ADD CONSTRAINT [PK_Skillsets]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Feedbacks'
+ALTER TABLE [dbo].[Feedbacks]
+ADD CONSTRAINT [PK_Feedbacks]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -436,6 +464,21 @@ GO
 CREATE INDEX [IX_FK_StudentSkillset]
 ON [dbo].[Skillsets]
     ([Student_UserId]);
+GO
+
+-- Creating foreign key on [ClientUserId] in table 'Feedbacks'
+ALTER TABLE [dbo].[Feedbacks]
+ADD CONSTRAINT [FK_ClientFeedback]
+    FOREIGN KEY ([ClientUserId])
+    REFERENCES [dbo].[Users_Client]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ClientFeedback'
+CREATE INDEX [IX_FK_ClientFeedback]
+ON [dbo].[Feedbacks]
+    ([ClientUserId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Admin'

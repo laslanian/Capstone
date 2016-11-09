@@ -62,7 +62,7 @@ namespace CapstoneProject.Models.Services
 
             User u = _users.GetUserByUNPW(en.Encrypt(username), en.Encrypt(password));
 
-            if (u != null)
+            if (u != null && !u.Lock)
             {
                 u.Username = username;//en.Decrypt(u.Username);
                 return u;

@@ -45,6 +45,7 @@
                         {
                             <li>@Html.ActionLink("Profile", "Index", "Clients")</li>
                             <li>@Html.ActionLink("My Projects", "Projects", "Projects")</li>
+                            <li>@Html.ActionLink("Submit a Feedback", "SubmitFeedback", "Clients")</li>
                         }
                         else if (Session["UserType"].ToString().Equals("Admin"))
                         {
@@ -55,12 +56,13 @@
                         }
                         else if(Session["UserType"].ToString().Equals("Coop"))
                         {
-                            <li>@Html.ActionLink("Students", "Students", "Coop")</li>
+                            <li>@Html.ActionLink("Students", "Students", "Coops")</li>
                         }
                         else if (Session["UserType"].ToString().Equals("Management"))
                         {
 
                         }
+                        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>
@@ -80,6 +82,31 @@
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+    //session end
+    var sessionTimeoutWarning = @Session.Timeout- 1;
+
+    var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+    setTimeout('SessionEnd()', sTimeout);
+    
+
+    function SessionEnd() {
+        $.ajax({
+            type: 'GET',
+            url: "/Account/Logout/",
+            data: {
+            },
+            success: function () {
+                window.location = "/Account/Login";
+            },
+            error: function (e) {
+               // alert(e.responseText);
+            }
+        });
+    }
+    </script>
+    
 </body>
 
 </html>
+ 

@@ -39,9 +39,65 @@
                                 <a href="~/Account/Register" class="btn btn-lg btn-primary btn-block">Register</a>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <a href="#" data-toggle="modal" data-target="#ResetPasswordModal">Forgot Password?</a>
+                            </div>
+                        </div>
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div id="ResetPasswordModal" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form data-toggle="validator" role="form">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Reset Password?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Would you like to reset your password?</h4>
+
+                        <div class="form-group">
+                            <input class="form-control input-lg" id="userEmail" type="email" placeholder="Email" data-error="Email is required" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="ResetPassword" class="btn btn-primary">Reset Password</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#ResetPassword').on('click', function (e) {
+                e.preventDefault();
+                var userEmail = $("#userEmail").val();
+                if (uname) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Account/SendResetPassword/",
+                        data: {
+                            email: userEmail
+                        },
+                        success: function () {
+                            window.location.href = "/Home/Index"
+                        },
+                        error: function (e) {
+                        }
+                    });
+                } else {
+                    $("#modalError").html("Email cannot be empty");
+                }
+            });
+        });
+       
+
+    </script>
 }

@@ -15,12 +15,12 @@
     }
     else
     {
-         var owner = ViewBag.Owner;
-         if(owner != null)
-         {
+        var owner = ViewBag.Owner;
+        if (owner != null)
+        {
             @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-info" })
-         }
-        
+        }
+
         <div>
             <hr />
             <dl class="dl-horizontal">
@@ -57,7 +57,7 @@
 
         <hr />
         <ul class="tab">
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')">Skillset</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')" id="skills">Skillset</a></li>
             <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Members')">Members</a></li>
         </ul>
         <div id="Skillset" class="tabcontent">
@@ -66,7 +66,16 @@
         </div>
         var studList = Model.Students.ToList();
         <div id="Members" class="tabcontent">
-            <h3>Members <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button></h3>
+            <h3>Members 
+            @if (owner!=null && Model.Students.Count > 1)
+            {
+                <button type="button" class="btn btn-info disabled" data-toggle="modal" data-target="#leaveModal" >Leave Group</button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
+            }
+            </h3>
             <table class="table">
                 <tr>
                     <th>
@@ -96,16 +105,20 @@
             </table>
             </div>
             <h3>Projects</h3>
-            var projList = Model.Projects.ToList();
-            bool hasAssignedProject=false;
-            if (projList.Count() == 0)
-            {
+        var projList = Model.Projects.ToList();
+        bool hasAssignedProject = false;
+        if (projList.Count() == 0)
+        {
             <p>You don't have any projects. </p>
-            <p>Would you like to apply for projects? </p>
-            <p> @Html.ActionLink("Apply for Projects", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
-            }
-            else
+            if (owner != null)
             {
+                <p>Would you like to apply for projects? </p>
+                <p> @Html.ActionLink("Apply for Projects", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
+
+            }
+        }
+        else
+        {
             <table class="table table-striped">
                 <tr>
                     <th>
@@ -141,14 +154,14 @@
                     </tr>
                 }
             </table>
-            if (!hasAssignedProject && owner != null)
-            {
-            <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
-            }
-            }
+                if (!hasAssignedProject && owner != null)
+                {
+                    <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
+                }
 
             }
-            }
+        }
+    }
 
             <!-- Modal -->
             <div id="leaveModal" class="modal fade" role="dialog" tabindex="-1">
@@ -172,6 +185,7 @@
             </div>
 
             <script type="text/javascript">
+                document.getElementById("skills").click();
                 $(document).ready(function() {
                     $('#leaveGroup').on('click', function (e) {
                         e.preventDefault();

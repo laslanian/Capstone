@@ -18,6 +18,7 @@
     <EntitySet Name="Users_Student" EntityType="CapstoneModel.Store.Users_Student" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Criteria" EntityType="CapstoneModel.Store.Criteria" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Skillsets" EntityType="CapstoneModel.Store.Skillsets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Feedbacks" EntityType="CapstoneModel.Store.Feedbacks" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProjectGroup" EntityType="CapstoneModel.Store.ProjectGroup" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="StudentCoop" Association="CapstoneModel.Store.StudentCoop">
       <End Role="Student" EntitySet="Users_Student" />
@@ -50,6 +51,10 @@
     <AssociationSet Name="StudentSkillset" Association="CapstoneModel.Store.StudentSkillset">
       <End Role="Student" EntitySet="Users_Student" />
       <End Role="Skillset" EntitySet="Skillsets" />
+    </AssociationSet>
+    <AssociationSet Name="ClientFeedback" Association="CapstoneModel.Store.ClientFeedback">
+      <End Role="Client" EntitySet="Users_Client" />
+      <End Role="Feedback" EntitySet="Feedbacks" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="CapstoneModel.Store.FK_Admin_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -130,6 +135,7 @@
     <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Type" Type="nvarchar" Nullable="true" MaxLength="25" />
+    <Property Name="Lock" Type="bit" Nullable="false" DefaultValue="false" />
   </EntityType>
   <EntityType Name="Users_Admin">
     <Key>
@@ -184,19 +190,34 @@
     <Property Name="Application" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="Website" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="Mobile" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="StorageComment" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ApplicationComment" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="WebsiteComment" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="MobileComment" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Skillsets">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Programming" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="CSharp" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="Java" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="Database" Type="float" Nullable="false" DefaultValue="0" />
     <Property Name="WebDev" Type="float" Nullable="false" DefaultValue="0" />
     <Property Name="MobileDev" Type="float" Nullable="false" DefaultValue="0" />
     <Property Name="ApplDev" Type="float" Nullable="false" DefaultValue="0" />
     <Property Name="UIDesign" Type="float" Nullable="false" DefaultValue="0" />
     <Property Name="Group_GroupId" Type="int" Nullable="true" />
     <Property Name="Student_UserId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Feedbacks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rating" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="ClientUserId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProjectGroup">
     <Key>
@@ -275,6 +296,18 @@
       </Principal>
       <Dependent Role="Skillset">
         <PropertyRef Name="Student_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientFeedback">
+    <End Role="Client" Type="CapstoneModel.Store.Users_Client" Multiplicity="1" />
+    <End Role="Feedback" Type="CapstoneModel.Store.Feedbacks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="ClientUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -440,6 +473,7 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Lock" Type="Boolean" Nullable="false" DefaultValue="False" />
         </EntityType>
         <EntityType Name="Admin" BaseType="CapstoneModel.User">
           <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -451,6 +485,7 @@
           <Property Name="CompanyAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CompanyDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Projects" Relationship="CapstoneModel.ClientProject" FromRole="Client" ToRole="Project" />
+          <NavigationProperty Name="Feedbacks" Relationship="CapstoneModel.ClientFeedback" FromRole="Client" ToRole="Feedback" />
         </EntityType>
         <EntityType Name="Coop_Advisor" BaseType="CapstoneModel.User">
           <Property Name="CoopAdvisorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -503,6 +538,11 @@
             <End Role="Student" EntitySet="Users" />
             <End Role="Skillset" EntitySet="Skillsets" />
           </AssociationSet>
+          <EntitySet Name="Feedbacks" EntityType="CapstoneModel.Feedback" />
+          <AssociationSet Name="ClientFeedback" Association="CapstoneModel.ClientFeedback">
+            <End Role="Client" EntitySet="Users" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="StudentCoop">
           <End Type="CapstoneModel.Student" Role="Student" Multiplicity="1" />
@@ -546,13 +586,19 @@
           <Property Name="Application" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="Website" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="Mobile" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="StorageComment" Type="String" Nullable="true" />
+          <Property Name="ApplicationComment" Type="String" Nullable="true" />
+          <Property Name="WebsiteComment" Type="String" Nullable="true" />
+          <Property Name="MobileComment" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Skillset">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Programming" Type="Double" Nullable="false" DefaultValue="0" />
+          <Property Name="CSharp" Type="Double" Nullable="false" DefaultValue="0" />
+          <Property Name="Java" Type="Double" Nullable="false" DefaultValue="0" />
+          <Property Name="Database" Type="Double" Nullable="false" DefaultValue="0" />
           <Property Name="WebDev" Type="Double" Nullable="false" DefaultValue="0" />
           <Property Name="MobileDev" Type="Double" Nullable="false" DefaultValue="0" />
           <Property Name="ApplDev" Type="Double" Nullable="false" DefaultValue="0" />
@@ -571,6 +617,28 @@
         <Association Name="StudentSkillset">
           <End Type="CapstoneModel.Student" Role="Student" Multiplicity="0..1" />
           <End Type="CapstoneModel.Skillset" Role="Skillset" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment" Type="String" Nullable="false" />
+          <Property Name="Rating" Type="Double" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="Client" Relationship="CapstoneModel.ClientFeedback" FromRole="Feedback" ToRole="Client" />
+          <Property Name="ClientUserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ClientFeedback">
+          <End Type="CapstoneModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="CapstoneModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="ClientUserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -638,6 +706,7 @@
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Lock" ColumnName="Lock" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Admin)">
@@ -687,6 +756,10 @@
           <ScalarProperty Name="Application" ColumnName="Application" />
           <ScalarProperty Name="Website" ColumnName="Website" />
           <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="StorageComment" ColumnName="StorageComment" />
+          <ScalarProperty Name="ApplicationComment" ColumnName="ApplicationComment" />
+          <ScalarProperty Name="WebsiteComment" ColumnName="WebsiteComment" />
+          <ScalarProperty Name="MobileComment" ColumnName="MobileComment" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -694,11 +767,23 @@
       <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Skillset)">
         <MappingFragment StoreEntitySet="Skillsets">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Programming" ColumnName="Programming" />
+          <ScalarProperty Name="CSharp" ColumnName="CSharp" />
+          <ScalarProperty Name="Java" ColumnName="Java" />
+          <ScalarProperty Name="Database" ColumnName="Database" />
           <ScalarProperty Name="WebDev" ColumnName="WebDev" />
           <ScalarProperty Name="MobileDev" ColumnName="MobileDev" />
           <ScalarProperty Name="ApplDev" ColumnName="ApplDev" />
           <ScalarProperty Name="UIDesign" ColumnName="UIDesign" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedbacks">
+      <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.Feedback)">
+        <MappingFragment StoreEntitySet="Feedbacks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="ClientUserId" ColumnName="ClientUserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

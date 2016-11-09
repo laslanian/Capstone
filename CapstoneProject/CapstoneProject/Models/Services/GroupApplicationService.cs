@@ -31,7 +31,7 @@ namespace CapstoneProject.Models.Services
         {
             if (_projects.GetProjectById(p.ProjectId) != null)
             {
-                if (_groups.GetGroupyId(g.GroupId) != null && !g.Projects.Contains(p))
+                if (_groups.GetGroupById(g.GroupId) != null && !g.Projects.Contains(p))
                 {
                     g.Projects.Add(p);
                     _groups.UpdateGroup(g);

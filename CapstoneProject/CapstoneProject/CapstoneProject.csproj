@@ -77,6 +77,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RazorEngine, Version=3.9.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.9.1\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -222,6 +226,7 @@
     <Compile Include="Controllers\CoopsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManagementsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Coop.cs">
@@ -231,6 +236,9 @@
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Criteria.cs">
+      <DependentUpon>CapstoneDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Feedback.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -263,6 +271,7 @@
     <Compile Include="Models\Services\ReportBuilderService.cs" />
     <Compile Include="Models\Services\StudentCoopService.cs" />
     <Compile Include="Models\Services\UserAccountService.cs" />
+    <Compile Include="Models\ViewModels\ChangePassword.cs" />
     <Compile Include="Models\ViewModels\ClientUser.cs" />
     <Compile Include="Models\ViewModels\CreateAccount.cs" />
     <Compile Include="Models\ViewModels\GroupProject.cs" />
@@ -271,6 +280,7 @@
     <Compile Include="Models\ViewModels\ProjectForm.cs" />
     <Compile Include="Models\ViewModels\ProjectMatchGroup.cs" />
     <Compile Include="Models\ViewModels\ProjectWithList.cs" />
+    <Compile Include="Models\ViewModels\ResetPassword.cs" />
     <Compile Include="Models\ViewModels\StudentGroup.cs" />
     <Compile Include="Models\ViewModels\StudentProfile.cs" />
     <Compile Include="Models\ViewModels\StudentUser.cs" />
@@ -320,6 +330,8 @@
     <Content Include="Content\Images\custom-img\client_female.png" />
     <Content Include="Content\Images\custom-img\client_male.png" />
     <Content Include="Content\Images\custom-img\student.png" />
+    <Content Include="Content\Images\EmptyStar.png" />
+    <Content Include="Content\Images\FilledStar.png" />
     <Content Include="Content\Images\icons-png\action-black.png" />
     <Content Include="Content\Images\icons-png\action-white.png" />
     <Content Include="Content\Images\icons-png\alert-black.png" />
@@ -570,6 +582,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Templates\GroupPinEmail.html" />
+    <Content Include="Models\Templates\ResetPasswordEmail.html" />
     <Content Include="obj\Debug\TempPE\CapstoneDBModel.cs.dll" />
     <Content Include="obj\Debug\TempPE\CapstoneDBModel.Designer.cs.dll" />
     <Content Include="obj\Debug\TempPE\CapstoneModel.Context.cs.dll" />
@@ -677,9 +691,18 @@
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Home\Feedback.cshtml" />
+    <Content Include="Views\Coops\Students.cshtml" />
+    <Content Include="Views\Coops\ViewCoop.cshtml" />
+    <Content Include="Views\Coops\AddComment.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Projects\EditProject.cshtml" />
+    <Content Include="Views\Clients\SubmitFeedback.cshtml" />
+    <Content Include="Views\Clients\Feedbacks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Managements\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

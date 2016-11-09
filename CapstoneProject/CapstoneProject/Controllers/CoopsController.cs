@@ -10,10 +10,42 @@ namespace CapstoneProject.Controllers
     public class CoopsController : Controller
     {
         private StudentCoopService scs = new StudentCoopService();
+        private UserAccountService uas = new UserAccountService();
         // GET: Coops
+        public ActionResult Students()
+        {
+            return View(scs.GetStudents());
+        }
+
+        public ActionResult ViewCoop(int id)
+        {
+            Student s = (Student) uas.GetUser(id);
+            ViewBag.Id = s.UserId;
+            return View(s);
+        }
+
         public ActionResult Details(int id)
         {
             Coop c = scs.GetCoopById(id);
+            return View(c);
+        }
+
+        [HttpGet]
+        public ActionResult AddComment(int id)
+        {
+            Coop c = scs.GetCoopById(id);
+            return View(c);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddComment(Coop c)
+        {
+            int code = scs.UpdateCoop(c);
+            if (code > 0)
+            {
+                return RedirectToAction("Details", new { id = c.CoopId });
+            }
             return View(c);
         }
 

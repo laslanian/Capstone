@@ -1,4 +1,5 @@
 ﻿using CapstoneProject.Models;
+using CapstoneProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,109 @@ namespace CapstoneProject.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult SendResetPassword(string email)
+        {
+            int code = 0;
+            using (UserAccountService _uas = new UserAccountService()   )
+            {
+                AesEncrpyt en = new AesEncrpyt();
+                User user = _uas.GetUserByUname(email);                                                                                                 
+                if (user != null)
+                {
+                    user.Password = GenerateTempPass();
+                    _uas.UpdateUserPW(user);
+
+                    EmailService es = new EmailService();
+                    var url = Url.Action("ResetPassword", "Account",routeValues: null ,protocol: Request.Url.Scheme );
+                    code = es.SendResetPassword(user, en.Decrypt(user.Password), url);
+                    if (code !=99)
+                    {
+                        //error
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            ResetPassword rp = new ResetPassword();
+            return View(rp);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPassword rp)
+        {
+            if (ModelState.IsValid)
+            {
+                AesEncrpyt en = new AesEncrpyt();
+                using (UserAccountService uas = new UserAccountService())
+                {
+                    User user = uas.GetUserByEmail(rp.Email);
+                    user = uas.GetUserByUnPW(user.Username, en.Encrypt(rp.TempPassword));
+                    if (user != null)
+                    {
+                        user.Password = rp.NewPassword;
+                        uas.UpdateUserPW(user);
+                    }
+
+                }
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+           
+        }
+
+        public String GenerateTempPass()
+        {
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 10).Trim();
+        }
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            ChangePassword cp = new ChangePassword();
+
+            return View(cp);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePassword cp)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                using (UserAccountService _uas = new UserAccountService())
+                {
+                    int code = 0;
+                    User user = _uas.GetUser(Convert.ToInt32(Session["Id"]));
+                    AesEncrpyt en = new AesEncrpyt();
+                    if (user.Password.Equals(en.Encrypt(cp.OldPassword)))
+                    {
+                        code = _uas.ChangePassword(cp, user);
+                        if (code == 1)
+                        {
+                            ViewBag.ChangePasswordMessage = "Successfuly changed password!";
+                        }
+                        else
+                        {
+                            ViewBag.ChangePasswordMessage = "Password change unsuccessful.";
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.ChangePasswordMessage = "Password change unsuccessful.";
+                    }
+                }
+            }
+                return View();                                                                                                                                                                                                                                                                         
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -134,7 +238,12 @@ namespace CapstoneProject.Controllers
                                 }
                             case 2:
                                 {
-                                    ViewBag.AuthError = "Student number already in use.";
+                                    ViewBag.SNError = "Student number already in use.";
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    ViewBag.EmailError = "Email already exist.";
                                     break;
                                 }
                             case 99:
@@ -177,6 +286,11 @@ namespace CapstoneProject.Controllers
                                     ViewBag.AuthError = "Username already exists.";
                                     break;
                                 }
+                            case 2:
+                                {
+                                    ViewBag.EmailError = "Email already exists.";
+                                    break;
+                                }
                             case 99:
                                 {
                                     return View("~/Views/Account/RegistrationSuccessful.cshtml");
@@ -202,7 +316,7 @@ namespace CapstoneProject.Controllers
         {
             return Session["UserType"].ToString();
         }
-
+        
         public List<Program> GetPrograms()
         {
             using (ProgramManagerService pms = new ProgramManagerService())

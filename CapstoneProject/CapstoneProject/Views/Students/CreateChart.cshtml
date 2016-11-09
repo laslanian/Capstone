@@ -5,15 +5,19 @@
         .SetYAxis(min: 0, max: 10)
         .AddSeries(chartType: "bar",
             xValue: new[] { "UI Design",
-                            "Application Developmen",
+                            "Application Development",
                             "Mobile Development",
                             "Web Developmen",
-                            "Programming" },
+                            "Database",
+                            "Java Programming",
+                            "C# Programming" },
             yValues: new[] { Model.UIDesign,
                              Model.ApplDev,
                              Model.MobileDev,
                              Model.WebDev,
-                             Model.Programming }).Write();
+                             Model.Database,
+                             Model.Java,
+                             Model.CSharp}).Write();
 }
 
 

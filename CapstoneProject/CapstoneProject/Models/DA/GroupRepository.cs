@@ -23,7 +23,7 @@ namespace CapstoneProject.Models.DA
             this.ctx = context;
         }
 
-        public Group GetGroupyId(int id)
+        public Group GetGroupById(int id)
         {
             return ctx.Groups.Find(id);
         }

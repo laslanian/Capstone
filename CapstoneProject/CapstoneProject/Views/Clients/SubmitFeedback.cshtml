@@ -1,0 +1,67 @@
+﻿@model CapstoneProject.Feedback
+
+@{
+    ViewBag.Title = "SubmitFeedback";
+}
+
+<script>
+    $(function () {
+        $("img[name=rate]").mouseover(function () {
+            giveRating($(this), "FilledStar.png");
+            $(this).css("cursor", "pointer");
+        });
+
+        $("img[name=rate]").mouseout(function () {
+            giveRating($(this), "EmptyStar.png");
+        });
+
+        $("img[name=rate]").click(function () {
+            $("#Rating").val(parseInt($(this).attr("id")));
+            $("img[name=rate]").unbind("mouseout mouseover click");
+        });
+    });
+
+    function giveRating(img, image) {
+        img.attr("src", "/Content/Images/" + image)
+           .prevAll("img").attr("src", "/Content/Images/" + image);
+    }
+
+</script>
+
+<h2>Submit Feedback Form</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+      
+        <div class="form-group">
+            @Html.HiddenFor(model => model.Rating, new { Value = 0 })
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="text-align: left">
+                    <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="1" />
+                    <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="2" />
+                    <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="3" />
+                    <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="4" />
+                    <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="5" /> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Submit" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+}

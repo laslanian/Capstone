@@ -1,0 +1,66 @@
+﻿@model CapstoneProject.Student
+
+@{
+    ViewBag.Title = "ViewCoop";
+}
+
+<h2>@Model.LastName, @Model.FirstName</h2>
+
+@Html.ActionLink("Go Back", "Students", "Coops", null, new { @class = "btn btn-default" })
+ 
+<div>
+    <hr />
+    @{ var coopList = Model.Coops.ToList(); }
+
+    @{ if (coopList.Count() == 0)
+        {
+            <h3>Student has no coop information.</h3>
+        }
+        else {
+            <h3>Coop Information</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].JobTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].EndDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].Comments)
+                    </th>
+                    <th></th>
+                </tr>
+                @for (int i = 0; i < coopList.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].JobTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].Comments)
+                        </td>
+                        <td>
+                            @Html.ActionLink("View Details", "Details", "Coops", new { id = coopList[i].CoopId }, new { @class = "btn btn-default" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            }
+        }
+        </div>

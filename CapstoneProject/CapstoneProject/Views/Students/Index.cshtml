@@ -69,9 +69,11 @@
                     @*<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>*@
                    @* <span class="pull-right">*@
                         @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })
+                      
                         @*<a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>*@
                         @*<a href="~/Account/Logout" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger">Logout <i class="glyphicon glyphicon-remove"></i></a></span>*@
                 </div>
+          
 
             </div>
         </div>
@@ -84,7 +86,9 @@
 </ul>
 
 <div id="Skillset" class="tabcontent">
+    <hr />
     <h4>Skillset</h4>
+    <hr />
     @{ if (Model.Student.Skillset != null)
         {
             <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Student.Skillset.Id })" /></div>
@@ -103,7 +107,7 @@
     }
     <hr />
     <h4>
-        Information
+        Coop Information
         @{if (coopList.Count() < 2)
             {
                 @Html.ActionLink("Add Coop", "AddCoop", "Coops", null, new { @class = "btn btn-default" })

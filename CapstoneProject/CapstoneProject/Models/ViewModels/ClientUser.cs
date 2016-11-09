@@ -63,8 +63,7 @@ namespace CapstoneProject.Models
         [Display(Name = "Company Address")]
         [StringLength(50, MinimumLength = 10, ErrorMessage = "Please enter a valid address.")]
         public string CompanyAddress { get; set; }
-
-        [Required]
+       
         [Display(Name = "Company Description")]
         [DataType(DataType.MultilineText)]
         public string CompanyDesc { get; set; }

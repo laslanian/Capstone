@@ -10,8 +10,19 @@ namespace CapstoneProject.Models.Metadata
     {
         [Range(0, 10)]
         [DisplayFormat(DataFormatString = "{0:n1}")]
-        [Display(Name = "Programming")]
-        public double Programming { get; set; }
+        [Display(Name = "C# Programming")]
+        public double CSharp { get; set; }
+
+        [Range(0, 10)]
+        [DisplayFormat(DataFormatString = "{0:n1}")]
+        [Display(Name = "Java Programming")]
+        public double Java { get; set; }
+
+        [Range(0, 10)]
+        [DisplayFormat(DataFormatString = "{0:n1}")]
+        [Display(Name = "Database")]
+        public double Database { get; set; }
+
         [Range(0, 10)]
         [DisplayFormat(DataFormatString = "{0:n1}")]
         [Display(Name = "Web Development")]
@@ -38,8 +49,8 @@ namespace CapstoneProject.Models.Metadata
         [Required]
         [Display(Name = "Position")]
         public string JobTitle { get; set; }
-        [Required]
         [Display(Name = "Job Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Required]
         [DataType(DataType.Date)]
@@ -58,17 +69,20 @@ namespace CapstoneProject.Models.Metadata
 
     public class ClientMetadata
     {
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
+        [Required]
         [Display(Name = "Phone Number")]
+        [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
-
+        [Required]
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
+        [Required]
         [Display(Name = "Company Address")]
         public string CompanyAddress { get; set; }
         [Display(Name = "Company Description")]
@@ -81,7 +95,7 @@ namespace CapstoneProject.Models.Metadata
         [Display(Name = "Goal")]
         [DataType(DataType.MultilineText)]
         public string Goal { get; set; }
-        [Display(Name = "Do you need to store infomration?")]
+        [Display(Name = "Does the application stores information")]
         public Nullable<bool> Storage { get; set; }
         [Display(Name = "Is it an desktop application?")]
         public Nullable<bool> Application { get; set; }
@@ -123,6 +137,7 @@ namespace CapstoneProject.Models.Metadata
 
         [Required]
         [Display(Name = "Phone Number")]
+        [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -148,13 +163,17 @@ namespace CapstoneProject.Models.Metadata
 
     public class StudentMetadata
     {
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Required]
         [Display(Name = "Phone Number")]
+        [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -167,4 +186,18 @@ namespace CapstoneProject.Models.Metadata
         [Display(Name = "Program")]
         public string ProgramName { get; set; }
     }
+
+    public class FeedbackMetadata
+    {
+        [Required]
+        [Display(Name = "Feedback")]
+        [DataType(DataType.MultilineText)]
+        public string Comment { get; set; }
+
+        [Range(0, 5)]
+        [DisplayFormat(DataFormatString = "{0:n1}")]
+        [Display(Name = "Rating")]
+        public double Rating { get; set; }
+    }
+
 }

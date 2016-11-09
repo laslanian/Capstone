@@ -9,8 +9,12 @@ namespace CapstoneProject.Models.Interfaces
     interface IUserInterface : IDisposable
     {
         IEnumerable<User> GetUsers();
+        IEnumerable<Feedback> GetFeedbacks();
+        User GetUserByUname(string username);
+        User GetUserByEmail(string username);
         User GetUserByUNPW(string username, string password);
         bool isExistingUsername(string username);
+        bool isExistingEmail(string email);
         User GetUserById(int id);
         void InsertUser(User u);
         int UpdateUser(User u);
