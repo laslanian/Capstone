@@ -10,6 +10,9 @@ namespace CapstoneProject
     [MetadataType(typeof(ProgramMetadata))]
     public partial class Program { }
 
+    [MetadataType(typeof(FeedbackMetadata))]
+    public partial class Feedback { }
+
     [MetadataType(typeof(SkillsetMetadata))]
     public partial class Skillset { }
 
