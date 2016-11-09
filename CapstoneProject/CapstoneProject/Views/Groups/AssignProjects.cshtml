@@ -56,7 +56,7 @@
             </tr>
         }
     </table>
-    <input type="submit" name="button" value="Save" class="btn btn-default" />    <span style="color:red"> @ViewBag.CountError </span>
-
+    <input type="submit" name="button" value="Save" class="btn btn-success" />    <span style="color:red"> @ViewBag.CountError </span>
+    @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
 }
 

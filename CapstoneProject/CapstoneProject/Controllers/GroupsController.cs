@@ -186,6 +186,8 @@ namespace CapstoneProject.Controllers
 
 
             Group g = gbs.GetGroupById(gp.Group.GroupId);
+            gp.Group = g;
+            gp.Projects = gbs.GetProjects();
 
             if (selected!=null)
             {
