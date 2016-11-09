@@ -13,12 +13,14 @@ namespace CapstoneProject.Models.Services
      
         public int SendGroupPin(string to, string pin) 
         {
+            String msg = "You've successfully created a group. @ Your group pin is: " + pin;
+            msg.Replace("@", "@" + Environment.NewLine);
             int code = 0;
             var message = new MailMessage();
             message.To.Add(new MailAddress(to));
             message.From = new MailAddress(member);
-            message.Subject = "Group pin";
-            message.Body = string.Format("Your group pin is : " + pin);
+            message.Subject = "Group Created";
+            message.Body = string.Format(msg);
             message.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
