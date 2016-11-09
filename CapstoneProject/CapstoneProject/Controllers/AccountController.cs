@@ -34,10 +34,14 @@ namespace CapstoneProject.Controllers
                     EmailService email = new EmailService();
                     var url = Url.Action("ResetPassword", "Account",routeValues: null ,protocol: Request.Url.Scheme );
                     code = email.SendResetPassword(user, en.Decrypt(user.Password), url);
+                    if (code !=99)
+                    {
+                        //error
+                    }
                 }
                 else
                 {
-
+                    return RedirectToAction("Login", "Account");
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -53,20 +57,24 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult ResetPassword(ResetPassword rp)
         {
-            User user = new User();
-            AesEncrpyt en = new AesEncrpyt();
-            using (UserAccountService uas = new UserAccountService())
+            if (ModelState.IsValid)
             {
-                user = uas.GetUserByUnPW(en.Encrypt(rp.Username), en.Encrypt(rp.TempPassword));
-                if (user != null)
+                User user = new User();
+                AesEncrpyt en = new AesEncrpyt();
+                using (UserAccountService uas = new UserAccountService())
                 {
-                    user.Password = rp.NewPassword; 
-                    uas.UpdateUserPW(user);
+                    user = uas.GetUserByUnPW(en.Encrypt(rp.Username), en.Encrypt(rp.TempPassword));
+                    if (user != null)
+                    {
+                        user.Password = rp.NewPassword;
+                        uas.UpdateUserPW(user);
+                    }
+
                 }
-
+                return RedirectToAction("Login", "Account");
             }
-
-            return RedirectToAction("Login", "Account");
+            return View();
+           
         }
 
         public String GenerateTempPass()
@@ -111,11 +119,7 @@ namespace CapstoneProject.Controllers
                     }
                 }
             }
-            else
-            {
-                ViewBag.ChangePasswordMessage = "Password change unsuccessful.";
-            }
-                return View();
+                return View();                                                                                                                                                                                                                                                                         
         }
 
         [HttpPost]

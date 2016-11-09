@@ -17,7 +17,7 @@ namespace CapstoneProject.Models
         [Required]
         [DataType(DataType.Password)]
         [StringLength(25, MinimumLength = 7, ErrorMessage = "Password must be atleast 7 to 25 characters.")]
-        [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]
+        [RegularExpression(@"^([ A-Za-z0-9_@./#&+-]+)$", ErrorMessage = "Invalid password")]
         [Display(Name = "Temporary Password")]
         public string TempPassword { get; set; }
 
