@@ -86,7 +86,9 @@
 </ul>
 
 <div id="Skillset" class="tabcontent">
+    <hr />
     <h4>Skillset</h4>
+    <hr />
     @{ if (Model.Student.Skillset != null)
         {
             <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Student.Skillset.Id })" /></div>
@@ -105,7 +107,7 @@
     }
     <hr />
     <h4>
-        Information
+        Coop Information
         @{if (coopList.Count() < 2)
             {
                 @Html.ActionLink("Add Coop", "AddCoop", "Coops", null, new { @class = "btn btn-default" })
