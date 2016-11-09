@@ -184,32 +184,31 @@ namespace CapstoneProject.Controllers
         {
             var selected = collection.GetValues("chkSelected");
 
-
             Group g = gbs.GetGroupById(gp.Group.GroupId);
 
-            if (selected!=null)
+            if (selected != null)
             {
-                for (int i = 0, len = selected.Length; i < len; i++)
+                if (selected.Count() > 5 || selected.Count() < 3)
                 {
-                    g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
-                }
-                gp.Group = g;
-
-                int code = gbs.AddProjectPreference(g);
-
-                if (code == 1)
-                {
-                    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-                }
-                else if (code == 99) 
-                {
-                    ViewBag.CountError = "Select a maximum of 5 projects";
+                    gp.Group = g;
+                    gp.Projects = gbs.GetProjects();
+                    ViewBag.CountError = "Select between 3 to 5 projects";
                     return View(gp);
                 }
                 else
                 {
-                    ViewBag.CountError = "Select at least 3 projects";
-                    return View(gp);
+                    for (int i = 0, len = selected.Length; i < len; i++)
+                    {
+                        g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
+                    }
+                    gp.Group = g;
+
+                    int code = gbs.AddProjectPreference(g);
+                    if (code == 1)
+                    {
+                        return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+                    }
+                
                 }
             }
             else
@@ -218,12 +217,10 @@ namespace CapstoneProject.Controllers
                 gbs.EditGroup(g);
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
-            
-            
-          
-           
+            return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
         }
+
+
+
     }
 }
-
-    
