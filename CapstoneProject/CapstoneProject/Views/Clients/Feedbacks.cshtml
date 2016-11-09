@@ -23,7 +23,7 @@
                                     <div class="testimonial-user clearfix">
                                         <div class="testimonial-user-image"><img src="~/Content/Images/custom-img/client.png" alt=""></div>
                                         <div class="testimonial-user-name">
-                                            @Html.DisplayFor(modelItem => item.Client.FirstName) @Html.DisplayFor(modelItem => item.Client.LastName) (@Html.DisplayFor(modelItem => item.Client.CompanyName) <br />
+                                            @Html.DisplayFor(modelItem => item.Client.FirstName) @Html.DisplayFor(modelItem => item.Client.LastName) (@Html.DisplayFor(modelItem => item.Client.CompanyName)) <br />
                                             @{ var rate = Convert.ToInt32(item.Rating);
                                                 switch (rate)
                                                 {
