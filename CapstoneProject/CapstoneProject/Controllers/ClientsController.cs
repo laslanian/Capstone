@@ -62,7 +62,7 @@ namespace CapstoneProject.Controllers
             {             
                 UserAccountService uas = new UserAccountService();
                 uas.SubmitFeedback(Convert.ToInt32(Session["Id"]), f);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Feedbacks");
             }
             return View(f);
         }
