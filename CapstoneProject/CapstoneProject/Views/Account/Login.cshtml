@@ -58,7 +58,7 @@
                         <h4>Would you like to reset your password?</h4>
 
                         <div class="form-group">
-                            <input class="form-control input-lg" id="username" type="text" placeholder="Username" data-error="Username is required" required />
+                            <input class="form-control input-lg" id="userEmail" type="email" placeholder="Email" data-error="Email is required" required />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -73,13 +73,13 @@
         $(document).ready(function () {
             $('#ResetPassword').on('click', function (e) {
                 e.preventDefault();
-                var uname = $("#username").val();
+                var userEmail = $("#userEmail").val();
                 if (uname) {
                     $.ajax({
                         type: 'POST',
                         url: "/Account/SendResetPassword/",
                         data: {
-                            username: uname
+                            email: userEmail
                         },
                         success: function () {
                             window.location.href = "/Home/Index"
@@ -88,7 +88,7 @@
                         }
                     });
                 } else {
-                    $("#modalError").html("Username cannot be empty");
+                    $("#modalError").html("Email cannot be empty");
                 }
             });
         });

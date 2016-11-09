@@ -19,21 +19,21 @@ namespace CapstoneProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendResetPassword(string username)
+        public ActionResult SendResetPassword(string email)
         {
             int code = 0;
             using (UserAccountService _uas = new UserAccountService()   )
             {
                 AesEncrpyt en = new AesEncrpyt();
-                User user = _uas.GetUserByUname(en.Encrypt(username));                                                                                                 
+                User user = _uas.GetUserByUname(email);                                                                                                 
                 if (user != null)
                 {
                     user.Password = GenerateTempPass();
                     _uas.UpdateUserPW(user);
 
-                    EmailService email = new EmailService();
+                    EmailService es = new EmailService();
                     var url = Url.Action("ResetPassword", "Account",routeValues: null ,protocol: Request.Url.Scheme );
-                    code = email.SendResetPassword(user, en.Decrypt(user.Password), url);
+                    code = es.SendResetPassword(user, en.Decrypt(user.Password), url);
                     if (code !=99)
                     {
                         //error
@@ -59,11 +59,11 @@ namespace CapstoneProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User();
                 AesEncrpyt en = new AesEncrpyt();
                 using (UserAccountService uas = new UserAccountService())
                 {
-                    user = uas.GetUserByUnPW(en.Encrypt(rp.Username), en.Encrypt(rp.TempPassword));
+                    User user = uas.GetUserByEmail(rp.Email);
+                    user = uas.GetUserByUnPW(user.Username, en.Encrypt(rp.TempPassword));
                     if (user != null)
                     {
                         user.Password = rp.NewPassword;

@@ -10,6 +10,7 @@ namespace CapstoneProject.Models.Interfaces
     {
         IEnumerable<User> GetUsers();
         User GetUserByUname(string username);
+        User GetUserByEmail(string username);
         User GetUserByUNPW(string username, string password);
         bool isExistingUsername(string username);
         bool isExistingEmail(string email);
