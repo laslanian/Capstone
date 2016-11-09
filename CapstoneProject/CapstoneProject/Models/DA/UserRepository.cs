@@ -32,7 +32,11 @@ namespace CapstoneProject.Models.DA
         {
             return ctx.Users.Find(id);
         }
-
+        public User GetUserByUname(string uname)
+        {
+            var user = (from u in ctx.Users where u.Username == uname select u).FirstOrDefault();
+            return user;
+        }
         public User GetUserByUNPW(string username, string password)
         {
             var user = (from u in ctx.Users where u.Username == username && u.Password == password select u).FirstOrDefault();
@@ -54,7 +58,7 @@ namespace CapstoneProject.Models.DA
             var user = ctx.Users.SingleOrDefault(us => us.UserId == u.UserId);
             user.FirstName = u.FirstName;
             user.LastName = u.LastName;
-            user.Password = u.PhoneNumber;
+            user.PhoneNumber = u.PhoneNumber;
             user.Email = u.Email;
             user.Username = u.Username;
             user.Password = u.Password;

@@ -15,7 +15,7 @@ namespace CapstoneProject.Models.Interfaces
         IEnumerable<Project> GetTopProjects();
         Project GetProjectById(int id);
         void InsertProject(Project p);
-        int UpdateProject(Project p);
+        void UpdateProject(Project p);
         void DeleteProject(int id);
         void Save();
     }

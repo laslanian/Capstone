@@ -50,13 +50,9 @@ namespace CapstoneProject.Models.Services
             Criteria crt = new Criteria();
             crt.Goal = pf.criteria.Goal;
             crt.Storage = pf.criteria.Storage;
-            crt.StorageComment = pf.criteria.StorageComment;
             crt.Application = pf.criteria.Application;
-            crt.ApplicationComment = pf.criteria.ApplicationComment;
             crt.Website = pf.criteria.Website;
-            crt.WebsiteComment = pf.criteria.WebsiteComment;
             crt.Mobile = pf.criteria.Mobile;
-            crt.MobileComment = pf.criteria.MobileComment;
 
             p.Criteria = crt;
             try
@@ -79,10 +75,19 @@ namespace CapstoneProject.Models.Services
         public Project GetProjectDetails(int id) {
             return _projects.GetProjectById(id);
         }
-
+        public Project AddProject(Project p) { return null; }
         public int UpdateProject(Project p)
-        { 
-           return _projects.UpdateProject(p);     
+        {
+            try
+            {
+                _projects.UpdateProject(p);
+                _projects.Save();
+                return 1;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
         public void DeleteProject(int id) { }
         public void ArchiveProjects(List<Project> projects) { }

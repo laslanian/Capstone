@@ -18,9 +18,9 @@
          var owner = ViewBag.Owner;
          if(owner != null)
          {
-            @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-info" }) 
-        }
-        <span></span>@Html.ActionLink("Leave Group", "LeaveGroup", new { id = Model.GroupId }, new { onclick = "return confirm('Are you sure you want to leave the group?');", @class = "btn btn-danger" })
+            @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-info" })
+         }
+        
         <div>
             <hr />
             <dl class="dl-horizontal">
@@ -66,7 +66,7 @@
         </div>
         var studList = Model.Students.ToList();
         <div id="Members" class="tabcontent">
-            <h3>Members</h3>
+            <h3>Members <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button></h3>
             <table class="table">
                 <tr>
                     <th>
@@ -150,7 +150,7 @@
             }
             }
 
-            @*<!-- Modal -->
+            <!-- Modal -->
             <div id="leaveModal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog">
 
@@ -169,11 +169,11 @@
                         </div>
                     </div>
                 </div>
-            </div>*@
+            </div>
 
             <script type="text/javascript">
                 document.getElementById("skills").click();
-                @*$(document).ready(function() {
+                $(document).ready(function() {
                     $('#leaveGroup').on('click', function (e) {
                         e.preventDefault();
                         $.ajax({
@@ -188,7 +188,7 @@
                             }
                         })
                     })
-                });*@
+                });
                 function openTab(evt, tabName) {
                     // Declare all variables
                     var i, tabcontent, tablinks;

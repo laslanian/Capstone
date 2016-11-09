@@ -10,7 +10,7 @@
         @{ if (Session["UserType"].ToString().Equals("Coop"))
             {
                 <td>@Html.ActionLink("Go Back", "Students", "Coops", null, new { @class = "btn btn-default" })
-                @Html.ActionLink("Add/Edit Comment", "AddComment", "Coops", new { id = Model.CoopId }, new { @class = "btn btn-info" })</td>
+                @Html.ActionLink("Add Comment", "AddComment", "Coops", new { id = Model.CoopId }, new { @class = "btn btn-info" })</td>
             }
             else {
                 <td>@Html.ActionLink("Go Back", "Index", "Students", null, new { @class = "btn btn-default" })

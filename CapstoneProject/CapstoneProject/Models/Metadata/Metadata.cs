@@ -94,21 +94,12 @@ namespace CapstoneProject.Models.Metadata
         public string Goal { get; set; }
         [Display(Name = "Does the application stores information")]
         public Nullable<bool> Storage { get; set; }
-        [Display(Name = "Is the application for desktop?")]
+        [Display(Name = "Is it an desktop application?")]
         public Nullable<bool> Application { get; set; }
-        [Display(Name = "Will the project be a website?")]
+        [Display(Name = "Is it a website?")]
         public Nullable<bool> Website { get; set; }
-        [Display(Name = "Will it be a mobile application?")]
+        [Display(Name = "Is it a mobile application?")]
         public Nullable<bool> Mobile { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        public string StorageComment { get; set; }
-        [DataType(DataType.MultilineText)]
-        public string ApplicationComment { get; set; }
-        [DataType(DataType.MultilineText)]
-        public string WebsiteComment { get; set; }
-        [DataType(DataType.MultilineText)]
-        public string MobileComment { get; set; }
     }
 
     public class GroupMetadata

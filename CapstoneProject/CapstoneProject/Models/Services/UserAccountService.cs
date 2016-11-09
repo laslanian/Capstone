@@ -103,6 +103,20 @@ namespace CapstoneProject.Models.Services
                 return 1;
             }
         }
+        public int ChangePassword(ChangePassword cp, User u)
+        {
+            AesEncrpyt en = new AesEncrpyt();
+
+            User user = _users.GetUserByUNPW(u.Username, en.Encrypt(cp.OldPassword));
+            if (user!=null)
+            {
+                user.Password = en.Encrypt(cp.NewPassword);
+                _users.UpdateUser(user);
+                _users.Save();
+                return 1;
+            }
+            return 0;
+        }
 
         public int AddStudentSkill(Skillset ss, int id)
         {
@@ -148,7 +162,19 @@ namespace CapstoneProject.Models.Services
                 return 1;
             }
         }
-
+        public int UpdateUserPW(User u)
+        {
+            if (_users.GetUserById(u.UserId) != null)
+            {
+                AesEncrpyt en = new AesEncrpyt();
+                u.Password = en.Encrypt(u.Password);
+                return _users.UpdateUser(u);
+            }
+            else
+            {
+                return 0;
+            }
+        }
         public int EditUser(User u)
         {
             if (_users.GetUserById(u.UserId) != null)
@@ -204,7 +230,14 @@ namespace CapstoneProject.Models.Services
 
             }
         }
-
+        public User GetUserByUname(string uname)
+        {
+            return _users.GetUserByUname(uname);
+        }
+        public User GetUserByUnPW(string uname, string pw)
+        {
+            return _users.GetUserByUNPW(uname,pw);
+        }
         public Skillset GetSkillsetByUserId(int id)
         {
             return _students.GetSkillByUserId(id);

@@ -59,8 +59,7 @@
                         }
                         else if (Session["UserType"].ToString().Equals("Management"))
                         {
-                            <li>@Html.ActionLink("Projects", "Projects", "Projects")</li>
-                            <li>@Html.ActionLink("Reports", "Reports", "Managements")</li>
+
                         }
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
@@ -81,6 +80,31 @@
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+    //session end
+    var sessionTimeoutWarning = @Session.Timeout- 1;
+
+    var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+    setTimeout('SessionEnd()', sTimeout);
+    
+
+    function SessionEnd() {
+        $.ajax({
+            type: 'GET',
+            url: "/Account/Logout/",
+            data: {
+            },
+            success: function () {
+                window.location = "/Account/Login";
+            },
+            error: function (e) {
+               // alert(e.responseText);
+            }
+        });
+    }
+    </script>
+    
 </body>
 
 </html>
+ 

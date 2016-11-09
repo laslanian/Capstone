@@ -15,6 +15,11 @@ namespace CapstoneProject.Controllers
         // GET: Students
         public ActionResult Index()
         {
+           
+            if (TempData["ChangePassConfirm"]!=null)
+            {
+                ViewBag.ChangePassConfirmMsg = TempData["ChangePassConfirm"].ToString();
+            }
             UserAccountService uas = new UserAccountService();
 
             Student s = (Student) uas.GetUser(Convert.ToInt32(Session["Id"]));

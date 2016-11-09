@@ -69,9 +69,12 @@
                     @*<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>*@
                    @* <span class="pull-right">*@
                         @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Change Password", "ChangePassword","Account",null, new { @class = "btn btn-info" })
+                        
                         @*<a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>*@
                         @*<a href="~/Account/Logout" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger">Logout <i class="glyphicon glyphicon-remove"></i></a></span>*@
                 </div>
+                <span style="color:red"> @ViewBag.ChangePassConfirmMsg </span>
 
             </div>
         </div>

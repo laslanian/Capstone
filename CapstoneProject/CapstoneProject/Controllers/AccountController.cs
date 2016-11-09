@@ -1,4 +1,5 @@
 ﻿using CapstoneProject.Models;
+using CapstoneProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,113 @@ namespace CapstoneProject.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult SendResetPassword(string username)
+        {
+            int code = 0;
+            using (UserAccountService _uas = new UserAccountService()   )
+            {
+                AesEncrpyt en = new AesEncrpyt();
+                User user = _uas.GetUserByUname(en.Encrypt(username));                                                                                                 
+                if (user != null)
+                {
+                    user.Password = GenerateTempPass();
+                    _uas.UpdateUserPW(user);
+
+                    EmailService email = new EmailService();
+                    var url = Url.Action("ResetPassword", "Account",routeValues: null ,protocol: Request.Url.Scheme );
+                    code = email.SendResetPassword(user, en.Decrypt(user.Password), url);
+                }
+                else
+                {
+
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            ResetPassword rp = new ResetPassword();
+            return View(rp);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPassword rp)
+        {
+            User user = new User();
+            AesEncrpyt en = new AesEncrpyt();
+            using (UserAccountService uas = new UserAccountService())
+            {
+                user = uas.GetUserByUnPW(en.Encrypt(rp.Username), en.Encrypt(rp.TempPassword));
+                if (user != null)
+                {
+                    user.Password = rp.NewPassword; 
+                    uas.UpdateUserPW(user);
+                }
+
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        public String GenerateTempPass()
+        {
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 10).Trim();
+        }
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            ChangePassword cp = new ChangePassword();
+
+            return View(cp);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePassword cp)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                using (UserAccountService _uas = new UserAccountService())
+                {
+                    int code = 0;
+                    User user = _uas.GetUser(Convert.ToInt32(Session["Id"]));
+                    AesEncrpyt en = new AesEncrpyt();
+                    if (user.Password.Equals(en.Encrypt(cp.OldPassword)))
+                    {
+                        code = _uas.ChangePassword(cp, user);
+                        if (code == 1)
+                        {
+                            TempData["ChangePassConfirm"] = "Successfuly changed password!";
+                        }
+                        else
+                        {
+                            TempData["ChangePassConfirm"] = "Password change unsuccessful.";
+                        }
+                    }
+                    else
+                    {
+                        TempData["ChangePassConfirm"] = "Password change unsuccessful.";
+                    }
+                }
+            }
+            else
+            {
+                TempData["ChangePassConfirm"] = "Password change unsuccessful.";
+            }
+            if (Session["UserType"].ToString().Equals(Utility.AccountType.Student))
+            {
+               
+                return RedirectToAction("Index", "Students");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -202,7 +310,7 @@ namespace CapstoneProject.Controllers
         {
             return Session["UserType"].ToString();
         }
-
+        
         public List<Program> GetPrograms()
         {
             using (ProgramManagerService pms = new ProgramManagerService())

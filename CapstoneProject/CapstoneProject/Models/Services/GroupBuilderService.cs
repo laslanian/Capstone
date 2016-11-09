@@ -53,7 +53,7 @@ namespace CapstoneProject.Models.Services
                 // testing send email
                 EmailService emailService = new EmailService();
 
-                emailService.SendGroupPin(s.Email, pin);
+                emailService.SendGroupPin(s.Email, g);
 
                 return g;
             }
