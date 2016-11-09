@@ -44,22 +44,33 @@ namespace CapstoneProject.Controllers
             if(ModelState.IsValid)
             {
                 int code = _uas.CreateUser(ca);
-                if(code == 1)
+                switch (code)
                 {
-                    ViewBag.CreateUser = "Successfully Added Coop Account.";
-                }
-                else if(code == 2)
-                {
-                    ViewBag.CreateUser = "Successfully Added Coop Account.";
-                }
-                else if(code == 3)
-                {
-                    ViewBag.CreateUser = "Successfully Added Coop Account.";
-                }
-                else
-                {
-                    ViewBag.CreateUser = "An Error has occured.";
-                    return View(ca);
+                    case 1:
+                        {
+                            ViewBag.CreateUser = "Successfully Added Coop Account.";
+                            break;
+                        }
+                    case 2:
+                        {
+                            ViewBag.CreateUser = "Successfully Added Management Account.";
+                            break;
+                        }
+                    case 3:
+                        {
+                            ViewBag.CreateUser = "Successfully Added Admin Account.";
+                            break;
+                        }
+                    case 4:
+                        {
+                            ViewBag.AuthError = "Username already exists.";
+                            return View(ca);
+                        }
+                    case 5:
+                        {
+                            ViewBag.EmailError = "Email already exists.";
+                            return View(ca);
+                        }
                 }
                 return RedirectToAction("Users");
             }

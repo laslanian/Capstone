@@ -48,6 +48,11 @@ namespace CapstoneProject.Models.DA
             return ctx.Users.Any(user => user.Username.Equals(username));
         }
 
+        public bool isExistingEmail(String email)
+        {
+            return ctx.Users.Any(user => user.Email.Equals(email));
+        }
+
         public void InsertUser(User u)
         {
             ctx.Users.Add(u);

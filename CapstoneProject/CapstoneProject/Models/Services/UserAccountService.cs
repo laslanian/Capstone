@@ -79,28 +79,37 @@ namespace CapstoneProject.Models.Services
             
 
             //1 - username already exist
-            //2 = studentnuber already exist
+            //2 = studentnumber already exist
+            //3 = existing email
             //99 - success
-            if (!_users.isExistingUsername(s.Username))
+            if (!_users.isExistingEmail(s.Email))
             {
-                using(StudentRepository sr = new StudentRepository()) {
-                    if(!sr.isExistingStudentNumber(s.StudentNumber))
+                if (!_users.isExistingUsername(s.Username))
+                {
+                    using (StudentRepository sr = new StudentRepository())
                     {
-                        _users.InsertUser(s);
-                        //_users.InsertUser(u);
-                        _users.Save();
-                        return 99;
+                        if (!sr.isExistingStudentNumber(s.StudentNumber))
+                        {
+                            _users.InsertUser(s);
+                            //_users.InsertUser(u);
+                            _users.Save();
+                            return 99;
 
+                        }
+                        else
+                        {
+                            return 2;
+                        }
                     }
-                    else
-                    {
-                        return 2;
-                    }
+                }
+                else
+                {
+                    return 1;
                 }
             }
             else
             {
-                return 1;
+                return 3;
             }
         }
         public int ChangePassword(ChangePassword cp, User u)
@@ -153,9 +162,13 @@ namespace CapstoneProject.Models.Services
 
             if (!_users.isExistingUsername(c.Username))
             {
-                _users.InsertUser(c);
-                _users.Save();
-                return 99;
+                if (!_users.isExistingEmail(c.Email))
+                {
+                    _users.InsertUser(c);
+                    _users.Save();
+                    return 99;
+                }
+                return 2;
             }
             else
             {
@@ -255,6 +268,15 @@ namespace CapstoneProject.Models.Services
             AesEncrpyt en = new AesEncrpyt();
             ac.Username = en.Encrypt(ac.Username);
             ac.Password = en.Encrypt(ac.Password);
+            if(_users.isExistingUsername(ac.Username))
+            {
+                return 4;
+            }
+
+            if(_users.isExistingEmail(ac.Email))
+            {
+                return 5;
+            }
 
             if (ac.SelectedAccount.Equals(AccountType.Coop_Advisor))
             {

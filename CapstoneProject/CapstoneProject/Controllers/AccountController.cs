@@ -238,7 +238,12 @@ namespace CapstoneProject.Controllers
                                 }
                             case 2:
                                 {
-                                    ViewBag.AuthError = "Student number already in use.";
+                                    ViewBag.SNError = "Student number already in use.";
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    ViewBag.EmailError = "Email already exist.";
                                     break;
                                 }
                             case 99:
@@ -279,6 +284,11 @@ namespace CapstoneProject.Controllers
                             case 1:
                                 {
                                     ViewBag.AuthError = "Username already exists.";
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    ViewBag.EmailError = "Email already exists.";
                                     break;
                                 }
                             case 99:

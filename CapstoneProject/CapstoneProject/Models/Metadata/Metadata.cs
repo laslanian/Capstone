@@ -69,17 +69,20 @@ namespace CapstoneProject.Models.Metadata
 
     public class ClientMetadata
     {
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
+        [Required]
         [Display(Name = "Phone Number")]
+        [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
-
+        [Required]
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
+        [Required]
         [Display(Name = "Company Address")]
         public string CompanyAddress { get; set; }
         [Display(Name = "Company Description")]
@@ -134,6 +137,7 @@ namespace CapstoneProject.Models.Metadata
 
         [Required]
         [Display(Name = "Phone Number")]
+        [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -159,13 +163,17 @@ namespace CapstoneProject.Models.Metadata
 
     public class StudentMetadata
     {
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Required]
         [Display(Name = "Phone Number")]
+        [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
