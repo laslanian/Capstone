@@ -100,6 +100,15 @@ namespace CapstoneProject.Models.Metadata
         public Nullable<bool> Website { get; set; }
         [Display(Name = "Will it be a mobile application?")]
         public Nullable<bool> Mobile { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        public string StorageComment { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string ApplicationComment { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string WebsiteComment { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string MobileComment { get; set; }
     }
 
     public class GroupMetadata

@@ -16,7 +16,8 @@
     }
     else
     {
-        @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-default" }) 
+        if (Model.State.Equals("Pending")) { <span> </span>@Html.ActionLink("Edit Project", "EditProject", new { id = Model.ProjectId }, new { @class = "btn btn-info" }) }
     }
 }
 <div>

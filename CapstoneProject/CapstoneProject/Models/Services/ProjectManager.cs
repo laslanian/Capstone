@@ -79,19 +79,10 @@ namespace CapstoneProject.Models.Services
         public Project GetProjectDetails(int id) {
             return _projects.GetProjectById(id);
         }
-        public Project AddProject(Project p) { return null; }
+
         public int UpdateProject(Project p)
-        {
-            try
-            {
-                _projects.UpdateProject(p);
-                _projects.Save();
-                return 1;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
+        { 
+           return _projects.UpdateProject(p);     
         }
         public void DeleteProject(int id) { }
         public void ArchiveProjects(List<Project> projects) { }

@@ -222,6 +222,7 @@
     <Compile Include="Controllers\CoopsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManagementsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Coop.cs">
@@ -683,9 +684,11 @@
     <Content Include="Views\Coops\Students.cshtml" />
     <Content Include="Views\Coops\ViewCoop.cshtml" />
     <Content Include="Views\Coops\AddComment.cshtml" />
+    <Content Include="Views\Projects\EditProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Managements\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
