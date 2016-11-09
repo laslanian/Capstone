@@ -15,19 +15,6 @@ namespace CapstoneProject.Models
         public string Username { get; set; }
 
         [Required]
-        [Display(Name = "Email")]
-        [DataType(DataType.EmailAddress)]
-        [StringLength(50, MinimumLength = 7, ErrorMessage = "Please enter a valid email address.")]
-        public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "Confirm Email")]
-        [DataType(DataType.EmailAddress)]
-        [StringLength(50, MinimumLength = 7, ErrorMessage = "Please enter a valid email address.")]
-        [Compare("Email")]
-        public string ConfirmEmail { get; set; }
-
-        [Required]
         [DataType(DataType.Password)]
         [StringLength(25, MinimumLength = 7, ErrorMessage = "Password must be atleast 7 to 25 characters.")]
         [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]

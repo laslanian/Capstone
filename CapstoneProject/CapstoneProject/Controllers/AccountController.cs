@@ -98,32 +98,24 @@ namespace CapstoneProject.Controllers
                         code = _uas.ChangePassword(cp, user);
                         if (code == 1)
                         {
-                            TempData["ChangePassConfirm"] = "Successfuly changed password!";
+                            ViewBag.ChangePasswordMessage = "Successfuly changed password!";
                         }
                         else
                         {
-                            TempData["ChangePassConfirm"] = "Password change unsuccessful.";
+                            ViewBag.ChangePasswordMessage = "Password change unsuccessful.";
                         }
                     }
                     else
                     {
-                        TempData["ChangePassConfirm"] = "Password change unsuccessful.";
+                        ViewBag.ChangePasswordMessage = "Password change unsuccessful.";
                     }
                 }
             }
             else
             {
-                TempData["ChangePassConfirm"] = "Password change unsuccessful.";
+                ViewBag.ChangePasswordMessage = "Password change unsuccessful.";
             }
-            if (Session["UserType"].ToString().Equals(Utility.AccountType.Student))
-            {
-               
-                return RedirectToAction("Index", "Students");
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+                return View();
         }
 
         [HttpPost]
