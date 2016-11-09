@@ -1,8 +1,11 @@
 ﻿@model CapstoneProject.Models.LoginUser
+@using BotDetect.Web.Mvc;
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -23,6 +26,8 @@
                             @Html.PasswordFor(u => u.Password, new { @class = "form-control input-lg", placeholder = "***********" })
                             @Html.ValidationMessageFor(u => u.Password)
                         </div>
+                        <hr class="colorgraph">
+                        <div class="g-recaptcha" data-sitekey="6LftbQsUAAAAAF8PawPTpTVC8L8myc2c-zWZDMmA"></div>
                         <hr class="colorgraph">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
