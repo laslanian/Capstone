@@ -6,6 +6,7 @@ using System.Web;
 using CapstoneProject.Models.DA;
 using CapstoneProject.Models.Interfaces;
 using CapstoneProject.Models.ViewModels;
+using CapstoneProject.Utility;
 
 namespace CapstoneProject.Models.Services
 {
@@ -44,15 +45,20 @@ namespace CapstoneProject.Models.Services
             p.Name = pf.project.Name;
             p.Description = pf.project.Description;
             p.Type = "Unknown";
-            p.State = "Pending";
+            p.State = ProjectState.Pending;
             p.Client = client;
 
             Criteria crt = new Criteria();
             crt.Goal = pf.criteria.Goal;
             crt.Storage = pf.criteria.Storage;
+            crt.StorageComment = pf.criteria.StorageComment;
             crt.Application = pf.criteria.Application;
+            crt.ApplicationComment = pf.criteria.ApplicationComment;
             crt.Website = pf.criteria.Website;
+            crt.WebsiteComment = pf.criteria.WebsiteComment;
             crt.Mobile = pf.criteria.Mobile;
+            crt.MobileComment = pf.criteria.MobileComment;
+
 
             p.Criteria = crt;
             try
