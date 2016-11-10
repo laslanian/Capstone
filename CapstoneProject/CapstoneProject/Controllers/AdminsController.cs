@@ -31,7 +31,22 @@ namespace CapstoneProject.Controllers
             ViewBag.Type = type + " Users";
             return View(ul);
         }
-
+        public ActionResult Groups(String status)
+        {
+            GroupList gl = new GroupList();
+            gl.Groups = _gbs.GetGroups();
+            if (status == null || status.Equals(GroupState.All))
+            {
+                status = GroupState.All;
+            }
+            else
+            {
+                gl.Groups = gl.Groups.FindAll(s => s.Status == status);
+            }
+            gl.SelectedStatus = status;
+            ViewBag.Status = status + " Groups";
+            return View(gl);
+        }
         public ActionResult CreateUser()
         {
             CreateAccount ca = new CreateAccount();
@@ -130,10 +145,7 @@ namespace CapstoneProject.Controllers
             return RedirectToAction("Users");
         }
 
-        public ActionResult Groups()
-        {
-            return View(_gbs.GetGroups());
-        }
+        
         [HttpGet]
         public ActionResult GroupDetail(int id)
         {
