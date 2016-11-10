@@ -5,6 +5,35 @@
 }
 
 <h2>Feedbacks</h2>
+<script>
+    $(function () {
+        $('.rateit').rateit();
+    });
+</script>
+<style>
+    div.bigstars div.rateit-range {
+        background: url(/Content/Images/EmptyStar.png);
+        height: 32px;
+    }
+
+    div.bigstars div.rateit-hover {
+        background: url(/Content/Images/FilledStar.png);
+    }
+
+    div.bigstars div.rateit-selected {
+        background: url(/Content/Images/FilledStar.png);
+    }
+
+    div.bigstars div.rateit-reset {
+        background: url(/Content/Images/EmptyStar.png);
+        width: 32px;
+        height: 32px;
+    }
+
+        div.bigstars div.rateit-reset:hover {
+            background: url(/Content/Images/EmptyStar.png);
+        }
+</style>
 
 <table class="table">
     <tr>
@@ -41,66 +70,9 @@
                 @Html.DisplayFor(modelItem => item.Comment)
             </td>
             <td>
-                @{ var rate = Convert.ToInt32(item.Rating);
-                    switch (rate)
-                    {
-                        case 0:
-                            {
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                break;
-                            }
-                        case 1:
-                            {
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                break;
-                            }
-                        case 2:
-                            {
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                break;
-                            }
-                        case 3:
-                            {
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                break;
-                            }
-                        case 4:
-                            {
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/EmptyStar.png" alt="Star Rating" />
-                                break;
-                            }
-                        case 5:
-                            {
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                <img src="~/Content/Images/FilledStar.png" alt="Star Rating" />
-                                break;
-                            }
-                    }
-
-                }
+                <div class="rateit bigstars" data-rateit-starwidth="32" data-rateit-starheight="32" data-rateit-resetable="false" 
+                     data-rateit-ispreset="true" value="5" data-rateit-readonly="true" data-rateit-value="@item.Rating"></div>
+                
             </td>
 
 

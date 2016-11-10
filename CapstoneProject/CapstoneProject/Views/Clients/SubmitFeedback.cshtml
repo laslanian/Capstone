@@ -6,19 +6,25 @@
 
 <script>
     $(function () {
-        $("img[name=rate]").mouseover(function () {
-            giveRating($(this), "FilledStar.png");
-            $(this).css("cursor", "pointer");
+        $('.rateit').rateit();
+
+        $('.rateit').bind('rated', function () {
+            $("#Rating").val($(this).rateit('value'));
         });
 
-        $("img[name=rate]").mouseout(function () {
-            giveRating($(this), "EmptyStar.png");
-        });
+        //$("img[name=rate]").mouseover(function () {
+        //    giveRating($(this), "FilledStar.png");
+        //    $(this).css("cursor", "pointer");
+        //});
 
-        $("img[name=rate]").click(function () {
-            $("#Rating").val(parseInt($(this).attr("id")));
-            $("img[name=rate]").unbind("mouseout mouseover click");
-        });
+        //$("img[name=rate]").mouseout(function () {
+        //    giveRating($(this), "EmptyStar.png");
+        //});
+
+        //$("img[name=rate]").click(function () {
+        //    $("#Rating").val(parseInt($(this).attr("id")));
+        //    $("img[name=rate]").unbind("mouseout mouseover click");
+        //});
     });
 
     function giveRating(img, image) {
@@ -44,18 +50,23 @@
                 @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
         </div>
-      
+
+        
+        
         <div class="form-group">
             @Html.HiddenFor(model => model.Rating, new { Value = 0 })
             @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="text-align: left">
+                <div class="rateit bigstars" data-rateit-starwidth="32" data-rateit-starheight="32" data-rateit-resetable="false"></div>
+            </div>
+                @*<div class="col-md-10" style="text-align: left">
                     <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="1" />
                     <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="2" />
                     <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="3" />
                     <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="4" />
-                    <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="5" /> 
+                    <img name="rate" src="~/Content/Images/EmptyStar.png" alt="Star Rating" id="5" />
+            </div>*@
             </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -65,3 +76,32 @@
         </div>
     </div>
 }
+<style>
+div.bigstars div.rateit-range
+{
+    background: url(/Content/Images/EmptyStar.png);
+    height: 32px;
+}
+ 
+div.bigstars div.rateit-hover
+{
+    background: url(/Content/Images/FilledStar.png);
+}
+ 
+div.bigstars div.rateit-selected
+{
+    background: url(/Content/Images/FilledStar.png);
+}
+ 
+div.bigstars div.rateit-reset
+{
+    background: url(/Content/Images/EmptyStar.png);
+    width: 32px;
+    height: 32px;
+}
+ 
+div.bigstars div.rateit-reset:hover
+{
+    background: url(/Content/Images/EmptyStar.png);
+}
+</style>
