@@ -21,7 +21,7 @@
                             <div class="form-group">
                                 @Html.TextBoxFor(model => model.Username, new { @class = "form-control input-lg", placeholder = "Username" })
                                 @Html.ValidationMessageFor(model => model.Username)
-                                <span style="color:red"> @ViewBag.AuthError </span>
+                                <span class="text-danger"> @ViewBag.AuthError </span>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-lg", placeholder = "Email" })
                                 @Html.ValidationMessageFor(model => model.Email)
-                                <span style="color:red"> @ViewBag.EmailError </span>
+                                <span class="text-danger"> @ViewBag.EmailError </span>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
