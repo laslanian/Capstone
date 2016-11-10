@@ -4,6 +4,9 @@
     ViewBag.Title = "User List";
 }
 
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
 <h2>User List</h2>
 
 <p>
@@ -25,6 +28,10 @@
 @Html.Partial("~/Views/Admins/_Users.cshtml", Model.Users)
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#users').DataTable();
+    });
 
     $('#usertype').change(function () {
         var url = '';
