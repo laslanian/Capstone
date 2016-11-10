@@ -42,7 +42,7 @@ namespace CapstoneProject.Controllers
         {
             if (_gbs.DeleteGroup(groupId) != 1)
             {
-                ViewBag.DeleteGroupError = "Unable to delete group."; 
+                ViewBag.DeleteGroupError = "Unable to delete group.";  
             }
             return RedirectToAction("Groups");
         }
