@@ -104,7 +104,7 @@ namespace CapstoneProject.Controllers
                 int code =_uas.EditUser(u);
                 if(code > 0)
                 {
-                    return RedirectToAction("Details", u.UserId);
+                    return RedirectToAction("Details", new { id = u.UserId });
                 }
                 else
                 {

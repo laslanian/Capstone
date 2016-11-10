@@ -7,6 +7,7 @@ using CapstoneProject.Models.DA;
 using CapstoneProject.Models.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
+using CapstoneProject.Utility;
 
 namespace CapstoneProject.Models.Services
 {
@@ -40,7 +41,7 @@ namespace CapstoneProject.Models.Services
             {
                 String pin = GeneratePin();
                 g.Pin = pin;
-                g.Status = "Unassigned";
+                g.Status = GroupState.Unassigned;
                 Student s = (Student)_users.GetUserById(id);
                 g.Students.Add(s);
                 g.Skillset = new Skillset();
@@ -49,10 +50,7 @@ namespace CapstoneProject.Models.Services
                 _groups.InsertGroup(g);
                 _groups.Save();
 
-
-                // testing send email
                 EmailService emailService = new EmailService();
-
                 emailService.SendGroupPin(s.Email, g);
 
                 return g;
@@ -70,6 +68,7 @@ namespace CapstoneProject.Models.Services
             }
             return null;
         }
+
         public GroupStudent GetGroupStudentVM(int id)
         {
             Group g = GetGroupById(id);
@@ -77,22 +76,11 @@ namespace CapstoneProject.Models.Services
             List<Student> students = g.Students.ToList();
             foreach (Student s in students)
             {
-                Student st = new Student();
-                st.FirstName = s.FirstName;
-                st.LastName = s.LastName;
-                //st.Username = s.Username;
-                //st.PhoneNumber = s.PhoneNumber;
-                //st.Program = s.Program;
-                //st.StudentNumber = s.StudentNumber;
-                //st.Title = s.Title;
-                //st.Interests = s.Interests;
-                //st.Email = s.Email;
-                //st.Coops = s.Coops;
-
                 gs.Students.Add(s);
             }
             return gs;
         }
+
         public GroupStudent EditGroupStudentVM(GroupStudent gs)
         {
             Group g = GetGroupById(gs.Group.GroupId);
@@ -140,8 +128,6 @@ namespace CapstoneProject.Models.Services
                 g = UpdateSkill(g);
                 if (g.Students.Count == 0)
                 {
-                    g.Owner = null;
-                    g.Projects = null;
                     _groups.DeleteGroupSkillset(g.Skillset.Id);
                     _groups.DeleteGroup(g.GroupId);
                 }
@@ -153,18 +139,6 @@ namespace CapstoneProject.Models.Services
                 return 99;
             }
             return 0;
-        }
-
-        public Group clearSkillset(Group g)
-        {
-            g.Skillset.CSharp = 0;
-            g.Skillset.Java = 0;
-            g.Skillset.Database = 0;
-            g.Skillset.WebDev = 0;
-            g.Skillset.MobileDev = 0;
-            g.Skillset.ApplDev = 0;
-            g.Skillset.UIDesign = 0;
-            return g;
         }
 
         public String GeneratePin()
