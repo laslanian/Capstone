@@ -1,5 +1,8 @@
 ﻿using CapstoneProject.Models;
 using CapstoneProject.Models.DA;
+using CapstoneProject.Models.Services;
+using CapstoneProject.Models.ViewModels;
+using CapstoneProject.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,9 @@ namespace CapstoneProject.Controllers
 {
     public class HomeController : Controller
     {
+        private UserAccountService _uas = new UserAccountService();
+        private ProjectManager _pm = new ProjectManager();
+        private GroupBuilderService _gbs = new GroupBuilderService();
         public ActionResult Index()
         {
             return View();
@@ -34,6 +40,25 @@ namespace CapstoneProject.Controllers
             ViewBag.Message = "Client Feedback.";
 
             return View();
+        }
+
+        public ActionResult Projects(String state)
+        {
+            ProjectWithList pl = new ProjectWithList();
+            pl.Projects = _pm.GetProjects();
+
+
+            if (state == null || state.Equals(ProjectState.All))
+            {
+                state = ProjectState.All;
+            }
+            else
+            {
+                pl.Projects = pl.Projects.FindAll(s => s.State == state);
+            }
+            pl.SelectedItem = state;
+            ViewBag.Project = state + " Projects";
+            return View(pl);
         }
     }
 }

@@ -695,6 +695,7 @@
     <Content Include="Views\Clients\SubmitFeedback.cshtml" />
     <Content Include="Views\Clients\Feedbacks.cshtml" />
     <Content Include="Views\Admins\_Groups.cshtml" />
+    <Content Include="Views\Home\Projects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

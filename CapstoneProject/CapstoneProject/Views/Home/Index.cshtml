@@ -50,18 +50,20 @@
     <div class="col-md-4">
         <h2>Previous Capstone</h2>
         <p>These research projects are integrated into the curriculum and serve as a core component of the course.</p>
-        <p>@Html.ActionLink("Previous Capstone »", "GetPastProjects", "Projects", null, new { @class = "btn btn-default" })</p>
+        <p>@Html.ActionLink("Previous Capstone »", "GetPastProjects", "Projects", null, new { @class = "btn btn-info" })</p>
     </div>
     <div class="col-md-4">
         <h2>Current Projects</h2>
-        <p>Donec efficitur leo in eros molestie suscipit. Sed ullamcorper congue porta. Donec eu lobortis massa, non sagittis mi. Suspendisse non nunc sed justo condimentum volutpat eget a ipsum.</p>
-        <p><a class="btn btn-default" href="https://en.wikipedia.org/wiki/Project">Learn more &raquo;</a></p>
+        <p>
+            Curious to see what's happening in the capstone world today? Well click below and find out!
+        </p>
+        <p>@Html.ActionLink("Current Projects»", "Projects", "Home", null, new { @class = "btn btn-info" })</p>
     </div>
     <div class="col-md-4">
         <h2>Client Feedback</h2>
         <p>
             Wondering how previous projects faired? Well wonder no more! Click below to see a list of a few testimonials provided by clients. Let them explain why you should be part of the capstone experience.
         </p>
-        <p>@Html.ActionLink("Client Feedback »", "Feedbacks", "Clients", null, new { @class = "btn btn-default" })</p>
+        <p>@Html.ActionLink("Client Feedback »", "Feedbacks", "Clients", null, new { @class = "btn btn-info" })</p>
     </div>
 </div>
