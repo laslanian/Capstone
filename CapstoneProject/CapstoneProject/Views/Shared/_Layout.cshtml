@@ -45,7 +45,7 @@
                         {
                             <li>@Html.ActionLink("Profile", "Index", "Clients")</li>
                             <li>@Html.ActionLink("My Projects", "Projects", "Projects")</li>
-                            <li>@Html.ActionLink("Submit a Feedback", "SubmitFeedback", "Clients")</li>
+                            <li>@Html.ActionLink("Submit Feedback", "SubmitFeedback", "Clients")</li>
                         }
                         else if (Session["UserType"].ToString().Equals("Admin"))
                         {
@@ -62,7 +62,6 @@
                         {
 
                         }
-                        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>
