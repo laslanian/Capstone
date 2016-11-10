@@ -324,6 +324,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\delete.gif" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\capstonelogo.png" />
     <Content Include="Content\Images\custom-img\client.png" />
@@ -537,6 +538,8 @@
     <Content Include="Content\Images\sample2.png" />
     <Content Include="Content\Images\sample3.png" />
     <Content Include="Content\Images\sheridanlogo.jpg" />
+    <Content Include="Content\rateit.css" />
+    <Content Include="Content\star.gif" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -606,9 +609,6 @@
     <Content Include="obj\Debug\build.force" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="Content\Images\Thumbs.db" />
-    <Content Include="Content\Images\3" />
-    <Content Include="Content\Images\5" />
-    <Content Include="Content\Images\6" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -640,20 +640,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Clients\Delete.cshtml" />
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Account\RegisterClient.cshtml" />
-    <Content Include="Views\Account\AfterLogin.cshtml" />
-    <Content Include="Views\Account\FailedLogin.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\TermsAndCondition.cshtml" />
@@ -684,10 +676,8 @@
     <Content Include="Views\Admins\Groups.cshtml" />
     <Content Include="Views\Admins\Users.cshtml" />
     <Content Include="Views\Admins\_Users.cshtml" />
-    <Content Include="Views\Clients\Feedback.cshtml" />
     <Content Include="Views\Projects\_ProjectCriteria.cshtml" />
     <Content Include="Views\Admins\GroupDetail.cshtml" />
-    <Content Include="Views\Admins\_Group.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Home\Feedback.cshtml" />

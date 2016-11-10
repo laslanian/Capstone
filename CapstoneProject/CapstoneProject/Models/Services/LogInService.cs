@@ -25,7 +25,7 @@ namespace CapstoneProject.Models.Services
         {
             User u = _users.GetUserById(id);
 
-            Type type =ObjectContext.GetObjectType(u.GetType());
+            Type type = ObjectContext.GetObjectType(u.GetType());
 
             if (type.Equals(typeof(Student)))
             {
@@ -45,12 +45,12 @@ namespace CapstoneProject.Models.Services
             }
             else if (type.Equals(typeof(Admin)))
             {
-                return  AccountType.Admin;
+                return AccountType.Admin;
             }
 
             return null;
         }
-        
+
         public void Dispose()
         {
             _users.Dispose();
