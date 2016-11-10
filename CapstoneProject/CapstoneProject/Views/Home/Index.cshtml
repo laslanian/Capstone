@@ -1,67 +1,240 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img class="first-slide" src="/Content/Images/sample1.png" alt="Sample Image">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>Sheridan College</h1>
-                    <p>Curriculum-based research projects tend to be smaller in scope than funded research and are run as student final projects in designated courses.</p>
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   
+    <title>HIMU - OnePage HTML Parallax template</title>
+    <link href="~/Content/Images/HomePage/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Images/HomePage/prettyPhoto.css" rel="stylesheet" />    
+    <link href="~/Content/Images/HomePage/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Images/HomePage/animate.css" rel="stylesheet" />
+    <link href="~/Content/Images/HomePage/main.css" rel="stylesheet" />
+    <link href="~/Content/Images/HomePage/responsive.css" rel="stylesheet" />
+
+    <!--[if lt IE 9]> <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script> <![endif]-->
+    
+</head><!--/head-->
+<body>
+
+    <section id="home">
+        <div class="home-pattern"></div>
+        <div id="main-carousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#main-carousel" data-slide-to="1"></li>
+                <li data-target="#main-carousel" data-slide-to="2"></li>
+            </ol><!--/.carousel-indicators-->
+            <div class="carousel-inner">
+                <div class="item active" >
+                    <img src="~/Content/Images/HomePage/slide1.jpg" />
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="heading animated bounceInDown">Submit a Project</h2>
+                            <p class="animated bounceInUp">Client? looking to get automate your new business? Business booming fast, and you need stay up with technology? Submit your project for approval and your well on your way to success </p>
+                            @*<a class="btn btn-default slider-btn animated fadeIn" href="~/Views/Account/Login.cshtml">Start Here!</a>*@
+                            <p>@Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-primary slider-btn animated fadeIn",  })</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" >
+                    <img src="~/Content/Images/HomePage/slide2.jpg" />
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="heading animated bounceInDown">Why Capstone?</h2>
+                            <p class="animated bounceInUp"> Systems Analyst Annual Capstone Project Competition is a valuable milestone that showcases students' remarkable academic growth. </p> 
+                            
+                            @*<a class="btn btn-default slider-btn animated fadeIn" href="~/Views/Account/Register.cshtml">Register</a>*@
+                            <p>@Html.ActionLink("Login", "Login", "Account", null, new { @class = "btn btn-default, btn btn-default slider-btn animated fadeIn" })</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="item" >
+                    <img src="~/Content/Images/HomePage/slide3.jpg" />
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="heading animated bounceInRight">The outcome</h2>
+                            <p class="animated bounceInLeft">These research projects are integrated into the curriculum and serve as a core component of the course</p>
+                            <a class="btn btn-default slider-btn animated bounceInUp" href="~/Views/Account/Login.cshtml">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/.carousel-inner-->
+
+            <a class="carousel-left member-carousel-control hidden-xs" href="#main-carousel" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+            <a class="carousel-right member-carousel-control hidden-xs" href="#main-carousel" data-slide="next"><i class="fa fa-angle-right"></i></a>
+        </div>
+
+    </section><!--/#home-->
+
+   
+
+    <section id="services" class="parallax-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <h2 class="title-one">Capstone as itself</h2>
+                    <p>As with funded projects, industry partners are required to work closely with the student project team to ensure the success of the project, and provide information and feedback to the team as required. Partners are expected to provide staff time to consult with the research team as an in-kind contribution.  </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="our-service">
+                        <div class="services row">
+                            <div class="col-sm-6">
+                                <div class="single-service">
+                                    <i class="fa fa-th"></i>
+                                    <h2><a href="#">Previous Projects</a></h2>
+                                    <p>Since the initial enrollment of the capstone program here at Sheridan College, we have strieved to bring the name of capstone to where it is at now. We are proud to say it's come to a very valuable, respectable and renowened position where it stands today. With the dedicated, hardworking team of students and staff we were able to work along some big names in the industry. Lets take a look at what these projects were and which companies gave us the opportunity to help them. </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="single-service">
+                                    <i class="fa fa-html5"></i>
+                                    <h2><a href="#">Current Projects</a></h2>
+                                    <p>Taking stand point where Capstone stands is remarkable. Being able to work along side with some of the biggest industry partners has given us alot of opportunity for growth and raise our standards. This goes a long way for us here at Sheridan College, as we take good pride in our work we like to show it of as well. Lets take a look at what we are currently accomplishing here at Sheridan. </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="item">
-            <img class="second-slide" src="/Content/Images/sample2.png" alt="Second slide"> 
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>Capstone Projects.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+    </section><!--/#service-->
+
+    <section id="our-team">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <h2 class="title-one">Meet The Team</h2>
+                    <p>From athletes to musicians and philosophers — we're a pretty lively bunch here at MASSIV! What do we share in common (beyond our effervescent charm and intelligence)?! We all feel pretty darn good about delivering a product that's changing the way IT pros and tech/ non-tech vendors do their jobs.</p>
+                </div>
+            </div>
+            <div id="team-carousel" class="carousel slide" data-interval="false">
+                
+                <div class="carousel-inner team-members">
+                    <div class="row item active">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="single-member">
+                                <img src="~/Content/Images/HomePage/teampik/1.png" alt="team member" />
+                                <h4>Shashank Singh</h4>
+                                <h5>Project Manager</h5>
+                                <p>Closely with client to make sure that the scope and direction of each project is on schedule, as well as other departments for support.</p>                               
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="single-member">
+                                <img src="~/Content/Images/HomePage/teampik/2.png" alt="team member" />
+                                <h4>Rohit Dutta</h4>
+                                <h5>Sr. Web Developer</h5>
+                                <p>Implementing all the visual elements that users see and use in the web application, as well as all the web services and APIs that are necessary to power the front-end</p>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="single-member">
+                                <img src="~/Content/Images/HomePage/teampik/3.png" alt="team member" />
+                                <h4>Karlo Augusto</h4>
+                                <h5>Sr. Developer</h5>
+                                <p>Develops information systems by studying operations; designing, developing, and installing software solutions; supports and develops software team.</p>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="single-member">
+                                <img src="~/Content/Images/HomePage/teampik/4.png" alt="team member" />
+                                <h4>Leovan Aslanian</h4>
+                                <h5>Sr. Developer</h5>
+                                <p>Gather customer software requirements and develop related software applications and programs.</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>
-        <div class="item">
-            <img class="third-slide" src="/Content/Images/sample3.png" alt="Third slide">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>One more for good measure.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+    </section><!--/#Our-Team-->
+
+   
+
+    <section id="clients" class="parallax-section">
+        <div class="container">
+            <div class="clients-wrapper">
+                <div class="row text-center">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <h2 class="title-one">Clients Say About Us</h2>
+                        <p>The best possible recommendations for us come from the people with first-hand experience of what we’re like to work with – our clients. Read this short digest of recent feedback, and discover more about the effectiveness of our approach and our results.</p>
+                    </div>
+                </div>
+                <div id="clients-carousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#clients-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#clients-carousel" data-slide-to="1"></li>
+                        <li data-target="#clients-carousel" data-slide-to="2"></li>
+                    </ol> <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="single-client">
+                                <div class="media">
+                                    <img class="pull-left" src="~/Content/Images/HomePage/ClientPIk/client1.jpg" alt="">
+                                    <div class="media-body">
+                                        <blockquote><p>“I’ve worked with Sheridan College on numerous roles in relation to Informational technology projects and have been very happy with their service. There has been a nice level of consistency in service, professionalism and communication from the specialist professors.”</p><small>Thomas Cook</small><a href="">www.microsoft.com</a></blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="single-client">
+                                <div class="media">
+                                    <img class="pull-left" src="~/Content/Images/HomePage/ClientPIk/client2.jpg" alt="">
+                                    <div class="media-body">
+                                        <blockquote><p>We have been working along side Sheridan College Capstone program for many years and we are pleased with there dedication and extraordinary service that they have continued to provide. </p><small>Allain Ruest</small><a href="">www.Apple.ca</a></blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="single-client">
+                                <div class="media">
+                                    <img class="pull-left" src="~/Content/Images/HomePage/ClientPIk/client3.jpg" alt="">
+                                    <div class="media-body">
+                                        <blockquote><p>The hard work and dedication of all Sheridan Students has helped make our projects and continual support contracts a success. This is due to their willingness to provide our company with a level of professionalism that is, simply put, first rate. This has added value and clarity to our business. A strong recommendation!.</p><small>Kobe Bryant</small><a href="">www.cisco.com</a></blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary fa-align-right pull-right">Read More</button>
+        </div>
+    </section><!--/#clients-->
+
+   
+
+    <section id="contact">
+        <div class="container">
+            <div class="row text-center clearfix">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="contact-heading">
+                        <h2 class="title-one"><a href="~/Home/Contact"</a>Connect With Us</h2> 
+                        <p>Lets have a word? Care to reach out to us?</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-<hr class="colorgraph">
-<div class="row" style="text-align:center;">
-    <div class="col-md-4">
-        <h2>Previous Capstone</h2>
-        <p>These research projects are integrated into the curriculum and serve as a core component of the course.</p>
-        <p>@Html.ActionLink("Previous Capstone »", "GetPastProjects", "Projects", null, new { @class = "btn btn-default" })</p>
-    </div>
-    <div class="col-md-4">
-        <h2>Current Projects</h2>
-        <p>Donec efficitur leo in eros molestie suscipit. Sed ullamcorper congue porta. Donec eu lobortis massa, non sagittis mi. Suspendisse non nunc sed justo condimentum volutpat eget a ipsum.</p>
-        <p><a class="btn btn-default" href="https://en.wikipedia.org/wiki/Project">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Client Feedback</h2>
-        <p>
-            Wondering how previous projects faired? Well wonder no more! Click below to see a list of a few testimonials provided by clients. Let them explain why you should be part of the capstone experience.
-        </p>
-        <p>@Html.ActionLink("Client Feedback »", "Feedbacks", "Clients", null, new { @class = "btn btn-default" })</p>
-    </div>
-</div>
+       
+    </section> <!--/#contact-->   
+</body>
+
+</html>
