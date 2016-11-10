@@ -188,6 +188,7 @@ namespace CapstoneProject.Models.Services
                 return 0;
             }
         }
+
         public int EditUser(User u)
         {
             if (_users.GetUserById(u.UserId) != null)

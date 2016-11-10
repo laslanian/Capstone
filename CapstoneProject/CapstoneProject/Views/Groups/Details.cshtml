@@ -19,6 +19,14 @@
             @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-info" })
         }
 
+        if (owner != null && Model.Students.Count > 1)
+        {
+            <button type="button" class="btn btn-danger disabled" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
+        }
         <div>
             <hr />
             <dl class="dl-horizontal">
@@ -62,14 +70,6 @@
         <div id="Members" class="tabcontent">
             <h3>
                 Members
-                @if (owner != null && Model.Students.Count > 1)
-                {
-                    <button type="button" class="btn btn-info disabled" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
-                }
-                else
-                {
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
-                }
             </h3>
             <table class="table">
                 <tr>
