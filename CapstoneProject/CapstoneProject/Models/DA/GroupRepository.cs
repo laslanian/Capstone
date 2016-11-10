@@ -34,6 +34,14 @@ namespace CapstoneProject.Models.DA
             return skill;
         }
 
+        public int DeleteGroupSkillset(int id)
+        {
+            var skill = ctx.Skillsets.Find(id);
+            ctx.Skillsets.Remove(skill);
+            return ctx.SaveChanges();
+        }
+
+
         public bool isExistingGroup(string group_name)
         {
             return ctx.Groups.Any(group => group.GroupName == group_name);

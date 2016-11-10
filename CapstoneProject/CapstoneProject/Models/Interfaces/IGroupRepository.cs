@@ -17,5 +17,6 @@ namespace CapstoneProject.Models.Interfaces
         void Save();
         void Dispose();
         Skillset GetSkillByGroupId(int id);
+        int DeleteGroupSkillset(int id);
     }
 }
