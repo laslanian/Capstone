@@ -188,11 +188,11 @@ namespace CapstoneProject.Controllers
 
             if (selected != null)
             {
-                if (selected.Count() > 5 || selected.Count() < 3)
+                if (selected.Count()!=5)
                 {
                     gp.Group = g;
                     gp.Projects = gbs.GetProjects();
-                    ViewBag.CountError = "Select between 3 to 5 projects";
+                    ViewBag.CountError = "You must select 5 projects";
                     return View(gp);
                 }
                 else
