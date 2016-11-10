@@ -178,7 +178,23 @@ namespace CapstoneProject.Models.Services
             sg.Groups = groups;
             return sg;
         }
+        public int DeleteGroup(int id)
+        {
+            Group g = _groups.GetGroupById(id);
+            g.Students.Clear();
+            g.Skillset = null;
+            try
+            {
+                _groups.DeleteGroup(g.GroupId);
+                _groups.Save();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+            return 1;
 
+        }
         public Skillset GetSkillsetByGroupId(int id)
         {
             return _groups.GetSkillByGroupId(id);
@@ -221,13 +237,9 @@ namespace CapstoneProject.Models.Services
         public int AddProjectPreference(Group g)
         {
             int count = g.Projects.Count();
-            if (count > 5)
+            if (count != 5)
             {
-                return 99;
-            }
-            else if (count < 3)
-            {
-                return 88;
+                return 0;
             }
             else
             {

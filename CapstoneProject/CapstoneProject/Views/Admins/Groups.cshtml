@@ -26,16 +26,20 @@
                         <td>@item.Students.Count() / 4</td>
                         <td>
                             @Html.ActionLink("View Details", "GroupDetail", "Admins", new { id = item.GroupId }, new { @class = "btn btn-info" })
+                            <button type="button" name="@item.GroupId" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#deleteGroupModal">Delete</button>
+                            <input type="hidden" id="deleteGroupId" value="0" />
                         </td>
+                        
                     </tr>
                   }
     </table>
+<span class="text-danger"> @ViewBag.DeleteGroupError </span>
 
 
 
 
 <!-- Modal -->
-<div id="deleteModal" class="modal fade" role="dialog" tabindex="-1">
+<div id="deleteGroupModal" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -57,20 +61,20 @@
 
 <script type="text/javascript">
      $(document).ready(function () {
-         $(".btnDelGroup").on("click", function () {
-            $("#hdnSelectedGroup").val(this.id);
+         $(".btnDelete").on("click", function () {
+             $("#deleteGroupId").val(this.name);
         });
-        $('#deleteGroup').on('click', function (e) {
-            var cId = $("#hdnSelectedGroup").val();
+         $('#deleteGroup').on('click', function (e) {
+             var gId = $("#deleteGroupId").val();
             $.ajax({
-                url: '/Coops/DeleteCoop',
+                url: '/Admins/DeleteGroup',
                 type: 'POST',
                 dataType: 'text',
                 data: {
-                    id: cId
+                    groupId: gId
                 },
                 success: function (data) {
-                    window.location.href = "/Students/Index";
+                    window.location.href = "/Admins/Groups";
                 }
             });
         });

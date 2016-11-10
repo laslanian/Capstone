@@ -14,6 +14,7 @@ namespace CapstoneProject.Controllers
         UserAccountService _uas = new UserAccountService();
         GroupBuilderService _gbs = new GroupBuilderService();
 
+       
         public ActionResult Users(String type)
         {
             UserList ul = new UserList();
@@ -36,7 +37,15 @@ namespace CapstoneProject.Controllers
             CreateAccount ca = new CreateAccount();
             return View(ca);
         }
-
+        [HttpPost]
+        public ActionResult DeleteGroup(int groupId)
+        {
+            if (_gbs.DeleteGroup(groupId) != 1)
+            {
+                ViewBag.DeleteGroupError = "Unable to delete group."; 
+            }
+            return RedirectToAction("Groups");
+        }
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public ActionResult CreateUser(CreateAccount ca)
