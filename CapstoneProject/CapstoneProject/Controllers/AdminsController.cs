@@ -14,6 +14,7 @@ namespace CapstoneProject.Controllers
         UserAccountService _uas = new UserAccountService();
         GroupBuilderService _gbs = new GroupBuilderService();
 
+       
         public ActionResult Users(String type)
         {
             UserList ul = new UserList();
@@ -30,13 +31,36 @@ namespace CapstoneProject.Controllers
             ViewBag.Type = type + " Users";
             return View(ul);
         }
-
+        public ActionResult Groups(String status)
+        {
+            GroupList gl = new GroupList();
+            gl.Groups = _gbs.GetGroups();
+            if (status == null || status.Equals(GroupState.All))
+            {
+                status = GroupState.All;
+            }
+            else
+            {
+                gl.Groups = gl.Groups.FindAll(s => s.Status == status);
+            }
+            gl.SelectedStatus = status;
+            ViewBag.Status = status + " Groups";
+            return View(gl);
+        }
         public ActionResult CreateUser()
         {
             CreateAccount ca = new CreateAccount();
             return View(ca);
         }
-
+        [HttpPost]
+        public ActionResult DeleteGroup(int groupId)
+        {
+            if (_gbs.DeleteGroup(groupId) != 1)
+            {
+                ViewBag.DeleteGroupError = "Unable to delete group.";  
+            }
+            return RedirectToAction("Groups");
+        }
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public ActionResult CreateUser(CreateAccount ca)
@@ -101,10 +125,11 @@ namespace CapstoneProject.Controllers
         {
             if(ModelState.IsValid)
             {
+                
                 int code =_uas.EditUser(u);
                 if(code > 0)
                 {
-                    return RedirectToAction("Details", u.UserId);
+                    return RedirectToAction("Details", new { id = u.UserId } );
                 }
                 else
                 {
@@ -120,10 +145,7 @@ namespace CapstoneProject.Controllers
             return RedirectToAction("Users");
         }
 
-        public ActionResult Groups()
-        {
-            return View(_gbs.GetGroups());
-        }
+        
         [HttpGet]
         public ActionResult GroupDetail(int id)
         {

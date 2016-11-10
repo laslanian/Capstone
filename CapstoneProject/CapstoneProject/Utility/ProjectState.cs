@@ -11,6 +11,7 @@ namespace CapstoneProject.Utility
         public static string Approved { get { return "Approved"; } }
         public static string Rejected { get { return "Rejected"; } }
         public static string Assinged { get { return "Assigned"; } }
+        public static string Complete {  get { return "Complete"; } }
         public static string All { get { return "All"; } }
     }
 }

@@ -1,9 +1,7 @@
 ﻿@model CapstoneProject.Group
-
 @{
     ViewBag.Title = "Details";
 }
-
 @{
     <h2>Group Details</h2>
     if (Model.GroupName.IsEmpty())
@@ -16,39 +14,43 @@
     else
     {
         var owner = ViewBag.Owner;
-        if (owner != null)
+        @*if (owner != null)
         {
             @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-info" })
-        }
+        }*@
 
+        if (owner != null && Model.Students.Count > 1)
+        {
+            <button type="button" class="btn btn-danger disabled" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
+        }
         <div>
             <hr />
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.GroupName)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.GroupName)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Description)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.Description)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Status)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.Status)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Pin)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.Pin)
                 </dd>
@@ -66,15 +68,8 @@
         </div>
         var studList = Model.Students.ToList();
         <div id="Members" class="tabcontent">
-            <h3>Members 
-            @if (owner!=null && Model.Students.Count > 1)
-            {
-                <button type="button" class="btn btn-info disabled" data-toggle="modal" data-target="#leaveModal" >Leave Group</button>
-            }
-            else
-            {
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
-            }
+            <h3>
+                Members
             </h3>
             <table class="table">
                 <tr>
@@ -162,11 +157,9 @@
             }
         }
     }
-
             <!-- Modal -->
             <div id="leaveModal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog">
-
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -183,7 +176,6 @@
                     </div>
                 </div>
             </div>
-
             <script type="text/javascript">
                 document.getElementById("skills").click();
                 $(document).ready(function() {

@@ -46,15 +46,7 @@ namespace CapstoneProject.Controllers
             ViewBag.Project = state + " Projects";
             return View(pl);
         }
-        [HttpGet]
-        public ActionResult ProjectMatch()
-        {
-            ProjectMatchGroup pmg = new ProjectMatchGroup();
-            pmg.Projects=_pm.GetProjects();
-            pmg.Groups = _gbs.GetGroups();
-            
-            return View(pmg);
-        }
+        
         [HttpPost]
         public ActionResult ChangeState(int id, string state)
         {
@@ -89,10 +81,18 @@ namespace CapstoneProject.Controllers
             return RedirectToAction("Groups","Admins");
            // return View();
         }
+        [HttpGet]
+        public ActionResult ProjectMatch()
+        {
+            ProjectMatchGroup pmg = new ProjectMatchGroup();
+            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
+            pmg.Groups = _gbs.GetGroups().Where(item => item.Projects.Count != 0 && item.Status.Equals(GroupState.Assigned)).ToList();
+
+            return View(pmg);
+        }
         [HttpPost]
         public ActionResult ProjectMatch(int groupId, int projectId, ProjectMatchGroup pmg)
         {
-            
             if (groupId != 0 && projectId != 0)
             {
                 Group g = _gbs.GetGroupById(groupId);
@@ -139,6 +139,25 @@ namespace CapstoneProject.Controllers
             {
                 return View(p);
             }
+        }
+
+        [HttpGet] 
+        public ActionResult EditProject(int id)
+        {
+            Project p = _pm.GetProjectDetails(id);
+            return View(p);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProject(Project p)
+        {
+            int code = _pm.UpdateProject(p);
+            if(code > 0)
+            {
+                return RedirectToAction("Details", new { id = p.ProjectId });
+            }
+            return View(p);
         }
 
         public ActionResult Details(int id)

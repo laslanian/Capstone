@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CapstoneProject.Models.Services;
+using reCAPTCHA.MVC;
 
 namespace CapstoneProject.Controllers
 {
@@ -124,7 +125,8 @@ namespace CapstoneProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginUser u)
+        [CaptchaValidator]
+        public ActionResult Login(LoginUser u, bool captchaValid)
         {
             if (ModelState.IsValid)
             {

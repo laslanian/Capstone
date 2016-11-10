@@ -4,9 +4,8 @@
 }
 
     <h2>Group Details</h2>
+@Html.ActionLink("Go Back", "Groups", null, new { @class = "btn btn-default" })
 @{
-    @Html.ActionLink("Delete Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-danger" })
-
         <div>
             <hr />
             <input type="hidden" id="hdnSelProj" value=""/>

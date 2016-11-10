@@ -76,7 +76,7 @@ namespace CapstoneProject.Models.Services
             //u.Password = en.Encrypt(u.Password);
             //u.Type = AccountType.Admin;
             //u.Lock = false;
-            
+
 
             //1 - username already exist
             //2 = studentnumber already exist
@@ -117,7 +117,7 @@ namespace CapstoneProject.Models.Services
             AesEncrpyt en = new AesEncrpyt();
 
             User user = _users.GetUserByUNPW(u.Username, en.Encrypt(cp.OldPassword));
-            if (user!=null)
+            if (user != null)
             {
                 user.Password = en.Encrypt(cp.NewPassword);
                 _users.UpdateUser(user);
@@ -129,7 +129,7 @@ namespace CapstoneProject.Models.Services
 
         public int AddStudentSkill(Skillset ss, int id)
         {
-            if(ss != null)
+            if (ss != null)
             {
                 Student s = (Student)_users.GetUserById(id);
                 s.Skillset = ss;
@@ -188,6 +188,7 @@ namespace CapstoneProject.Models.Services
                 return 0;
             }
         }
+
         public int EditUser(User u)
         {
             if (_users.GetUserById(u.UserId) != null)
@@ -197,10 +198,7 @@ namespace CapstoneProject.Models.Services
                 u.Password = en.Encrypt(u.Password);
                 return _users.UpdateUser(u);
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
 
         public int UpdateStudent(Student s)
@@ -253,7 +251,7 @@ namespace CapstoneProject.Models.Services
         }
         public User GetUserByUnPW(string uname, string pw)
         {
-            return _users.GetUserByUNPW(uname,pw);
+            return _users.GetUserByUNPW(uname, pw);
         }
         public Skillset GetSkillsetByUserId(int id)
         {
@@ -272,12 +270,12 @@ namespace CapstoneProject.Models.Services
             AesEncrpyt en = new AesEncrpyt();
             ac.Username = en.Encrypt(ac.Username);
             ac.Password = en.Encrypt(ac.Password);
-            if(_users.isExistingUsername(ac.Username))
+            if (_users.isExistingUsername(ac.Username))
             {
                 return 4;
             }
 
-            if(_users.isExistingEmail(ac.Email))
+            if (_users.isExistingEmail(ac.Email))
             {
                 return 5;
             }
@@ -296,9 +294,9 @@ namespace CapstoneProject.Models.Services
                 _users.InsertUser(ca);
                 _users.Save();
                 return 1;
-              
+
             }
-            else if(ac.SelectedAccount.Equals(AccountType.Management))
+            else if (ac.SelectedAccount.Equals(AccountType.Management))
             {
                 Management ma = new Management();
                 ma.FirstName = ac.FirstName;
@@ -313,7 +311,8 @@ namespace CapstoneProject.Models.Services
                 _users.Save();
                 return 2;
             }
-            else if(ac.SelectedAccount.Equals(AccountType.Admin)) { 
+            else if (ac.SelectedAccount.Equals(AccountType.Admin))
+            {
                 Admin ad = new Admin();
                 ad.FirstName = ac.FirstName;
                 ad.LastName = ac.LastName;
@@ -327,7 +326,8 @@ namespace CapstoneProject.Models.Services
                 _users.Save();
                 return 3;
             }
-            else {
+            else
+            {
                 return 0;
             }
         }
@@ -344,7 +344,7 @@ namespace CapstoneProject.Models.Services
         {
             return _users.GetFeedbacks().ToList();
         }
-    
+
 
         public void Dispose()
         {

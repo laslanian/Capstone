@@ -11,6 +11,8 @@
 
     var projList = Model.Projects.ToList();
     @Html.HiddenFor(model => model.Group.GroupId)
+
+
     <table class="table">
         <tr>
             <th>
@@ -29,8 +31,8 @@
                 @Html.DisplayName("Apply")
             </th>
         </tr>
-        @for (int i=0;i<projList.Count();i++)
-            {
+        @for (int i = 0; i < projList.Count(); i++)
+        {
             <tr>
                 <td>
                     @Html.HiddenFor(modelItem => projList[i].ProjectId)
@@ -46,16 +48,16 @@
                     @Html.DisplayFor(modelItem => projList[i].State)
                 </td>
 
-          
-                    <td>
-                        <input type="checkbox" class="chk-act" id="@projList[i].ProjectId" value="@projList[i].ProjectId" name="chkSelected"
-                               checked="@Model.Group.Projects.Contains(projList[i])" disabled="@projList[i].State.Equals("Pending")">
-                    </td>
+
+                <td>
+                    <input type="checkbox" class="chk-act" id="@projList[i].ProjectId" value="@projList[i].ProjectId" name="chkSelected"
+                           checked="@Model.Group.Projects.Contains(projList[i])" disabled="@projList[i].State.Equals("Pending")">
+                </td>
             </tr>
         }
     </table>
-    <input type="submit" name="button" value="Save" class="btn btn-success" />   
+    <input type="submit" name="button" value="Save" class="btn btn-success" />
     @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
-    <span style="color:red"> @ViewBag.CountError </span>
+    <span class="text-danger"> @ViewBag.CountError </span>
 }
 

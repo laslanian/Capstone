@@ -14,8 +14,8 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
-        
-        
+
+
         // GET: Groups
         public ActionResult Index()
         {
@@ -33,16 +33,16 @@ namespace CapstoneProject.Controllers
 
         public ActionResult Details()
         {
-            Student s = (Student) uas.GetUser(Convert.ToInt32(Session["Id"]));
+            Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
             Group g = new Group();
-            if(s.Group != null)
+            if (s.Group != null)
             {
                 if (s.UserId == s.Group.Owner.Value)
                 {
                     ViewBag.Owner = true;
                 }
                 g = gbs.GetGroupById(s.Group.GroupId);
-                 Skillset sk = gbs.GetSkillsetByGroupId(s.Group.GroupId);
+                Skillset sk = gbs.GetSkillsetByGroupId(s.Group.GroupId);
                 if (sk != null) { g.Skillset = sk; }
             }
             return View(g);
@@ -80,7 +80,7 @@ namespace CapstoneProject.Controllers
                 if (button == "Submit")
                 {
                     int code = uas.AddStudentSkill(s, Convert.ToInt32(Session["Id"]));
-                    if(code == 1) return RedirectToAction("Index", "Students");
+                    if (code == 1) return RedirectToAction("Index", "Students");
                 }
             }
             ViewBag.SkillError = "An error has occured.";
@@ -98,19 +98,26 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult JoinGroup(Group g)
         {
-            int code = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
-            if(code == 99)
+            if (g.Pin == null || g.Pin.Equals(String.Empty))
             {
-                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            }
-            else
-            {
-                ViewBag.JoinError = "Incorrect pin";
+                ViewBag.JoinError = "Pin is required";
                 return View(g);
+            }
+            else {
+                int code = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
+                if (code == 99)
+                {
+                    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+                }
+                else
+                {
+                    ViewBag.JoinError = "Incorrect pin";
+                    return View(g);
+                }
             }
         }
 
-        
+
         public ActionResult Edit(int id)
         {
             GroupStudent gs = gbs.GetGroupStudentVM(id);
@@ -131,14 +138,14 @@ namespace CapstoneProject.Controllers
         public ActionResult LeaveGroup(int id)
         {
             Group g = gbs.GetGroupById(id);
-            
+
             int code = 0;
-            
+
             if (g.Owner.Equals(uas.GetUser(Convert.ToInt32(Session["Id"])).UserId))
             {
                 if (g.Students.Count < 2)
                 {
-                   code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
+                    code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
                 }
                 else
                 {
@@ -150,7 +157,7 @@ namespace CapstoneProject.Controllers
                 code = gbs.RemoveStudent(id, Convert.ToInt32(Session["Id"]));
             }
 
-            
+
             if (code == 99)
             {
                 return RedirectToAction("Index");
@@ -160,7 +167,7 @@ namespace CapstoneProject.Controllers
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             }
         }
-       
+
         public List<Student> GetStudents(int id)
         {
             using (GroupBuilderService gbs = new GroupBuilderService())
@@ -188,11 +195,11 @@ namespace CapstoneProject.Controllers
 
             if (selected != null)
             {
-                if (selected.Count() > 5 || selected.Count() < 3)
+                if (selected.Count()!=5)
                 {
                     gp.Group = g;
                     gp.Projects = gbs.GetProjects();
-                    ViewBag.CountError = "Select between 3 to 5 projects";
+                    ViewBag.CountError = "You must select 5 projects";
                     return View(gp);
                 }
                 else
@@ -208,7 +215,7 @@ namespace CapstoneProject.Controllers
                     {
                         return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
                     }
-                
+
                 }
             }
             else
