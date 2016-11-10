@@ -16,6 +16,7 @@
                         <h2>Please Sign In</h2>
                         <hr class="colorgraph">
                         <h4><span style="color:red;"> @ViewBag.LoginError</span></h4>
+
                         <div class="editor-field">
                             @Html.TextBoxFor(u => u.Username, new { @class = "form-control input-lg", placeholder = "Username" })
                             @Html.ValidationMessageFor(u => u.Username)

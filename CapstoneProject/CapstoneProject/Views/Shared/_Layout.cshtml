@@ -12,7 +12,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#003766; width:60%; margin-left:20%">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#0a3e6b;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Capstone Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Capstone Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })                  
             </div>
             <div class="navbar-collapse collapse">
                 <span class="pull-right">                
@@ -74,8 +74,7 @@
 
         @RenderBody()
         <footer>
-            <hr class="colorgraph">
-            @*&copy; @DateTime.Now.Year - MassIV Capstone Portal*@         
+            <hr class="colorgraph">  
             <img style="width:100%" src="/Content/Images/sheridanlogo.jpg" />
 </footer>
     </div>
