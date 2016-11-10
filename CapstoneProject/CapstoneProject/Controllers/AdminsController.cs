@@ -101,10 +101,11 @@ namespace CapstoneProject.Controllers
         {
             if(ModelState.IsValid)
             {
+                
                 int code =_uas.EditUser(u);
                 if(code > 0)
                 {
-                    return RedirectToAction("Details", new { id = u.UserId });
+                    return RedirectToAction("Details", new { id = u.UserId } );
                 }
                 else
                 {

@@ -12,7 +12,6 @@ namespace CapstoneProject.Models
         public List<Student> Students { get; set; }
         public GroupStudent()
         {
-
             Students = new List<Student>();
         }
     }

@@ -23,7 +23,7 @@
                     <h3>Groups</h3>
                     <div class="panel-group" id="accordion">
                         @{
-                            var groupList = Model.Groups.Where(model=> !model.Status.Equals("Assigned")).ToList();
+                            var groupList = Model.Groups;
                             if (groupList.Count() >= 1)
                             {
                                 for (int i = 0, len = groupList.Count(); i < len; i++)
@@ -43,7 +43,7 @@
                     <h3>Projects</h3>
                     <div class="panel-group" id="accordion">
                         @{
-                            var projList = Model.Projects.Where(model => !model.State.Equals("Assigned")).ToList();
+                            var projList = Model.Projects;
                             if (projList.Count() >= 1)
                             {
                                 for (int i = 0, len = projList.Count(); i < len; i++)
