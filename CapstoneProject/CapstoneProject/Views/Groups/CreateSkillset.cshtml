@@ -100,17 +100,15 @@
 
 </script>
 <h2>Skills Form</h2>
+<h4>
+    In order to create or join a group, we need you to fill out the form below! <br />
+</h4>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <hr />
-        <h4>
-            In order to create or join a group. <br />
-            You need to give us your skill ratings.
-        </h4>
-        <br />
+        <hr class="colorgraph"/>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CSharp, htmlAttributes: new { @class = "control-label col-md-2" })

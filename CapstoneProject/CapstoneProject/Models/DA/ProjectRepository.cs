@@ -56,9 +56,21 @@ namespace CapstoneProject.Models.DA
             ctx.Projects.Add(p);
         }
 
-        public void UpdateProject(Project p)
+        public int UpdateProject(Project p)
         {
-            ctx.Entry(p).State = System.Data.Entity.EntityState.Modified;
+            var project = ctx.Projects.SingleOrDefault(pr => pr.ProjectId == p.ProjectId);
+            project.Name = p.Name;
+            project.Description = p.Description;
+            project.Criteria.Goal = p.Criteria.Goal;
+            project.Criteria.Storage = p.Criteria.Storage;
+            project.Criteria.Application = p.Criteria.Application;
+            project.Criteria.Website = p.Criteria.Website;
+            project.Criteria.Mobile = p.Criteria.Mobile;
+            project.Criteria.StorageComment = p.Criteria.StorageComment;
+            project.Criteria.ApplicationComment = p.Criteria.ApplicationComment;
+            project.Criteria.WebsiteComment = p.Criteria.WebsiteComment;
+            project.Criteria.MobileComment = p.Criteria.MobileComment;
+            return ctx.SaveChanges();
         }
 
 

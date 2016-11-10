@@ -4,6 +4,9 @@
     ViewBag.Title = "Project List";
 }
 
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
 <h3>Project List</h3>
 
 @{ if (Session["UserType"].ToString().Equals("Client"))
@@ -28,6 +31,11 @@
 @Html.Partial("~/Views/Projects/_Projects.cshtml", Model.Projects)
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#projects').DataTable();
+    });
+
     $('#projectstate').change(function () {
         var url = '';
         var status = $(this).val();

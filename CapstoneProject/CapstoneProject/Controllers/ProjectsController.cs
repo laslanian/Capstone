@@ -141,6 +141,25 @@ namespace CapstoneProject.Controllers
             }
         }
 
+        [HttpGet] 
+        public ActionResult EditProject(int id)
+        {
+            Project p = _pm.GetProjectDetails(id);
+            return View(p);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProject(Project p)
+        {
+            int code = _pm.UpdateProject(p);
+            if(code > 0)
+            {
+                return RedirectToAction("Details", new { id = p.ProjectId });
+            }
+            return View(p);
+        }
+
         public ActionResult Details(int id)
         {
             Project p = _pm.GetProjectDetails(id);
