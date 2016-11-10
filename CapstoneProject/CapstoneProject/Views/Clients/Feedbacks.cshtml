@@ -11,8 +11,8 @@
             <div class="col-lg-6 col-lg-offset-3">
                 <div class="testimonials-list">
 
-                    @foreach (var item in Model)
-                    {
+                    @{ foreach (var item in Model)
+                        {
                         <div class="single-testimonial">
                             <div class="testimonial-holder">
                                 <div class="testimonial-content">
@@ -23,7 +23,7 @@
                                     <div class="testimonial-user clearfix">
                                         <div class="testimonial-user-image"><img src="~/Content/Images/custom-img/client.png" alt=""></div>
                                         <div class="testimonial-user-name">
-                                            @Html.DisplayFor(modelItem => item.Client.FirstName) @Html.DisplayFor(modelItem => item.Client.LastName) (@Html.DisplayFor(modelItem => item.Client.CompanyName)) <br />
+                                            @Html.DisplayFor(modelItem => item.Client.FirstName) @Html.DisplayFor(modelItem => item.Client.LastName) (@Html.DisplayFor(modelItem => item.Client.CompanyName))<br />
                                             @{ var rate = Convert.ToInt32(item.Rating);
                                                 switch (rate)
                                                 {
@@ -90,6 +90,7 @@
                                 </div>
                             </div>
                         </div>
+                                                    }
                                                 }
                 </div>
             </div>
