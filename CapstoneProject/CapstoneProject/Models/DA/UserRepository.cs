@@ -78,6 +78,7 @@ namespace CapstoneProject.Models.DA
             user.Username = u.Username;
             user.Password = u.Password;
             user.Type = u.Type;
+            user.Lock = u.Lock;
             return ctx.SaveChanges();
         }
 

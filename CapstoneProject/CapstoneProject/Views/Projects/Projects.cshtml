@@ -43,6 +43,9 @@
         else if (status == "Assigned") {
             url = '@Url.Action("Projects", "Projects", new { state = "Assigned" })'
         }
+        else if (status == "Complete") {
+            url = '@Url.Action("Projects", "Projects", new { state = "Complete" })'
+        }
         else {
             url = '@Url.Action("Projects", "Projects", null)'
         }

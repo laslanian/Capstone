@@ -18,6 +18,7 @@ namespace CapstoneProject.Models.ViewModels
             States.Add(new SelectListItem { Text = ProjectState.Approved, Value = ProjectState.Approved });
             States.Add(new SelectListItem { Text = ProjectState.Rejected, Value = ProjectState.Rejected });
             States.Add(new SelectListItem { Text = ProjectState.Assinged, Value = ProjectState.Assinged });
+            States.Add(new SelectListItem { Text = ProjectState.Complete, Value = ProjectState.Complete });
         }
         public string SelectedItem { get; set; }
         public List<Project> Projects { get; set; }

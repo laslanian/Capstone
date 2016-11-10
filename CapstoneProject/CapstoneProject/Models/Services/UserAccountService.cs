@@ -197,10 +197,7 @@ namespace CapstoneProject.Models.Services
                 u.Password = en.Encrypt(u.Password);
                 return _users.UpdateUser(u);
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
 
         public int UpdateStudent(Student s)
