@@ -6,8 +6,9 @@
 
 <h2>Project Details</h2>
 @{
+    @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-default" })
     if (Session["UserType"].ToString().Equals("Admin"))
-    {
+    {    
         if (Model.State.Equals("Pending"))
         {
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#stateModal">Approve / Reject</button>
@@ -19,10 +20,9 @@
     }
     else
     {
-        @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-default"})
         if(Model.State.Equals("Pending")) { <span> </span> @Html.ActionLink("Edit Project", "EditProject", new { id = Model.ProjectId }, new { @class = "btn btn-info" }) }
             }
-        }
+}
 <div>
     <hr />
     <dl class="dl-horizontal">
