@@ -7,11 +7,11 @@
 <div class="container">
     <div class="row">
         @*<div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-            <A href="edit.html">Edit Profile</A>
-            <A href="edit.html">Logout</A>
-            <br>
-            <p class="text-info">May 05,2014,03:00 pm </p>
-        </div>*@
+                <A href="edit.html">Edit Profile</A>
+                <A href="edit.html">Logout</A>
+                <br>
+                <p class="text-info">May 05,2014,03:00 pm </p>
+            </div>*@
         <hr />
         <div>
             <div class="panel panel-info">
@@ -20,44 +20,44 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="~/content/images/man-unknown-4.png" class="img-circle img-responsive"> </div>
-                        <div class="col-md-9 col-lg-9 pul">
-                            <table class="table table-user-information" style="text-align:right;">    
-                                    <tr>
-                                        <td><strong>Student Number:</strong></td>
-                                        <td>@Html.DisplayFor(model => model.Student.StudentNumber)</td>
-                                    </tr>  
-                                    <tr>
-                                        <td><strong>Program:</strong></td>
-                                        <td>@Html.DisplayFor(model => model.Program.ProgramName)</td>
-                                    </tr>               
-                                    <tr>
-                                        <td><strong>Email:</strong></td>
-                                        <td>@Html.DisplayFor(model => model.Student.Email)</td>
-                                    </tr>
-    
-                                    <tr>
-                                    <tr>
-                                        <td ><strong>Phone Number:</strong></td>
-                                        <td >@Html.DisplayFor(model => model.Student.PhoneNumber)</td>
-                                    </tr>
-                                    <tr></tr>
-                                    @*<tr>
-                                        <td>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })</td>
-                                        <td style="text-align:right;"><a href="~/Account/Logout" class="btn btn-warning">Logout</a></td>
-                                    </tr>*@  
-                            </table>                            
-                        </div>
-              
+                    <div class="col-md-9 col-lg-9 pul">
+                        <table class="table table-user-information" style="text-align:right;">
+                            <tr>
+                                <td><strong>Number:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Student.StudentNumber)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Program:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Program.ProgramName)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Student.Email)</td>
+                            </tr>
+
+                            <tr>
+                            <tr>
+                                <td><strong>Phone Number:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Student.PhoneNumber)</td>
+                            </tr>
+                            <tr></tr>
+                            @*<tr>
+                                    <td>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })</td>
+                                    <td style="text-align:right;"><a href="~/Account/Logout" class="btn btn-warning">Logout</a></td>
+                                </tr>*@
+                        </table>
+                    </div>
+
                 </div>
-                <div class="panel-footer" >
+                <div class="panel-footer">
                     @*<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>*@
-                   @* <span class="pull-right">*@
-                        @Html.ActionLink("Change Password", "../Account/ChangePassword", "Account", new { @class = "btn btn-warning pull-right" })
-                        @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })                        
-                        @*<a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>*@
-                        @*<a href="~/Account/Logout" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger">Logout <i class="glyphicon glyphicon-remove"></i></a></span>*@
+                    @* <span class="pull-right">*@
+                    @Html.ActionLink("Change Password", "../Account/ChangePassword", "Account", new { @class = "btn btn-warning pull-right" })
+                    @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Student.UserId }, new { @class = "btn btn-info" })
+                    @*<a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>*@
+                    @*<a href="~/Account/Logout" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger">Logout <i class="glyphicon glyphicon-remove"></i></a></span>*@
                 </div>
-          
+
 
             </div>
         </div>
@@ -70,6 +70,8 @@
 </ul>
 
 <div id="Skillset" class="tabcontent">
+    <hr />
+    <h4>Skillset</h4>
     <hr />
     @{ if (Model.Student.Skillset != null)
         {
@@ -147,43 +149,49 @@
 </div>
 
 <style>
-     /* Style the list */
-ul.tab {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-}
+    /* Style the list */
+    ul.tab {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
 
-/* Float the list items side by side */
-ul.tab li {float: left;}
+        /* Float the list items side by side */
+        ul.tab li {
+            float: left;
+        }
 
-/* Style the links inside the list items */
-ul.tab li a {
-    display: inline-block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
-}
+            /* Style the links inside the list items */
+            ul.tab li a {
+                display: inline-block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: 0.3s;
+                font-size: 17px;
+            }
 
-/* Change background color of links on hover */
-ul.tab li a:hover {background-color: #ddd;}
+                /* Change background color of links on hover */
+                ul.tab li a:hover {
+                    background-color: #ddd;
+                }
 
-/* Create an active/current tablink class */
-ul.tab li a:focus, .active {background-color: #ccc;}
+                /* Create an active/current tablink class */
+                ul.tab li a:focus, .active {
+                    background-color: #ccc;
+                }
 
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
 </style>
 <script>
     document.getElementById("skills").click();

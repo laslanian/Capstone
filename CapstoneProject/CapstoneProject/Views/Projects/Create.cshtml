@@ -2,40 +2,45 @@
 @{
     ViewBag.Title = "Create";
 }
-<h2>Project Form</h2>
+<h2>Project Creation Form</h2>
+<h4>Please fill out the details of your project below.</h4>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.project.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.project.Name)    
-                @Html.ValidationMessageFor(model => model.project.Name)
-            </div>
+        <hr class="colorgraph"/>
+        <div class="container">
+            <table class="table pull-right" >
+                <thead>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.project.Name, new { @class = "control-label col-md-2" })</th>
+                        <td>@Html.TextBoxFor(model => model.project.Name, new { @class = "form-control input-md " })
+                        @Html.ValidationMessageFor(model => model.project.Name)</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.project.Description, new { @class = "control-label col-md-2" })</th>
+                        <td>@Html.TextAreaFor(model => model.project.Description, new { @class = "form-control "})
+                        @Html.ValidationMessageFor(model => model.project.Description)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.criteria.Goal, new { @class = "control-label col-md-2" })</th>
+                        <td>@Html.TextBoxFor(model => model.criteria.Goal, new { @class = "form-control input-md " })
+                        @Html.ValidationMessageFor(model => model.criteria.Goal)</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.project.Description, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.project.Description)
-                @Html.ValidationMessageFor(model => model.project.Description)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.criteria.Goal, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.criteria.Goal)
-                @Html.ValidationMessageFor(model => model.criteria.Goal)
-            </div>
-        </div>
-
+        <hr class="colorgraph" />
         <div class="row">
             <div class="col-md-2"><h4>Criteria</h4></div>
             <div class="col-md-2"><h4>Options</h4></div>
-            <div class="col-md-8"><h4>Additional Comments</h4></div>
+            <div class="col-md-4"><h4>Additional Comments</h4></div>
         </div>
         <div class="row">
             <div class="form-group">
@@ -44,8 +49,8 @@
                     @Html.RadioButtonFor(model => model.criteria.Storage, true) Yes
                     @Html.RadioButtonFor(model => model.criteria.Storage, false) No
                 </div>
-                <div class="col-md-8">
-                    @Html.TextBoxFor(model => model.criteria.StorageComment, new { @style = "width: 80%" })
+                <div class="col-md-4">
+                    @Html.TextAreaFor(model => model.criteria.StorageComment, new { @style = "width: 80%"})
                 </div>
                 @Html.ValidationMessageFor(model => model.criteria.Storage)
             </div>
@@ -57,7 +62,7 @@
                     @Html.RadioButtonFor(model => model.criteria.Application, true) Yes
                     @Html.RadioButtonFor(model => model.criteria.Application, false) No
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
                     @Html.TextBoxFor(model => model.criteria.ApplicationComment, new { @style = "width: 80%" })
                 </div>
                 @Html.ValidationMessageFor(model => model.criteria.Application)
@@ -70,7 +75,7 @@
                     @Html.RadioButtonFor(model => model.criteria.Website, true) Yes
                     @Html.RadioButtonFor(model => model.criteria.Website, false) No
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
                     @Html.TextBoxFor(model => model.criteria.WebsiteComment, new { @style = "width: 80%" })
                 </div>
                 @Html.ValidationMessageFor(model => model.criteria.Website)
@@ -83,16 +88,16 @@
                     @Html.RadioButtonFor(model => model.criteria.Mobile, true) Yes
                     @Html.RadioButtonFor(model => model.criteria.Mobile, false) No
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
                     @Html.TextBoxFor(model => model.criteria.MobileComment, new { @style = "width: 80%" })
                 </div>
                 @Html.ValidationMessageFor(model => model.criteria.Mobile)
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-10">
-                @Html.ActionLink("Cancel", "Projects", "Projects", new { @class = "btn btn-default" })
-                <input type="submit" value="Submit" class="btn btn-default" />
+            <div class="col-md-6">
+                @Html.ActionLink("Cancel", "Projects", "Projects", new { @class = "btn btn-danger" })
+                <input type="submit" value="Submit" class="btn btn-success" />
             </div>
         </div>
     </div>

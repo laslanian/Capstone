@@ -1,12 +1,12 @@
 ﻿@model CapstoneProject.Project
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Project Details";
 }
 
-<h2>Project Details</h2>
+<h2>Your Project Details</h2>
 @{
-    @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-danger" })
     if (Session["UserType"].ToString().Equals("Admin"))
     {    
         if (Model.State.Equals("Pending"))
@@ -23,7 +23,15 @@
         if(Model.State.Equals("Pending")) { <span> </span> @Html.ActionLink("Edit Project", "EditProject", new { id = Model.ProjectId }, new { @class = "btn btn-info" }) }
             }
 }
-<div>
+
+<hr class="colorgraph"/>
+<ul class="tab">
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')" id="skills">General Information</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Coop')">Other Information</a></li>
+</ul>
+
+
+<div id="Skillset" class="tabcontent">
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -71,14 +79,15 @@
         }
 
     </dl>
-    <hr />
+</div>
+<div id="Coop" class="tabcontent">
     <table class="table table-striped">
         <thead>
             <tr>
                 <td>
                     <h4>Criteria</h4>
                 </td>
-                <td></td>
+                <td><h4>Yes/No</h4></td>
                 <td><h4>Additional Information</h4></td>
             </tr>
         </thead>
@@ -174,4 +183,74 @@
          });
             
     });
+</script>
+
+<style>
+    /* Style the list */
+    ul.tab {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Float the list items side by side */
+        ul.tab li {
+            float: left;
+        }
+
+            /* Style the links inside the list items */
+            ul.tab li a {
+                display: inline-block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of links on hover */
+                ul.tab li a:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                ul.tab li a:focus, .active {
+                    background-color: #ccc;
+                }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+<script>
+    document.getElementById("skills").click();
+
+    function openTab(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
 </script>
