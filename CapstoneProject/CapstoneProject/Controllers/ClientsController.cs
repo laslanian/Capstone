@@ -25,7 +25,7 @@ namespace CapstoneProject.Controllers
         public ActionResult Feedbacks()
         {
             UserAccountService uas = new UserAccountService();
-            return View(uas.GetFeedbacks());
+            return View(uas.GetFeedbacks().Take(10));
         }
 
         public ActionResult Edit(int id)

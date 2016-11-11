@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CapstoneProject.Feedback>
+
+<script>
+    $(function () {
+        $('.rateit').rateit();
+    });
+</script>
+        <div id="clients-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @{ var list = Model.ToList(); }
+                @for (int i = 0; i < list.Count(); i++)
+                {
+                    if (i == 0)
+                    { @Html.Raw("<div class='item active'>") }
+                    else {  @Html.Raw("<div class='item'>") }
+                    <div class="single-client">
+                        <div class="media">
+
+                            <div class="media-body">
+                                <blockquote>
+                                    <div class="rateit bigstars" data-rateit-starwidth="32" data-rateit-starheight="32" data-rateit-resetable="false"
+                                         data-rateit-ispreset="true" value="5" data-rateit-readonly="true" data-rateit-value="@list[i].Rating"></div><br /><p>@list[i].Comment</p><small>@list[i].Client.FirstName @list[i].Client.LastName</small><p>@list[i].Client.CompanyName</p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.Raw("</div>");
+                }
+            </div>
+        </div>
+
+<style>
+    div.bigstars div.rateit-range {
+        background: url(/Content/Images/EmptyStar.png);
+        height: 32px;
+    }
+
+    div.bigstars div.rateit-hover {
+        background: url(/Content/Images/FilledStar.png);
+    }
+
+    div.bigstars div.rateit-selected {
+        background: url(/Content/Images/FilledStar.png);
+    }
+
+    div.bigstars div.rateit-reset {
+        background: url(/Content/Images/EmptyStar.png);
+        width: 32px;
+        height: 32px;
+    }
+
+        div.bigstars div.rateit-reset:hover {
+            background: url(/Content/Images/EmptyStar.png);
+        }
+</style>

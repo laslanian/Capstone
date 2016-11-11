@@ -703,7 +703,6 @@
     <Content Include="Views\Admins\GroupDetail.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
-    <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Coops\Students.cshtml" />
     <Content Include="Views\Coops\ViewCoop.cshtml" />
     <Content Include="Views\Coops\AddComment.cshtml" />
@@ -714,6 +713,7 @@
     <Content Include="Views\Clients\Feedbacks.cshtml" />
     <Content Include="Views\Admins\_Groups.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
+    <Content Include="Views\Clients\_Feedbacks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
