@@ -5,39 +5,38 @@
 @{
     string panelId = "project" + Model.ProjectId;
 
-<hr />
+    <hr />
 
-       <div class="panel panel-primary">
-    <div class="panel-heading">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#@panelId">
-                            @Model.Name
-                        </a>
-                    </h4>
-                </div>
-                <div class="col-sm-4">
-                    @Html.Label("Select Project") &nbsp; @Html.RadioButton("ProjectId", Model.ProjectId)
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="container">
+                <div class="row"  data-toggle="collapse" data-target="#@panelId">
+                    <div class="col-sm-8">
+                        <h4 class="panel-title">
+                                @Model.Name
+                        </h4>
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.Label("Select Project") &nbsp; @Html.RadioButton("ProjectId", Model.ProjectId)
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="@panelId" class="panel-collapse collapse">
+            <div class="panel-body">
+                <ul style="list-style:none;">
+                    <li><p><b>Description:&nbsp;</b>@Model.Description </p></li>
+                    <li><p><b>Client:&nbsp;</b>@Model.Client.CompanyName </p></li>
+                    <li><p><b>Type:&nbsp;</b>@Model.Type </p></li>
+                    <li>
+                        <p>
+                            <b>Criteria:&nbsp;</b>
+                            @Html.Partial("_ProjectCriteria", @Model)
+                        </p>
+                    </li>
+                </ul>
+                @Html.HiddenFor(model => model.ProjectId)
+            </div>
+        </div>
     </div>
-    <div id="@panelId" class="panel-collapse collapse">
-        <div class="panel-body">
-            <ul style="list-style:none;">
-                <li><p><b>Description:&nbsp;</b>@Model.Description </p></li>
-                <li><p><b>Client:&nbsp;</b>@Model.Client.CompanyName </p></li>
-                <li><p><b>Type:&nbsp;</b>@Model.Type </p></li>
-                <li><p><b>Criteria:&nbsp;</b>
-                        @Html.Partial("_ProjectCriteria", @Model)
-                    </p>
-                </li>
-            </ul>
-            @Html.HiddenFor(model => model.ProjectId)
-    </div> 
-    </div>
-
-</div>
-    }
+}

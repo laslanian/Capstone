@@ -44,35 +44,46 @@ namespace CapstoneProject.Models.Metadata
     public class CoopMetadata
     {
         [Required]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Company Name must be atleast 2 to 25 characters.")]
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
+
         [Required]
         [Display(Name = "Position")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Position must be atleast 2 to 25 characters.")]
         public string JobTitle { get; set; }
+
         [Display(Name = "Job Description")]
         [DataType(DataType.MultilineText)]
+        [StringLength(255, ErrorMessage = "Job Description cannot be more than 255 characters.")]
         public string Description { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Date")]
         public System.DateTime StartDate { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "End Date")]
         public System.DateTime EndDate { get; set; }
+
         [Display(Name = "Comments")]
         [DataType(DataType.MultilineText)]
+        [StringLength(255, ErrorMessage = "Comments cannot be more than 255 characters.")]
         public string Comments { get; set; }
     }
 
     public class ClientMetadata
     {
         [Required]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "First Name must be atleast 2 to 25 characters.")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Required]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Last Name must be atleast 2 to 25 characters.")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Required]
@@ -80,12 +91,15 @@ namespace CapstoneProject.Models.Metadata
         [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
         [Required]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Company Name must be atleast 2 to 25 characters.")]
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
         [Required]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Company Address cannot be more than 50 characters.")]
         [Display(Name = "Company Address")]
         public string CompanyAddress { get; set; }
         [Display(Name = "Company Description")]
+        [StringLength(255, ErrorMessage = "Company Description cannot be more than 255 characters.")]
         [DataType(DataType.MultilineText)]
         public string CompanyDescription { get; set; }
     }
@@ -109,10 +123,12 @@ namespace CapstoneProject.Models.Metadata
     {
         [Required]
         [Display(Name = "Group Name")]
+        [StringLength(25, ErrorMessage = "Group name cannot be more than 25 characters.")]
         public string GroupName { get; set; }
         [Required]
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
+        [StringLength(255, ErrorMessage = "Group description cannot be more than 255 characters.")]
         public string Description { get; set; }
     }
 
@@ -157,6 +173,7 @@ namespace CapstoneProject.Models.Metadata
 
         [Required]
         [Display(Name = "Description")]
+        [StringLength(255,  ErrorMessage = "Description cannot be longer than 255 characters.")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
@@ -165,19 +182,27 @@ namespace CapstoneProject.Models.Metadata
     {
         [Required]
         [Display(Name = "First Name")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "First Name must be atleast 2 to 25 characters.")]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "First Name must be atleast 2 to 25 characters.")]
         public string LastName { get; set; }
 
         [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [StringLength(50, MinimumLength = 7, ErrorMessage = "Please enter a valid email address.")]
+        public string Email { get; set; }
+        [Required]
         [Display(Name = "Phone Number")]
-        [StringLength(10, ErrorMessage = "Please enter a valid phone number.")]
+        [StringLength(12, MinimumLength = 10, ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
 
         [Required]
         [Display(Name = "Student Number")]
+        [RegularExpression(@"^(\d{9})$", ErrorMessage = "Enter a valid student number")]
         public int StudentNumber { get; set; }
     }
 
@@ -191,6 +216,7 @@ namespace CapstoneProject.Models.Metadata
     {
         [Required]
         [Display(Name = "Feedback")]
+        [StringLength(255, ErrorMessage = "Feedback cannot be longer than 255 characters.")]
         [DataType(DataType.MultilineText)]
         public string Comment { get; set; }
 

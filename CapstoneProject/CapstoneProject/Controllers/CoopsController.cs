@@ -58,11 +58,15 @@ namespace CapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddCoop(Coop c)
         {
-            using (StudentCoopService scs = new StudentCoopService())
+            if (ModelState.IsValid)
             {
-                scs.AddCoop(Convert.ToInt32(Session["Id"]), c);
-                return RedirectToAction("Index", "Students");
+                using (StudentCoopService scs = new StudentCoopService())
+                {
+                    scs.AddCoop(Convert.ToInt32(Session["Id"]), c);
+                    return RedirectToAction("Index", "Students");
+                }
             }
+            return View();
         }
 
         [HttpGet]
