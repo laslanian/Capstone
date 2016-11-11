@@ -149,7 +149,6 @@ namespace CapstoneProject.Controllers
                     }
                 }
             }
-            ViewBag.LoginError = "Captcha is required.";
             return View(u);
         }
 

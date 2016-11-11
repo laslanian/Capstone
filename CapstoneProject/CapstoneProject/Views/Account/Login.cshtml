@@ -1,9 +1,9 @@
 ﻿@model CapstoneProject.Models.LoginUser
+@using reCAPTCHA.MVC
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src='https://www.google.com/recaptcha/api.js'></script>
 
 @using (Html.BeginForm())
 {
@@ -15,7 +15,7 @@
                     <fieldset>
                         <h2>Please Sign In</h2>
                         <hr class="colorgraph">
-                        <h4><span class="text-danger"> @ViewBag.LoginError</span></h4>
+                        <h4><span style="color:red;"> @ViewBag.LoginError</span></h4>
 
                         <div class="editor-field">
                             @Html.TextBoxFor(u => u.Username, new { @class = "form-control input-lg", placeholder = "Username" })
@@ -26,22 +26,21 @@
                             @Html.PasswordFor(u => u.Password, new { @class = "form-control input-lg", placeholder = "***********" })
                             @Html.ValidationMessageFor(u => u.Password)
                         </div>
+                        <br />
+                        <a href="#" data-toggle="modal" data-target="#ResetPasswordModal" class="btn btn-group-sm btn-warning">Forgot Password?</a>
+                        <br />
                         <hr class="colorgraph">
-                        <div class="g-recaptcha" data-sitekey="6LftbQsUAAAAAF8PawPTpTVC8L8myc2c-zWZDMmA"></div>
+                        @Html.Recaptcha()
+                        @Html.ValidationMessage("ReCaptcha")
                         <hr class="colorgraph">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                                <p >
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Log In" />
-                                </p>                            
+                                <p>
+                                    <input class="btn btn-lg btn-success btn-block" value="Log In" type="submit">
+                                </p>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <a href="~/Account/Register" class="btn btn-lg btn-primary btn-block">Register</a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <a href="#" data-toggle="modal" data-target="#ResetPasswordModal">Forgot Password?</a>
                             </div>
                         </div>
                     </fieldset>
@@ -97,7 +96,6 @@
                 }
             });
         });
-       
-
     </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 }

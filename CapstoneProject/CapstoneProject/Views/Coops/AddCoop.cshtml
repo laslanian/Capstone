@@ -1,17 +1,17 @@
 ﻿@model CapstoneProject.Coop
 
 @{
-    ViewBag.Title = "AddCoop";
+    ViewBag.Title = "Add Coop";
 }
 
 <h2>Coop Form</h2>
-
+<h4>Please fill out the form below to register Coop details.</h4>
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <hr />
+        <hr class="colorgraph" />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control datepicker", placeholder = "Enter start date here..." })
                 <div style="text-align:left;">
                     @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                 </div>
@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control datepicker", placeholder = "Enter end date here..." })
                 <div style="text-align:left;">
                     @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
                 </div>
@@ -70,9 +70,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Cancel", "Index", "Students", new { id = Convert.ToInt32(Session["Id"]) }, new { @class = "btn btn-default" })
-                <input type="submit" name="btn" value="Add Coop" class="btn btn-default" />
+                @Html.ActionLink("Cancel", "Index", "Students", new { id = Convert.ToInt32(Session["Id"]) }, new { @class = "btn btn-danger" })
+                <input type="submit" name="btn" value="Add Coop" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
