@@ -54,6 +54,7 @@
                     <th>
                         @Html.DisplayNameFor(model => studList[0].Email)
                     </th>
+                    <th></th>
                 </tr>
                 @for (int i = 0; i < studList.Count(); i++)
                 {
@@ -67,6 +68,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => studList[i].Email)
                         </td>
+                        <td>@Html.ActionLink("View Profile", "StudentProfile", "Students", new { id = studList[i].UserId, gid = Model.GroupId }, new { @class = "btn btn-info", target= "_blank" })</td>
                     </tr>
                 }
             </table>
@@ -144,6 +146,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    document.getElementById("skillset").click();
     $(document).ready(function() {
         $("#btnUnassign").click(function () {
             $("#hdnSelProj").val(this.name);

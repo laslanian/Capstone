@@ -1,0 +1,194 @@
+﻿@model CapstoneProject.Models.ViewModels.StudentProfile
+
+@{
+    ViewBag.Title = "Student Profile";
+}
+<h2>Student Profile</h2>
+@Html.ActionLink("Go Back", "GroupDetail", "Admins", new { id = Convert.ToInt32(ViewBag.GroupId) }, new { @class = "btn btn-default" })
+
+<div class="container">
+    <div class="row">
+        <hr />
+        <div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>@Html.DisplayFor(model => model.Student.FirstName) @Html.DisplayFor(model => model.Student.LastName)</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="~/content/images/man-unknown-4.png" class="img-circle img-responsive"> </div>
+                    <div class="col-md-9 col-lg-9 pul">
+                        <table class="table table-user-information" style="text-align:right;">
+                            <tr>
+                                <td><strong>Number:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Student.StudentNumber)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Program:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Program.ProgramName)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Student.Email)</td>
+                            </tr>
+
+                            <tr>
+                            <tr>
+                                <td><strong>Phone Number:</strong></td>
+                                <td>@Html.DisplayFor(model => model.Student.PhoneNumber)</td>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<ul class="tab">
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')" id="skills">Skillset</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Coop')">Coop</a></li>
+</ul>
+
+<div id="Skillset" class="tabcontent">
+    <hr />
+    <h4>Skillset</h4>
+    <hr />
+    @{ if (Model.Student.Skillset != null)
+        {
+            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Student.Skillset.Id })" /></div>
+        }
+        else
+        { <p>
+        Student does not have a registered skill set.
+    </p> }
+    }
+</div>
+
+<div id="Coop" class="tabcontent">
+    @{
+        var coopList = Model.Student.Coops.ToList();
+    }
+    <hr />
+    <h4>
+        Coop Information
+    </h4>
+    <hr />
+    @{
+        if (coopList.Count() == 0)
+        {
+            <h4>Student does not have any coop listed.</h4>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].JobTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => coopList[0].EndDate)
+                    </th>
+                </tr>
+                @for (int i = 0; i < coopList.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].JobTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => coopList[i].EndDate)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+</div>
+
+<style>
+    /* Style the list */
+    ul.tab {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Float the list items side by side */
+        ul.tab li {
+            float: left;
+        }
+
+            /* Style the links inside the list items */
+            ul.tab li a {
+                display: inline-block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of links on hover */
+                ul.tab li a:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                ul.tab li a:focus, .active {
+                    background-color: #ccc;
+                }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+<script>
+    document.getElementById("skills").click();
+
+    function openTab(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+

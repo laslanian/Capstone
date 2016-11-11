@@ -35,6 +35,24 @@ namespace CapstoneProject.Controllers
             return View(sp);
         }
 
+        public ActionResult StudentProfile(int id, int gid)
+        {
+            UserAccountService uas = new UserAccountService();
+
+            Student s = (Student)uas.GetUser(id);
+            Skillset sk = uas.GetSkillsetByUserId(s.UserId);
+            s.Skillset = sk;
+
+
+            Program p = uas.GetProgramById(s.ProgramId);
+            StudentProfile sp = new StudentProfile();
+
+            sp.Student = s;
+            sp.Program = p;
+            ViewBag.GroupId = gid;
+            return View(sp);
+        }
+
         public ActionResult Edit(int id)
         {
             UserAccountService uas = new UserAccountService();

@@ -714,6 +714,7 @@
     <Content Include="Views\Admins\_Groups.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Clients\_Feedbacks.cshtml" />
+    <Content Include="Views\Students\StudentProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
