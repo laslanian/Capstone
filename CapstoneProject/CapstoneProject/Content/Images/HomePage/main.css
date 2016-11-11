@@ -647,7 +647,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .single-service:hover {
-	background-color: #fc7700;
+	background-color: #0a3e6b;
 }
 
 .single-service:hover i {
@@ -939,7 +939,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #clients {
     /*background-image: url("../images/clients/client-bg.jpg");*/
-    background-image: url('ClientPIk/client-bg.jpg');
+    background-image: url('../HomePage/ClientPIk/client-bg.jpg');
     background-color: #0A0A13;
 }
 
@@ -991,7 +991,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #clients-carousel .item {
-	background:#43484E
+	background:  rgba(10, 62, 107, 0.6);
 }
 
 #clients-carousel 

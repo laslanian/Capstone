@@ -16,9 +16,11 @@ namespace CapstoneProject.Controllers
         private UserAccountService _uas = new UserAccountService();
         private ProjectManager _pm = new ProjectManager();
         private GroupBuilderService _gbs = new GroupBuilderService();
+
         public ActionResult Index()
         {
-            return View();
+            UserAccountService uas = new UserAccountService();
+            return View(uas.GetFeedbacks().Take(3));
         }
 
         public ActionResult About()

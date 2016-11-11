@@ -30,7 +30,7 @@ namespace CapstoneProject.Models.DA
 
         public IEnumerable<Feedback> GetFeedbacks()
         {
-            return ctx.Feedbacks.OrderBy(f => Guid.NewGuid()).Take(5).ToList();
+            return ctx.Feedbacks.OrderBy(f => Guid.NewGuid()).ToList();
         }
 
         public User GetUserById(int id)
