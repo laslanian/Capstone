@@ -23,19 +23,19 @@ namespace CapstoneProject.Controllers
         public ActionResult SendResetPassword(string email)
         {
             int code = 0;
-            using (UserAccountService _uas = new UserAccountService()   )
+            using (UserAccountService _uas = new UserAccountService())
             {
                 AesEncrpyt en = new AesEncrpyt();
-                User user = _uas.GetUserByUname(email);                                                                                                 
+                User user = _uas.GetUserByUname(email);
                 if (user != null)
                 {
                     user.Password = GenerateTempPass();
                     _uas.UpdateUserPW(user);
 
                     EmailService es = new EmailService();
-                    var url = Url.Action("ResetPassword", "Account",routeValues: null ,protocol: Request.Url.Scheme );
+                    var url = Url.Action("ResetPassword", "Account", routeValues: null, protocol: Request.Url.Scheme);
                     code = es.SendResetPassword(user, en.Decrypt(user.Password), url);
-                    if (code !=99)
+                    if (code != 99)
                     {
                         //error
                     }
@@ -75,7 +75,7 @@ namespace CapstoneProject.Controllers
                 return RedirectToAction("Login", "Account");
             }
             return View();
-           
+
         }
 
         public String GenerateTempPass()
@@ -120,7 +120,7 @@ namespace CapstoneProject.Controllers
                     }
                 }
             }
-                return View();                                                                                                                                                                                                                                                                         
+            return View();
         }
 
         [HttpPost]
@@ -144,12 +144,12 @@ namespace CapstoneProject.Controllers
                     }
                     else
                     {
-                        {
-                            ViewBag.LoginError = "Invalid username or password";
-                        }
+                        ViewBag.LoginError = "Invalid username or password";
+                        return View(u);
                     }
                 }
             }
+            ViewBag.LoginError = "Captcha is required.";
             return View(u);
         }
 
@@ -318,7 +318,7 @@ namespace CapstoneProject.Controllers
         {
             return Session["UserType"].ToString();
         }
-        
+
         public List<Program> GetPrograms()
         {
             using (ProgramManagerService pms = new ProgramManagerService())
