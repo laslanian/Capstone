@@ -191,7 +191,7 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult TermsAndCondition(String button)
         {
-            if (button.Equals("No"))
+            if (button.Equals("Cancel"))
             {
                 return RedirectToAction("Register");
             }
