@@ -39,11 +39,14 @@ namespace CapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Client c)
         {
-            UserAccountService uas = new UserAccountService();
-            int code = uas.UpdateClient(c);
-            if (code > 0)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                UserAccountService uas = new UserAccountService();
+                int code = uas.UpdateClient(c);
+                if (code > 0)
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View(c);
         }

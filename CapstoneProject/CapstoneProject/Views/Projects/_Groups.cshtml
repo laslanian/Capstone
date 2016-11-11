@@ -7,14 +7,12 @@
     string panelId = "group_" + Model.GroupId;
 
     <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#@panelId">
+        <div class="panel-heading " >
+            <div class="container" >
+                <div class="row" data-toggle="collapse" data-target="#@panelId">
+                    <div class="col-sm-8" >
+                        <h4 class="panel-title" >
                                 @Model.GroupName
-                            </a>
                         </h4>
                     </div>
                     <div class="col-sm-4">

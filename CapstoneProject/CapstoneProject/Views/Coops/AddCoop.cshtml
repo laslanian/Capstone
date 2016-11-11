@@ -17,7 +17,10 @@
             @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                <div style="text-align:left;">
+                    @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                </div>
+               
             </div>
         </div>
 
@@ -25,7 +28,10 @@
             @Html.LabelFor(model => model.JobTitle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+                <div style="text-align:left;">
+                    @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+                </div>
+               
             </div>
         </div>
 
@@ -33,7 +39,10 @@
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                <div style="text-align:left;">
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+               
             </div>
         </div>
 
@@ -41,7 +50,10 @@
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                <div style="text-align:left;">
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+               
             </div>
         </div>
 
@@ -49,7 +61,10 @@
             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                <div style="text-align:left;">
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                </div>
+               
             </div>
         </div>
 
