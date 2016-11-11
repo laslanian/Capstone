@@ -6,7 +6,6 @@
     string panelId = "project" + Model.ProjectId;
 
     <hr />
-
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div class="container">
@@ -17,7 +16,7 @@
                         </h4>
                     </div>
                     <div class="col-sm-4">
-                        @Html.Label("Select Project") &nbsp; @Html.RadioButton("ProjectId", Model.ProjectId)
+                        @Html.Label("Select Project") &nbsp; @Html.RadioButton("projectId", Model.ProjectId, new {id=Model.ProjectId})
                     </div>
                 </div>
             </div>
@@ -35,7 +34,7 @@
                         </p>
                     </li>
                 </ul>
-                @Html.HiddenFor(model => model.ProjectId)
+                
             </div>
         </div>
     </div>

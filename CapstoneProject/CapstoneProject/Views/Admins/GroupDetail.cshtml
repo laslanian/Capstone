@@ -116,7 +116,10 @@
                             @Html.DisplayFor(modelItem => projList[i].State)
                         </td>
                         <td>
-                            <button type="button" id="btnUnassign" name="@projList[i].ProjectId" class="btn btn-danger" data-toggle="modal" data-target="#unassignModal">Unassign Project</button>
+                            @if (projList[i].State.Equals("Assigned"))
+                            {
+                                <button type="button" id="btnUnassign" name="@projList[i].ProjectId" class="btn btn-danger" data-toggle="modal" data-target="#unassignModal">Unassign Project</button>
+                            }
                         </td>
                     </tr>
                 }

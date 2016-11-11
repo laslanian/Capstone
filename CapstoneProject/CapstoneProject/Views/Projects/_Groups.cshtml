@@ -16,14 +16,13 @@
                         </h4>
                     </div>
                     <div class="col-sm-4">
-                        @Html.Label("Select Group") &nbsp; @Html.RadioButton("GroupId", Model.GroupId)
+                        @Html.Label("Select Group") &nbsp; @Html.RadioButton("groupId", Model.GroupId, new {id=Model.GroupId})
                     </div>
                 </div>
             </div>
         </div>
         <div id="@panelId" class="panel-collapse collapse">
             <div class="panel-body">
-                @Html.HiddenFor(model => model.GroupId)
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-4">
@@ -48,7 +47,6 @@
                                     for (int i = 0, len = projList.Count(); i < len; i++)
                                     {
                                         <li>
-                                            @Html.HiddenFor(modelItem => projList[i].ProjectId)
                                             <p>@projList[i].Name</p>
                                         </li>
                                     }
