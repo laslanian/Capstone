@@ -60,13 +60,19 @@ namespace CapstoneProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                int result = DateTime.Compare(c.StartDate, c.EndDate);
+                if (result >= 0)
+                {
+                    ViewBag.DateError = "The start date must be earlier than end date.";
+                    return View(c);
+                }
                 using (StudentCoopService scs = new StudentCoopService())
                 {
                     scs.AddCoop(Convert.ToInt32(Session["Id"]), c);
                     return RedirectToAction("Index", "Students");
                 }
             }
-            return View();
+            return View(c);
         }
 
         [HttpGet]
@@ -80,6 +86,12 @@ namespace CapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Coop c)
         {
+            int result = DateTime.Compare(c.StartDate, c.EndDate);
+            if (result >= 0)
+            {
+                ViewBag.DateError = "The start date must be earlier than end date.";
+                return View(c);
+            }
             int code = scs.UpdateCoop(c);
             if(code > 0)
             {
