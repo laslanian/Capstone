@@ -12,6 +12,10 @@
         {
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#stateModal">Approve / Reject</button>
         }
+        else if (Model.State.Equals("Assigned"))
+        {
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#markCompleted">Mark Complete</button>
+        }
     }
     else
     {
@@ -102,7 +106,7 @@
         </tbody>
     </table>
 </div>
-<!-- Modal -->
+<!-- stateModal -->
 <div id="stateModal" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog">
 
@@ -120,6 +124,26 @@
                 <button type="button" id="@Model.ProjectId" value="Rejected"class="btn btn-danger btnChangeState">Reject</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
             </div> 
+        </div>
+    </div>
+</div>
+<!-- Mark Completed -->
+<div id="markCompleted" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Mark Project Complete?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Would you like to mark the project complete?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="@Model.ProjectId" value="Complete " class="btn btn-success btnMarkComplete">Mark Complete</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
     </div>
 </div>
@@ -144,7 +168,10 @@
 
          $('.btnChangeState').on('click', function (e) {
              changeProjectState($(this).attr("id"), $(this).val());
-        });
+         });
+         $('.btnMarkComplete').on('click', function (e) {
+             changeProjectState($(this).attr("id"), $(this).val());
+         });
             
     });
 </script>
