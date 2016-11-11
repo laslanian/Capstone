@@ -52,6 +52,7 @@
                 @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control datepicker", placeholder = "Enter start date here..." })
                 <div style="text-align:left;">
                     @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    <span class="text-danger">@ViewBag.DateError</span>
                 </div>
                
             </div>

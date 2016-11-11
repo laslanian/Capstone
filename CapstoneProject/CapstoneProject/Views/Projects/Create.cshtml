@@ -29,7 +29,7 @@
                     </tr>
                     <tr>
                         <th>@Html.LabelFor(model => model.criteria.Goal, new { @class = "control-label col-md-2" })</th>
-                        <td>@Html.TextBoxFor(model => model.criteria.Goal, new { @class = "form-control input-md " })
+                        <td>@Html.TextAreaFor(model => model.criteria.Goal, new { @class = "form-control input-md " })
                         @Html.ValidationMessageFor(model => model.criteria.Goal)</td>
                         <td></td>
                     </tr>
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-md-2"><h4>Criteria</h4></div>
             <div class="col-md-2"><h4>Options</h4></div>
-            <div class="col-md-4"><h4>Additional Comments</h4></div>
+            <div class="col-md-4"><h4>Additional Information</h4></div>
         </div>
         <div class="row">
             <div class="form-group">
@@ -63,7 +63,7 @@
                     @Html.RadioButtonFor(model => model.criteria.Application, false) No
                 </div>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(model => model.criteria.ApplicationComment, new { @style = "width: 80%" })
+                    @Html.TextAreaFor(model => model.criteria.ApplicationComment, new { @style = "width: 80%" })
                 </div>
                 @Html.ValidationMessageFor(model => model.criteria.Application)
             </div>
@@ -76,7 +76,7 @@
                     @Html.RadioButtonFor(model => model.criteria.Website, false) No
                 </div>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(model => model.criteria.WebsiteComment, new { @style = "width: 80%" })
+                    @Html.TextAreaFor(model => model.criteria.WebsiteComment, new { @style = "width: 80%" })
                 </div>
                 @Html.ValidationMessageFor(model => model.criteria.Website)
             </div>
@@ -89,7 +89,7 @@
                     @Html.RadioButtonFor(model => model.criteria.Mobile, false) No
                 </div>
                 <div class="col-md-4">
-                    @Html.TextBoxFor(model => model.criteria.MobileComment, new { @style = "width: 80%" })
+                    @Html.TextAreaFor(model => model.criteria.MobileComment, new { @style = "width: 80%" })
                 </div>
                 @Html.ValidationMessageFor(model => model.criteria.Mobile)
             </div>
