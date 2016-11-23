@@ -314,6 +314,7 @@
     <Compile Include="Utility\Campuses.cs" />
     <Compile Include="Utility\GroupState.cs" />
     <Compile Include="Utility\ProjectState.cs" />
+    <Compile Include="Utility\ProjectType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CapstoneDBModel.Context.tt">

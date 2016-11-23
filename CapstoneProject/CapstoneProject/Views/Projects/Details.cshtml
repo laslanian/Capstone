@@ -6,24 +6,26 @@
 
 <h2>Your Project Details</h2>
 @{
-    @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-default" })
     if (Session["UserType"].ToString().Equals("Admin"))
     {    
         if (Model.State.Equals("Pending"))
-        {
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#stateModal">Approve / Reject</button>
+        {          
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal">Approve</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">Reject</button>
         }
         else if (Model.State.Equals("Assigned"))
         {
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#markCompleted">Mark Complete</button>
         }
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#changeType">Change Project Type</button>
     }
     else
     {
-        if(Model.State.Equals("Pending")) { <span> </span> @Html.ActionLink("Edit Project", "EditProject", new { id = Model.ProjectId }, new { @class = "btn btn-info" }) }
-            }
+        if (Model.State.Equals("Pending"))
+        { <span> </span> @Html.ActionLink("Edit Project", "EditProject", new { id = Model.ProjectId }, new { @class = "btn btn-info" }) }
+    }
 }
-
 <hr class="colorgraph"/>
 <ul class="tab">
     <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Skillset')" id="skills">General Information</a></li>
@@ -68,6 +70,13 @@
 
         @{if (Session["UserType"].ToString().Equals("Admin"))
             {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Client.CompanyName)
                 </dt>
@@ -115,27 +124,97 @@
         </tbody>
     </table>
 </div>
-<!-- stateModal -->
-<div id="stateModal" class="modal fade" role="dialog" tabindex="-1">
+<!-- Approve Modal -->
+<div id="approveModal" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Approve or Reject Project?</h4>
+                <h4 class="modal-title">Approve Project?</h4>
             </div>
             <div class="modal-body">
-                <p>Would you like to approve or reject this project?</p>
+                <p>Are you sure you want to approve this project?</p>
+                <p>Select a project type:</p>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label"
+                               for="projectype">Type: </label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="projectype" name="projectype">
+                                <option value="1">Type 1</option>
+                                <option value="2">Type 2</option>
+                                <option value="3">Type 3</option>
+                                <option value="4">Type 4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="@Model.ProjectId" value="Approved" class="btn btn-success btnApprove">Approve</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    </div>
             </div>
+    </div>
+</div>
+
+<!-- Reject Modal -->
+<div id="rejectModal" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Reject Project?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to reject this project?</p>           
+            </div>
+            <br />
             <div class="modal-footer">
-                <button type="button" id="@Model.ProjectId" value="Approved" class="btn btn-success btnChangeState">Approve</button>
-                <button type="button" id="@Model.ProjectId" value="Rejected"class="btn btn-danger btnChangeState">Reject</button>
+                <button type="button" id="@Model.ProjectId" value="Rejected" class="btn btn-danger btnReject">Reject</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Change Type Modal -->
+<div id="changeType" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Project Type?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Select a project type: <span id="approveerror" style="display: none;" class="text-danger">Invalid project type</span></p>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label"
+                           for="projectype">Type:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="projectype" name="changetype">
+                            <option value="1">Type 1</option>
+                            <option value="2">Type 2</option>
+                            <option value="3">Type 3</option>
+                            <option value="4">Type 4</option>
+                        </select>
+                    </div>
+                </div>
+            <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="@Model.ProjectId" value="@Model.State" class="btn btn-success btnChange">Save</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Mark Completed -->
 <div id="markCompleted" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog">
@@ -159,10 +238,27 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        function changeProjectState(pId, pState)
+        function ApproveProject(pId, pState, pType)
         {
             $.ajax({
-                url: '/Projects/ChangeState',
+                url: '/Projects/ApproveProject',
+                type: 'POST',
+                dataType: 'text',
+                data: {
+                    id: pId,
+                    state: pState,
+                    type: pType
+                },
+                success: function (data) {
+                    window.location.href = "/Projects/Projects";
+                }
+            });
+        }
+
+        function UpdateProjectState(pId, pState)
+        {
+            $.ajax({
+                url: '/Projects/UpdateProjectState',
                 type: 'POST',
                 dataType: 'text',
                 data: {
@@ -175,11 +271,20 @@
             });
         }
 
-         $('.btnChangeState').on('click', function (e) {
-             changeProjectState($(this).attr("id"), $(this).val());
-         });
+        $('.btnApprove').on('click', function (e) {
+            ApproveProject($(this).attr("id"), $(this).val(), $('select[name=projectype]').val());
+        });
+
+        $('.btnChange').on('click', function (e) {
+            ApproveProject($(this).attr("id"), $(this).val(), $('select[name=changetype]').val());
+        });
+
+        $('.btnReject').on('click', function (e) {
+            UpdateProjectState($(this).attr("id"), $(this).val());
+        });
+
          $('.btnMarkComplete').on('click', function (e) {
-             changeProjectState($(this).attr("id"), $(this).val());
+             UpdateProjectState($(this).attr("id"), $(this).val());
          });
             
     });
