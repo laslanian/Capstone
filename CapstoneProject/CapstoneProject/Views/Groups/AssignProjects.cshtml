@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayName("Apply")
             </th>
+            <th>
+                <input type="button" value="X" id="resetRanking" class="btn-xs btn-danger"/>
+            </th>
         </tr>
         @for (int i = 0; i < projList.Count(); i++)
         {
@@ -47,17 +50,71 @@
                 <td>
                     @Html.DisplayFor(modelItem => projList[i].State)
                 </td>
-
-
                 <td>
                     <input type="checkbox" class="chk-act" id="@projList[i].ProjectId" value="@projList[i].ProjectId" name="chkSelected"
                            checked="@Model.Group.Projects.Contains(projList[i])" disabled="@projList[i].State.Equals("Pending")">
+                </td>
+                <td>
+                    @{  var selId = "rank-select-"+projList[i].ProjectId;}
+                    <select id="@selId" class="rank-select" >
+                        <option defaultSelected value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </td>
             </tr>
         }
     </table>
     <input type="submit" name="button" value="Save" class="btn btn-success" />
+    <input type="button" id="trialClick" name="button" value="Try" class="btn btn-danger" />
     @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
     <span class="text-danger"> @ViewBag.CountError </span>
 }
+<script>
+    $(document).ready(function () {
 
+        $("#trialClick").click(function (e) {
+            
+            var checkedValues = $('input:checkbox:checked').map(function () {
+                return this.value;
+            }).get();
+            console.log("/r/n");
+            for (var i = 0; i < checkedValues.length; i++) {
+                console.log(checkedValues[i]);
+                console.log($("#rank-select-" + checkedValues[i]+" :selected" ).text());
+
+            }
+           // console.log(checkedValues);
+
+        });
+
+
+
+
+
+        $("#resetRanking").click(function(){
+            $('.rank-select').each(function () {
+                $(this).children("option").prop("disabled", false).prop('selected', function () {
+                    return this.defaultSelected;
+                });
+            });
+        });
+        $(".rank-select").change(function () {
+            var id = $(this).attr("id");
+            var value = $('#' + id + ' :selected').text();
+            $('.rank-select').each(function () {
+                if ($(this).attr("id") != id) {
+                    $(this).children("option[value^=" + value + "]").prop("disabled", true);
+                }
+
+            });
+        });
+
+    });
+
+    //jQuery.ajaxSettings.traditional = true
+
+    //$.get('/controller/MyAction', { vals: arrayOfValues }, function (data) {... 
+</script>

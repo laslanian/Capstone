@@ -204,6 +204,7 @@ namespace CapstoneProject.Controllers
                 }
                 else
                 {
+                    g.Projects.Clear();
                     for (int i = 0, len = selected.Length; i < len; i++)
                     {
                         g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
