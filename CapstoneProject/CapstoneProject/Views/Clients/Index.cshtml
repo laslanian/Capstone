@@ -19,7 +19,15 @@
                     <h3 class="panel-title"><strong>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</strong></h3>
                 </div>
                 <div class="panel-body">
-                    <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="~/content/images/man-unknown-4.png" class="img-circle img-responsive"> </div>
+                    <div class="col-md-3 col-lg-3 " align="center">
+                        <img src="@Url.Action("GetImage", "Account", new { filename = Model.Username })" alt="User Pic" class="img-circle img-responsive" />
+                        @using (Html.BeginForm("FileUpload", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <label for="file">Upload Image:</label>
+                            <input type="file" name="file" id="file" style="width: 100%;" />
+                            <input type="submit" value="Upload" class="submit" />
+                        }
+                    </div>
                     <div class="col-md-9 col-lg-9 pul">
                         <table class="table table-user-information" style="text-align:right;">
                             <tr>

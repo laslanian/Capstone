@@ -117,3 +117,18 @@ footer {
 .toppad
 {margin-top:20px;
 }
+
+#picContainer {
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#picContainer img {
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+}
+
+
