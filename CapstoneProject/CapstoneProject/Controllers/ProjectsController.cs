@@ -79,7 +79,7 @@ namespace CapstoneProject.Controllers
             int code = _pm.UpdateProject(p);
             if (code == 1)
             {
-                return RedirectToAction("Projects");
+                return RedirectToAction("Details", "Projects", new { id = id });
             }
             else
             {

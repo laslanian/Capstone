@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using CapstoneProject.Models.Services;
 using reCAPTCHA.MVC;
+using System.IO;
+using CapstoneProject.Utility;
+using System.Web.Helpers;
 
 namespace CapstoneProject.Controllers
 {
@@ -323,6 +326,49 @@ namespace CapstoneProject.Controllers
             using (ProgramManagerService pms = new ProgramManagerService())
             {
                 return pms.GetPrograms();
+            }
+        }
+         
+        public ActionResult FileUpload(HttpPostedFileBase file)
+        {
+            string usertype = Session["UserType"].ToString();
+            using (UserAccountService _uas = new UserAccountService())
+            {
+                User user = _uas.GetUser(Convert.ToInt32(Session["Id"]));
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(file.FileName);
+                    if (extension == ".jpg" || extension == ".png" || extension == ".jpeg" || extension == ".gif")
+                    {
+                        string path = Path.Combine(Server.MapPath(@"~/Content/Images/Profiles"), user.Username + ".png");
+                        
+                        file.SaveAs(path);
+                        ViewBag.FileExtension = extension;
+                    }
+                }
+            }
+            if (usertype.Equals(AccountType.Student))
+            {
+                return RedirectToAction("Index", "Students");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Clients");
+            }
+        }
+
+        public ActionResult GetImage(string filename)
+        {
+            var root = Server.MapPath(@"~/Content/Images/Profiles");
+            var path = Path.Combine(root, filename + ".png");
+            path = Path.GetFullPath(path);
+            if(path.StartsWith(root) && System.IO.File.Exists(path))
+            {
+                return base.File(path, "image/png");
+            }
+            else
+            {                           
+                return base.File(Server.MapPath(@"~/Content/Images/man-unknown-4.png"), "image/png");
             }
         }
     }

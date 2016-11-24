@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using CapstoneProject.Models;
 using CapstoneProject.Models.Services;
 using CapstoneProject.Models.ViewModels;
+using CapstoneProject.Utility;
 
 namespace CapstoneProject.Controllers
 {
@@ -14,7 +15,6 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
-
 
         // GET: Groups
         public ActionResult Index()
@@ -181,7 +181,7 @@ namespace CapstoneProject.Controllers
         {
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
-            gp.Projects = gbs.GetProjects();
+            gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
             gp.hasAssignedProject = false;
 
             return View(gp);
@@ -198,7 +198,7 @@ namespace CapstoneProject.Controllers
                 if (selected.Count()!=5)
                 {
                     gp.Group = g;
-                    gp.Projects = gbs.GetProjects();
+                    gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
                     ViewBag.CountError = "You must select 5 projects";
                     return View(gp);
                 }

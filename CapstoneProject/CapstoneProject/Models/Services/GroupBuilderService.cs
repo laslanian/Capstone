@@ -254,6 +254,12 @@ namespace CapstoneProject.Models.Services
         {
             return _projects.GetProjects().ToList();
         }
+
+        public List<Project> GetProjectsByState(String state)
+        {
+            return _projects.GetProjecsByState(state).ToList();
+        }
+
         public Project GetProjectById(int id)
         {
             return _projects.GetProjectById(id);
