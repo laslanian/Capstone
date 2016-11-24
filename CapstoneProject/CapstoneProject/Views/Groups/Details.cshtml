@@ -101,7 +101,6 @@
             </div>
             <h3>Projects</h3>
         var projList = Model.Projects.ToList();
-        bool hasAssignedProject = false;
         if (projList.Count() == 0)
         {
             <p>You don't have any projects. </p>
@@ -131,7 +130,6 @@
                 </tr>
                 @for (int i = 0, len = projList.Count(); i < len; i++)
                 {
-                    hasAssignedProject = projList[i].State.Equals("Assigned");
                     <tr>
                         <td>
                             @Html.HiddenFor(modelItem => projList[i].ProjectId)
@@ -149,14 +147,18 @@
                     </tr>
                 }
             </table>
-                if (!hasAssignedProject && owner != null)
+            if (owner != null)
+            {
+                if (!Model.Status.Equals("Assigned"))
                 {
                     <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
                 }
-
             }
+
+
         }
     }
+}
             <!-- Modal -->
             <div id="leaveModal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog">
