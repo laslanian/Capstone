@@ -191,6 +191,7 @@ namespace CapstoneProject.Controllers
             Group g = gbs.GetGroupById(gp.Group.GroupId);
             gp.Group = g;
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
+            
             List<int> Keys = new List<int>();        
             List<Project> RankedProjects = new List<Project>();
 
