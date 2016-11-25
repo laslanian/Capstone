@@ -280,6 +280,7 @@
     <Compile Include="Models\ViewModels\CreateAccount.cs" />
     <Compile Include="Models\ViewModels\GroupList.cs" />
     <Compile Include="Models\ViewModels\GroupProject.cs" />
+    <Compile Include="Models\ViewModels\GroupProjects.cs" />
     <Compile Include="Models\ViewModels\GroupStudent.cs" />
     <Compile Include="Models\ViewModels\LoginUser.cs" />
     <Compile Include="Models\ViewModels\ProjectForm.cs" />

@@ -8,8 +8,7 @@ namespace CapstoneProject.Models.ViewModels
     public class GroupProject
     {
         public Group Group { get; set; }
-        public List<Project> Projects { get; set; }
-        public bool hasAssignedProject{ get; set; }
+        public List<Project> Projects { get; set; }      
         public GroupProject()
         {
             Projects = new List<Project>();

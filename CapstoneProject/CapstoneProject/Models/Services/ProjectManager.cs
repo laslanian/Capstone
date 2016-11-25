@@ -27,6 +27,11 @@ namespace CapstoneProject.Models.Services
             return _projects.GetProjects().ToList();
         }
 
+        public List<ProjectRanking> GetProjectsByGroupId(int id)
+        {
+            return _projects.GetProjectRankingByGroupId(id).ToList();
+        }
+
         public List<Project> GetPendingProjects()
         {
             return _projects.GetProjecsByState("Pending").ToList();

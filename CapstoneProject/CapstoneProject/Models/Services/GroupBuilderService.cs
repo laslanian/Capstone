@@ -8,6 +8,7 @@ using CapstoneProject.Models.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
 using CapstoneProject.Utility;
+using CapstoneProject.Models.ViewModels;
 
 namespace CapstoneProject.Models.Services
 {
@@ -262,6 +263,26 @@ namespace CapstoneProject.Models.Services
         public Project GetProjectById(int id)
         {
             return _projects.GetProjectById(id);
+        }
+
+        public GroupProject GetGroupDetails(int id)
+        {
+            GroupProject gp = new GroupProject();
+            Student s = (Student) _users.GetUserById(id);
+            Group g = new Group();
+            if (s.Group != null)
+            {
+                g = _groups.GetGroupById(s.Group.GroupId);
+                Skillset sk = _groups.GetSkillByGroupId(s.Group.GroupId);
+                if (sk != null) { g.Skillset = sk; }
+            }
+            gp.Group = g;
+            gp.Group.ProjectRankings = _projects.GetProjectRankingByGroupId(g.GroupId).ToList();
+            foreach(ProjectRanking pr in gp.Group.ProjectRankings)
+            {
+                gp.Projects.Add(_projects.GetProjectById(Convert.ToInt32(pr.ProjectId)));
+            }           
+            return gp;
         }
     }
 }

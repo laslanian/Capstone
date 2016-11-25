@@ -106,11 +106,12 @@ namespace CapstoneProject.Controllers
         public ActionResult ProjectMatch()
         {
             ProjectMatchGroup pmg = new ProjectMatchGroup();
-            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved) && !item.State.Equals(ProjectState.Assinged)).ToList();
-            //pmg.Groups = _gbs.GetGroups().Where(item => item.Projects.Count ==5 && !item.Status.Equals(GroupState.Assigned)).ToList();
+            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
+            pmg.Groups = _gbs.GetGroups().Where(item => item.ProjectRankings.Count ==5 && !item.Status.Equals(GroupState.Assigned)).ToList();
 
             return View(pmg);
         }
+
         [HttpPost]
         public ActionResult ProjectMatch(int groupId, int projectId)
         {
@@ -130,8 +131,8 @@ namespace CapstoneProject.Controllers
                 ViewBag.SubmitError = "Group and Project must be selected.";
             }
             ProjectMatchGroup pmg = new ProjectMatchGroup();
-            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved) && !item.State.Equals(ProjectState.Assinged)).ToList();
-            //pmg.Groups = _gbs.GetGroups().Where(item => item.Projects.Count == 5 && !item.Status.Equals(GroupState.Assigned)).ToList();
+            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
+            pmg.Groups = _gbs.GetGroups().Where(item => item.ProjectRankings.Count == 5 && !item.Status.Equals(GroupState.Assigned)).ToList();
             return View(pmg);
         }
 

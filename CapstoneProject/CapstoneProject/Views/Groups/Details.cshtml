@@ -1,10 +1,10 @@
-﻿@model CapstoneProject.Group
+﻿@model CapstoneProject.Models.ViewModels.GroupProject
 @{
     ViewBag.Title = "Details";
 }
 @{
     <h2>Group Details</h2>
-    if (Model.GroupName.IsEmpty())
+    if (Model.Group.GroupName.IsEmpty())
     {
         <p>You don't have a group. </p>
         <p>Would you like to create or join a group? </p>
@@ -14,12 +14,7 @@
     else
     {
         var owner = ViewBag.Owner;
-        @*if (owner != null)
-        {
-            @Html.ActionLink("Edit Group", "Edit", new { id = Model.GroupId }, new { @class = "btn btn-info" })
-        }*@
-
-        if (owner != null && Model.Students.Count > 1)
+        if (owner != null && Model.Group.Students.Count > 1)
         {
             <button type="button" class="btn btn-danger disabled" data-toggle="modal" data-target="#leaveModal">Leave Group</button>
         }
@@ -31,28 +26,28 @@
             <hr />
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.GroupName)
+                    @Html.DisplayNameFor(model => model.Group.GroupName)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.GroupName)
+                    @Html.DisplayFor(model => model.Group.GroupName)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Description)
+                    @Html.DisplayNameFor(model => model.Group.Description)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Description)
+                    @Html.DisplayFor(model => model.Group.Description)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Html.DisplayNameFor(model => model.Group.Status)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Status)
+                    @Html.DisplayFor(model => model.Group.Status)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Pin)
+                    @Html.DisplayNameFor(model => model.Group.Pin)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Pin)
+                    @Html.DisplayFor(model => model.Group.Pin)
                 </dd>
             </dl>
         </div>
@@ -64,9 +59,9 @@
         </ul>
         <div id="Skillset" class="tabcontent">
             <h3>Group Skillset</h3>
-            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
+            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Group.Skillset.Id })" /></div>
         </div>
-        var studList = Model.Students.ToList();
+        var studList = Model.Group.Students.ToList();
         <div id="Members" class="tabcontent">
             <h3>
                 Members
@@ -100,21 +95,22 @@
             </table>
             </div>
             <h3>Projects</h3>
-        var projList = Model.ProjectRankings.ToList();
+        var projList = Model.Projects.ToList();
         if (projList.Count() == 0)
         {
             <p>You don't have any projects. </p>
             if (owner != null)
             {
                 <p>Would you like to apply for projects? </p>
-                <p> @Html.ActionLink("Apply for Projects", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
+                <p> @Html.ActionLink("Apply for Projects", "AssignProjects", null, new { id = Model.Group.GroupId }, new { @class = "btn btn-default" })</p>
 
             }
         }
         else
         {
-            @*<table class="table table-striped">
+            <table class="table table-striped">
                 <tr>
+                    <th>Rank</th>
                     <th width="20%">
                         @Html.DisplayNameFor(model => projList[0].Name)
                     </th>
@@ -128,6 +124,9 @@
                 @for (int i = 0, len = projList.Count(); i < len; i++)
                 {
                     <tr>
+                        <td>
+                            @(i + 1)
+                        </td>
                         <td>
                             @Html.HiddenFor(modelItem => projList[i].ProjectId)
                             @Html.DisplayFor(modelItem => projList[i].Name)
@@ -143,13 +142,11 @@
             </table>
             if (owner != null)
             {
-                if (!Model.Status.Equals("Assigned"))
+                if (!Model.Group.Status.Equals("Assigned"))
                 {
-                    <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
+                    <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.Group.GroupId }, new { @class = "btn btn-default" })</p>
                 }
-            }*@
-
-
+            }
         }
     }
 }
@@ -179,7 +176,7 @@
                         e.preventDefault();
                         $.ajax({
                             type: 'GET',
-                            url: "/Groups/LeaveGroup/" + @Model.GroupId,
+                            url: "/Groups/LeaveGroup/" + @Model.Group.GroupId,
                             data: { },
                             success: function() {
                                 window.location.href = "/Groups/Index"
