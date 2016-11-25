@@ -42,7 +42,7 @@
                     @Html.DisplayFor(modelItem => projList[i].Type)
                 </td>
                 <td>
-                    <select id="@("project" + projList[i].ProjectId)" class="ranking">
+                    <select name ="select_collection" id="@("project" + projList[i].ProjectId)" class="ranking">
                         <option value="0">Pick a rank</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -54,6 +54,7 @@
             </tr>
         }
     </table>
+    <span class="text-danger">@ViewBag.CountError</span>
     <div class="row">
         <div class="col-sm-2 pull-right">
             <input type="submit" name="button" value="Save" class="btn btn-success" />
@@ -66,7 +67,7 @@
         $(this).data('__old', this.value);
     }).change(function () {
         var $this = $(this), value = $this.val(), oldValue = $this.data('__old');
-
+        
         $(".ranking").not(this).filter(function () {
             return this.value == value;
         }).val(oldValue).data('__old', oldValue);

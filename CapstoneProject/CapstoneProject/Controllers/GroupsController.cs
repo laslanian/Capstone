@@ -191,8 +191,18 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult AssignProjects(GroupProject gp, FormCollection collection)
         {
-            var selected = collection.GetValues("chkSelected");
+            var selected = collection.GetValues("select_collection");
+            foreach (var key in collection.AllKeys)
+            {
+                var value = collection[key];
+                // etc.
+            }
 
+            foreach (var key in collection.Keys)
+            {
+                var value = collection[key.ToString()];
+                // etc.
+            }
             Group g = gbs.GetGroupById(gp.Group.GroupId);
 
             if (selected != null)
