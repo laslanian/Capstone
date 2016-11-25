@@ -263,12 +263,5 @@ namespace CapstoneProject.Models.Services
         {
             return _projects.GetProjectById(id);
         }
-        public List<Project> SortProject(List<int> Keys, List<Project> Projects)
-        {
-            Project[] SortedProjects = new Project[5];
-            Array.Copy(Projects.ToArray(), SortedProjects, 5);
-            Array.Sort(Keys.ToArray(), SortedProjects);
-            return SortedProjects.ToList();
-        }
     }
 }

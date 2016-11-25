@@ -1,4 +1,4 @@
-﻿@model CapstoneProject.Project
+﻿@model CapstoneProject.Models.ViewModels.ProjectWithType
 
 @{
     ViewBag.Title = "Project Details";
@@ -9,12 +9,12 @@
     @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-default" })
     if (Session["UserType"].ToString().Equals("Admin"))
     {    
-        if (Model.State.Equals("Pending"))
+        if (Model.Project.State.Equals("Pending"))
         {          
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal">Approve</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">Reject</button>
         }
-        else if (Model.State.Equals("Assigned"))
+        else if (Model.Project.State.Equals("Assigned"))
         {
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#markCompleted">Mark Complete</button>
         }
@@ -22,8 +22,8 @@
     }
     else
     {
-        if (Model.State.Equals("Pending"))
-        { <span> </span> @Html.ActionLink("Edit Project", "EditProject", new { id = Model.ProjectId }, new { @class = "btn btn-info" }) }
+        if (Model.Project.State.Equals("Pending"))
+        { <span> </span> @Html.ActionLink("Edit Project", "EditProject", new { id = Model.Project.ProjectId }, new { @class = "btn btn-info" }) }
     }
 }
 <hr class="colorgraph"/>
@@ -37,52 +37,52 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Project.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Project.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Project.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Project.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Criteria.Goal)
+            @Html.DisplayNameFor(model => model.Project.Criteria.Goal)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Criteria.Goal)
+            @Html.DisplayFor(model => model.Project.Criteria.Goal)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.State)
+            @Html.DisplayNameFor(model => model.Project.State)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.State)
+            @Html.DisplayFor(model => model.Project.State)
         </dd>
 
         @{if (Session["UserType"].ToString().Equals("Admin"))
             {
                 <dt>
-                    @Html.DisplayNameFor(model => model.Type)
+                    @Html.DisplayNameFor(model => model.Project.Type)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Type)
+                    @Html.DisplayFor(model => model.Project.Type)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Client.CompanyName)
+                    @Html.DisplayNameFor(model => model.Project.Client.CompanyName)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Client.CompanyName)
+                    @Html.DisplayFor(model => model.Project.Client.CompanyName)
                 </dd>
             }
         }
@@ -102,24 +102,24 @@
         </thead>
         <tbody>
             <tr>
-                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Storage)</td>
-                <td class="col-md-2">@(Model.Criteria.Storage ? "Yes" : "No")</td>
-                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.StorageComment)</td>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Project.Criteria.Storage)</td>
+                <td class="col-md-2">@(Model.Project.Criteria.Storage ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Project.Criteria.StorageComment)</td>
             </tr>
             <tr>
-                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Application)</td>
-                <td class="col-md-2">@(Model.Criteria.Application ? "Yes" : "No")</td>
-                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.ApplicationComment)</td>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Project.Criteria.Application)</td>
+                <td class="col-md-2">@(Model.Project.Criteria.Application ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Project.Criteria.ApplicationComment)</td>
             </tr>
             <tr>
-                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Website)</td>
-                <td class="col-md-2">@(Model.Criteria.Website ? "Yes" : "No")</td>
-                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.WebsiteComment)</td>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Project.Criteria.Website)</td>
+                <td class="col-md-2">@(Model.Project.Criteria.Website ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Project.Criteria.WebsiteComment)</td>
             </tr>
             <tr>
-                <td class="col-md-4">@Html.DisplayNameFor(model => model.Criteria.Mobile)</td>
-                <td class="col-md-2">@(Model.Criteria.Mobile ? "Yes" : "No")</td>
-                <td class="col-md-6">@Html.DisplayFor(model => model.Criteria.MobileComment)</td>
+                <td class="col-md-4">@Html.DisplayNameFor(model => model.Project.Criteria.Mobile)</td>
+                <td class="col-md-2">@(Model.Project.Criteria.Mobile ? "Yes" : "No")</td>
+                <td class="col-md-6">@Html.DisplayFor(model => model.Project.Criteria.MobileComment)</td>
             </tr>
         </tbody>
     </table>
@@ -141,18 +141,13 @@
                         <label class="col-sm-1 control-label"
                                for="projectype">Type: </label>
                         <div class="col-sm-4">
-                            <select class="form-control" id="projectype" name="projectype">
-                                <option value="1">Type 1</option>
-                                <option value="2">Type 2</option>
-                                <option value="3">Type 3</option>
-                                <option value="4">Type 4</option>
-                            </select>
+                        @Html.DropDownList("ApproveProjectType", new SelectList(Model.ProjTypes, "Title", "Title"), new { @style = "width: 180px;", @class = "form-control input-lg" })  
                         </div>
                     </div>
                     <br />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="@Model.ProjectId" value="Approved" class="btn btn-success btnApprove">Approve</button>
+                        <button type="button" id="@Model.Project.ProjectId" value="Approved" class="btn btn-success btnApprove">Approve</button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
                     </div>
             </div>
@@ -174,7 +169,7 @@
             </div>
             <br />
             <div class="modal-footer">
-                <button type="button" id="@Model.ProjectId" value="Rejected" class="btn btn-danger btnReject">Reject</button>
+                <button type="button" id="@Model.Project.ProjectId" value="Rejected" class="btn btn-danger btnReject">Reject</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -197,18 +192,13 @@
                     <label class="col-sm-1 control-label"
                            for="projectype">Type:</label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="projectype" name="changetype">
-                            <option value="1">Type 1</option>
-                            <option value="2">Type 2</option>
-                            <option value="3">Type 3</option>
-                            <option value="4">Type 4</option>
-                        </select>
+                        @Html.DropDownList("ChangeProjectType", new SelectList(Model.ProjTypes, "Title", "Title"), new { @style="width: 180px;", @class = "form-control input-lg" })
                     </div>
                 </div>
             <br />
             </div>
             <div class="modal-footer">
-                <button type="button" id="@Model.ProjectId" value="@Model.State" class="btn btn-success btnChange">Save</button>
+                <button type="button" id="@Model.Project.ProjectId" value="@Model.Project.State" class="btn btn-success btnChange">Save</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -229,7 +219,7 @@
                 <p>Would you like to mark the project complete?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" id="@Model.ProjectId" value="Complete " class="btn btn-success btnMarkComplete">Mark Complete</button>
+                <button type="button" id="@Model.Project.ProjectId" value="Complete " class="btn btn-success btnMarkComplete">Mark Complete</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -272,11 +262,11 @@
         }
 
         $('.btnApprove').on('click', function (e) {
-            ApproveProject($(this).attr("id"), $(this).val(), $('select[name=projectype]').val());
+            ApproveProject($(this).attr("id"), $(this).val(), $('select[name=ApproveProjectType]').val());
         });
 
         $('.btnChange').on('click', function (e) {
-            ApproveProject($(this).attr("id"), $(this).val(), $('select[name=changetype]').val());
+            ApproveProject($(this).attr("id"), $(this).val(), $('select[name=ChangeProjectType]').val());
         });
 
         $('.btnReject').on('click', function (e) {

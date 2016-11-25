@@ -123,5 +123,10 @@ namespace CapstoneProject.Models.DA
             GC.SuppressFinalize(this);
 
         }
+
+        public IEnumerable<ProjectTypes> GetProjectTypes()
+        {
+            return ctx.ProjectTypes.ToList();
+        }
     }
 }

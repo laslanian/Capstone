@@ -13,6 +13,7 @@ namespace CapstoneProject.Models.Interfaces
         IEnumerable<Project> GetProjectByYear(DateTime year);
         IEnumerable<Project> GetProjectByClient(Client c);
         IEnumerable<Project> GetTopProjects();
+        IEnumerable<ProjectTypes> GetProjectTypes();
         Project GetProjectById(int id);
         void InsertProject(Project p);
         int UpdateProject(Project p);

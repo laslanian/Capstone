@@ -195,32 +195,32 @@ namespace CapstoneProject.Controllers
             List<int> Keys = new List<int>();        
             List<Project> RankedProjects = new List<Project>();
 
-            foreach (Project p in gp.Projects)
-            {
+            //foreach (Project p in gp.Projects)
+            //{
               
-                var value = collection["project" + p.ProjectId];
-                if (!value.Equals("0"))
-                {
-                    Keys.Add(Convert.ToInt32(value.ToString()));
-                    RankedProjects.Add(p);
-                }
-            }
+            //    var value = collection["project" + p.ProjectId];
+            //    if (!value.Equals("0"))
+            //    {
+            //        Keys.Add(Convert.ToInt32(value.ToString()));
+            //        RankedProjects.Add(p);
+            //    }
+            //}
 
-            if (RankedProjects != null && RankedProjects.Count == 5)
-            {
-                RankedProjects = gbs.SortProject(Keys, RankedProjects);
-                g.Projects.Clear();
-                foreach(Project p in RankedProjects)
-                {
-                    g.Projects.Add(p);  
-                }
-                int code = gbs.AddProjectPreference(g);
-                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            } else
-            {
+            //if (RankedProjects != null && RankedProjects.Count == 5)
+            //{
+            //    RankedProjects = gbs.SortProject(Keys, RankedProjects);
+            //    g.Projects.Clear();
+            //    foreach(Project p in RankedProjects)
+            //    {
+            //        g.Projects.Add(p);  
+            //    }
+            //    int code = gbs.AddProjectPreference(g);
+            //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            //} else
+            //{
                 ViewBag.CountError = "You must select 5 projects";
-                return View(gp);
-            }               
+               return View(gp);
+            //}               
         }
     }
 }

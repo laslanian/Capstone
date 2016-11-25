@@ -15,32 +15,18 @@ namespace CapstoneProject
 using System;
     using System.Collections.Generic;
     
-public partial class Project
+public partial class ProjectRanking
 {
 
-    public int ProjectId { get; set; }
+    public int Id { get; set; }
 
-    public string Name { get; set; }
+    public string ProjectId { get; set; }
 
-    public string Type { get; set; }
+    public string Rank { get; set; }
 
-    public string Description { get; set; }
-
-    public Nullable<System.DateTime> StartDate { get; set; }
-
-    public string State { get; set; }
-
-    public Nullable<int> Grade { get; set; }
-
-    public Nullable<System.DateTime> DateCompleted { get; set; }
-
-    public int ClientUserId { get; set; }
+    public int GroupGroupId { get; set; }
 
 
-
-    public virtual Client Client { get; set; }
-
-    public virtual Criteria Criteria { get; set; }
 
     public virtual Group Group { get; set; }
 

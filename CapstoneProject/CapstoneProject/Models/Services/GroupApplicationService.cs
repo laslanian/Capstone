@@ -29,15 +29,15 @@ namespace CapstoneProject.Models.Services
         }
         public int AssignProject(Group g, Project p)
         {
-            if (_projects.GetProjectById(p.ProjectId) != null)
+            Group group = _groups.GetGroupById(g.GroupId);
+            Project project = _projects.GetProjectById(p.ProjectId);
+            if (group != null && project != null)
             {
-                if (_groups.GetGroupById(g.GroupId) != null && !g.Projects.Contains(p))
-                {
-                    g.Projects.Add(p);
+                    g.Project = p;                  
                     _groups.UpdateGroup(g);
                     _groups.Save();
                     return 1;
-                }
+                
             }
             return 0;
         }
