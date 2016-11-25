@@ -11,8 +11,6 @@
 
     var projList = Model.Projects.ToList();
     @Html.HiddenFor(model => model.Group.GroupId)
-
-
     <table class="table">
         <tr>
             <th>
@@ -32,7 +30,6 @@
         {
             <tr>
                 <td>
-                    @Html.HiddenFor(modelItem => projList[i].ProjectId)
                     @Html.DisplayFor(modelItem => projList[i].Name)
                 </td>
                 <td width="60%">
@@ -41,8 +38,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => projList[i].Type)
                 </td>
-                <td>
-                    <select name ="select_collection" id="@("project" + projList[i].ProjectId)" class="ranking">
+                <td>                  
+                    <select id="@("project" + @projList[i].ProjectId)" name="@("project" + @projList[i].ProjectId)" class="ranking">
                         <option value="0">Pick a rank</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -54,7 +51,6 @@
             </tr>
         }
     </table>
-    <span class="text-danger">@ViewBag.CountError</span>
     <div class="row">
         <div class="col-sm-2 pull-right">
             <input type="submit" name="button" value="Save" class="btn btn-success" />
@@ -67,7 +63,7 @@
         $(this).data('__old', this.value);
     }).change(function () {
         var $this = $(this), value = $this.val(), oldValue = $this.data('__old');
-        
+
         $(".ranking").not(this).filter(function () {
             return this.value == value;
         }).val(oldValue).data('__old', oldValue);
