@@ -193,6 +193,10 @@ namespace CapstoneProject.Controllers
             gp.Group = g;
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
             List<int> RankedProjects = new List<int>();
+
+            IEnumerable<string> cols = collection.OfType<string>();
+             
+      
             foreach (Project p in gp.Projects)
             {
               
