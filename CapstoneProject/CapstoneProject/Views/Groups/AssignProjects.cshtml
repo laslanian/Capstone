@@ -3,7 +3,7 @@
     ViewBag.Title = "AssignProjects";
 }
 
-<h2>Apply for Projects</h2>
+<h2>Apply for Projects <span class="text-danger">@ViewBag.CountError</span></h2> 
 
 @using (Html.BeginForm())
 {
@@ -38,7 +38,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => projList[i].Type)
                 </td>
-                <td>                  
+                <td>
                     <select id="@("project" + @projList[i].ProjectId)" name="@("project" + @projList[i].ProjectId)" class="ranking">
                         <option value="0">Pick a rank</option>
                         <option value="1">1</option>
@@ -51,12 +51,12 @@
             </tr>
         }
     </table>
-    <div class="row">
-        <div class="col-sm-2 pull-right">
-            <input type="submit" name="button" value="Save" class="btn btn-success" />
-            @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
+        <div class="row">
+            <div class="col-sm-2 pull-right">
+                <input type="submit" name="button" value="Save" class="btn btn-success" />
+                @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
+            </div>
         </div>
-    </div>
 }
 <script type="text/javascript">
     $(".ranking").each(function () {
