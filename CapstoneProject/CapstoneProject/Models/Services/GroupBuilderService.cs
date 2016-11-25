@@ -234,22 +234,6 @@ namespace CapstoneProject.Models.Services
             return g;
         }
 
-        public int AddProjectPreference(Group g)
-        {
-            int count = g.Projects.Count();
-            if (count != 5)
-            {
-                return 0;
-            }
-            else
-            {
-                _groups.UpdateGroup(g);
-                _groups.Save();
-                return 1;
-            }
-         
-
-        }
         public List<Project> GetProjects()
         {
             return _projects.GetProjects().ToList();
