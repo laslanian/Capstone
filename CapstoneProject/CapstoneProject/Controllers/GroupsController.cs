@@ -15,6 +15,7 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
+        private GroupApplicationService gas = new GroupApplicationService();
 
         // GET: Groups
         public ActionResult Index()
@@ -182,8 +183,6 @@ namespace CapstoneProject.Controllers
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
-            gp.hasAssignedProject = false;
-
             return View(gp);
         }
         [HttpPost]
@@ -192,56 +191,30 @@ namespace CapstoneProject.Controllers
             Group g = gbs.GetGroupById(gp.Group.GroupId);
             gp.Group = g;
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
-            List<int> RankedProjects = new List<int>();
+            List<int> Keys = new List<int>();        
+            List<Project> RankedProjects = new List<Project>();
+
             foreach (Project p in gp.Projects)
             {
               
                 var value = collection["project" + p.ProjectId];
                 if (!value.Equals("0"))
                 {
-                    System.Diagnostics.Debug.WriteLine("RANK " + value.ToString() + "--" + p.ProjectId);
-                    //RankedProjects.Insert(Convert.ToInt32(value) - 1, p.ProjectId);
+                    Keys.Add(Convert.ToInt32(value.ToString()));
+                    RankedProjects.Add(p);
                 }
             }
-            
-            //    var selected = collection.GetValues("chkSelected");
 
-            //    Group g = gbs.GetGroupById(gp.Group.GroupId);
-
-            //    if (selected != null)
-            //    {
-            //        if (selected.Count()!=5)
-            //        {
-            //            gp.Group = g;
-            //            gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
-            //            ViewBag.CountError = "You must select 5 projects";
-            //            return View(gp);
-            //        }
-            //        else
-            //        {
-            //            for (int i = 0, len = selected.Length; i < len; i++)
-            //            {
-            //                g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
-            //            }
-            //            gp.Group = g;
-
-            //            int code = gbs.AddProjectPreference(g);
-            //            if (code == 1)
-            //            {
-            //                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            //            }
-
-            //        }
-            //    }
-            //    else
-            //    {
-            //        g.Projects.Clear();
-            //        gbs.EditGroup(g);
-            //        return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            //    }
-            //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            //}
-            return View(gp);
+            if (RankedProjects != null && RankedProjects.Count == 5)
+            {
+                g.Projects = gas.SortProject(Keys, RankedProjects);
+                int code = gas.AddProjectPreference(g);
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            } else
+            {
+                ViewBag.CountError = "You must select 5 projects";
+                return View(gp);
+            }               
         }
     }
 }
