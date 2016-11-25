@@ -23,7 +23,7 @@
                         <img src="@Url.Action("GetImage", "Account", new { filename = Model.Username })" alt="User Pic" class="img-circle img-responsive" />
                         @using (Html.BeginForm("FileUpload", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
-                            <label for="file">Upload Image:</label>
+                            <label for="file">Upload Image:</label><span class="text-danger">@ViewBag.FileError</span>
                             <input type="file" name="file" id="file" style="width: 100%;" />
                             <input type="submit" value="Upload" class="submit" />
                         }
