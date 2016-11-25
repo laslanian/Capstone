@@ -189,45 +189,59 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult AssignProjects(GroupProject gp, FormCollection collection)
         {
-            var selected = collection.GetValues("chkSelected");
-
             Group g = gbs.GetGroupById(gp.Group.GroupId);
-
-            if (selected != null)
+            gp.Group = g;
+            gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
+            List<int> RankedProjects = new List<int>();
+            foreach (Project p in gp.Projects)
             {
-                if (selected.Count()!=5)
+              
+                var value = collection["project" + p.ProjectId];
+                if (!value.Equals("0"))
                 {
-                    gp.Group = g;
-                    gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
-                    ViewBag.CountError = "You must select 5 projects";
-                    return View(gp);
-                }
-                else
-                {
-                    for (int i = 0, len = selected.Length; i < len; i++)
-                    {
-                        g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
-                    }
-                    gp.Group = g;
-
-                    int code = gbs.AddProjectPreference(g);
-                    if (code == 1)
-                    {
-                        return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-                    }
-
+                    System.Diagnostics.Debug.WriteLine("RANK " + value.ToString() + "--" + p.ProjectId);
+                    //RankedProjects.Insert(Convert.ToInt32(value) - 1, p.ProjectId);
                 }
             }
-            else
-            {
-                g.Projects.Clear();
-                gbs.EditGroup(g);
-                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            }
-            return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            
+            //    var selected = collection.GetValues("chkSelected");
+
+            //    Group g = gbs.GetGroupById(gp.Group.GroupId);
+
+            //    if (selected != null)
+            //    {
+            //        if (selected.Count()!=5)
+            //        {
+            //            gp.Group = g;
+            //            gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
+            //            ViewBag.CountError = "You must select 5 projects";
+            //            return View(gp);
+            //        }
+            //        else
+            //        {
+            //            for (int i = 0, len = selected.Length; i < len; i++)
+            //            {
+            //                g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
+            //            }
+            //            gp.Group = g;
+
+            //            int code = gbs.AddProjectPreference(g);
+            //            if (code == 1)
+            //            {
+            //                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            //            }
+
+            //        }
+            //    }
+            //    else
+            //    {
+            //        g.Projects.Clear();
+            //        gbs.EditGroup(g);
+            //        return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            //    }
+            //    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            //}
+            return View(gp);
         }
-
-
-
     }
 }
