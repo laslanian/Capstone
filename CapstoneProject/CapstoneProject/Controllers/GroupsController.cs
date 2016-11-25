@@ -62,7 +62,8 @@ namespace CapstoneProject.Controllers
                 gbs.AddGroup(g, Convert.ToInt32(Session["Id"]));
                 return RedirectToAction("Details", g.GroupId);
             }
-            else {
+            else
+            {
                 return View(g);
             }
         }
@@ -103,7 +104,8 @@ namespace CapstoneProject.Controllers
                 ViewBag.JoinError = "Pin is required";
                 return View(g);
             }
-            else {
+            else
+            {
                 int code = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
                 if (code == 99)
                 {
@@ -195,7 +197,7 @@ namespace CapstoneProject.Controllers
 
             if (selected != null)
             {
-                if (selected.Count()!=5)
+                if (selected.Count() != 5)
                 {
                     gp.Group = g;
                     gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
@@ -227,7 +229,34 @@ namespace CapstoneProject.Controllers
             }
             return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
         }
+        [HttpPost]
+        public ActionResult AssignProjectsAjax(int gId, List<int> projects)
+        {
+            Group g = gbs.GetGroupById(gId);
 
+            if (projects != null)
+            {
+                g.Projects.Clear();
+
+                for (int i = 0, len = projects.Count(); i < len; i++)
+                {
+                    g.Projects.Add(gbs.GetProjectById(projects[i]));
+                }
+
+                int code = gbs.AddProjectPreference(g);
+                if (code == 1)
+                {
+                    return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+                }
+            }
+            else
+            {
+                g.Projects.Clear();
+                gbs.EditGroup(g);
+                return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            }
+            return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+        }
 
 
     }
