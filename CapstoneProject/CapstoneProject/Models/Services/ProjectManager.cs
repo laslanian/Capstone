@@ -44,7 +44,7 @@ namespace CapstoneProject.Models.Services
             Project p = new Project();
             p.Name = pf.project.Name;
             p.Description = pf.project.Description;
-            p.Type = "Unknown";
+            p.Type = ProjectType.Unknown;
             p.State = ProjectState.Pending;
             p.Client = client;
 

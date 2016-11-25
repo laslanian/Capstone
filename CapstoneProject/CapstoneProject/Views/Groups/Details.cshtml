@@ -101,7 +101,6 @@
             </div>
             <h3>Projects</h3>
         var projList = Model.Projects.ToList();
-        bool hasAssignedProject = false;
         if (projList.Count() == 0)
         {
             <p>You don't have any projects. </p>
@@ -116,22 +115,18 @@
         {
             <table class="table table-striped">
                 <tr>
-                    <th>
+                    <th width="20%">
                         @Html.DisplayNameFor(model => projList[0].Name)
                     </th>
-                    <th>
+                    <th width="60%">
                         @Html.DisplayNameFor(model => projList[0].Description)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => projList[0].Type)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => projList[0].State)
-                    </th>
                 </tr>
                 @for (int i = 0, len = projList.Count(); i < len; i++)
                 {
-                    hasAssignedProject = projList[i].State.Equals("Assigned");
                     <tr>
                         <td>
                             @Html.HiddenFor(modelItem => projList[i].ProjectId)
@@ -143,20 +138,21 @@
                         <td>
                             @Html.DisplayFor(modelItem => projList[i].Type)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => projList[i].State)
-                        </td>
                     </tr>
                 }
             </table>
-                if (!hasAssignedProject && owner != null)
+            if (owner != null)
+            {
+                if (!Model.Status.Equals("Assigned"))
                 {
                     <p> @Html.ActionLink("Edit Application", "AssignProjects", null, new { id = Model.GroupId }, new { @class = "btn btn-default" })</p>
                 }
-
             }
+
+
         }
     }
+}
             <!-- Modal -->
             <div id="leaveModal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog">

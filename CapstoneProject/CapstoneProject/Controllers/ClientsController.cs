@@ -15,8 +15,8 @@ namespace CapstoneProject.Controllers
 {
     public class ClientsController : Controller
     {
-        public ActionResult Index()       {
-
+        public ActionResult Index()
+        {
             UserAccountService uas = new UserAccountService();
             Client s = (Client) uas.GetUser(Convert.ToInt32(Session["Id"]));
             return View(s);

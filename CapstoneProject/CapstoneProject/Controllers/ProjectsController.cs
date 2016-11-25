@@ -48,11 +48,52 @@ namespace CapstoneProject.Controllers
         }
         
         [HttpPost]
-        public ActionResult ChangeState(int id, string state)
+        public ActionResult ApproveProject(int id, string state, string type)
         {
             Project p = _pm.GetProjectDetails(id);
 
             p.State=state;
+            switch(type)
+            {
+                case "1":
+                    {
+                        p.Type = ProjectType.Type1;
+                        break;
+                    }
+                case "2":
+                    {
+                        p.Type = ProjectType.Type2;
+                        break;
+                    }
+                case "3":
+                    {
+                        p.Type = ProjectType.Type3;
+                        break;
+                    }
+                case "4":
+                    {
+                        p.Type = ProjectType.Type4;
+                        break;
+                    }
+            }
+            int code = _pm.UpdateProject(p);
+            if (code == 1)
+            {
+                return RedirectToAction("Details", "Projects", new { id = id });
+            }
+            else
+            {
+                return View(p);
+            }        
+        }
+
+        [HttpPost]
+        public ActionResult UpdateProjectState(int id, string state)
+        {
+            Project p = _pm.GetProjectDetails(id);
+
+            p.State = state;
+
             int code = _pm.UpdateProject(p);
             if (code == 1)
             {
@@ -62,9 +103,8 @@ namespace CapstoneProject.Controllers
             {
                 return View(p);
             }
-            
-
         }
+
         [HttpPost]
         public ActionResult UnassignProject(int projId,int groupId)
         {

@@ -234,26 +234,31 @@ namespace CapstoneProject.Models.Services
             return g;
         }
 
+        public List<Project> SortProject(List<int> Keys, List<Project> Projects)
+        {
+            Project[] SortedProjects = new Project[5];
+            Array.Copy(Projects.ToArray(), SortedProjects, 5);
+            Array.Sort(Keys.ToArray(), SortedProjects);
+            return SortedProjects.ToList();
+        }
+
         public int AddProjectPreference(Group g)
         {
-            int count = g.Projects.Count();
-            if (count != 5)
-            {
-                return 0;
-            }
-            else
-            {
-                _groups.UpdateGroup(g);
-                _groups.Save();
-                return 1;
-            }
-         
-
+            _groups.UpdateGroup(g);
+            _groups.Save();
+            return 1;
         }
+
         public List<Project> GetProjects()
         {
             return _projects.GetProjects().ToList();
         }
+
+        public List<Project> GetProjectsByState(String state)
+        {
+            return _projects.GetProjecsByState(state).ToList();
+        }
+
         public Project GetProjectById(int id)
         {
             return _projects.GetProjectById(id);

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using CapstoneProject.Models;
 using CapstoneProject.Models.Services;
 using CapstoneProject.Models.ViewModels;
+using CapstoneProject.Utility;
 
 namespace CapstoneProject.Controllers
 {
@@ -181,53 +182,44 @@ namespace CapstoneProject.Controllers
         {
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
-            gp.Projects = gbs.GetProjects();
-            gp.hasAssignedProject = false;
-
+            gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
             return View(gp);
         }
         [HttpPost]
         public ActionResult AssignProjects(GroupProject gp, FormCollection collection)
         {
-            var selected = collection.GetValues("chkSelected");
-
             Group g = gbs.GetGroupById(gp.Group.GroupId);
+            gp.Group = g;
+            gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
+            List<int> Keys = new List<int>();        
+            List<Project> RankedProjects = new List<Project>();
 
-            if (selected != null)
+            foreach (Project p in gp.Projects)
             {
-                if (selected.Count()!=5)
+              
+                var value = collection["project" + p.ProjectId];
+                if (!value.Equals("0"))
                 {
-                    gp.Group = g;
-                    gp.Projects = gbs.GetProjects();
-                    ViewBag.CountError = "You must select 5 projects";
-                    return View(gp);
-                }
-                else
-                {
-                    for (int i = 0, len = selected.Length; i < len; i++)
-                    {
-                        g.Projects.Add(gbs.GetProjectById(Convert.ToInt32(selected[i])));
-                    }
-                    gp.Group = g;
-
-                    int code = gbs.AddProjectPreference(g);
-                    if (code == 1)
-                    {
-                        return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-                    }
-
+                    Keys.Add(Convert.ToInt32(value.ToString()));
+                    RankedProjects.Add(p);
                 }
             }
-            else
+
+            if (RankedProjects != null && RankedProjects.Count == 5)
             {
+                RankedProjects = gbs.SortProject(Keys, RankedProjects);
                 g.Projects.Clear();
-                gbs.EditGroup(g);
+                foreach(Project p in RankedProjects)
+                {
+                    g.Projects.Add(p);  
+                }
+                int code = gbs.AddProjectPreference(g);
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            }
-            return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
+            } else
+            {
+                ViewBag.CountError = "You must select 5 projects";
+                return View(gp);
+            }               
         }
-
-
-
     }
 }
