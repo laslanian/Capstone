@@ -42,22 +42,6 @@ namespace CapstoneProject.Models.Services
             return 0;
         }
 
-
-        public List<Project> SortProject(List<int> Keys, List<Project> Projects)
-        {
-            Project[] SortedProjects = new Project[5];
-            Array.Copy(Projects.ToArray(), SortedProjects, 5);
-            Array.Sort(Keys.ToArray(), SortedProjects);
-            return SortedProjects.ToList();        
-        }
-
-        public int AddProjectPreference(Group g)
-        {
-            _groups.UpdateGroup(g);
-            _groups.Save();
-            return 1;
-        }
-
         public void Dispose()
         {
             _groups.Dispose();
