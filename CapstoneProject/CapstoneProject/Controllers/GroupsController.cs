@@ -15,7 +15,7 @@ namespace CapstoneProject.Controllers
     {
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
-        private GroupApplicationService gas = new GroupApplicationService();
+
 
         // GET: Groups
         public ActionResult Index()
@@ -208,8 +208,13 @@ namespace CapstoneProject.Controllers
 
             if (RankedProjects != null && RankedProjects.Count == 5)
             {
-                g.Projects = gas.SortProject(Keys, RankedProjects);
-                int code = gas.AddProjectPreference(g);
+                RankedProjects = gbs.SortProject(Keys, RankedProjects);
+                g.Projects.Clear();
+                foreach(Project p in RankedProjects)
+                {
+                    g.Projects.Add(p);  
+                }
+                int code = gbs.AddProjectPreference(g);
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
             } else
             {

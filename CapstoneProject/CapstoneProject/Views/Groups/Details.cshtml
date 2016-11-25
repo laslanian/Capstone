@@ -115,17 +115,14 @@
         {
             <table class="table table-striped">
                 <tr>
-                    <th>
+                    <th width="20%">
                         @Html.DisplayNameFor(model => projList[0].Name)
                     </th>
-                    <th>
+                    <th width="60%">
                         @Html.DisplayNameFor(model => projList[0].Description)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => projList[0].Type)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => projList[0].State)
                     </th>
                 </tr>
                 @for (int i = 0, len = projList.Count(); i < len; i++)
@@ -140,9 +137,6 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => projList[i].Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => projList[i].State)
                         </td>
                     </tr>
                 }
