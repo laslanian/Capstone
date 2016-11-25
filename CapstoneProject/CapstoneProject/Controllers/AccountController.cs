@@ -340,11 +340,22 @@ namespace CapstoneProject.Controllers
                     string extension = Path.GetExtension(file.FileName);
                     if (extension == ".jpg" || extension == ".png" || extension == ".jpeg" || extension == ".gif")
                     {
-                        string path = Path.Combine(Server.MapPath(@"~/Content/Images/Profiles"), user.Username + ".png");
-                        
-                        file.SaveAs(path);
-                        ViewBag.FileExtension = extension;
+                        if (file.ContentLength < 2097153)
+                        {
+                            string path = Path.Combine(Server.MapPath(@"~/Content/Images/Profiles"), user.Username + ".png");
+                            file.SaveAs(path);
+                        }
+                        else
+                        {
+                            ViewBag.FileError = "Image must be 2MB or less";
+                        }
                     }
+                    else {
+                        ViewBag.FileError = "Invalid file extension";
+                    }
+                }
+                else {
+                    ViewBag.FileError = "Please browse for an image to upload";
                 }
             }
             if (usertype.Equals(AccountType.Student))

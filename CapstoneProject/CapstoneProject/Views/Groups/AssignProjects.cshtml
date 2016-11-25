@@ -1,10 +1,10 @@
 ﻿@model CapstoneProject.Models.ViewModels.GroupProject
-
 @{
     ViewBag.Title = "AssignProjects";
 }
 
 <h2>Apply for Projects</h2>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -25,13 +25,7 @@
                 @Html.DisplayNameFor(model => model.Projects[0].Type)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Projects[0].State)
-            </th>
-            <th>
-                @Html.DisplayName("Apply")
-            </th>
-            <th>
-                <input type="button" value="X" id="resetRanking" class="btn-xs btn-danger" />
+                Ranking
             </th>
         </tr>
         @for (int i = 0; i < projList.Count(); i++)
@@ -41,23 +35,15 @@
                     @Html.HiddenFor(modelItem => projList[i].ProjectId)
                     @Html.DisplayFor(modelItem => projList[i].Name)
                 </td>
-                <td>
+                <td width="60%">
                     @Html.DisplayFor(modelItem => projList[i].Description)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => projList[i].Type)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => projList[i].State)
-                </td>
-                <td>
-                    <input type="checkbox" class="chk-act" id="@projList[i].ProjectId" value="@projList[i].ProjectId" name="chkSelected"
-                           checked="@Model.Group.Projects.Contains(projList[i])" disabled="@projList[i].State.Equals("Pending")">
-                </td>
-                <td>
-                    @{  var selId = "rank-select-" + projList[i].ProjectId;}
-                    <select id="@selId" class="rank-select">
-                        <option defaultSelected value="0"></option>
+                    <select id="@("project" + projList[i].ProjectId)" class="ranking">
+                        <option value="0">Pick a rank</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -66,134 +52,25 @@
                     </select>
                 </td>
             </tr>
-                        }
+        }
     </table>
-    <input type="submit" name="button" value="Save" class="btn btn-success" />
-    <input type="button" id="trialClick" name="button" value="Try" class="btn btn-danger" data-toggle="modal" data-target="#applyModal" />
-    @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
-                        <span class="text-danger"> @ViewBag.CountError </span>
-
-      <!-- Modal -->
-    <div id="applyModal" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-dialog">
-        <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Apply?</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to apply for these projects?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" name="@Model.Group.GroupId" id="applyProj" class="btn btn-primary">Apply</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-sm-2 pull-right">
+            <input type="submit" name="button" value="Save" class="btn btn-success" />
+            @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
         </div>
     </div>
-
 }
-<script>
-    $(document).ready(function () {
-        $("#applyProj").click(function (e) {
-            submitForm($(this).attr("name"));
-        });
+<script type="text/javascript">
+    $(".ranking").each(function () {
+        $(this).data('__old', this.value);
+    }).change(function () {
+        var $this = $(this), value = $this.val(), oldValue = $this.data('__old');
 
-        $("#resetRanking").click(function () {
-            $('.rank-select').each(function () {
-                $(this).children("option").prop("disabled", false).prop('selected', function () {
-                    return this.defaultSelected;
-                });
-            });
-        });
+        $(".ranking").not(this).filter(function () {
+            return this.value == value;
+        }).val(oldValue).data('__old', oldValue);
 
-        $(".rank-select").change(function () {
-            var id = $(this).attr("id");
-            updateRankVals(id);
-        });
-
-        function updateRankVals(id) {
-            var value = $('#' + id + ' :selected').val();
-            $('.rank-select').each(function () {
-                if ($(this).attr("id") != id) {
-                    $(this).children("option[value^=" + value + "]").prop("disabled", true);
-                }
-
-            });
-        }
-
-        function getProjects() {
-            var ranks = [];
-            var projects = [];
-            var checkedValues = $('input:checkbox:checked').map(function () {
-                return this.value;
-            }).get();
-            for (var i = 0; i < checkedValues.length; i++) {
-                var proj = checkedValues[i];
-                var rank = $("#rank-select-" + checkedValues[i] + " :selected").val();
-                if (proj && rank != 0) {
-                    projects.push(proj);
-                    ranks.push(rank);
-                }
-            }
-            if (projects.length != 5) {
-                $("#errorModal").modal('show');
-            } else {
-                var results = [];
-                for (var i = 0; i < projects.length; i++) {
-                    results.push({ 'A': ranks[i], 'B': projects[i] });
-                }
-                results.sort(function (a, b) {
-                    return a.A - b.A;
-                });
-                return results;
-            }
-        }
-        function submitForm(id) {
-            var proj = getProjects();
-            if (proj && proj.length == 5) {
-                e.preventDefault();
-                $.ajax({
-                    traditional: true,
-                    type: 'POST',
-                    url: "/Groups/AssignProjectsAjax/",
-                    data: {
-                        gId: id,
-                        projects: proj
-                    },
-                    success: function () {
-                        window.location.href = "/Groups/Index"
-                    },
-                    error: function (e) {
-                        alert(e.responseText);
-                    }
-                });
-            } else {
-                $("#errorModal").modal('show');
-            }
-        }
-
+        $this.data('__old', value)
     });
-
 </script>
-
-
- <!-- Modal -->
-<div id="errorModal" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Wrong number of selected projects</h4>
-            </div>
-            <div class="modal-body">
-                <p>Select and rank 5 projects.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>
