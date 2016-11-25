@@ -211,7 +211,7 @@ namespace CapstoneProject.Controllers
                 g.Projects.Clear();
                 foreach(Project p in RankedProjects)
                 {
-                    g.Projects.Add(p);
+                    g.Projects.Add(p);  
                 }
                 int code = gbs.AddProjectPreference(g);
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
