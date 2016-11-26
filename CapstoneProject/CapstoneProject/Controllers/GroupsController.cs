@@ -180,6 +180,7 @@ namespace CapstoneProject.Controllers
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
+            gp.ProjectTypes = gbs.GetProjectTypes();
             return View(gp);
         }
 
@@ -190,6 +191,7 @@ namespace CapstoneProject.Controllers
             Group g = gbs.GetGroupById(gp.Group.GroupId);
             gp.Group = g;
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
+            gp.ProjectTypes = gbs.GetProjectTypes();
             g.ProjectRankings.Clear();
             foreach (Project p in gp.Projects)
             {

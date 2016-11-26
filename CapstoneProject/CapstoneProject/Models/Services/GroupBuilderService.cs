@@ -265,6 +265,11 @@ namespace CapstoneProject.Models.Services
             return _projects.GetProjectById(id);
         }
 
+        public List<ProjectTypes> GetProjectTypes()
+        {
+            return _projects.GetProjectTypes().ToList();
+        }
+
         public GroupProject GetGroupDetails(int id)
         {
             GroupProject gp = new GroupProject();

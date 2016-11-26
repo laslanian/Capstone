@@ -807,6 +807,7 @@
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Clients\_Feedbacks.cshtml" />
     <Content Include="Views\Students\StudentProfile.cshtml" />
+    <Content Include="Views\Groups\_ProjectTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

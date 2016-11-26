@@ -131,7 +131,7 @@ namespace CapstoneProject.Models.DA
 
         public IEnumerable<ProjectTypes> GetProjectTypes()
         {
-            return ctx.ProjectTypes.ToList();
+            return ctx.ProjectTypes.OrderBy(p => p.Type).ToList();
         }
     }
 }

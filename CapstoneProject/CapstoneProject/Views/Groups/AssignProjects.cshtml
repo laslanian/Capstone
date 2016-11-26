@@ -3,7 +3,7 @@
     ViewBag.Title = "AssignProjects";
 }
 
-<h2>Apply for Projects <span class="text-danger">@ViewBag.CountError</span></h2> 
+<h2>Apply for Projects <span class="text-danger">@ViewBag.CountError</span></h2>
 
 @using (Html.BeginForm())
 {
@@ -11,7 +11,7 @@
 
     var projList = Model.Projects.ToList();
     @Html.HiddenFor(model => model.Group.GroupId)
-    <table class="table">
+    <table class="table table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Projects[0].Name)
@@ -51,12 +51,14 @@
             </tr>
         }
     </table>
-        <div class="row">
-            <div class="col-sm-2 pull-right">
-                <input type="submit" name="button" value="Save" class="btn btn-success" />
-                @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
-            </div>
+    <div class="row">
+        <div class="col-sm-2 pull-right">
+            <input type="submit" name="button" value="Save" class="btn btn-success" />
+            @Html.ActionLink("Back", "Details", "Groups", null, new { @class = "btn btn-info" })
         </div>
+    </div>
+    <br />
+    @Html.Partial("~/Views/Groups/_ProjectTypes.cshtml", Model.ProjectTypes)
 }
 <script type="text/javascript">
     $(".ranking").each(function () {
