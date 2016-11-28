@@ -37,12 +37,10 @@ namespace CapstoneProject.Controllers
             int UserId = Convert.ToInt32(Session["Id"]);
             GroupProject gp = new GroupProject();
             gp = gbs.GetGroupDetails(UserId);
-
-            if (UserId == gp.Group.Owner.Value)
+            if (gp.Group.Owner != null && UserId == gp.Group.Owner.Value)
             {
-                ViewBag.Owner = true;
+               ViewBag.Owner = true;
             }
-
             return View(gp);
         }
 
