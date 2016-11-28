@@ -292,12 +292,15 @@ namespace CapstoneProject.Models.Services
         public GroupProject GetGroupProject(int id)
         {
             GroupProject gp = new GroupProject();
-            Group g = _groups.GetGroupById(id);
+            Group g = new Group();
+            g = _groups.GetGroupById(id);
 
             Skillset sk = _groups.GetSkillByGroupId(g.GroupId);
             if (sk != null) { g.Skillset = sk; }
-            
+
+           // g.Project = g.Project != null ? g.Project : null;
             gp.Group = g;
+
             gp.Group.ProjectRankings = _projects.GetProjectRankingByGroupId(g.GroupId).ToList();
             foreach (ProjectRanking pr in gp.Group.ProjectRankings)
             {

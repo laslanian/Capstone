@@ -15,7 +15,7 @@
                     <h2>Project Matching</h2>
                 </div>
                 <div class="col-md-2" height:auto;">
-                    <input style="margin-top:15px;" type="submit" name="button" value="Save" class="btn btn-default" />    
+                    <input style="margin-top:15px;" type="submit" name="button" value="Assign Projects" class="btn btn-lg btn-success" />    
                     <span class="text-danger"> @ViewBag.SubmitMessage </span>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                     <h3>Groups</h3>
                     <div class="accordion" >
                         @{
-                            var groupList = Model.Groups;
+                            var groupList = Model.GroupProjects;
                             if (groupList.Count() >= 1)
                             {
                                 for (int i = 0, len = groupList.Count(); i < len; i++)
@@ -79,7 +79,7 @@
     }
 </style>
 <script type="text/javascript">
-    $(function () {
+    $(document).ready(function(){
         $(".accordion").accordion({
                 header: "> div > div",
                 collapsible: true,

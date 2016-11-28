@@ -4,6 +4,7 @@
 }
 <h2>Group Details</h2>
 @Html.ActionLink("Go Back", "Groups", null, new { @class = "btn btn-default" })
+
 @{
     <div>
         <hr />
@@ -30,14 +31,14 @@
     </div>
 
     <hr />
-        <ul class="tab">
-            <li><a href="javascript:void(0)" class="tablinks" id="skillset" onclick="openTab(event, 'Skillset')">Skillset</a></li>
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Members')">Members</a></li>
-        </ul>
-        <div id="Skillset" class="tabcontent">
-            <h3>Group Skillset</h3>
-            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Group.Skillset.Id })" /></div>
-        </div>
+    <ul class="tab">
+        <li><a href="javascript:void(0)" class="tablinks" id="skillset" onclick="openTab(event, 'Skillset')">Skillset</a></li>
+        <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Members')">Members</a></li>
+    </ul>
+    <div id="Skillset" class="tabcontent">
+        <h3>Group Skillset</h3>
+        <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Group.Skillset.Id })" /></div>
+    </div>
     var studList = Model.Group.Students.ToList();
     <div id="Members" class="tabcontent">
         <h3>Members</h3>
@@ -71,15 +72,15 @@
             }
         </table>
     </div>
-    <h3>Projects </h3>
     if (Model.Group.Project != null)
     {
-        <table class="table">
+        <h3>Project Assigned</h3>
+        <table class="table table-striped">
             <tr>
-                <th>
+                <th width="20%">
                     @Html.DisplayNameFor(model => Model.Group.Project.Name)
                 </th>
-                <th>
+                <th width="60%">
                     @Html.DisplayNameFor(model => Model.Group.Project.Description)
                 </th>
                 <th>
@@ -89,32 +90,52 @@
             </tr>
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.Group.Project.Name)
+                    @Html.DisplayFor(model => Model.Group.Project.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.Group.Project.Description)
+                    @Html.DisplayFor(model => Model.Group.Project.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.Group.Project.Type)
+                    @Html.DisplayFor(model => Model.Group.Project.Type)
                 </td>
-
                 <td>
                     <button type="button" id="btnUnassign" name="@Model.Group.Project.ProjectId" class="btn btn-danger" data-toggle="modal" data-target="#unassignModal">Unassign Project</button>
                 </td>
             </tr>
-
         </table>
+        <!-- Modal -->
+        <div id="unassignModal" class="modal fade" role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Unassign Project?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to unassign this Project?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="gId" value="@Model.Group.GroupId">
+                        <input type="hidden" id="pId" value="@Model.Group.Project.ProjectId">
+                        <button type="button" id="unassignProj" class="btn btn-primary">Unassign</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
     else
     {
+        <h3>Project Application</h3>
         var projList = Model.Projects.ToList();
         if (projList.Count() == 0)
         {
-            <p> No available projects. </p>
+            <p>You don't have any projects. </p>
         }
         else
         {
-            <table class="table">
+            <table class="table table-striped">
                 <tr>
                     <th>Rank</th>
                     <th width="20%">
@@ -134,6 +155,7 @@
                             @(i + 1)
                         </td>
                         <td>
+                            @Html.HiddenFor(modelItem => projList[i].ProjectId)
                             @Html.DisplayFor(modelItem => projList[i].Name)
                         </td>
                         <td>
@@ -147,30 +169,9 @@
             </table>
 
         }
-    }
 
+    }
 }
-<!-- Modal -->
-<div id="unassignModal" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Unassign Project?</h4>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to unassign this Project?</p>
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" id="gId"value="@Model.Group.GroupId">
-                <input type="hidden" id="pId" value="@Model.Group.Project.ProjectId">
-                <button type="button" id="unassignProj" class="btn btn-primary">Unassign</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
 <script type="text/javascript">
     document.getElementById("skillset").click();
     $(document).ready(function () {
@@ -181,13 +182,10 @@
                 url: "/Projects/UnassignProject/",
                 data: {
                     projId: $("#pId").val(),
-                    groupId:$("#gId").val()
+                    groupId: $("#gId").val()
                 },
                 success: function () {
                     window.location.href = "/Projects/ProjectMatch";
-                },
-                error: function (e) {
-                    alert(e.responseText);
                 }
             });
         });
