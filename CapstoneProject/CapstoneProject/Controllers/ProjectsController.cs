@@ -113,22 +113,28 @@ namespace CapstoneProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult ProjectMatch(int groupId, int projectId)
-        {
-            if (groupId != 0 && projectId != 0)
+        public ActionResult ProjectMatch(int[] groupId, int[] projectId)
             {
-                Group g = _gbs.GetGroupById(groupId);
-                Project p = _gbs.GetProjectById(projectId);
-                p.State = ProjectState.Assinged;
-                g.Status = GroupState.Assigned;
-                //g.Projects.Clear();
-                //g.Projects.Add(p);
-
-                _gbs.EditGroup(g);
+            if (groupId == null)
+            {
+                ViewBag.SubmitMessage = "Group and Project must be selected.";
             }
             else
             {
-                ViewBag.SubmitError = "Group and Project must be selected.";
+                for (int i = 0; i < groupId.Count(); i++)
+                {
+                    if (groupId[i] != 0 && projectId[i] != 0)
+                    {
+                        Group g = _gbs.GetGroupById(groupId[i]);
+                        Project p = _gbs.GetProjectById(projectId[i]);
+                        p.State = ProjectState.Assinged;
+                        g.Status = GroupState.Assigned;
+                        g.Project = p;
+
+                        _gbs.EditGroup(g);
+                    }
+                }
+                ViewBag.SubmitMessage = "Success!";
             }
             ProjectMatchGroup pmg = new ProjectMatchGroup();
             pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
