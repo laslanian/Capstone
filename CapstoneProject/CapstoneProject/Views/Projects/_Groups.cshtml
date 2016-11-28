@@ -2,68 +2,52 @@
 @{
     ViewBag.Title = "_GroupListItem";
 }
-<hr />
+
 @{
     string panelId = "group_" + Model.GroupId;
 
-    <div class="panel panel-primary">
-        <div class="panel-heading " >
-            <div class="container" >
-                <div class="row" data-toggle="collapse" data-target="#@panelId">
-                    <div class="col-sm-8" >
-                        <h4 class="panel-title" >
-                                @Model.GroupName
-                        </h4>
-                    </div>
-                    <div class="col-sm-4">
-                        @Html.Label("Select Group") &nbsp; @Html.RadioButton("groupId", Model.GroupId, new {id=Model.GroupId})
-                    </div>
-                </div>
-            </div>
+    <div class="group panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Model.GroupName</h3>
         </div>
-        <div id="@panelId" class="panel-collapse collapse">
-            <div class="panel-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p><b>Members</b></p>
-                            <ul>
-                                @{
-                                    var studList = Model.Students.ToList();
-                                    for (int i = 0, len = studList.Count(); i < len; i++)
-                                    {
-                                        <li>
-                                            <p>@studList[i].FirstName &nbsp;@studList[i].LastName </p>
-                                        </li>
-                                    }
+        <div class="panel-body">
+            <div class="container" >
+                <div class="row">
+                    <div class="col-sm-5">
+                        <p><b>Members</b></p>
+                        <ul>
+                            @{
+                                var studList = Model.Students.ToList();
+                                for (int i = 0, len = studList.Count(); i < len; i++)
+                                {
+                                    <li>
+                                        <p>@studList[i].FirstName &nbsp;@studList[i].LastName </p>
+                                    </li>
                                 }
-                            </ul>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-sm-7">
+                        <p><b>Assigned Project</b></p>
+                        <input type="hidden" name="groupId" value="@Model.GroupId" />
+                        <div class="div-group-project placeholder-border" style="height:40px; width:100%; ">
+                            <input type="hidden" class="pId" name="projectId" value="0" />
+
                         </div>
-                        <div class="col-sm-4">
-                            <p><b>Projects</b></p>
-                            <ul>
-                                @{
-                                    var projList = Model.Projects.ToList();
-                                    for (int i = 0, len = projList.Count(); i < len; i++)
-                                    {
-                                        <li>
-                                            <p>@projList[i].Name</p>
-                                        </li>
-                                    }
-                                }
-                            </ul>
+
+                    </div>
+
+                </div>
+                <p>
+                    <b>@Html.DisplayNameFor(model => model.Skillset)</b>
+                    <div style="margin-bottom:10px;" class="col-sm-6">
+                        <div>
+                            <img style="width:350px;height:auto;" src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" />
                         </div>
                     </div>
-                    <p>
-                        <b>@Html.DisplayNameFor(model => model.Skillset)</b>
-                        <div style="margin-bottom:10px;" class="col-sm-6">
-                            <div>
-                                <img style="width:350px;height:auto;" src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" />
-                            </div>
-                        </div>
-                </div>
-
             </div>
+
         </div>
     </div>
 }
+  

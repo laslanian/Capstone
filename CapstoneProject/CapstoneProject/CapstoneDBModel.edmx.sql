@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/08/2016 13:27:35
+-- Date Created: 11/25/2016 14:57:00
 -- Generated from EDMX file: C:\Users\Karlo\Source\Repos\Capstone\CapstoneProject\CapstoneProject\CapstoneDBModel.edmx
 -- --------------------------------------------------
 
@@ -23,12 +23,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ClientProject]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Projects] DROP CONSTRAINT [FK_ClientProject];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProjectGroup_Project]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProjectGroup] DROP CONSTRAINT [FK_ProjectGroup_Project];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ProjectGroup_Group]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProjectGroup] DROP CONSTRAINT [FK_ProjectGroup_Group];
-GO
 IF OBJECT_ID(N'[dbo].[FK_StudentGroup]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Student] DROP CONSTRAINT [FK_StudentGroup];
 GO
@@ -43,6 +37,12 @@ IF OBJECT_ID(N'[dbo].[FK_StudentSkillset]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ClientFeedback]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Feedbacks] DROP CONSTRAINT [FK_ClientFeedback];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupProjectRanking]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectRankings] DROP CONSTRAINT [FK_GroupProjectRanking];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupProject]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Projects] DROP CONSTRAINT [FK_GroupProject];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Admin] DROP CONSTRAINT [FK_Admin_inherits_User];
@@ -103,8 +103,11 @@ GO
 IF OBJECT_ID(N'[dbo].[Feedbacks]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Feedbacks];
 GO
-IF OBJECT_ID(N'[dbo].[ProjectGroup]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ProjectGroup];
+IF OBJECT_ID(N'[dbo].[ProjectTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProjectTypes];
+GO
+IF OBJECT_ID(N'[dbo].[ProjectRankings]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProjectRankings];
 GO
 
 -- --------------------------------------------------
@@ -153,7 +156,8 @@ CREATE TABLE [dbo].[Projects] (
     [Grade] int  NULL,
     [DateCompleted] datetime  NULL,
     [ClientUserId] int  NOT NULL,
-    [Criteria_Id] int  NOT NULL
+    [Criteria_Id] int  NOT NULL,
+    [Group_GroupId] int  NULL
 );
 GO
 
@@ -253,10 +257,26 @@ CREATE TABLE [dbo].[Feedbacks] (
 );
 GO
 
--- Creating table 'ProjectGroup'
-CREATE TABLE [dbo].[ProjectGroup] (
-    [Projects_ProjectId] int  NOT NULL,
-    [Groups_GroupId] int  NOT NULL
+-- Creating table 'ProjectTypes'
+CREATE TABLE [dbo].[ProjectTypes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Type] nvarchar(max)  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
+    [IP] nvarchar(max)  NOT NULL,
+    [ClientInteraction] nvarchar(max)  NOT NULL,
+    [Pressure] nvarchar(max)  NOT NULL,
+    [Operation] nvarchar(max)  NOT NULL,
+    [Benefits] nvarchar(max)  NOT NULL,
+    [Description] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'ProjectRankings'
+CREATE TABLE [dbo].[ProjectRankings] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ProjectId] nvarchar(max)  NOT NULL,
+    [Rank] nvarchar(max)  NOT NULL,
+    [GroupGroupId] int  NOT NULL
 );
 GO
 
@@ -342,10 +362,16 @@ ADD CONSTRAINT [PK_Feedbacks]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Projects_ProjectId], [Groups_GroupId] in table 'ProjectGroup'
-ALTER TABLE [dbo].[ProjectGroup]
-ADD CONSTRAINT [PK_ProjectGroup]
-    PRIMARY KEY CLUSTERED ([Projects_ProjectId], [Groups_GroupId] ASC);
+-- Creating primary key on [Id] in table 'ProjectTypes'
+ALTER TABLE [dbo].[ProjectTypes]
+ADD CONSTRAINT [PK_ProjectTypes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ProjectRankings'
+ALTER TABLE [dbo].[ProjectRankings]
+ADD CONSTRAINT [PK_ProjectRankings]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -380,30 +406,6 @@ GO
 CREATE INDEX [IX_FK_ClientProject]
 ON [dbo].[Projects]
     ([ClientUserId]);
-GO
-
--- Creating foreign key on [Projects_ProjectId] in table 'ProjectGroup'
-ALTER TABLE [dbo].[ProjectGroup]
-ADD CONSTRAINT [FK_ProjectGroup_Project]
-    FOREIGN KEY ([Projects_ProjectId])
-    REFERENCES [dbo].[Projects]
-        ([ProjectId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Groups_GroupId] in table 'ProjectGroup'
-ALTER TABLE [dbo].[ProjectGroup]
-ADD CONSTRAINT [FK_ProjectGroup_Group]
-    FOREIGN KEY ([Groups_GroupId])
-    REFERENCES [dbo].[Groups]
-        ([GroupId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProjectGroup_Group'
-CREATE INDEX [IX_FK_ProjectGroup_Group]
-ON [dbo].[ProjectGroup]
-    ([Groups_GroupId]);
 GO
 
 -- Creating foreign key on [Group_GroupId] in table 'Users_Student'
@@ -479,6 +481,36 @@ GO
 CREATE INDEX [IX_FK_ClientFeedback]
 ON [dbo].[Feedbacks]
     ([ClientUserId]);
+GO
+
+-- Creating foreign key on [GroupGroupId] in table 'ProjectRankings'
+ALTER TABLE [dbo].[ProjectRankings]
+ADD CONSTRAINT [FK_GroupProjectRanking]
+    FOREIGN KEY ([GroupGroupId])
+    REFERENCES [dbo].[Groups]
+        ([GroupId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupProjectRanking'
+CREATE INDEX [IX_FK_GroupProjectRanking]
+ON [dbo].[ProjectRankings]
+    ([GroupGroupId]);
+GO
+
+-- Creating foreign key on [Group_GroupId] in table 'Projects'
+ALTER TABLE [dbo].[Projects]
+ADD CONSTRAINT [FK_GroupProject]
+    FOREIGN KEY ([Group_GroupId])
+    REFERENCES [dbo].[Groups]
+        ([GroupId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupProject'
+CREATE INDEX [IX_FK_GroupProject]
+ON [dbo].[Projects]
+    ([Group_GroupId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Admin'

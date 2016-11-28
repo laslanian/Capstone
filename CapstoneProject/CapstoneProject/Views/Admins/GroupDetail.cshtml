@@ -1,107 +1,139 @@
-﻿@model CapstoneProject.Group
+﻿@model CapstoneProject.Models.ViewModels.GroupProject
 @{
     ViewBag.Title = "Details";
 }
-
-    <h2>Group Details</h2>
+<h2>Group Details</h2>
 @Html.ActionLink("Go Back", "Groups", null, new { @class = "btn btn-default" })
 @{
-        <div>
-            <hr />
-            <input type="hidden" id="hdnSelProj" value=""/>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.GroupName)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.GroupName)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Status)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Status)
-                </dd>
-            </dl>
-        </div>
-
+    <div>
         <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Group.GroupName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Group.GroupName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Group.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Group.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Group.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Group.Status)
+            </dd>
+        </dl>
+    </div>
+
+    <hr />
         <ul class="tab">
             <li><a href="javascript:void(0)" class="tablinks" id="skillset" onclick="openTab(event, 'Skillset')">Skillset</a></li>
             <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Members')">Members</a></li>
         </ul>
         <div id="Skillset" class="tabcontent">
             <h3>Group Skillset</h3>
-            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" /></div>
+            <div><img src="@Url.Action("CreateChart", "Students", new { id = Model.Group.Skillset.Id })" /></div>
         </div>
-        var studList = Model.Students.ToList();
-        <div id="Members" class="tabcontent">
-            <h3>Members</h3>
-            <table class="table">
+    var studList = Model.Group.Students.ToList();
+    <div id="Members" class="tabcontent">
+        <h3>Members</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => studList[0].FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => studList[0].LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => studList[0].Email)
+                </th>
+                <th></th>
+            </tr>
+            @for (int i = 0; i < studList.Count(); i++)
+            {
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => studList[0].FirstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => studList[0].LastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => studList[0].Email)
-                    </th>
-                    <th></th>
+                    <td>
+                        @Html.DisplayFor(modelItem => studList[i].FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => studList[i].LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => studList[i].Email)
+                    </td>
+                    <td>@Html.ActionLink("View Profile", "StudentProfile", "Students", new { id = studList[i].UserId, gid = Model.Group.GroupId }, new { @class = "btn btn-info", target = "_blank" })</td>
                 </tr>
-                @for (int i = 0; i < studList.Count(); i++)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => studList[i].FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => studList[i].LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => studList[i].Email)
-                        </td>
-                        <td>@Html.ActionLink("View Profile", "StudentProfile", "Students", new { id = studList[i].UserId, gid = Model.GroupId }, new { @class = "btn btn-info", target= "_blank" })</td>
-                    </tr>
-                }
-            </table>
-        </div>
-            <h3>Projects </h3>
+            }
+        </table>
+    </div>
+    <h3>Projects </h3>
+    if (Model.Group.Project != null)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => Model.Group.Project.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.Group.Project.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.Group.Project.Type)
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Group.Project.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Group.Project.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Group.Project.Type)
+                </td>
+
+                <td>
+                    <button type="button" id="btnUnassign" name="@Model.Group.Project.ProjectId" class="btn btn-danger" data-toggle="modal" data-target="#unassignModal">Unassign Project</button>
+                </td>
+            </tr>
+
+        </table>
+    }
+    else
+    {
         var projList = Model.Projects.ToList();
-        bool hasAssignedProject = false;
         if (projList.Count() == 0)
         {
-            <p>No available projects. </p>
+            <p> No available projects. </p>
         }
         else
         {
             <table class="table">
                 <tr>
-                    <th>
+                    <th>Rank</th>
+                    <th width="20%">
                         @Html.DisplayNameFor(model => projList[0].Name)
                     </th>
-                    <th>
+                    <th width="60%">
                         @Html.DisplayNameFor(model => projList[0].Description)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => projList[0].Type)
                     </th>
-                    
-                    <th></th>
                 </tr>
                 @for (int i = 0, len = projList.Count(); i < len; i++)
                 {
-                    hasAssignedProject = projList[i].State.Equals("Assigned");
                     <tr>
                         <td>
-                            @Html.HiddenFor(modelItem => projList[i].ProjectId)
+                            @(i + 1)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => projList[i].Name)
                         </td>
                         <td>
@@ -110,21 +142,14 @@
                         <td>
                             @Html.DisplayFor(modelItem => projList[i].Type)
                         </td>
-                       
-                        <td>
-                            @if (projList[i].State.Equals("Assigned") && len==1)
-                            {
-                                <button type="button" id="btnUnassign" name="@projList[i].ProjectId" class="btn btn-danger" data-toggle="modal" data-target="#unassignModal">Unassign Project</button>
-                            }
-                        </td>
                     </tr>
                 }
             </table>
-          
-        }
 
+        }
     }
 
+}
 <!-- Modal -->
 <div id="unassignModal" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog">
@@ -138,7 +163,9 @@
                 <p>Are you sure you want to unassign this Project?</p>
             </div>
             <div class="modal-footer">
-                <button type="button"  name ="@Model.GroupId" id="unassignProj" class="btn btn-primary">Unassign</button>
+                <input type="hidden" id="gId"value="@Model.Group.GroupId">
+                <input type="hidden" id="pId" value="@Model.Group.Project.ProjectId">
+                <button type="button" id="unassignProj" class="btn btn-primary">Unassign</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -146,25 +173,20 @@
 </div>
 <script type="text/javascript">
     document.getElementById("skillset").click();
-    $(document).ready(function() {
-        $("#btnUnassign").click(function () {
-            $("#hdnSelProj").val(this.name);
-        });
+    $(document).ready(function () {
         $('#unassignProj').on('click', function (e) {
-            gId = $(this).attr("name"), pId=$("#hdnSelProj").val();
-
             e.preventDefault();
             $.ajax({
                 type: 'POST',
                 url: "/Projects/UnassignProject/",
                 data: {
-                    projId: pId,
-                    groupId:gId
+                    projId: $("#pId").val(),
+                    groupId:$("#gId").val()
                 },
-                success: function() {
-                    window.location.href = "/Admins/Groups"
+                success: function () {
+                    window.location.href = "/Projects/ProjectMatch";
                 },
-                error: function(e) {
+                error: function (e) {
                     alert(e.responseText);
                 }
             });
@@ -237,24 +259,3 @@
         border-top: none;
     }
 </style>
-
-
- <!-- Modal -->
-<div id="unassignModal" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Leave Group?</h4>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to leave?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="leaveGroup" class="btn btn-primary">Leave</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>

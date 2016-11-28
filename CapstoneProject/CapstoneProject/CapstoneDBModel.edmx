@@ -19,7 +19,8 @@
     <EntitySet Name="Criteria" EntityType="CapstoneModel.Store.Criteria" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Skillsets" EntityType="CapstoneModel.Store.Skillsets" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Feedbacks" EntityType="CapstoneModel.Store.Feedbacks" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProjectGroup" EntityType="CapstoneModel.Store.ProjectGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectTypes" EntityType="CapstoneModel.Store.ProjectTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectRankings" EntityType="CapstoneModel.Store.ProjectRankings" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="StudentCoop" Association="CapstoneModel.Store.StudentCoop">
       <End Role="Student" EntitySet="Users_Student" />
       <End Role="Coop" EntitySet="Coops" />
@@ -27,14 +28,6 @@
     <AssociationSet Name="ClientProject" Association="CapstoneModel.Store.ClientProject">
       <End Role="Client" EntitySet="Users_Client" />
       <End Role="Project" EntitySet="Projects" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProjectGroup_Project" Association="CapstoneModel.Store.FK_ProjectGroup_Project">
-      <End Role="Project" EntitySet="Projects" />
-      <End Role="ProjectGroup" EntitySet="ProjectGroup" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProjectGroup_Group" Association="CapstoneModel.Store.FK_ProjectGroup_Group">
-      <End Role="Group" EntitySet="Groups" />
-      <End Role="ProjectGroup" EntitySet="ProjectGroup" />
     </AssociationSet>
     <AssociationSet Name="StudentGroup" Association="CapstoneModel.Store.StudentGroup">
       <End Role="Student" EntitySet="Users_Student" />
@@ -55,6 +48,14 @@
     <AssociationSet Name="ClientFeedback" Association="CapstoneModel.Store.ClientFeedback">
       <End Role="Client" EntitySet="Users_Client" />
       <End Role="Feedback" EntitySet="Feedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="GroupProjectRanking" Association="CapstoneModel.Store.GroupProjectRanking">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="ProjectRanking" EntitySet="ProjectRankings" />
+    </AssociationSet>
+    <AssociationSet Name="GroupProject" Association="CapstoneModel.Store.GroupProject">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Project" EntitySet="Projects" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="CapstoneModel.Store.FK_Admin_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -122,6 +123,7 @@
     <Property Name="DateCompleted" Type="datetime" Nullable="true" />
     <Property Name="ClientUserId" Type="int" Nullable="false" />
     <Property Name="Criteria_Id" Type="int" Nullable="false" />
+    <Property Name="Group_GroupId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -219,13 +221,28 @@
     <Property Name="Rating" Type="float" Nullable="false" DefaultValue="0" />
     <Property Name="ClientUserId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="ProjectGroup">
+  <EntityType Name="ProjectTypes">
     <Key>
-      <PropertyRef Name="Projects_ProjectId" />
-      <PropertyRef Name="Groups_GroupId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Projects_ProjectId" Type="int" Nullable="false" />
-    <Property Name="Groups_GroupId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IP" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClientInteraction" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Pressure" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Operation" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Benefits" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectRankings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rank" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GroupGroupId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="StudentCoop">
     <End Role="Student" Type="CapstoneModel.Store.Users_Student" Multiplicity="1" />
@@ -311,27 +328,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ProjectGroup_Project">
-    <End Role="Project" Type="CapstoneModel.Store.Projects" Multiplicity="1" />
-    <End Role="ProjectGroup" Type="CapstoneModel.Store.ProjectGroup" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Project">
-        <PropertyRef Name="ProjectId" />
-      </Principal>
-      <Dependent Role="ProjectGroup">
-        <PropertyRef Name="Projects_ProjectId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProjectGroup_Group">
-    <End Role="ProjectGroup" Type="CapstoneModel.Store.ProjectGroup" Multiplicity="*" />
+  <Association Name="GroupProjectRanking">
     <End Role="Group" Type="CapstoneModel.Store.Groups" Multiplicity="1" />
+    <End Role="ProjectRanking" Type="CapstoneModel.Store.ProjectRankings" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Group">
         <PropertyRef Name="GroupId" />
       </Principal>
-      <Dependent Role="ProjectGroup">
-        <PropertyRef Name="Groups_GroupId" />
+      <Dependent Role="ProjectRanking">
+        <PropertyRef Name="GroupGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupProject">
+    <End Role="Group" Type="CapstoneModel.Store.Groups" Multiplicity="0..1" />
+    <End Role="Project" Type="CapstoneModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="Group_GroupId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -432,10 +449,11 @@
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Pin" Type="String" FixedLength="true" MaxLength="5" Nullable="false" />
-          <NavigationProperty Name="Projects" Relationship="CapstoneModel.ProjectGroup" FromRole="Group" ToRole="Project" />
           <NavigationProperty Name="Students" Relationship="CapstoneModel.StudentGroup" FromRole="Group" ToRole="Student" />
           <Property Name="Owner" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Skillset" Relationship="CapstoneModel.GroupSkillset" FromRole="Group" ToRole="Skillset" />
+          <NavigationProperty Name="ProjectRankings" Relationship="CapstoneModel.GroupProjectRanking" FromRole="Group" ToRole="ProjectRanking" />
+          <NavigationProperty Name="Project" Relationship="CapstoneModel.GroupProject" FromRole="Group" ToRole="Project" />
         </EntityType>
         <EntityType Name="Program">
           <Key>
@@ -458,8 +476,8 @@
           <Property Name="DateCompleted" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Client" Relationship="CapstoneModel.ClientProject" FromRole="Project" ToRole="Client" />
           <Property Name="ClientUserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Groups" Relationship="CapstoneModel.ProjectGroup" FromRole="Project" ToRole="Group" />
           <NavigationProperty Name="Criteria" Relationship="CapstoneModel.ProjectCriteria" FromRole="Project" ToRole="Criteria" />
+          <NavigationProperty Name="Group" Relationship="CapstoneModel.GroupProject" FromRole="Project" ToRole="Group" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -516,10 +534,6 @@
             <End Role="Client" EntitySet="Users" />
             <End Role="Project" EntitySet="Projects" />
           </AssociationSet>
-          <AssociationSet Name="ProjectGroup" Association="CapstoneModel.ProjectGroup">
-            <End Role="Project" EntitySet="Projects" />
-            <End Role="Group" EntitySet="Groups" />
-          </AssociationSet>
           <AssociationSet Name="StudentGroup" Association="CapstoneModel.StudentGroup">
             <End Role="Student" EntitySet="Users" />
             <End Role="Group" EntitySet="Groups" />
@@ -542,6 +556,16 @@
           <AssociationSet Name="ClientFeedback" Association="CapstoneModel.ClientFeedback">
             <End Role="Client" EntitySet="Users" />
             <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <EntitySet Name="ProjectTypes" EntityType="CapstoneModel.ProjectTypes" />
+          <EntitySet Name="ProjectRankings" EntityType="CapstoneModel.ProjectRanking" />
+          <AssociationSet Name="GroupProjectRanking" Association="CapstoneModel.GroupProjectRanking">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="ProjectRanking" EntitySet="ProjectRankings" />
+          </AssociationSet>
+          <AssociationSet Name="GroupProject" Association="CapstoneModel.GroupProject">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Project" EntitySet="Projects" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="StudentCoop">
@@ -567,10 +591,6 @@
               <PropertyRef Name="ClientUserId" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="ProjectGroup">
-          <End Type="CapstoneModel.Project" Role="Project" Multiplicity="*" />
-          <End Type="CapstoneModel.Group" Role="Group" Multiplicity="*" />
         </Association>
         <Association Name="StudentGroup">
           <End Type="CapstoneModel.Student" Role="Student" Multiplicity="*" />
@@ -639,6 +659,46 @@
               <PropertyRef Name="ClientUserId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProjectTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="IP" Type="String" Nullable="false" />
+          <Property Name="ClientInteraction" Type="String" Nullable="false" />
+          <Property Name="Pressure" Type="String" Nullable="false" />
+          <Property Name="Operation" Type="String" Nullable="false" />
+          <Property Name="Benefits" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectRanking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="String" Nullable="false" />
+          <Property Name="Rank" Type="String" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="CapstoneModel.GroupProjectRanking" FromRole="ProjectRanking" ToRole="Group" />
+          <Property Name="GroupGroupId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="GroupProjectRanking">
+          <End Type="CapstoneModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="CapstoneModel.ProjectRanking" Role="ProjectRanking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="ProjectRanking">
+              <PropertyRef Name="GroupGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GroupProject">
+          <End Type="CapstoneModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="CapstoneModel.Project" Role="Project" Multiplicity="0..1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -787,14 +847,31 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ProjectGroup" TypeName="CapstoneModel.ProjectGroup" StoreEntitySet="ProjectGroup">
-      <EndProperty Name="Project">
-        <ScalarProperty Name="ProjectId" ColumnName="Projects_ProjectId" />
-      </EndProperty>
-      <EndProperty Name="Group">
-        <ScalarProperty Name="GroupId" ColumnName="Groups_GroupId" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="ProjectTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.ProjectTypes)">
+        <MappingFragment StoreEntitySet="ProjectTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="ClientInteraction" ColumnName="ClientInteraction" />
+          <ScalarProperty Name="Pressure" ColumnName="Pressure" />
+          <ScalarProperty Name="Operation" ColumnName="Operation" />
+          <ScalarProperty Name="Benefits" ColumnName="Benefits" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectRankings">
+      <EntityTypeMapping TypeName="IsTypeOf(CapstoneModel.ProjectRanking)">
+        <MappingFragment StoreEntitySet="ProjectRankings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="GroupGroupId" ColumnName="GroupGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="StudentGroup" TypeName="CapstoneModel.StudentGroup" StoreEntitySet="Users_Student">
       <EndProperty Name="Group">
         <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
@@ -829,6 +906,15 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
       <Condition ColumnName="Student_UserId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupProject" TypeName="CapstoneModel.GroupProject" StoreEntitySet="Projects">
+      <EndProperty Name="Group">
+        <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
+      </EndProperty>
+      <EndProperty Name="Project">
+        <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+      </EndProperty>
+      <Condition ColumnName="Group_GroupId" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

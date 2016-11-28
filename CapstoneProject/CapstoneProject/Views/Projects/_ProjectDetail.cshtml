@@ -3,39 +3,25 @@
     ViewBag.Title = "_ProjectDetail";
 }
 @{
-    string panelId = "project" + Model.ProjectId;
-
-    <hr />
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="container">
-                <div class="row"  data-toggle="collapse" data-target="#@panelId">
-                    <div class="col-sm-8">
-                        <h4 class="panel-title">
-                                @Model.Name
-                        </h4>
-                    </div>
-                    <div class="col-sm-4">
-                        @Html.Label("Select Project") &nbsp; @Html.RadioButton("projectId", Model.ProjectId, new {id=Model.ProjectId})
-                    </div>
-                </div>
-            </div>
+  
+    <div class="group panel panel-info" id="@Model.ProjectId" >
+        <div class="panel-heading ui-state-enabled">
+            <h3 class="panel-title">@Model.Name</h3>
         </div>
-        <div id="@panelId" class="panel-collapse collapse">
-            <div class="panel-body">
-                <ul style="list-style:none;">
-                    <li><p><b>Description:&nbsp;</b>@Model.Description </p></li>
-                    <li><p><b>Client:&nbsp;</b>@Model.Client.CompanyName </p></li>
-                    <li><p><b>Type:&nbsp;</b>@Model.Type </p></li>
-                    <li>
-                        <p>
-                            <b>Criteria:&nbsp;</b>
-                            @Html.Partial("_ProjectCriteria", @Model)
-                        </p>
-                    </li>
-                </ul>
-                
-            </div>
+      
+        <div  class="panel-body">
+            <ul style="list-style:none;">
+                <li><p><b>Description:&nbsp;</b>@Model.Description </p></li>
+                <li><p><b>Client:&nbsp;</b>@Model.Client.CompanyName </p></li>
+                <li><p><b>Type:&nbsp;</b>@Model.Type </p></li>
+                <li>
+                    <p>
+                        <b>Criteria:&nbsp;</b>
+                        @Html.Partial("_ProjectCriteria", @Model)
+                    </p>
+                </li>
+            </ul>
         </div>
     </div>
+    
 }

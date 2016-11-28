@@ -16,13 +16,13 @@
                 </div>
                 <div class="col-md-2" height:auto;">
                     <input style="margin-top:15px;" type="submit" name="button" value="Save" class="btn btn-default" />    
-                    <span class="text-danger"> @ViewBag.SubmitError </span>
+                    <span class="text-danger"> @ViewBag.SubmitMessage </span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6" height:auto;">
                     <h3>Groups</h3>
-                    <div class="panel-group" id="accordion">
+                    <div class="accordion" >
                         @{
                             var groupList = Model.Groups;
                             if (groupList.Count() >= 1)
@@ -42,7 +42,7 @@
 
                 <div class="col-md-6" height:auto;">
                     <h3>Projects</h3>
-                    <div class="panel-group" id="accordion">
+                    <div class="accordion div-projects" data-role="collapsible-set" >
                         @{
                             var projList = Model.Projects;
                             if (projList.Count() >= 1)
@@ -59,10 +59,70 @@
 
                         }
                     </div>
+                    
+    
                 </div>
             </div>
         </div>
-  
-}
+                            }
 
+<style>
+    .highlight {
+        height:40px; 
+        width:100%;
+        border: 1px dotted lightblue;
+        visibility: visible;
+        background-color:rgba(102, 153, 255,0.3);
+    }
+    .placeholder-border {
+        border: 1px dashed rgba(102, 153, 255,0.3);
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $(".accordion").accordion({
+                header: "> div > div",
+                collapsible: true,
+                active:false
+        });
+        $(".div-group-project").sortable({
+            placeholder: "highlight",
+            tolerance: "pointer",
+            connectWith: ".div-projects",
+            cursor: "move",
+            forcePlaceholderSize: true,
+            receive: function (event, ui) {
+                var $this = $(this);
+                $this.removeClass("placeholder-border");
+                if ($this.children().length > 2) {
+                    $(ui.sender).sortable('cancel');
+                } else {
+                    if (ui.item.find(".panel-heading").hasClass("ui-state-active")) {
+                        ui.item.find(".panel-body").hide();
+                        $(".div-projects").accordion("option", "active", false);
+                    }
+                    ui.item.find(".panel-heading").removeClass("ui-state-enabled").addClass("ui-state-disabled");
+                    $this.children(".pId").val(ui.item.attr("id"));
+                }
+            },
+            remove: function (event, ui) {
+                $this = $(this);
+                $this.addClass("placeholder-border");
+                $this.children(".pId").val("0");
+            }
+        });
+        $(".div-projects").sortable({
+            placeholder: "highlight",
+            scroll: true,
+            tolerance:"pointer",
+            connectWith: ".div-group-project",
+            cursor: "move",
+            forcePlaceholderSize: true,
+            receive: function (event, ui) {
+                ui.item.find(".panel-heading").removeClass("ui-state-disabled").addClass("ui-state-enabled");
+            }
+        }).disableSelection();
 
+    });//func
+
+</script>

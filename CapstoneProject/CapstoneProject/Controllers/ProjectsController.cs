@@ -52,30 +52,8 @@ namespace CapstoneProject.Controllers
         {
             Project p = _pm.GetProjectDetails(id);
 
-            p.State=state;
-            switch(type)
-            {
-                case "1":
-                    {
-                        p.Type = ProjectType.Type1;
-                        break;
-                    }
-                case "2":
-                    {
-                        p.Type = ProjectType.Type2;
-                        break;
-                    }
-                case "3":
-                    {
-                        p.Type = ProjectType.Type3;
-                        break;
-                    }
-                case "4":
-                    {
-                        p.Type = ProjectType.Type4;
-                        break;
-                    }
-            }
+            p.State = state;
+            p.Type = type;
             int code = _pm.UpdateProject(p);
             if (code == 1)
             {
@@ -83,8 +61,11 @@ namespace CapstoneProject.Controllers
             }
             else
             {
-                return View(p);
-            }        
+                ProjectWithType pt = new ProjectWithType();
+                pt.Project = _pm.GetProjectDetails(id);
+                pt.ProjTypes = _pm.GetProjectTypes();
+                return View(pt);
+            }  
         }
 
         [HttpPost]
@@ -97,7 +78,7 @@ namespace CapstoneProject.Controllers
             int code = _pm.UpdateProject(p);
             if (code == 1)
             {
-                return RedirectToAction("Projects");
+                return RedirectToAction("Details", "Projects", new { id = id });
             }
             else
             {
@@ -112,45 +93,52 @@ namespace CapstoneProject.Controllers
             Group g = _gbs.GetGroupById(groupId);
 
             g.Status=GroupState.Unassigned;
-            g.Projects.Remove(p);
             p.State=ProjectState.Approved;
+            g.Project = null;
 
             _gbs.EditGroup(g);
             _pm.UpdateProject(p);
 
-            return RedirectToAction("Groups","Admins");
+            return RedirectToAction("ProjectMatch");
            // return View();
         }
         [HttpGet]
         public ActionResult ProjectMatch()
         {
             ProjectMatchGroup pmg = new ProjectMatchGroup();
-            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved) && !item.State.Equals(ProjectState.Assinged)).ToList();
-            pmg.Groups = _gbs.GetGroups().Where(item => item.Projects.Count ==5 && !item.Status.Equals(GroupState.Assigned)).ToList();
+            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
+            pmg.Groups = _gbs.GetGroups().Where(item => item.ProjectRankings.Count ==5 && !item.Status.Equals(GroupState.Assigned)).ToList();
 
             return View(pmg);
         }
-        [HttpPost]
-        public ActionResult ProjectMatch(int groupId, int projectId)
-        {
-            if (groupId != 0 && projectId != 0)
-            {
-                Group g = _gbs.GetGroupById(groupId);
-                Project p = _gbs.GetProjectById(projectId);
-                p.State = ProjectState.Assinged;
-                g.Status = GroupState.Assigned;
-                g.Projects.Clear();
-                g.Projects.Add(p);
 
-                _gbs.EditGroup(g);
+        [HttpPost]
+        public ActionResult ProjectMatch(int[] groupId, int[] projectId)
+            {
+            if (groupId == null)
+            {
+                ViewBag.SubmitMessage = "Group and Project must be selected.";
             }
             else
             {
-                ViewBag.SubmitError = "Group and Project must be selected.";
+                for (int i = 0; i < groupId.Count(); i++)
+                {
+                    if (groupId[i] != 0 && projectId[i] != 0)
+                    {
+                        Group g = _gbs.GetGroupById(groupId[i]);
+                        Project p = _gbs.GetProjectById(projectId[i]);
+                        p.State = ProjectState.Assinged;
+                        g.Status = GroupState.Assigned;
+                        g.Project = p;
+
+                        _gbs.EditGroup(g);
+                    }
+                }
+                ViewBag.SubmitMessage = "Success!";
             }
             ProjectMatchGroup pmg = new ProjectMatchGroup();
-            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved) && !item.State.Equals(ProjectState.Assinged)).ToList();
-            pmg.Groups = _gbs.GetGroups().Where(item => item.Projects.Count == 5 && !item.Status.Equals(GroupState.Assigned)).ToList();
+            pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
+            pmg.Groups = _gbs.GetGroups().Where(item => item.ProjectRankings.Count == 5 && !item.Status.Equals(GroupState.Assigned)).ToList();
             return View(pmg);
         }
 
@@ -203,8 +191,10 @@ namespace CapstoneProject.Controllers
 
         public ActionResult Details(int id)
         {
-            Project p = _pm.GetProjectDetails(id);
-            return View(p);
+            ProjectWithType pt = new ProjectWithType();
+            pt.Project = _pm.GetProjectDetails(id);
+            pt.ProjTypes = _pm.GetProjectTypes();
+            return View(pt);
         }
         
     }

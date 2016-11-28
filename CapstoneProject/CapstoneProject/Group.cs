@@ -22,9 +22,9 @@ public partial class Group
     public Group()
     {
 
-        this.Projects = new HashSet<Project>();
-
         this.Students = new HashSet<Student>();
+
+        this.ProjectRankings = new HashSet<ProjectRanking>();
 
     }
 
@@ -45,13 +45,15 @@ public partial class Group
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<Project> Projects { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
     public virtual ICollection<Student> Students { get; set; }
 
     public virtual Skillset Skillset { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<ProjectRanking> ProjectRankings { get; set; }
+
+    public virtual Project Project { get; set; }
 
 }
 

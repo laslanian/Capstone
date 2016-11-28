@@ -27,6 +27,11 @@ namespace CapstoneProject.Models.Services
             return _projects.GetProjects().ToList();
         }
 
+        public List<ProjectRanking> GetProjectsByGroupId(int id)
+        {
+            return _projects.GetProjectRankingByGroupId(id).ToList();
+        }
+
         public List<Project> GetPendingProjects()
         {
             return _projects.GetProjecsByState("Pending").ToList();
@@ -44,7 +49,7 @@ namespace CapstoneProject.Models.Services
             Project p = new Project();
             p.Name = pf.project.Name;
             p.Description = pf.project.Description;
-            p.Type = ProjectType.Unknown;
+            p.Type = "Unknown";
             p.State = ProjectState.Pending;
             p.Client = client;
 
@@ -95,6 +100,12 @@ namespace CapstoneProject.Models.Services
                 return 0;
             }
         }
+
+        public List<ProjectTypes> GetProjectTypes()
+        {
+            return _projects.GetProjectTypes().ToList();
+        }
+
         public void DeleteProject(int id) { }
         public void ArchiveProjects(List<Project> projects) { }
 

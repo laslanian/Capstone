@@ -56,6 +56,11 @@ namespace CapstoneProject.Models.DA
             ctx.Projects.Add(p);
         }
 
+        public IEnumerable<ProjectRanking> GetProjectRankingByGroupId(int id)
+        {
+            return ctx.ProjectRankings.Where(g => g.GroupGroupId == id).OrderBy(g => g.Rank).ToList();
+        }
+
         public int UpdateProject(Project p)
         {
             var project = ctx.Projects.SingleOrDefault(pr => pr.ProjectId == p.ProjectId);
@@ -122,6 +127,11 @@ namespace CapstoneProject.Models.DA
             Dispose(true);
             GC.SuppressFinalize(this);
 
+        }
+
+        public IEnumerable<ProjectTypes> GetProjectTypes()
+        {
+            return ctx.ProjectTypes.OrderBy(p => p.Type).ToList();
         }
     }
 }

@@ -34,19 +34,16 @@ namespace CapstoneProject.Controllers
 
         public ActionResult Details()
         {
-            Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
-            Group g = new Group();
-            if (s.Group != null)
+            int UserId = Convert.ToInt32(Session["Id"]);
+            GroupProject gp = new GroupProject();
+            gp = gbs.GetGroupDetails(UserId);
+
+            if (UserId == gp.Group.Owner.Value)
             {
-                if (s.UserId == s.Group.Owner.Value)
-                {
-                    ViewBag.Owner = true;
-                }
-                g = gbs.GetGroupById(s.Group.GroupId);
-                Skillset sk = gbs.GetSkillsetByGroupId(s.Group.GroupId);
-                if (sk != null) { g.Skillset = sk; }
+                ViewBag.Owner = true;
             }
-            return View(g);
+
+            return View(gp);
         }
 
         public ActionResult CreateGroup()
@@ -183,43 +180,45 @@ namespace CapstoneProject.Controllers
             GroupProject gp = new GroupProject();
             gp.Group = gbs.GetGroupById(id);
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
+            gp.ProjectTypes = gbs.GetProjectTypes();
             return View(gp);
         }
+
         [HttpPost]
         public ActionResult AssignProjects(GroupProject gp, FormCollection collection)
         {
+
             Group g = gbs.GetGroupById(gp.Group.GroupId);
             gp.Group = g;
             gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
-            List<int> Keys = new List<int>();        
-            List<Project> RankedProjects = new List<Project>();
-
+            gp.ProjectTypes = gbs.GetProjectTypes();
+            g.ProjectRankings.Clear();
             foreach (Project p in gp.Projects)
             {
-              
+
                 var value = collection["project" + p.ProjectId];
                 if (!value.Equals("0"))
                 {
-                    Keys.Add(Convert.ToInt32(value.ToString()));
-                    RankedProjects.Add(p);
+                    ProjectRanking pr = new ProjectRanking();
+                    pr.Group = g;
+                    pr.GroupGroupId = g.GroupId;
+                    pr.ProjectId = p.ProjectId.ToString();
+                    pr.Rank = value.ToString();
+                    g.ProjectRankings.Add(pr);
                 }
             }
-
-            if (RankedProjects != null && RankedProjects.Count == 5)
+            if (g.ProjectRankings.Count == 5)
             {
-                RankedProjects = gbs.SortProject(Keys, RankedProjects);
-                g.Projects.Clear();
-                foreach(Project p in RankedProjects)
-                {
-                    g.Projects.Add(p);  
-                }
-                int code = gbs.AddProjectPreference(g);
+                gbs.AddProjectPreference(g);
                 return RedirectToAction("Details", new { id = Convert.ToInt32(Session["Id"]) });
-            } else
+            }
+            else
             {
                 ViewBag.CountError = "You must select 5 projects";
+                gp.Projects = gbs.GetProjectsByState(ProjectState.Approved);
                 return View(gp);
-            }               
+            }
+
         }
     }
 }

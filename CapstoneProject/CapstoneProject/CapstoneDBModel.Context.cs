@@ -48,6 +48,10 @@ public partial class CapstoneDBModel : DbContext
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
+    public virtual DbSet<ProjectTypes> ProjectTypes { get; set; }
+
+    public virtual DbSet<ProjectRanking> ProjectRankings { get; set; }
+
 }
 
 }

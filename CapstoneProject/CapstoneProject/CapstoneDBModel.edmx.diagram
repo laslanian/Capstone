@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="CapstoneModel.Program" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneModel.Project" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneModel.User" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CapstoneModel.Admin" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapstoneModel.Admin" Width="1.5" PointX="2.5" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneModel.Client" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneModel.Coop_Advisor" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneModel.Management" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
@@ -22,7 +22,6 @@
         <InheritanceConnector EntityType="CapstoneModel.Management" />
         <AssociationConnector Association="CapstoneModel.StudentCoop" />
         <AssociationConnector Association="CapstoneModel.ClientProject" />
-        <AssociationConnector Association="CapstoneModel.ProjectGroup" />
         <AssociationConnector Association="CapstoneModel.StudentGroup" />
         <EntityTypeShape EntityType="CapstoneModel.Criteria" Width="1.5" PointX="5.25" PointY="9.5" />
         <EntityTypeShape EntityType="CapstoneModel.Skillset" Width="1.5" PointX="9.75" PointY="9.125" />
@@ -31,6 +30,10 @@
         <AssociationConnector Association="CapstoneModel.StudentSkillset" />
         <EntityTypeShape EntityType="CapstoneModel.Feedback" Width="1.5" PointX="5" PointY="2.75" />
         <AssociationConnector Association="CapstoneModel.ClientFeedback" />
+        <EntityTypeShape EntityType="CapstoneModel.ProjectTypes" Width="1.5" PointX="2.875" PointY="0.5" />
+        <EntityTypeShape EntityType="CapstoneModel.ProjectRanking" Width="1.5" PointX="7.25" PointY="2.625" />
+        <AssociationConnector Association="CapstoneModel.GroupProjectRanking" />
+        <AssociationConnector Association="CapstoneModel.GroupProject" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -280,11 +280,13 @@
     <Compile Include="Models\ViewModels\CreateAccount.cs" />
     <Compile Include="Models\ViewModels\GroupList.cs" />
     <Compile Include="Models\ViewModels\GroupProject.cs" />
+    <Compile Include="Models\ViewModels\GroupProjects.cs" />
     <Compile Include="Models\ViewModels\GroupStudent.cs" />
     <Compile Include="Models\ViewModels\LoginUser.cs" />
     <Compile Include="Models\ViewModels\ProjectForm.cs" />
     <Compile Include="Models\ViewModels\ProjectMatchGroup.cs" />
     <Compile Include="Models\ViewModels\ProjectWithList.cs" />
+    <Compile Include="Models\ViewModels\ProjectWithType.cs" />
     <Compile Include="Models\ViewModels\ResetPassword.cs" />
     <Compile Include="Models\ViewModels\StudentGroup.cs" />
     <Compile Include="Models\ViewModels\StudentProfile.cs" />
@@ -297,6 +299,12 @@
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Project.cs">
+      <DependentUpon>CapstoneDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectRanking.cs">
+      <DependentUpon>CapstoneDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectTypes.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -314,7 +322,6 @@
     <Compile Include="Utility\Campuses.cs" />
     <Compile Include="Utility\GroupState.cs" />
     <Compile Include="Utility\ProjectState.cs" />
-    <Compile Include="Utility\ProjectType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CapstoneDBModel.Context.tt">
@@ -651,13 +658,18 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
-    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
-    <Content Include="Scripts\jquery-1.12.4.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.ui.draggable.js" />
+    <Content Include="Scripts\jquery.ui.draggable.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -800,6 +812,7 @@
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Clients\_Feedbacks.cshtml" />
     <Content Include="Views\Students\StudentProfile.cshtml" />
+    <Content Include="Views\Groups\_ProjectTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -328,7 +328,7 @@ namespace CapstoneProject.Controllers
                 return pms.GetPrograms();
             }
         }
-         
+
         public ActionResult FileUpload(HttpPostedFileBase file)
         {
             string usertype = Session["UserType"].ToString();
@@ -373,12 +373,12 @@ namespace CapstoneProject.Controllers
             var root = Server.MapPath(@"~/Content/Images/Profiles");
             var path = Path.Combine(root, filename + ".png");
             path = Path.GetFullPath(path);
-            if(path.StartsWith(root) && System.IO.File.Exists(path))
+            if (path.StartsWith(root) && System.IO.File.Exists(path))
             {
                 return base.File(path, "image/png");
             }
             else
-            {                           
+            {
                 return base.File(Server.MapPath(@"~/Content/Images/man-unknown-4.png"), "image/png");
             }
         }

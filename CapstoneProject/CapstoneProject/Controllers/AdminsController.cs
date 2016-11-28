@@ -149,7 +149,10 @@ namespace CapstoneProject.Controllers
         [HttpGet]
         public ActionResult GroupDetail(int id)
         {
-            return View(_gbs.GetGroupById(id));
+            GroupProject gp = new GroupProject();
+            gp = _gbs.GetGroupProject(id);
+
+            return View(gp);
         }
         
     }
