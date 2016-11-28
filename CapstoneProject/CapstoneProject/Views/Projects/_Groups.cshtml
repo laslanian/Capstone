@@ -1,23 +1,21 @@
-﻿@model CapstoneProject.Group
+﻿@model CapstoneProject.Models.ViewModels.GroupProject
 @{
     ViewBag.Title = "_GroupListItem";
 }
 
 @{
-    string panelId = "group_" + Model.GroupId;
-
-    <div class="group panel panel-info">
+    <div class="group panel panel-info" >
         <div class="panel-heading">
-            <h3 class="panel-title">@Model.GroupName</h3>
+            <h3 class="panel-title">@Model.Group.GroupName</h3>
         </div>
         <div class="panel-body">
             <div class="container" >
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <p><b>Members</b></p>
                         <ul>
                             @{
-                                var studList = Model.Students.ToList();
+                                var studList = Model.Group.Students.ToList();
                                 for (int i = 0, len = studList.Count(); i < len; i++)
                                 {
                                     <li>
@@ -27,22 +25,43 @@
                             }
                         </ul>
                     </div>
-                    <div class="col-sm-7">
+                    <div class="col-sm-6">
+                        <p><b>Projects Applied</b></p>
+                            @{
+                                var projList = Model.Projects.ToList();
+                                <table>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Name</th>
+                                    </tr>
+                                    @for (int i = 0, len = projList.Count(); i < len; i++)
+                                    {
+                                    <tr>
+                                        <td>@(i+1)</td>
+                                        <td>@projList[i].Name</td>
+                                    </tr>
+                                    
+                                    }
+                                </table>
+                            }
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
                         <p><b>Assigned Project</b></p>
-                        <input type="hidden" name="groupId" value="@Model.GroupId" />
+                        <input type="hidden" name="groupId" value="@Model.Group.GroupId" />
                         <div class="div-group-project placeholder-border" style="height:40px; width:100%; ">
                             <input type="hidden" class="pId" name="projectId" value="0" />
-
                         </div>
-
                     </div>
-
                 </div>
+                <br />
                 <p>
-                    <b>@Html.DisplayNameFor(model => model.Skillset)</b>
-                    <div style="margin-bottom:10px;" class="col-sm-6">
+                    <b>@Html.DisplayNameFor(model => model.Group.Skillset)</b>
+                    <div style="margin-bottom:10px; height:250px" class="col-sm-6" >
                         <div>
-                            <img style="width:350px;height:auto;" src="@Url.Action("CreateChart", "Students", new { id = Model.Skillset.Id })" />
+                            <img style="width:400px; height:250px;" src="@Url.Action("CreateChart", "Students", new { id = Model.Group.Skillset.Id })" />
                         </div>
                     </div>
             </div>
