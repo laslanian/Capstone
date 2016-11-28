@@ -28,6 +28,7 @@
                     <div class="col-sm-6">
                         <p><b>Projects Applied</b></p>
                             @{
+                                string cl = "group" + Model.Group.GroupId;
                                 var projList = Model.Projects.ToList();
                                 <table>
                                     <tr>
@@ -36,11 +37,12 @@
                                     </tr>
                                     @for (int i = 0, len = projList.Count(); i < len; i++)
                                     {
-                                    <tr>
-                                        <td>@(i+1)</td>
+                                        
+                                    <tr class="@cl @projList[i].ProjectId">
+                                        <td>@(i + 1)</td>
                                         <td>@projList[i].Name</td>
                                     </tr>
-                                    
+
                                     }
                                 </table>
                             }
@@ -50,10 +52,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <p><b>Assigned Project</b></p>
+
                         <input type="hidden" name="groupId" value="@Model.Group.GroupId" />
-                        <div class="div-group-project placeholder-border" style="height:40px; width:100%; ">
-                            <input type="hidden" class="pId" name="projectId" value="0" />
-                        </div>
+                            <div class="div-group-project placeholder-border" name="@cl" style="height:40px; width:100%; ">
+                                <input type="hidden" class="pId" name="projectId" value="0" />
+                            </div>
+                      
+                        
                     </div>
                 </div>
                 <br />
