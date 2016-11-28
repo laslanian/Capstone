@@ -93,13 +93,13 @@ namespace CapstoneProject.Controllers
             Group g = _gbs.GetGroupById(groupId);
 
             g.Status=GroupState.Unassigned;
-            //g.Projects.Remove(p);
             p.State=ProjectState.Approved;
+            g.Project = null;
 
             _gbs.EditGroup(g);
             _pm.UpdateProject(p);
 
-            return RedirectToAction("Groups","Admins");
+            return RedirectToAction("ProjectMatch");
            // return View();
         }
         [HttpGet]
