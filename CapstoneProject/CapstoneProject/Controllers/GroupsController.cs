@@ -94,10 +94,11 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult JoinGroup(Group g)
         {
+            Group gr = gbs.GetGroupById(g.GroupId);
             if (g.Pin == null || g.Pin.Equals(String.Empty))
             {
                 ViewBag.JoinError = "Pin is required";
-                return View(g);
+                return View(gr);
             }
             else {
                 int code = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
@@ -108,7 +109,7 @@ namespace CapstoneProject.Controllers
                 else
                 {
                     ViewBag.JoinError = "Incorrect pin";
-                    return View(g);
+                    return View(gr);
                 }
             }
         }

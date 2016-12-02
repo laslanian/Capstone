@@ -142,11 +142,20 @@ namespace CapstoneProject.Controllers
                         _gbs.EditGroup(g);
                     }
                 }
-                ViewBag.SubmitMessage = "Success!";
+               // ViewBag.SubmitMessage = "Success!";
             }
             ProjectMatchGroup pmg = new ProjectMatchGroup();
             pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
-            pmg.Groups = _gbs.GetGroups().Where(item => item.ProjectRankings.Count == 5 && !item.Status.Equals(GroupState.Assigned)).ToList();
+            List<Group> groups = _gbs.GetGroups().Where(item => item.ProjectRankings.Count == 5 && !item.Status.Equals(GroupState.Assigned)).ToList();
+
+            foreach (Group g in groups)
+            {
+                GroupProject gp = new GroupProject();
+                gp = _gbs.GetGroupProject(g.GroupId);
+
+                pmg.GroupProjects.Add(gp);
+            }
+
             return View(pmg);
         }
 
