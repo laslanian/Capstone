@@ -125,7 +125,7 @@ namespace CapstoneProject.Models.Metadata
         [Display(Name = "Group Name")]
         [StringLength(25, ErrorMessage = "Group name cannot be more than 25 characters.")]
         public string GroupName { get; set; }
-        [Required]
+     
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         [StringLength(255, ErrorMessage = "Group description cannot be more than 255 characters.")]

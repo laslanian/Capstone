@@ -47,6 +47,7 @@ namespace CapstoneProject.Models.Services
                 g.Students.Add(s);
                 g.Skillset = new Skillset();
                 g.Owner = id;
+                g.Project = null;
                 g = UpdateSkill(g);
                 _groups.InsertGroup(g);
                 _groups.Save();
@@ -55,7 +56,7 @@ namespace CapstoneProject.Models.Services
                 emailService.SendGroupPin(s.Email, g);
 
                 return g;
-            }
+            } 
             return null;
         }
 
@@ -179,6 +180,7 @@ namespace CapstoneProject.Models.Services
             sg.Groups = groups;
             return sg;
         }
+
         public int DeleteGroup(int id)
         {
             Group g = _groups.GetGroupById(id);
@@ -196,6 +198,7 @@ namespace CapstoneProject.Models.Services
             return 1;
 
         }
+
         public Skillset GetSkillsetByGroupId(int id)
         {
             return _groups.GetSkillByGroupId(id);

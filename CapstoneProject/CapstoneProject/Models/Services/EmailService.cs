@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 namespace CapstoneProject.Models.Services
 {
     public class EmailService {
-        private string member= "capstone_massiv@outlook.com";
+        private string member= "massivcapstone@gmail.com";
         private string signature = "<div></div>"; 
 
         public int SendResetPassword(User user, string tempPass, string resetlink)

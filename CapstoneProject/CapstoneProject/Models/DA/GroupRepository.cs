@@ -41,7 +41,6 @@ namespace CapstoneProject.Models.DA
             return ctx.SaveChanges();
         }
 
-
         public bool isExistingGroup(string group_name)
         {
             return ctx.Groups.Any(group => group.GroupName == group_name);
@@ -65,8 +64,13 @@ namespace CapstoneProject.Models.DA
 
         public void DeleteGroup(int id)
         {
-            Group g = ctx.Groups.Find(id);
-            ctx.Groups.Remove(g);
+            Group gr = ctx.Groups.Single(g => g.GroupId == id);
+            if(gr.ProjectRankings.Count > 0)
+            {
+                gr.ProjectRankings.ToList().ForEach(p => ctx.ProjectRankings.Remove(p));               
+            }
+            ctx.Entry(gr).State = System.Data.Entity.EntityState.Deleted;
+            ctx.SaveChanges();
         }
 
         public void Save()
