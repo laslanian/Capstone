@@ -47,14 +47,14 @@ namespace CapstoneProject.Models.Services
         {
             Client client = (Client)_users.GetUserById(id);
             Project p = new Project();
-            p.Name = pf.project.Name;
-            p.Description = pf.project.Description;
+            p.Name = pf.project.Name.Trim();
+            p.Description = pf.project.Description.Trim();
             p.Type = "Unknown";
             p.State = ProjectState.Pending;
             p.Client = client;
 
             Criteria crt = new Criteria();
-            crt.Goal = pf.criteria.Goal;
+            crt.Goal = pf.criteria.Goal.Trim();
             crt.Storage = pf.criteria.Storage;
             crt.StorageComment = pf.criteria.StorageComment;
             crt.Application = pf.criteria.Application;
