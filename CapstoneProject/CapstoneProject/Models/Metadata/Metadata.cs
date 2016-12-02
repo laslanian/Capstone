@@ -168,7 +168,7 @@ namespace CapstoneProject.Models.Metadata
 
         [Required]
         [Display(Name = "Project Title")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Title must be atleast 5 to 50 characters.")]
+        [StringLength(25, MinimumLength = 5, ErrorMessage = "Title must be atleast 5 to 25 characters.")]
         public string Name { get; set; }
 
         [Required]

@@ -342,7 +342,7 @@ namespace CapstoneProject.Controllers
                     {
                         if (file.ContentLength < 2097153)
                         {
-                            string path = Path.Combine(Server.MapPath(@"~/Content/Images/Profiles"), user.Username + ".png");
+                            string path = Path.Combine(Server.MapPath(@"~/Content/Images/Profiles"), user.FirstName + user.LastName + ".png");
                             file.SaveAs(path);
                         }
                         else

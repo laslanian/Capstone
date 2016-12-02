@@ -573,6 +573,9 @@
     <Content Include="Content\Images\icons-svg\video-black.svg" />
     <Content Include="Content\Images\icons-svg\video-white.svg" />
     <Content Include="Content\Images\man-unknown-4.png" />
+    <Content Include="Content\Images\Profiles\AnthonyBrigot.png" />
+    <Content Include="Content\Images\Profiles\JohnDoe.png" />
+    <Content Include="Content\Images\Profiles\RichardSmith.png" />
     <Content Include="Content\Images\sample1.png" />
     <Content Include="Content\Images\sample2.png" />
     <Content Include="Content\Images\sample3.png" />
@@ -816,7 +819,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\Profiles\" />
     <Folder Include="Views\Managements\" />
   </ItemGroup>
   <ItemGroup>

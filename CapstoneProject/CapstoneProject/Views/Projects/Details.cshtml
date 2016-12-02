@@ -4,7 +4,7 @@
     ViewBag.Title = "Project Details";
 }
 
-<h2>Your Project Details</h2>
+<h3>Project Details</h3>
 @{
     @Html.ActionLink("Back to list", "Projects", null, new { @class = "btn btn-default" })
     if (Session["UserType"].ToString().Equals("Admin"))
@@ -96,7 +96,7 @@
                 <td>
                     <h4>Criteria</h4>
                 </td>
-                <td><h4>Yes/No</h4></td>
+                <td><h4>Options</h4></td>
                 <td><h4>Additional Information</h4></td>
             </tr>
         </thead>
