@@ -30,7 +30,8 @@
                         <a href="#" data-toggle="modal" data-target="#ResetPasswordModal" class="btn btn-group-sm btn-warning">Forgot Password?</a>
                         <br />
                         <hr class="colorgraph">
-                        <div class="g-recaptcha" data-sitekey="6Lc2_A0UAAAAAGFFOM4aHp8BoSqIz24FJZb0ZNx_"></div>
+                        @Html.Recaptcha()
+                        @Html.ValidationMessage("ReCaptcha")
                         <hr class="colorgraph">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
