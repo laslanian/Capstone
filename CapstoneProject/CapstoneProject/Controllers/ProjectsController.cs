@@ -104,6 +104,8 @@ namespace CapstoneProject.Controllers
             return RedirectToAction("ProjectMatch");
            // return View();
         }
+
+        [NoDirectAccess]
         [HttpGet]
         public ActionResult ProjectMatch()
         {
