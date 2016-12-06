@@ -15,6 +15,7 @@ namespace CapstoneProject.Controllers
 {
     public class ClientsController : Controller
     {
+        [NoDirectAccess]
         public ActionResult Index()
         {
             UserAccountService uas = new UserAccountService();
@@ -22,12 +23,14 @@ namespace CapstoneProject.Controllers
             return View(s);
         }
 
+
         public ActionResult Feedbacks()
         {
             UserAccountService uas = new UserAccountService();
             return View(uas.GetFeedbacks().Take(10));
         }
 
+        [NoDirectAccess]
         public ActionResult Edit(int id)
         {
             UserAccountService uas = new UserAccountService();
@@ -50,6 +53,7 @@ namespace CapstoneProject.Controllers
             }
             return View(c);
         }
+
 
         [HttpGet]
         public ActionResult SubmitFeedback()

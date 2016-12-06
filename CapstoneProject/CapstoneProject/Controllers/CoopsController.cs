@@ -12,11 +12,14 @@ namespace CapstoneProject.Controllers
         private StudentCoopService scs = new StudentCoopService();
         private UserAccountService uas = new UserAccountService();
         // GET: Coops
+
+        [NoDirectAccess]
         public ActionResult Students()
         {
             return View(scs.GetStudents());
         }
 
+        [NoDirectAccess]
         public ActionResult ViewCoop(int id)
         {
             Student s = (Student) uas.GetUser(id);
@@ -24,12 +27,15 @@ namespace CapstoneProject.Controllers
             return View(s);
         }
 
+        [NoDirectAccess]
         public ActionResult Details(int id)
         {
             Coop c = scs.GetCoopById(id);
             return View(c);
         }
 
+
+        [NoDirectAccess]
         [HttpGet]
         public ActionResult AddComment(int id)
         {
@@ -75,6 +81,7 @@ namespace CapstoneProject.Controllers
             return View(c);
         }
 
+        [NoDirectAccess]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -100,6 +107,7 @@ namespace CapstoneProject.Controllers
             return View(c);
         }
 
+        [NoDirectAccess]
         public ActionResult DeleteCoop(int id)
         {
             int code = scs.DeleteCoop(id);

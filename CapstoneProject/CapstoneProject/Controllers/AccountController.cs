@@ -306,16 +306,6 @@ namespace CapstoneProject.Controllers
             return View(client);
         }
 
-        public ActionResult AfterLogin()
-        {
-            return View();
-        }
-
-        public ActionResult FailedLogin()
-        {
-            return View();
-        }
-
         private String GetUserType()
         {
             return Session["UserType"].ToString();
@@ -329,6 +319,7 @@ namespace CapstoneProject.Controllers
             }
         }
 
+        [NoDirectAccess]
         public ActionResult FileUpload(HttpPostedFileBase file)
         {
             string usertype = Session["UserType"].ToString();
@@ -368,6 +359,7 @@ namespace CapstoneProject.Controllers
             }
         }
 
+        [NoDirectAccess]
         public ActionResult GetImage(string filename)
         {
             var root = Server.MapPath(@"~/Content/Images/Profiles");

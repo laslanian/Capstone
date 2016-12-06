@@ -318,6 +318,7 @@
     <Compile Include="Utility\AesEncrypt.cs" />
     <Compile Include="Utility\Campuses.cs" />
     <Compile Include="Utility\GroupState.cs" />
+    <Compile Include="Utility\NoDirectAccessAttribute.cs" />
     <Compile Include="Utility\ProjectState.cs" />
   </ItemGroup>
   <ItemGroup>

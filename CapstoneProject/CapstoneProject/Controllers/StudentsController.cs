@@ -12,6 +12,7 @@ namespace CapstoneProject.Controllers
 {
     public class StudentsController : Controller
     {
+        [NoDirectAccess]
         // GET: Students
         public ActionResult Index()
         {
@@ -35,6 +36,7 @@ namespace CapstoneProject.Controllers
             return View(sp);
         }
 
+        [NoDirectAccess]
         public ActionResult StudentProfile(int id, int gid)
         {
             UserAccountService uas = new UserAccountService();
@@ -53,6 +55,7 @@ namespace CapstoneProject.Controllers
             return View(sp);
         }
 
+        [NoDirectAccess]
         public ActionResult Edit(int id)
         {
             UserAccountService uas = new UserAccountService();
@@ -76,6 +79,7 @@ namespace CapstoneProject.Controllers
             return View(s);
         }
 
+        [NoDirectAccess]
         public ActionResult CreateChart(int id)
         {
             using (StudentRepository sr = new StudentRepository())
