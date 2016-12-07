@@ -14,7 +14,7 @@ namespace CapstoneProject.Controllers
         UserAccountService _uas = new UserAccountService();
         GroupBuilderService _gbs = new GroupBuilderService();
 
-       
+        [NoDirectAccess]
         public ActionResult Users(String type)
         {
             UserList ul = new UserList();
@@ -31,6 +31,8 @@ namespace CapstoneProject.Controllers
             ViewBag.Type = type + " Users";
             return View(ul);
         }
+
+        [NoDirectAccess]
         public ActionResult Groups(String status)
         {
             GroupList gl = new GroupList();
@@ -47,11 +49,14 @@ namespace CapstoneProject.Controllers
             ViewBag.Status = status + " Groups";
             return View(gl);
         }
+
+        [NoDirectAccess]
         public ActionResult CreateUser()
         {
             CreateAccount ca = new CreateAccount();
             return View(ca);
         }
+
         [HttpPost]
         public ActionResult DeleteGroup(int groupId)
         {
@@ -61,6 +66,7 @@ namespace CapstoneProject.Controllers
             }
             return RedirectToAction("Groups");
         }
+
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public ActionResult CreateUser(CreateAccount ca)
@@ -101,6 +107,7 @@ namespace CapstoneProject.Controllers
             return View(ca);
         }
 
+        [NoDirectAccess]
         public ActionResult Details(int id)
         {
             User u = _uas.GetUser(id);
@@ -110,6 +117,7 @@ namespace CapstoneProject.Controllers
             return View(u);
         }
 
+        [NoDirectAccess]
         public ActionResult Edit(int id)
         {
             User u = _uas.GetUser(id);
@@ -118,6 +126,7 @@ namespace CapstoneProject.Controllers
             u.Password = de.Decrypt(u.Password);
             return View(u);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -139,13 +148,14 @@ namespace CapstoneProject.Controllers
             return View(u);
         }
 
+        [NoDirectAccess]
         public ActionResult Delete(int id)
         {
             _uas.DeleteUser(id);
             return RedirectToAction("Users");
         }
 
-        
+        [NoDirectAccess]
         [HttpGet]
         public ActionResult GroupDetail(int id)
         {

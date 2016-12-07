@@ -16,8 +16,7 @@ namespace CapstoneProject.Controllers
         private GroupBuilderService gbs = new GroupBuilderService();
         private UserAccountService uas = new UserAccountService();
 
-
-        // GET: Groups
+        [NoDirectAccess]
         public ActionResult Index()
         {
             Student s = (Student)uas.GetUser(Convert.ToInt32(Session["Id"]));
@@ -32,6 +31,7 @@ namespace CapstoneProject.Controllers
             }
         }
 
+        [NoDirectAccess]
         public ActionResult Details()
         {
             int UserId = Convert.ToInt32(Session["Id"]);
@@ -44,6 +44,7 @@ namespace CapstoneProject.Controllers
             return View(gp);
         }
 
+        [NoDirectAccess]
         public ActionResult CreateGroup()
         {
             return View();
@@ -63,6 +64,7 @@ namespace CapstoneProject.Controllers
             }
         }
 
+        [NoDirectAccess]
         public ActionResult CreateSkillset() // BEFORE VIEWING GROUPS MAKE USER ENTER SKILLLSET
         {
             return View();
@@ -83,6 +85,7 @@ namespace CapstoneProject.Controllers
             return View();
         }
 
+        [NoDirectAccess]
         [HttpGet]
         public ActionResult JoinGroup(int id)
         {
@@ -94,10 +97,11 @@ namespace CapstoneProject.Controllers
         [HttpPost]
         public ActionResult JoinGroup(Group g)
         {
+            Group gr = gbs.GetGroupById(g.GroupId);
             if (g.Pin == null || g.Pin.Equals(String.Empty))
             {
                 ViewBag.JoinError = "Pin is required";
-                return View(g);
+                return View(gr);
             }
             else {
                 int code = gbs.AddStudent(g.GroupId, Convert.ToInt32(Session["Id"]), g.Pin);
@@ -108,12 +112,12 @@ namespace CapstoneProject.Controllers
                 else
                 {
                     ViewBag.JoinError = "Incorrect pin";
-                    return View(g);
+                    return View(gr);
                 }
             }
         }
 
-
+        [NoDirectAccess]
         public ActionResult Edit(int id)
         {
             GroupStudent gs = gbs.GetGroupStudentVM(id);
@@ -131,6 +135,7 @@ namespace CapstoneProject.Controllers
             return View(gs);
         }
 
+        [NoDirectAccess]
         public ActionResult LeaveGroup(int id)
         {
             Group g = gbs.GetGroupById(id);
@@ -164,6 +169,7 @@ namespace CapstoneProject.Controllers
             }
         }
 
+        [NoDirectAccess]
         public List<Student> GetStudents(int id)
         {
             using (GroupBuilderService gbs = new GroupBuilderService())
@@ -172,6 +178,8 @@ namespace CapstoneProject.Controllers
                 return g.Students.ToList();
             }
         }
+
+        [NoDirectAccess]
         [HttpGet]
         public ActionResult AssignProjects(int id)
         {

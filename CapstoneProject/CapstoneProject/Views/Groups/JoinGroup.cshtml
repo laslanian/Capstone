@@ -12,6 +12,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.GroupId)
+        @Html.HiddenFor(model => model.GroupName)
         <table class="table">
             <tr>
                 <td>

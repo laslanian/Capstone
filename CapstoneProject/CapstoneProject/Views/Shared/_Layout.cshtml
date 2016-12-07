@@ -62,7 +62,8 @@
                         }
                         else if (Session["UserType"].ToString().Equals("Management"))
                         {
-
+                            <li>@Html.ActionLink("Project Report", "ProjectsReports", "Managements")</li>
+                            <li>@Html.ActionLink("Group Report", "GroupsReports", "Managements")</li>
                         }
                         <li >@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }

@@ -1,0 +1,14 @@
+﻿@model CapstoneProject.Models.ViewModels.GroupRatio
+
+@{
+    var skillChart = new Chart(width: 500, height: 300)
+        .AddSeries(chartType: "pie",
+             xValue: new[] { "Assigned", "Not Assigned", },
+             yValues: new[] { Model.Assigned, Model.NotAssigned }).Write();
+}
+
+
+
+
+
+

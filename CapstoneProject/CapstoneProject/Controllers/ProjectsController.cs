@@ -16,11 +16,13 @@ namespace CapstoneProject.Controllers
         private ProjectManager _pm = new ProjectManager();
         private GroupBuilderService _gbs = new GroupBuilderService();
         // GET: Projects
+        [NoDirectAccess]
         public ActionResult ProjectsByClient()
         {
             return View(_pm.GetProjectsByClient(Convert.ToInt32(Session["Id"])));
         }
 
+        [NoDirectAccess]
         public ActionResult Projects(String state)
         {
             String UserType = Session["UserType"].ToString();
@@ -102,6 +104,8 @@ namespace CapstoneProject.Controllers
             return RedirectToAction("ProjectMatch");
            // return View();
         }
+
+        [NoDirectAccess]
         [HttpGet]
         public ActionResult ProjectMatch()
         {
@@ -142,7 +146,7 @@ namespace CapstoneProject.Controllers
                         _gbs.EditGroup(g);
                     }
                 }
-                ViewBag.SubmitMessage = "Success!";
+               // ViewBag.SubmitMessage = "Success!";
             }
             ProjectMatchGroup pmg = new ProjectMatchGroup();
             pmg.Projects = _pm.GetProjects().Where(item => item.State.Equals(ProjectState.Approved)).ToList();
@@ -159,6 +163,7 @@ namespace CapstoneProject.Controllers
             return View(pmg);
         }
 
+        [NoDirectAccess]
         public ActionResult Create()
         {
             ProjectForm pf = new ProjectForm();
@@ -187,6 +192,7 @@ namespace CapstoneProject.Controllers
             }
         }
 
+        [NoDirectAccess]
         [HttpGet] 
         public ActionResult EditProject(int id)
         {
@@ -206,6 +212,7 @@ namespace CapstoneProject.Controllers
             return View(p);
         }
 
+        [NoDirectAccess]
         public ActionResult Details(int id)
         {
             ProjectWithType pt = new ProjectWithType();
