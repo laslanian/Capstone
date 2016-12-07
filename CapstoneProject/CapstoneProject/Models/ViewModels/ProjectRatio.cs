@@ -17,7 +17,6 @@ namespace CapstoneProject.Models.ViewModels
 
         public ProjectRatio()
         {
-
             Approved = 0;
             Rejected = 0;
             Completed = 0;
