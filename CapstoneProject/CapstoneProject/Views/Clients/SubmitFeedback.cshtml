@@ -11,11 +11,25 @@
         $('.rateit').bind('rated', function () {
             $("#Rating").val($(this).rateit('value'));
         });
+
+        //$("img[name=rate]").mouseover(function () {
+        //    giveRating($(this), "FilledStar.png");
+        //    $(this).css("cursor", "pointer");
+        //});
+
+        //$("img[name=rate]").mouseout(function () {
+        //    giveRating($(this), "EmptyStar.png");
+        //});
+
+        //$("img[name=rate]").click(function () {
+        //    $("#Rating").val(parseInt($(this).attr("id")));
+        //    $("img[name=rate]").unbind("mouseout mouseover click");
+        //});
     });
 
     function giveRating(img, image) {
-        img.attr("src", "../Content/Images/" + image)
-           .prevAll("img").attr("src", "../Content/Images/" + image);
+        img.attr("src", "/Content/Images/" + image)
+           .prevAll("img").attr("src", "/Content/Images/" + image);
     }
 
 </script>
@@ -65,29 +79,29 @@
 <style>
 div.bigstars div.rateit-range
 {
-    background: url(../Content/Images/EmptyStar.png);
+    background: url(/Content/Images/EmptyStar.png);
     height: 32px;
 }
  
 div.bigstars div.rateit-hover
 {
-    background: url(../Content/Images/FilledStar.png);
+    background: url(/Content/Images/FilledStar.png);
 }
  
 div.bigstars div.rateit-selected
 {
-    background: url(../Content/Images/FilledStar.png);
+    background: url(/Content/Images/FilledStar.png);
 }
  
 div.bigstars div.rateit-reset
 {
-    background: url(../Content/Images/EmptyStar.png);
+    background: url(/Content/Images/EmptyStar.png);
     width: 32px;
     height: 32px;
 }
  
 div.bigstars div.rateit-reset:hover
 {
-    background: url(../Content/Images/EmptyStar.png);
+    background: url(/Content/Images/EmptyStar.png);
 }
 </style>

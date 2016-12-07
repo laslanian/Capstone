@@ -2,6 +2,7 @@
 /// <reference path="ai.0.15.0-build58334.min.js" />
 /// <reference path="bootstrap.js" />
 /// <reference path="bootstrap-datepicker.min.js" />
+/// <reference path="jquery.rateit.js" />
 /// <reference path="jquery.ui.draggable.min.js" />
 /// <reference path="jquery.validate.js" />
 /// <reference path="jquery.validate.unobtrusive.js" />
