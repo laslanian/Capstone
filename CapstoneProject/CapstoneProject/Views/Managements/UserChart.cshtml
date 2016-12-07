@@ -1,0 +1,12 @@
+﻿@model CapstoneProject.Models.ViewModels.UserRatio
+
+@{
+    var skillChart = new Chart(width: 500, height: 300)
+        .AddSeries(chartType: "pie",
+             xValue: new[] { "Students", "Clients", "Admins", "Advisors", "Management" },
+             yValues: new[] { Model.Students, Model.Clients, Model.Admins, Model.Advisors, Model.Management}).Write();
+}
+
+
+
+

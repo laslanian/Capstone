@@ -294,6 +294,7 @@
     <Compile Include="Models\ViewModels\StudentProfile.cs" />
     <Compile Include="Models\ViewModels\StudentUser.cs" />
     <Compile Include="Models\ViewModels\UserList.cs" />
+    <Compile Include="Models\ViewModels\UserRatio.cs" />
     <Compile Include="Program.cs">
       <DependentUpon>CapstoneDBModel.tt</DependentUpon>
     </Compile>
@@ -813,6 +814,8 @@
     <Content Include="Views\Managements\ProjectChart.cshtml" />
     <Content Include="Views\Managements\GroupChart.cshtml" />
     <Content Include="Views\Managements\GroupsReports.cshtml" />
+    <Content Include="Views\Managements\UsersReports.cshtml" />
+    <Content Include="Views\Managements\UserChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
