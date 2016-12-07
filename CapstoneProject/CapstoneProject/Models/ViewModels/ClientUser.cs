@@ -16,6 +16,7 @@ namespace CapstoneProject.Models
         [Required]
         [DataType(DataType.Password)]
         [StringLength(25, MinimumLength = 7, ErrorMessage = "Password must be atleast 7 to 25 characters.")]
+        [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]
         [Display(Name = "Password")]
         public string Password { get; set; }
 

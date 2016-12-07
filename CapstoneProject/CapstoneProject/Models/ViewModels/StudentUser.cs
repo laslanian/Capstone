@@ -21,7 +21,7 @@ namespace CapstoneProject.Models
 
         [Required]
         [Display(Name = "Username")]
-       [StringLength(15, MinimumLength = 7, ErrorMessage = "Username must be atleast 7 to 15 characters.")]
+        [StringLength(15, MinimumLength = 7, ErrorMessage = "Username must be atleast 7 to 15 characters.")]
         [RegularExpression(@"^([a-zA-Z0-9]+)$", ErrorMessage = "Alphanumeric only")]
         public string Username { get; set; }
 
