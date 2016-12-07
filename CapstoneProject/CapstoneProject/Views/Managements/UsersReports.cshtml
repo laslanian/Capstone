@@ -5,18 +5,43 @@
 }
 
 <h3 class="text-center">Group Status</h3>
-
+<hr class="colorgraph">  
 <div class="row">
     <div class="text-center">
         <img src="@Url.Action("UserChart", "Managements", new { students = Model.Students, clients = Model.Clients, admins = Model.Admins, advisors = Model.Advisors, mng = Model.Management })" />
     </div>
-    <div class="text-center">
-        <p>Total number of users: @Model.Total</p>
-        <p>Student Count: @Model.Students  --  Percent: @Model.StudentPct%</p>
-        <p>Client Count: @Model.Clients  --  Percent: @Model.ClientPct%</p>
-        <p>Admin Count: @Model.Admins  --  Percent: @Model.AdminPct%</p>
-        <p>Management Count: @Model.Management  --  Percent: @Model.MngPct%</p>
-        <p>Coop Advisor Count: @Model.Advisors  --  Percent: @Model.AdvisorPct%</p>
-
+    <div >
+        <table class="table table-striped">
+            <tr>
+                <th>User Type</th>
+                <th>Count</th>
+                <th>% of Total</th>
+            </tr>
+            <tr>
+                <td>Students</td>
+                <td>@Model.Students</td>
+                <td>@Model.StudentPct</td>
+            </tr>
+            <tr>
+                <td>Clients</td>
+                <td>@Model.Clients</td>
+                <td>@Model.ClientPct</td>
+            </tr>
+            <tr>
+                <td>Admins</td>
+                <td>@Model.Admins</td>
+                <td>@Model.AdminPct</td>
+            </tr>
+            <tr>
+                <td>Advisors</td>
+                <td>@Model.Advisors</td>
+                <td>@Model.AdvisorPct</td>
+            </tr>
+            <tr>
+                <td>Management</td>
+                <td>@Model.Management</td>
+                <td>@Model.MngPct</td>
+            </tr>
+        </table>
     </div>
 </div>

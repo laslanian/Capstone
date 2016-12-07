@@ -2,7 +2,7 @@
 
 @{
     var skillChart = new Chart(width: 500, height: 300)
-        .AddSeries(chartType: "pie",
+        .AddSeries(chartType: "column",
              xValue: new[] { "Students", "Clients", "Admins", "Advisors", "Management" },
              yValues: new[] { Model.Students, Model.Clients, Model.Admins, Model.Advisors, Model.Management}).Write();
 }

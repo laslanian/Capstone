@@ -5,14 +5,46 @@
 }
 
 <h3 class="text-center">Project State Ratio</h3>
-
+<hr class="colorgraph">  
 <div class="row">
     <div class="text-center">
-            <img src="@Url.Action("ProjectChart", "Managements", new { approved = Model.Approved,
-              rejected = Model.Rejected, completed = Model.Completed, pending = Model.Pending })" />
+            <img src="@Url.Action("ProjectChart", "Managements", new { approved = Model.Approved, rejected = Model.Rejected, completed = Model.Completed,
+                     pending = Model.Pending, assigned = Model.Assigned })" />
     </div>
-    <div class="text-center">
-        <p>Total number of project: @Model.Total</p>
+    <div>
+        <p><b>Total number of project: @Model.Total</b></p>
+        <table class="table table-striped">
+            <tr>
+                <th>Project State</th>
+                <th>Count</th>
+                <th>% of Total</th>
+            </tr>
+            <tr>
+                <td>Approved</td>
+                <td>@Model.Approved</td>
+                <td>@Model.ApprovedPct</td>
+            </tr>
+            <tr>
+                <td>Rejected</td>
+                <td>@Model.Rejected</td>
+                <td>@Model.RejectedPct</td>
+            </tr>
+            <tr>
+                <td>Completed</td>
+                <td>@Model.Completed</td>
+                <td>@Model.CompletedPct</td>
+            </tr>
+            <tr>
+                <td>Pending</td>
+                <td>@Model.Pending</td>
+                <td>@Model.PendingPct</td>
+            </tr>
+            <tr>
+                <td>Assigned</td>
+                <td>@Model.Assigned</td>
+                <td>@Model.AssignedPct</td>
+            </tr>
+        </table>
     </div>
 </div>
 

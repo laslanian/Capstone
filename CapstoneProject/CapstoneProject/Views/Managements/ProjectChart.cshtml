@@ -3,8 +3,8 @@
 @{
     var skillChart = new Chart(width: 500, height: 300)
         .AddSeries(chartType: "column", 
-             xValue: new[] { "Approved", "Rejected", "Completed", "Pending" },
-             yValues: new[] { Model.Approved, Model.Rejected, Model.Completed, Model.Pending }).Write();
+             xValue: new[] { "Approved", "Rejected", "Completed", "Pending", "Assigned"},
+             yValues: new[] { Model.Approved, Model.Rejected, Model.Completed, Model.Pending, Model.Assigned }).Write();
 }
 
 

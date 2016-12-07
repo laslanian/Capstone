@@ -21,38 +21,38 @@ namespace CapstoneProject.Models.ViewModels
         public double AdvisorPct { get; set; }
 
         public UserRatio() {
-            this.Students = 0;
-            this.Admins = 0;
-            this.Management = 0;
-            this.Clients = 0;
-            this.Advisors = 0;
-            this.Total = 0;
+            Students = 0;
+            Admins = 0;
+            Management = 0;
+            Clients = 0;
+            Advisors = 0;
+            Total = 0;
         }
 
         public double GetStudentRatio()
         {
             double value = (Students / Total) * 100;
-            return Math.Round(value, 2);
+            return Math.Round(value);
         }
         public double GetClientRatio()
         {
             double value = (Clients / Total) * 100;
-            return Math.Round(value, 2);
+            return Math.Round(value);
         }
         public double GetAdminRatio()
         {
             double value = (Admins / Total) * 100;
-            return Math.Round(value, 2);
+            return Math.Round(value);
         }
         public double GetMngRatio()
         {
             double value = (Management / Total) * 100;
-            return Math.Round(value, 2);
+            return Math.Round(value);
         }
         public double GetAdvRatio()
         {
             double value = (Advisors / Total) * 100;
-            return Math.Round(value, 2);
+            return Math.Round(value);
         }
     }
 }

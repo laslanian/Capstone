@@ -5,16 +5,31 @@
 }
 
 <h3 class="text-center">Group Status</h3>
-
+<hr class="colorgraph">  
 <div class="row">
     <div class="text-center">
         <img src="@Url.Action("GroupChart", "Managements", new { assigned = Model.Assigned, notassigned = Model.NotAssigned })" />
     </div>
-    <div class="text-center">
-        <p>Total number of groups: @Model.Total</p>
-        <p>Assigned Count: @Model.Assigned  --  Percent: @Model.AssignedPct%</p>
-        <p>Not Assigned Count: @Model.NotAssigned  -- Percent: @Model.NotAssignedPct%</p>
-        
+    <div >
+        <p><b>Total number of groups: @Model.Total</b></p>
+       
+         <table class="table table-striped">
+            <tr>
+                <th>Group State</th>
+                <th>Count</th>
+                <th>% of Total</th>
+            </tr>
+            <tr>
+                <td>Assigned</td>
+                <td>@Model.Assigned</td>
+                <td>@Model.AssignedPct</td>
+            </tr>
+            <tr>
+                <td>Not Assigned</td>
+                <td>@Model.NotAssigned</td>
+                <td>@Model.NotAssignedPct</td>
+            </tr>
+        </table>
     </div>
 </div>
 

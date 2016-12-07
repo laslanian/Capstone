@@ -21,21 +21,32 @@ namespace CapstoneProject.Controllers
         {
             List<Project> Projects = _pm.GetProjects();
             ProjectRatio pr = new ProjectRatio();
+
             pr.Approved = Projects.FindAll(s => s.State == ProjectState.Approved).Count();
             pr.Rejected = Projects.FindAll(s => s.State == ProjectState.Rejected).Count();
             pr.Completed = Projects.FindAll(s => s.State == ProjectState.Complete).Count();
             pr.Pending = Projects.FindAll(s => s.State == ProjectState.Pending).Count();
-            pr.Total = pr.GetTotal();
+            pr.Assigned = Projects.FindAll(s => s.State == ProjectState.Assinged).Count();
+
+            pr.Total = _pm.GetProjects().Count();
+
+            pr.ApprovedPct = pr.GetApprovedPct();
+            pr.AssignedPct = pr.GetAssignedPct();
+            pr.RejectedPct = pr.GetRejectedPct();
+            pr.PendingPct = pr.GetPendingPct();
+            pr.CompletedPct = pr.GetCompletedPct();
+
             return View(pr);
         }
 
-        public ActionResult ProjectChart(int approved, int rejected, int completed, int pending)
+        public ActionResult ProjectChart(int approved, int rejected, int completed, int pending, int assigned)
         {
             ProjectRatio pr = new ProjectRatio();
             pr.Approved = approved;
             pr.Rejected = rejected;
             pr.Completed = completed;
             pr.Pending = pending;
+            pr.Assigned = assigned;
             return View(pr);
         }
 
@@ -59,6 +70,7 @@ namespace CapstoneProject.Controllers
             gr.NotAssignedPct = gr.GetNotAssignedPercent();
             return View(gr);
         }
+
         [NoDirectAccess]
         public ActionResult UsersReports()
         {
