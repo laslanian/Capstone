@@ -1,0 +1,20 @@
+﻿@model CapstoneProject.Models.ViewModels.ProjectRatio
+
+@{
+    ViewBag.Title = "Project Reports";
+}
+
+<h3 class="text-center">Project State Ratio</h3>
+
+<div class="row">
+    <div class="text-center">
+            <img src="@Url.Action("ProjectChart", "Managements", new { approved = Model.Approved,
+              rejected = Model.Rejected, completed = Model.Completed, pending = Model.Pending })" />
+    </div>
+    <div class="text-center">
+        <p>Total number of project: @Model.Total</p>
+    </div>
+</div>
+
+
+

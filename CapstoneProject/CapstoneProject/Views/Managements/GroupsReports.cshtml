@@ -1,0 +1,21 @@
+﻿@model CapstoneProject.Models.ViewModels.GroupRatio
+
+@{
+    ViewBag.Title = "Group Reports";
+}
+
+<h3 class="text-center">Group Status</h3>
+
+<div class="row">
+    <div class="text-center">
+        <img src="@Url.Action("GroupChart", "Managements", new { assigned = Model.Assigned, notassigned = Model.NotAssigned })" />
+    </div>
+    <div class="text-center">
+        <p>Total number of groups: @Model.Total</p>
+        <p>Assigned Count: @Model.Assigned  --  Percent: @Model.AssignedPct%</p>
+        <p>Not Assigned Count: @Model.NotAssigned  -- Percent: @Model.NotAssignedPct%</p>
+        
+    </div>
+</div>
+
+

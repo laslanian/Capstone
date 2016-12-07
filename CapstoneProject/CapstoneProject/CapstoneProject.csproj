@@ -281,10 +281,12 @@
     <Compile Include="Models\ViewModels\GroupList.cs" />
     <Compile Include="Models\ViewModels\GroupProject.cs" />
     <Compile Include="Models\ViewModels\GroupProjects.cs" />
+    <Compile Include="Models\ViewModels\GroupRatio.cs" />
     <Compile Include="Models\ViewModels\GroupStudent.cs" />
     <Compile Include="Models\ViewModels\LoginUser.cs" />
     <Compile Include="Models\ViewModels\ProjectForm.cs" />
     <Compile Include="Models\ViewModels\ProjectMatchGroup.cs" />
+    <Compile Include="Models\ViewModels\ProjectRatio.cs" />
     <Compile Include="Models\ViewModels\ProjectWithList.cs" />
     <Compile Include="Models\ViewModels\ProjectWithType.cs" />
     <Compile Include="Models\ViewModels\ResetPassword.cs" />
@@ -807,10 +809,13 @@
     <Content Include="Views\Clients\_Feedbacks.cshtml" />
     <Content Include="Views\Students\StudentProfile.cshtml" />
     <Content Include="Views\Groups\_ProjectTypes.cshtml" />
+    <Content Include="Views\Managements\ProjectsReports.cshtml" />
+    <Content Include="Views\Managements\ProjectChart.cshtml" />
+    <Content Include="Views\Managements\GroupChart.cshtml" />
+    <Content Include="Views\Managements\GroupsReports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Managements\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
